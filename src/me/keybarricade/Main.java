@@ -26,8 +26,5 @@ public class Main {
     public static void main(String[] args) {
         // Show initialization message
         System.out.println("Initializing...");
-
-        // Show hello world
-        System.out.println("Hello, World!");
     }
 }
