@@ -24,6 +24,9 @@ public class Main {
      * @param args Start up arguments.
      */
     public static void main(String[] args) {
+        // Show initialization message
+        System.out.println("Initializing...");
+
         System.out.println("Hello, World!");
     }
 }
