@@ -8,7 +8,7 @@
 
     <version>0.1</version>
 
-    <title>KeyBarricade</title>
+    <name>KeyBarricade</name>
     <description>Key Barricade game.</description>
     <inceptionYear>2016</inceptionYear>
     <url>https://github.com/timvisee/KeyBarricade</url>
@@ -98,7 +98,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.title}-${project.version}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
         <resources>
             <resource>
                 <targetPath>.</targetPath>
