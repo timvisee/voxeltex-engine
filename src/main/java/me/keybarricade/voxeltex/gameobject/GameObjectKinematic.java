@@ -96,10 +96,6 @@ public class GameObjectKinematic extends GameObject {
         this.angVel = angVel;
     }
 
-    /**
-     * Update the game object.
-     * This will be called once each render.
-     */
     @Override
     public void update() {
         // Call the super update method

@@ -39,23 +39,10 @@ public abstract class GameObject implements GameObjectInterface {
         this.rotation = rotation;
     }
 
-    /**
-     * Get all children.
-     *
-     * @return Children.
-     */
     public List<GameObjectInterface> getChildren() {
         return this.children;
     }
 
-    /**
-     * Get the number of children inside this game object.
-     *
-     * @param recursive True to also count the children of this game object's children (recursively), false to just
-     *                  count the children of this object.
-     *
-     * @return Number of children.
-     */
     public int getChildCount(boolean recursive) {
         // Count the number of children if not recursive
         if(!recursive)
@@ -72,22 +59,10 @@ public abstract class GameObject implements GameObjectInterface {
         return count;
     }
 
-    /**
-     * Add a child to this game object.
-     *
-     * @param gameObject Game object to add.
-     */
     public void addChild(GameObjectInterface gameObject) {
         this.children.add(gameObject);
     }
 
-    /**
-     * Get a child of this game object by it's index.
-     *
-     * @param i Child index.
-     *
-     * @return The child game object.
-     */
     public GameObjectInterface getChild(int i) {
         // TODO: Make sure we're in bound?
 
@@ -95,67 +70,29 @@ public abstract class GameObject implements GameObjectInterface {
         return this.children.get(i);
     }
 
-    /**
-     * Remove a child from this game object.
-     *
-     * @param gameObject Game object to remove.
-     *
-     * @return True if any game object was removed, false if not.
-     */
     public boolean removeChild(GameObjectInterface gameObject) {
         return this.children.remove(gameObject);
     }
 
-    /**
-     * Remove a child from this game object.
-     *
-     * @param i Index of the child to remove.
-     *
-     * @return True if any game object was removed, false if not.
-     */
     public boolean removeChild(int i) {
         return this.children.remove(i) != null;
     }
 
-    /**
-     * Get the game object position.
-     *
-     * @return Game object position.
-     */
     public Vector3f getPosition() {
         return position;
     }
 
-    /**
-     * Set the game object position.
-     *
-     * @param position Game object position.
-     */
     public void setPosition(Vector3f position) {
         this.position = position;
     }
 
-    /**
-     * Get the game object rotation.
-     *
-     * @return Game object rotation.
-     */
     public Quaternionf getRotation() {
         return rotation;
     }
 
-    /**
-     * Set the game object rotation.
-     *
-     * @param rotation Game object rotation.
-     */
     public void setRotation(Quaternionf rotation) {
         this.rotation = rotation;
     }
 
-    /**
-     * Update the game object.
-     * This will be called once each render.
-     */
     public void update() { }
 }
