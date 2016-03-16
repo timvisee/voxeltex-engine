@@ -130,16 +130,6 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public Vector3f getParentWorldPosition() {
-        // Return the parent position if set
-        if(this.getParent() != null)
-            return getParent().getWorldPosition();
-
-        // Return zero
-        return Vector3fFactory.zero();
-    }
-
-    @Override
     public Vector3f getWorldPosition() {
         // TODO: Do rotation calculations!
 
@@ -148,6 +138,16 @@ public class GameObject extends GameObjectAbstract {
 
         // Add the local position
         return parentPos.add(getPosition(), new Vector3f());
+    }
+
+    @Override
+    public Vector3f getParentWorldPosition() {
+        // Return the parent position if set
+        if(this.getParent() != null)
+            return getParent().getWorldPosition();
+
+        // Return zero
+        return Vector3fFactory.zero();
     }
 
     @Override

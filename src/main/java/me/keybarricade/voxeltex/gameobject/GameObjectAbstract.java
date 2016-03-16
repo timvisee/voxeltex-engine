@@ -80,18 +80,18 @@ public abstract class GameObjectAbstract {
     public abstract Vector3f getPosition();
 
     /**
-     * Get the position of the parent game object.
-     *
-     * @return Parent game object position.
-     */
-    public abstract Vector3f getParentWorldPosition();
-
-    /**
      * Get the game object position in the world.
      *
      * @return Game object position.
      */
     public abstract Vector3f getWorldPosition();
+
+    /**
+     * Get the position of the parent game object.
+     *
+     * @return Parent game object position.
+     */
+    public abstract Vector3f getParentWorldPosition();
 
     /**
      * Set the game object position.
@@ -101,6 +101,13 @@ public abstract class GameObjectAbstract {
     public abstract void setPosition(Vector3f position);
 
     /**
+     * Set the game object position in the world.
+     *
+     * @param position Game object world position.
+     */
+    // TODO: public abstract void setWorldPosition(Vector3f position);
+
+    /**
      * Get the game object rotation.
      *
      * @return Game object rotation.
@@ -108,11 +115,32 @@ public abstract class GameObjectAbstract {
     public abstract Quaternionf getRotation();
 
     /**
+     * Get the game object rotation in the world.
+     *
+     * @return Game object rotation.
+     */
+    // TODO: public abstract Quaternionf getWorldRotation();
+
+    /**
+     * Get the rotation of the parent game object.
+     *
+     * @return Parent game object rotation.
+     */
+    // TODO: public abstract Quaternionf getParentWorldRotation();
+
+    /**
      * Set the game object rotation.
      *
      * @param rotation Game object rotation.
      */
     public abstract void setRotation(Quaternionf rotation);
+
+    /**
+     * Set the game object rotation in the world.
+     *
+     * @param rotation Game object world rotation.
+     */
+    // TODO: public abstract void setWorldRotation(Quaternionf rotation);
 
     /**
      * Update the game object.
