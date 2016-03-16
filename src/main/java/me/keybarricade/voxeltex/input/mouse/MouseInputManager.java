@@ -1,21 +1,33 @@
 package me.keybarricade.voxeltex.input.mouse;
 
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseInputManager implements MouseInputInterface {
 
     /**
-     * Mouse callback.
+     * Cursor position callback.
      */
     private GLFWCursorPosCallback cursorPosCallback;
+
+    /**
+     * Mouse button callback.
+     */
+    private GLFWMouseButtonCallback mouseButtonCallback;
 
     /**
      * The window this mouse input instance is for.
      */
     private VoxelTexWindow window;
+
+    /**
+     * List of pressed mouse buttons.
+     */
+    private boolean[] buttonDown = new boolean[GLFW.GLFW_MOUSE_BUTTON_LAST];
 
     /**
      * The x coordinate of the mouse cursor.
@@ -39,7 +51,7 @@ public class MouseInputManager implements MouseInputInterface {
     /**
      * Constructor.
      *
-     * @param window Window this key input manager is for.
+     * @param window Window this mouse input manager is for.
      * @param init True to initialize, false if not.
      */
     public MouseInputManager(VoxelTexWindow window, boolean init) {
@@ -58,7 +70,16 @@ public class MouseInputManager implements MouseInputInterface {
         final int windowWidth = this.window.getWidth();
         final int windowHeight = this.window.getHeight();
 
-        // Create the cursor position callback
+        // Create and set the mouse button callback
+        glfwSetMouseButtonCallback(this.window.getWindowId(), mouseButtonCallback = new GLFWMouseButtonCallback() {
+            @Override
+            public void invoke(long window, int button, int action, int mods) {
+                // Set whether the mouse button is pressed
+                buttonDown[button] = action == GLFW_PRESS || action == GLFW_REPEAT;
+            }
+        });
+
+        // Create and set the cursor position callback
         glfwSetCursorPosCallback(this.window.getWindowId(), cursorPosCallback = new GLFWCursorPosCallback() {
             public void invoke(long window, double xPos, double yPos) {
                 float normX = (float) ((xPos - windowWidth / 2.0) / windowWidth * 2.0);
@@ -67,9 +88,6 @@ public class MouseInputManager implements MouseInputInterface {
                 mouseY = Math.max(-windowHeight / 2.0f, Math.min(windowHeight / 2.0f, normY));
             }
         });
-
-        // Register the mouse cursor position callback for the given window.
-        glfwSetCursorPosCallback(window.getWindowId(), cursorPosCallback);
     }
 
     /**
@@ -77,8 +95,10 @@ public class MouseInputManager implements MouseInputInterface {
      */
     public void destroy() {
         // Release and destroy the cursor position input callback
-        cursorPosCallback.release();
-        cursorPosCallback = null;
+        this.mouseButtonCallback.release();
+        this.mouseButtonCallback = null;
+        this.cursorPosCallback.release();
+        this.cursorPosCallback = null;
     }
 
     /**
@@ -102,6 +122,11 @@ public class MouseInputManager implements MouseInputInterface {
      */
     public float getMouseY() {
         return mouseY;
+    }
+
+    @Override
+    public boolean isMouseButtonDown(int mouseButtonCode) {
+        return this.buttonDown[mouseButtonCode];
     }
 
     /**
