@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex;
+package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.camera.FreeCamera;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;

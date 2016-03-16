@@ -1,7 +1,7 @@
 package me.keybarricade;
 
 import me.keybarricade.voxeltex.VoxelTex;
-import me.keybarricade.voxeltex.VoxelTexRenderer;
+import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 
 public class App {
 

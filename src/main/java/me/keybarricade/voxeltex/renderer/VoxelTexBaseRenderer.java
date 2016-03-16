@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex;
+package me.keybarricade.voxeltex.renderer;
 
 public abstract class VoxelTexBaseRenderer {
 
