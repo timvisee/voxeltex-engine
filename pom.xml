@@ -11,7 +11,7 @@
     <name>Key Barricade</name>
     <description>Key Barricade game.</description>
     <inceptionYear>2016</inceptionYear>
-    <url></url>
+    <url>https://github.com/timvisee/KeyBarricade</url>
 
     <scm>
         <connection>scm:git:https://github.com/timvisee/KeyBarricade.git</connection>
@@ -41,6 +41,9 @@
 
         <!-- Compiler Version (JDK) -->
         <javaVersion>1.8</javaVersion>
+
+        <!-- LWJGL version -->
+        <lwjgl.version>3.0.0a</lwjgl.version>
     </properties>
 
     <build>
@@ -73,6 +76,30 @@
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-platform</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-windows</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-platform</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-osx</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-platform</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-linux</classifier>
+        </dependency>
 
     </dependencies>
 </project>
