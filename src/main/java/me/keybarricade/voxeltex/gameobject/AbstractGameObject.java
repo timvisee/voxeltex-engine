@@ -16,6 +16,13 @@ public abstract class AbstractGameObject {
     public abstract AbstractGameObject getParent();
 
     /**
+     * Check whether this game object has a parent.
+     *
+     * @return True if this game object has a parent.
+     */
+    public abstract boolean hasParent();
+
+    /**
      * Set the parent game object.
      *
      * @param parent Parent game object.
@@ -28,6 +35,13 @@ public abstract class AbstractGameObject {
      * @return Game object children.
      */
     public abstract List<AbstractGameObject> getChildren();
+
+    /**
+     * Check whether this game object has any children.
+     *
+     * @return True if this game object has children, false if not.
+     */
+    public abstract boolean hasChildren();
 
     /**
      * Get the number of children inside this game object.
@@ -79,6 +93,13 @@ public abstract class AbstractGameObject {
      * @return Game object components.
      */
     public abstract List<AbstractComponent> getComponents();
+
+    /**
+     * Check whether this game object has any components.
+     *
+     * @return True if this game object has any components, fale if not.
+     */
+    public abstract boolean hasComponents();
 
     /**
      * Get the number of components in this game object.

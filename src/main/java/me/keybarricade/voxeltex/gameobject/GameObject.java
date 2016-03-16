@@ -57,6 +57,11 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
+    public boolean hasParent() {
+        return getParent() != null;
+    }
+
+    @Override
     protected void setParent(AbstractGameObject parent) {
         this.parent = parent;
     }
@@ -64,6 +69,11 @@ public class GameObject extends AbstractGameObject {
     @Override
     public List<AbstractGameObject> getChildren() {
         return this.children;
+    }
+
+    @Override
+    public boolean hasChildren() {
+        return getChildCount(false) > 0;
     }
 
     @Override
@@ -132,6 +142,11 @@ public class GameObject extends AbstractGameObject {
     @Override
     public List<AbstractComponent> getComponents() {
         return this.components;
+    }
+
+    @Override
+    public boolean hasComponents() {
+        return getComponentCount() > 0;
     }
 
     @Override
