@@ -1,10 +1,8 @@
 package me.keybarricade.voxeltex.component.drawable;
 
-import org.joml.Quaternionf;
-
 import static org.lwjgl.opengl.GL11.*;
 
-public class CubeRendererComponent extends DrawableComponent {
+public class CubeRendererComponent extends AbstractDrawableComponent {
 
     @Override
     public void update() { }

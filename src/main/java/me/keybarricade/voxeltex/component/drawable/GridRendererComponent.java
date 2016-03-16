@@ -4,7 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
-public class GridRendererComponent extends DrawableComponent {
+public class GridRendererComponent extends AbstractDrawableComponent {
 
     @Override
     public void update() { }
