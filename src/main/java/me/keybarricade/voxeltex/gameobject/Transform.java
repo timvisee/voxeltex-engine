@@ -243,4 +243,37 @@ public class Transform {
         // Update position based on linear velocity
         getPosition().fma(Time.deltaTimeFloat, this.linVel);
     }
+
+    /**
+     * Compute forward direction in world space.
+     *
+     * @param dest Destination.
+     *
+     * @return Destination.
+     */
+    public Vector3f forward(Vector3f dest) {
+        return this.rotation.positiveZ(dest).negate();
+    }
+
+    /**
+     * Compute right direction in world-space.
+     *
+     * @param dest Destination.
+     *
+     * @return Destination.
+     */
+    public Vector3f right(Vector3f dest) {
+        return this.rotation.positiveX(dest);
+    }
+
+    /**
+     * Compute up direction in world-space.
+     *
+     * @param dest Destination.
+     *
+     * @return Destination.
+     */
+    public Vector3f up(Vector3f dest) {
+        return this.rotation.positiveY(dest);
+    }
 }

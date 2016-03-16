@@ -36,21 +36,21 @@ public class CameraComponent extends AbstractCameraComponent {
 
         // Handle camera inputs
         if(VoxelTexRenderer.keyDown[GLFW_KEY_W])
-            getTransform().getLinearAcceleration().fma(accFactor, forward(tmp));
+            getTransform().getLinearAcceleration().fma(accFactor, getTransform().forward(tmp));
         if(VoxelTexRenderer.keyDown[GLFW_KEY_S])
-            getTransform().getLinearAcceleration().fma(-accFactor, forward(tmp));
+            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().forward(tmp));
         if(VoxelTexRenderer.keyDown[GLFW_KEY_D])
-            getTransform().getLinearAcceleration().fma(accFactor, right(tmp));
+            getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
         if(VoxelTexRenderer.keyDown[GLFW_KEY_A])
-            getTransform().getLinearAcceleration().fma(-accFactor, right(tmp));
+            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().right(tmp));
         if(VoxelTexRenderer.keyDown[GLFW_KEY_Q])
             rotateZ -= 1.0f;
         if(VoxelTexRenderer.keyDown[GLFW_KEY_E])
             rotateZ += 1.0f;
         if(VoxelTexRenderer.keyDown[GLFW_KEY_SPACE])
-            getTransform().getLinearAcceleration().fma(accFactor, up(tmp));
+            getTransform().getLinearAcceleration().fma(accFactor, getTransform().up(tmp));
         if(VoxelTexRenderer.keyDown[GLFW_KEY_LEFT_CONTROL])
-            getTransform().getLinearAcceleration().fma(-accFactor, up(tmp));
+            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().up(tmp));
 
         // Set the angular velocity of the camera
         getTransform().getAngularVelocity().set(VoxelTexRenderer.mouseY, VoxelTexRenderer.mouseX, rotateZ);
