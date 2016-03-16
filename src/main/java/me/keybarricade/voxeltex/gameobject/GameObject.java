@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
+import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -180,6 +181,10 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void addComponent(AbstractComponent component) {
+        // Set the component owner
+        component.setOwner(this);
+
+        // Add the component
         this.components.add(component);
     }
 
@@ -284,8 +289,8 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void draw() {
-        // Draw all components and then the children
-        this.components.forEach(AbstractComponent::draw);
+        // Draw all drawable components and all children
+        this.components.stream().filter(component -> component instanceof DrawableComponentInterface).forEach(component -> ((DrawableComponentInterface) component).draw());
         this.children.forEach(AbstractGameObject::draw);
     }
 }
