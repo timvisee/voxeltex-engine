@@ -81,7 +81,7 @@ public class GameObject extends GameObjectAbstract {
     @Override
     public void addChild(GameObjectAbstract gameObject) {
         // Set the parent
-        gameObject.setParent(gameObject);
+        gameObject.setParent(this);
 
         // Add the game object to the children
         this.children.add(gameObject);
@@ -132,8 +132,8 @@ public class GameObject extends GameObjectAbstract {
     @Override
     public Vector3f getParentWorldPosition() {
         // Return the parent position if set
-        if(this.parent != null)
-            return this.parent.getWorldPosition();
+        if(this.getParent() != null)
+            return getParent().getWorldPosition();
 
         // Return zero
         return Vector3fFactory.zero();
