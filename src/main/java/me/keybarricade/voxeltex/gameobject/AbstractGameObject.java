@@ -104,6 +104,16 @@ public abstract class AbstractGameObject {
     public abstract AbstractComponent getComponent(int i);
 
     /**
+     * Get the component by the given type.
+     *
+     * @param componentType Component type.
+     * @param <T> Component type.
+     *
+     * @return The component of the given type or null.
+     */
+    public abstract <T extends AbstractComponent> T getComponent(Class<T> componentType);
+
+    /**
      * Remove a component from the game object.
      *
      * @param component Component to remove.
