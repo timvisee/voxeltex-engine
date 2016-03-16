@@ -104,12 +104,12 @@ public abstract class AbstractGameObject {
     public abstract AbstractComponent getComponent(int i);
 
     /**
-     * Get the component by the given type.
+     * Get the first component of the given type.
      *
      * @param componentType Component type.
      * @param <T> Component type.
      *
-     * @return The component of the given type or null.
+     * @return The first component of the given type or null if none was found.
      */
     public abstract <T extends AbstractComponent> T getComponent(Class<T> componentType);
 

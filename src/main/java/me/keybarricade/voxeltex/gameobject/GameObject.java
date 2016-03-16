@@ -150,6 +150,20 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
+    public <T extends AbstractComponent> T getComponent(Class<T> componentType) {
+        // TODO: Make sure this method works!
+        // TODO: Improve performance of this!
+
+        // Loop through all components to find an applicable one
+        for(AbstractComponent component : this.components)
+            if(component.getClass().isInstance(componentType))
+                return (T) component;
+
+        // None found, return null
+        return null;
+    }
+
+    @Override
     public boolean removeComponent(AbstractComponent component) {
         // Remove any component
         if(!this.components.remove(component))
