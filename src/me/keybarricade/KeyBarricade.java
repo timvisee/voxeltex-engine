@@ -24,7 +24,10 @@ public class KeyBarricade {
      * @param args Start up arguments.
      */
     public static void main(String[] args) {
-        // Show initialization message
-        System.out.println("Initializing...");
+        // Load the app
+        App app = new App();
+
+        // Initialize the app
+        app.init();
     }
 }
