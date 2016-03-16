@@ -23,6 +23,13 @@ public abstract class AbstractScene {
     public abstract int getGameObjectCount(boolean recursive);
 
     /**
+     * Check whether the scene has any game objects.
+     *
+     * @return True if the scene has any game object, false if not.
+     */
+    public abstract boolean hasGameObjects();
+
+    /**
      * Get the total number of game objects inside this scene.
      *
      * @return Total game object count.

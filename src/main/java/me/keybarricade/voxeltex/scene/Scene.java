@@ -35,6 +35,11 @@ public class Scene extends AbstractScene {
     }
 
     @Override
+    public boolean hasGameObjects() {
+        return getGameObjectCount(false) > 0;
+    }
+
+    @Override
     public int getTotalGameObjectCount() {
         return getGameObjectCount(true);
     }
