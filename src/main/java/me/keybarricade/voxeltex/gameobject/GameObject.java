@@ -3,7 +3,7 @@ package me.keybarricade.voxeltex.gameobject;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-public abstract class GameObject {
+public abstract class GameObject implements GameObjectInterface {
 
     // TODO: Add game object children.
 
