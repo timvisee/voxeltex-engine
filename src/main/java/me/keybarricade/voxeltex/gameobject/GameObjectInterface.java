@@ -12,7 +12,14 @@ public interface GameObjectInterface {
      *
      * @return Game object children.
      */
-    List<GameObjectInterface> getChildren();
+    List<GameObject> getChildren();
+
+    /**
+     * Get the parent game object.
+     *
+     * @return Parent game object.
+     */
+    GameObjectInterface getParent();
 
     /**
      * Get the number of children inside this game object.
@@ -29,7 +36,7 @@ public interface GameObjectInterface {
      *
      * @param gameObject Game object to add.
      */
-    void addChild(GameObjectInterface gameObject);
+    void addChild(GameObject gameObject);
 
     /**
      * Get a child of this game object by it's index.
@@ -47,23 +54,23 @@ public interface GameObjectInterface {
      *
      * @return True if any game object was removed, false if not.
      */
-    boolean removeChild(GameObjectInterface gameObject);
+    boolean removeChild(GameObject gameObject);
 
     /**
      * Remove a child from this game object.
      *
      * @param i Index of the child to remove.
      *
-     * @return True if any game object was removed, false if not.
+     * @return The removed game object or null if no game object was removed.
      */
-    boolean removeChild(int i);
+    GameObject removeChild(int i);
 
     /**
      * Get the game object position.
      *
      * @return Game object position.
      */
-     Vector3f getPosition();
+    Vector3f getPosition();
 
     /**
      * Set the game object position.

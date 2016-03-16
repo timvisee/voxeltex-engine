@@ -9,9 +9,14 @@ import java.util.List;
 public abstract class GameObject implements GameObjectInterface {
 
     /**
+     * The parent of this game object.
+     */
+    private GameObjectInterface parent = null;
+
+    /**
      * The children of this game object.
      */
-    private List<GameObjectInterface> children = new ArrayList<>();
+    private List<GameObject> children = new ArrayList<>();
 
     /**
      * Game object position.
@@ -26,7 +31,7 @@ public abstract class GameObject implements GameObjectInterface {
     /**
      * Constructor.
      */
-    public GameObject() { }
+    public GameObject(GameObject parent) { }
 
     /**
      * Constructor.
@@ -40,7 +45,21 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public List<GameObjectInterface> getChildren() {
+    public GameObjectInterface getParent() {
+        return this.parent;
+    }
+
+    /**
+     * Set the parent game object.
+     *
+     * @param parent Parent game object.
+     */
+    protected void setParent(GameObjectInterface parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public List<GameObject> getChildren() {
         return this.children;
     }
 
@@ -62,7 +81,11 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public void addChild(GameObjectInterface gameObject) {
+    public void addChild(GameObject gameObject) {
+        // Set the parent
+        gameObject.setParent(gameObject);
+
+        // Add the game object to the children
         this.children.add(gameObject);
     }
 
@@ -75,13 +98,32 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public boolean removeChild(GameObjectInterface gameObject) {
-        return this.children.remove(gameObject);
+    public boolean removeChild(GameObject gameObject) {
+        // Remove any game object
+        if(!this.children.remove(gameObject))
+            return false;
+
+        // Reset the parent
+        gameObject.setParent(null);
+
+        // Return the result
+        return true;
     }
 
     @Override
-    public boolean removeChild(int i) {
-        return this.children.remove(i) != null;
+    public GameObject removeChild(int i) {
+        // Get the child that will be removed
+        GameObject child = null;
+
+        // Remove the child by it's index, and make sure any child was removed
+        if((child = this.children.remove(i)) == null)
+            return null;
+
+        // Reset the parent
+        child.setParent(null);
+
+        // Return the child
+        return child;
     }
 
     @Override
