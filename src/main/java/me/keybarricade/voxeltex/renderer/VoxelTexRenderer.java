@@ -44,9 +44,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * Callbacks.
      */
     private GLFWErrorCallback errorCallback;
-    private GLFWKeyCallback keyCallback;
     private GLFWFramebufferSizeCallback fbCallback;
-    private GLFWCursorPosCallback cpCallback;
 
     /**
      * Mouse position.
@@ -143,10 +141,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Create the window
         this.window.glCreateWindow();
 
-        // Get the window width and height
-        final int windowWidth = this.window.getWidth();
-        final int windowHeight = this.window.getHeight();
-
         // Initialize the input manager
         Input.init(this.window);
 
@@ -157,16 +151,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
                 // Update the window size
                 if(width > 0 && height > 0)
                     window.setSize(width, height);
-            }
-        });
-
-        // Create the cursor position callback
-        glfwSetCursorPosCallback(this.window.getWindowId(), cpCallback = new GLFWCursorPosCallback() {
-            public void invoke(long window, double xPos, double yPos) {
-                float normX = (float) ((xPos - windowWidth/2.0) / windowWidth * 2.0);
-                float normY = (float) ((yPos - windowHeight/2.0) / windowHeight * 2.0);
-                mouseX = Math.max(-windowWidth/2.0f, Math.min(windowWidth/2.0f, normX));
-                mouseY = Math.max(-windowHeight/2.0f, Math.min(windowHeight/2.0f, normY));
             }
         });
 
@@ -190,7 +174,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         this.window.glShowWindow();
 
         // Center the cursor
-        this.window.centerCursorPosition();
+        Input.centerMouseCursor();
     }
 
     /**
