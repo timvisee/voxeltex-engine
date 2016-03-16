@@ -88,6 +88,7 @@ public abstract class GameObjectAbstract {
 
     /**
      * Get the position of the parent game object.
+     * If the object doesn't have a parent, a zero vector will be returned.
      *
      * @return Parent game object position.
      */
@@ -105,7 +106,7 @@ public abstract class GameObjectAbstract {
      *
      * @param position Game object world position.
      */
-    // TODO: public abstract void setWorldPosition(Vector3f position);
+    public abstract void setWorldPosition(Vector3f position);
 
     /**
      * Get the game object rotation.
@@ -123,6 +124,7 @@ public abstract class GameObjectAbstract {
 
     /**
      * Get the rotation of the parent game object.
+     * If the object doesn't have a parent, a zero vector will be returned.
      *
      * @return Parent game object rotation.
      */
