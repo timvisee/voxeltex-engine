@@ -252,4 +252,9 @@ public abstract class AbstractGameObject {
      * This will be called once each render.
      */
     public abstract void update();
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
