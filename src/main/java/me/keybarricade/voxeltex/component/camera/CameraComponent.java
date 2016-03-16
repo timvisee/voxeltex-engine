@@ -54,7 +54,7 @@ public class CameraComponent extends AbstractCameraComponent {
             getTransform().getLinearAcceleration().fma(-accFactor, getTransform().up(tmp));
 
         // Set the angular velocity of the camera
-        getTransform().getAngularVelocity().set(VoxelTexRenderer.mouseY, VoxelTexRenderer.mouseX, rotateZ);
+        getTransform().getAngularVelocity().set(Input.getMouseY(), Input.getMouseX(), rotateZ);
     }
 
     @Override

@@ -47,12 +47,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     private GLFWFramebufferSizeCallback fbCallback;
 
     /**
-     * Mouse position.
-     */
-    // TODO: Remove public static, used for testing
-    public static float mouseX, mouseY;
-
-    /**
      * Constructor.
      */
     public VoxelTexRenderer() {
