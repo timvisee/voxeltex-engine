@@ -15,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class VoxelTexRenderer {
+public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
     /**
      * VoxelTex window where we'll be rendering on.
@@ -34,7 +34,15 @@ public class VoxelTexRenderer {
     private GLFWKeyCallback keyCallback;
     private GLFWFramebufferSizeCallback fbCallback;
     private GLFWCursorPosCallback cpCallback;
+
+    /**
+     * Mouse position.
+     */
     float mouseX, mouseY;
+
+    /**
+     * Key list.
+     */
     boolean[] keyDown = new boolean[GLFW.GLFW_KEY_LAST];
 
     /**
@@ -57,32 +65,52 @@ public class VoxelTexRenderer {
         return this.window;
     }
 
+    /**
+     * Run the renderer.
+     * This will initialize and start the rendering loop.
+     */
     public void run() {
         try {
+            // Initialize the renderer
             init();
+
+            // Loop the renderer
             loop();
 
+            // Destroy the window
             this.window.glDestroyWindow();
-            // TODO: Fix
+
+            // Free all callbacks
+            // TODO: Fix this, free methods not available anymore
             //keyCallback.free();
             //fbCallback.free();
             //cpCallback.free();
+
         } finally {
+            // Terminate the renderer
             glfwTerminate();
-            // TODO: Fix
+
+            // Free all callbacks
+            // TODO: Fix this, free method not available anymore
             //errorCallback.free();
         }
     }
 
-    void init() {
+    /**
+     * Initialize the renderer.
+     */
+    public void init() {
+        // Create and configure the error callback, make sure it was created successfully
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
-        if (glfwInit() != GL11.GL_TRUE)
+        if(glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Unable to initialize GLFW");
 
-        // Configure our window
-        glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+        // Set the default window hints
+        this.window.glDefaultWindowHints();
+
+        // Set the visibility and resizability of the window
+        this.window.setHintVisible(false);
+        this.window.setHintResizable(true);
 
         // Create the window
         this.window.glCreateWindow();
@@ -91,104 +119,77 @@ public class VoxelTexRenderer {
         final int windowWidth = this.window.getWidth();
         final int windowHeight = this.window.getHeight();
 
+        // Create the key callback
         glfwSetKeyCallback(this.window.getWindowId(), keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
-                if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+                // Schedule a renderer window close when the escape key is pressed
+                if(key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
                     glfwSetWindowShouldClose(window, GL_TRUE);
 
-                if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-                    keyDown[key] = true;
-                } else {
-                    keyDown[key] = false;
-                }
+                // Set whether the key is pressed
+                keyDown[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
             }
         });
+
+        // Create the framebuffer size callback
         glfwSetFramebufferSizeCallback(this.window.getWindowId(), fbCallback = new GLFWFramebufferSizeCallback() {
             @Override
-            public void invoke(long windowId, int w, int h) {
-                if (w > 0 && h > 0) {
-                    window.setSize(w, h);
-                }
+            public void invoke(long windowId, int width, int height) {
+                // Update the window size
+                if(width > 0 && height > 0)
+                    window.setSize(width, height);
             }
         });
+
+        // Create the cursor position callback
         glfwSetCursorPosCallback(this.window.getWindowId(), cpCallback = new GLFWCursorPosCallback() {
-            public void invoke(long window, double xpos, double ypos) {
-                float normX = (float) ((xpos - windowWidth/2.0) / windowWidth * 2.0);
-                float normY = (float) ((ypos - windowHeight/2.0) / windowHeight * 2.0);
+            public void invoke(long window, double xPos, double yPos) {
+                float normX = (float) ((xPos - windowWidth/2.0) / windowWidth * 2.0);
+                float normY = (float) ((yPos - windowHeight/2.0) / windowHeight * 2.0);
                 mouseX = Math.max(-windowWidth/2.0f, Math.min(windowWidth/2.0f, normX));
                 mouseY = Math.max(-windowHeight/2.0f, Math.min(windowHeight/2.0f, normY));
             }
         });
 
-        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(this.window.getWindowId(), (vidmode.width() - windowWidth) / 2, (vidmode.height() - windowHeight) / 2);
+        // Center the window
+        this.window.centerWindow();
 
+        // Create an int buffer for the window
         IntBuffer framebufferSize = BufferUtils.createIntBuffer(2);
         nglfwGetFramebufferSize(this.window.getWindowId(), memAddress(framebufferSize), memAddress(framebufferSize) + 4);
 
+        // Set the window size
         this.window.setSize(framebufferSize.get(0), framebufferSize.get(1));
 
+        // Make the window context
         this.window.glMakeContextCurrent();
+
+        // Set the swap interval
         glfwSwapInterval(0);
+
+        // Show the window
         this.window.glShowWindow();
+
+        // Center the cursor
         this.window.centerCursorPosition();
     }
 
-    void renderCube() {
-        glBegin(GL_QUADS);
-        glColor3f(   0.0f,  0.0f,  0.2f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-        glColor3f(   0.0f,  0.0f,  1.0f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-        glColor3f(   1.0f,  0.0f,  0.0f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-        glColor3f(   0.2f,  0.0f,  0.0f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-        glColor3f(   0.0f,  1.0f,  0.0f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-        glColor3f(   0.0f,  0.2f,  0.0f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-        glEnd();
-    }
-
-    void renderGrid() {
-        glBegin(GL_LINES);
-        glColor3f(0.2f, 0.2f, 0.2f);
-        for (int i = -20; i <= 20; i++) {
-            glVertex3f(-20.0f, 0.0f, i);
-            glVertex3f(20.0f, 0.0f, i);
-            glVertex3f(i, 0.0f, -20.0f);
-            glVertex3f(i, 0.0f, 20.0f);
-        }
-        glEnd();
-    }
-
-    void loop() {
+    /**
+     * Rendering loop.
+     */
+    public void loop() {
+        // Create the rendering capabilities, required by LWJGL
         GL.createCapabilities();
 
-        // Set the clear color
+        // Set the clear (default) color
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+
         // Enable depth testing
         glEnable(GL_DEPTH_TEST);
+
+        // Set the default line width
+        // TODO: Set this somewhere else?
         glLineWidth(1.4f);
 
         // Remember the current time.
@@ -201,56 +202,151 @@ public class VoxelTexRenderer {
 
         // Start a loop until the window should close
         while(!this.window.glWindowShouldCloseBoolean()) {
-            // Update camera input
-            camera.linAcc.zero();
+            // Reset t he camera acceleration
+            this.camera.linAcc.zero();
+
+            // Define the acceleration factor
             float accFactor = 6.0f;
             float rotateZ = 0.0f;
+
+            // Handle camera inputs
             if (keyDown[GLFW_KEY_W])
-                camera.linAcc.fma(accFactor, camera.forward(tmp));
+                this.camera.linAcc.fma(accFactor, this.camera.forward(tmp));
             if (keyDown[GLFW_KEY_S])
-                camera.linAcc.fma(-accFactor, camera.forward(tmp));
+                this.camera.linAcc.fma(-accFactor, this.camera.forward(tmp));
             if (keyDown[GLFW_KEY_D])
-                camera.linAcc.fma(accFactor, camera.right(tmp));
+                this.camera.linAcc.fma(accFactor, this.camera.right(tmp));
             if (keyDown[GLFW_KEY_A])
-                camera.linAcc.fma(-accFactor, camera.right(tmp));
+                this.camera.linAcc.fma(-accFactor, this.camera.right(tmp));
             if (keyDown[GLFW_KEY_Q])
                 rotateZ -= 1.0f;
             if (keyDown[GLFW_KEY_E])
                 rotateZ += 1.0f;
             if (keyDown[GLFW_KEY_SPACE])
-                camera.linAcc.fma(accFactor, camera.up(tmp));
+                this.camera.linAcc.fma(accFactor, this.camera.up(tmp));
             if (keyDown[GLFW_KEY_LEFT_CONTROL])
-                camera.linAcc.fma(-accFactor, camera.up(tmp));
-            camera.angVel.set(mouseY, mouseX, rotateZ);
+                this.camera.linAcc.fma(-accFactor, this.camera.up(tmp));
 
-            /* Compute delta time */
+            // Set the angular velocity of the camera
+            this.camera.angVel.set(mouseY, mouseX, rotateZ);
+
+            // Compute the delta time
+            // TODO: Create a class for this!
             long thisTime = System.nanoTime();
             float diff = (float) ((thisTime - lastTime) / 1E9);
             lastTime = thisTime;
-            /* And let the camera make its update */
+
+            // Update the camera
             camera.update(diff);
 
+            // Set the default viewport
             this.window.glViewportDefault();
+
+            // Clear the color and depth buffer
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Get the window width and height
             final int windowWidth = this.window.getWidth();
             final int windowHeight = this.window.getHeight();
 
+            // Enable matrix mode
             glMatrixMode(GL_PROJECTION);
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
 
-            /*
-             * Obtain the camera's view matrix
-             */
+            // Obtain the camera's view matrix
             glMatrixMode(GL_MODELVIEW);
             glLoadMatrixf(camera.apply(mat.identity()).get(fb));
 
+            // Render the testing grid and cube
             renderGrid();
             renderCube();
 
+            // Swap the buffers
             this.window.glSwapBuffers();
+
+            // Poll all events
             glfwPollEvents();
         }
+    }
+
+
+
+    /**
+     * Rendering tests.
+     */
+
+    /**
+     * Render a cube for testing.
+     */
+    void renderCube() {
+        // Enter quad drawing mode
+        glBegin(GL_QUADS);
+
+        // Set the color and draw the quad
+        glColor3f(   0.0f,  0.0f,  0.2f );
+        glVertex3f(  0.5f, -0.5f, -0.5f );
+        glVertex3f(  0.5f,  0.5f, -0.5f );
+        glVertex3f( -0.5f,  0.5f, -0.5f );
+        glVertex3f( -0.5f, -0.5f, -0.5f );
+
+        // Set the color and draw the quad
+        glColor3f(   0.0f,  0.0f,  1.0f );
+        glVertex3f(  0.5f, -0.5f,  0.5f );
+        glVertex3f(  0.5f,  0.5f,  0.5f );
+        glVertex3f( -0.5f,  0.5f,  0.5f );
+        glVertex3f( -0.5f, -0.5f,  0.5f );
+
+        // Set the color and draw the quad
+        glColor3f(   1.0f,  0.0f,  0.0f );
+        glVertex3f(  0.5f, -0.5f, -0.5f );
+        glVertex3f(  0.5f,  0.5f, -0.5f );
+        glVertex3f(  0.5f,  0.5f,  0.5f );
+        glVertex3f(  0.5f, -0.5f,  0.5f );
+
+        // Set the color and draw the quad
+        glColor3f(   0.2f,  0.0f,  0.0f );
+        glVertex3f( -0.5f, -0.5f,  0.5f );
+        glVertex3f( -0.5f,  0.5f,  0.5f );
+        glVertex3f( -0.5f,  0.5f, -0.5f );
+        glVertex3f( -0.5f, -0.5f, -0.5f );
+
+        // Set the color and draw the quad
+        glColor3f(   0.0f,  1.0f,  0.0f );
+        glVertex3f(  0.5f,  0.5f,  0.5f );
+        glVertex3f(  0.5f,  0.5f, -0.5f );
+        glVertex3f( -0.5f,  0.5f, -0.5f );
+        glVertex3f( -0.5f,  0.5f,  0.5f );
+
+        // Set the color and draw the quad
+        glColor3f(   0.0f,  0.2f,  0.0f );
+        glVertex3f(  0.5f, -0.5f, -0.5f );
+        glVertex3f(  0.5f, -0.5f,  0.5f );
+        glVertex3f( -0.5f, -0.5f,  0.5f );
+        glVertex3f( -0.5f, -0.5f, -0.5f );
+
+        // Finish drawing
+        glEnd();
+    }
+
+    /**
+     * Render a grid for testing.
+     */
+    void renderGrid() {
+        // Enable line drawing mode
+        glBegin(GL_LINES);
+
+        // Set the grid color
+        glColor3f(0.2f, 0.2f, 0.2f);
+
+        // Draw the grid
+        for(int i = -20; i <= 20; i++) {
+            glVertex3f(-20.0f, 0.0f, i);
+            glVertex3f(20.0f, 0.0f, i);
+            glVertex3f(i, 0.0f, -20.0f);
+            glVertex3f(i, 0.0f, 20.0f);
+        }
+
+        // Finish drawing
+        glEnd();
     }
 }

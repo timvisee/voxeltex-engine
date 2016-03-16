@@ -1,8 +1,10 @@
 package me.keybarricade.voxeltex.window;
 
 import me.keybarricade.voxeltex.VoxelTex;
+import org.lwjgl.glfw.GLFWVidMode;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -125,6 +127,17 @@ public class VoxelTexWindow {
     }
 
     /**
+     * Center the window.
+     */
+    public void centerWindow() {
+        // Get the video mode
+        GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+        // Set the window position
+        glfwSetWindowPos(this.window, (videoMode.width() - this.width) / 2, (videoMode.height() - this.height) / 2);
+    }
+
+    /**
      * Create the window.
      */
     public void glCreateWindow() {
@@ -188,5 +201,50 @@ public class VoxelTexWindow {
      */
     public boolean glWindowShouldCloseBoolean() {
         return glWindowShouldClose() != GL_FALSE;
+    }
+
+    /**
+     * Set the default window hints.
+     */
+    public void glDefaultWindowHints() {
+        glfwDefaultWindowHints();
+    }
+
+    /**
+     * Set a window hint.
+     *
+     * @param target Hint target.
+     * @param hint Hint value.
+     */
+    public void glWindowHint(int target, int hint) {
+        glfwWindowHint(target, hint);
+    }
+
+    /**
+     * Set a window hint as boolean.
+     *
+     * @param target Hint target.
+     * @param bool Hint value as boolean.
+     */
+    public void glWindowHintBoolean(int target, boolean bool) {
+        glWindowHint(target, bool ? GL_TRUE : GL_FALSE);
+    }
+
+    /**
+     * Set the window visibility hint.
+     *
+     * @param visible True if visible, false if not.
+     */
+    public void setHintVisible(boolean visible) {
+        glWindowHintBoolean(GLFW_VISIBLE, visible);
+    }
+
+    /**
+     * Set the window resizability hint.
+     *
+     * @param resizable True if resizable, false if not.
+     */
+    public void setHintResizable(boolean resizable) {
+        glWindowHintBoolean(GLFW_RESIZABLE, resizable);
     }
 }
