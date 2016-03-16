@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.renderer;
 
-import me.keybarricade.voxeltex.camera.FreeCamera;
+import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
+import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeRendererComponent;
 import me.keybarricade.voxeltex.component.drawable.GridRendererComponent;
 import me.keybarricade.voxeltex.gameobject.KinematicGameObject;
@@ -34,9 +35,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     private VoxelTexWindow window;
 
     /**
-     * Camera.
+     * The main camera component used for rendering.
      */
-    FreeCamera camera = new FreeCamera();
+    private AbstractCameraComponent mainCameraComponent;
 
     /**
      * Callbacks.
@@ -49,12 +50,14 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     /**
      * Mouse position.
      */
-    float mouseX, mouseY;
+    // TODO: Remove public static, used for testing
+    public static float mouseX, mouseY;
 
     /**
      * Key list.
      */
-    boolean[] keyDown = new boolean[GLFW.GLFW_KEY_LAST];
+    // TODO: Remove public static, used for testing
+    public static boolean[] keyDown = new boolean[GLFW.GLFW_KEY_LAST];
 
     /**
      * Constructor.
@@ -62,9 +65,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     public VoxelTexRenderer() {
         // Construct the window
         this.window = new VoxelTexWindow();
-
-        // Set the camera position
-        this.camera.getPosition().set(0, 1, 10);
     }
 
     /**
@@ -91,8 +91,17 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         myObj.addComponent(new GridRendererComponent());
         myObj.addComponent(new CubeRendererComponent());
 
+        // Create the main camera object and set it's position
+        KinematicGameObject camObj = new KinematicGameObject("MainCamera");
+        camObj.setPosition(new Vector3f(0, 1, 10));
+
+        // Create and add the camera component
+        this.mainCameraComponent = new CameraComponent();
+        camObj.addComponent(this.mainCameraComponent);
+
         // Add the game object
         testScene.addGameObject(myObj);
+        testScene.addGameObject(camObj);
 
         try {
             // Initialize the renderer
@@ -229,36 +238,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update time Time object
             Time.update();
 
-            // Reset the camera acceleration
-            this.camera.getLinearAcceleration().zero();
-
-            // Define the acceleration factor
-            float accFactor = 6.0f;
-            float rotateZ = 0.0f;
-
-            // Handle camera inputs
-            if(keyDown[GLFW_KEY_W])
-                this.camera.getLinearAcceleration().fma(accFactor, this.camera.forward(tmp));
-            if(keyDown[GLFW_KEY_S])
-                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.forward(tmp));
-            if(keyDown[GLFW_KEY_D])
-                this.camera.getLinearAcceleration().fma(accFactor, this.camera.right(tmp));
-            if(keyDown[GLFW_KEY_A])
-                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.right(tmp));
-            if(keyDown[GLFW_KEY_Q])
-                rotateZ -= 1.0f;
-            if(keyDown[GLFW_KEY_E])
-                rotateZ += 1.0f;
-            if(keyDown[GLFW_KEY_SPACE])
-                this.camera.getLinearAcceleration().fma(accFactor, this.camera.up(tmp));
-            if(keyDown[GLFW_KEY_LEFT_CONTROL])
-                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.up(tmp));
-
-            // Set the angular velocity of the camera
-            this.camera.getAngularVelocity().set(mouseY, mouseX, rotateZ);
-
             // Update the camera
-            camera.update(Time.deltaTimeFloat);
+            // TODO: Can we do this in the regular update call?
+            mainCameraComponent.updateCamera();
 
             // Update the test scene
             testScene.update();
@@ -277,9 +259,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             glMatrixMode(GL_PROJECTION);
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
 
-            // Obtain the camera's view matrix
-            glMatrixMode(GL_MODELVIEW);
-            glLoadMatrixf(this.camera.apply(mat.identity()).get(fb));
+            // Apply the camera's view matrix
+            this.mainCameraComponent.applyViewMatrix();
 
             // Draw the test scene
             testScene.draw();
