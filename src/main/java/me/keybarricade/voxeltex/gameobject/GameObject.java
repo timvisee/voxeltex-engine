@@ -11,6 +11,11 @@ import java.util.List;
 public class GameObject extends AbstractGameObject {
 
     /**
+     * Game object name.
+     */
+    private String name;
+
+    /**
      * The parent of this game object.
      */
     private AbstractGameObject parent = null;
@@ -38,7 +43,9 @@ public class GameObject extends AbstractGameObject {
     /**
      * Constructor.
      */
-    public GameObject() { }
+    public GameObject(String name) {
+        super(name);
+    }
 
     /**
      * Constructor.
@@ -46,9 +53,23 @@ public class GameObject extends AbstractGameObject {
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObject(Vector3f position, Quaternionf rotation) {
+    public GameObject(String name, Vector3f position, Quaternionf rotation) {
+        // Call super
+        super(name);
+
+        // Set the position and rotation
         this.position = position;
         this.rotation = rotation;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

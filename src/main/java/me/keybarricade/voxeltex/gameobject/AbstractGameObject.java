@@ -9,6 +9,29 @@ import java.util.List;
 public abstract class AbstractGameObject {
 
     /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     */
+    public AbstractGameObject(String name) {
+        setName(name);
+    }
+
+    /**
+     * Get the name of the game object.
+     *
+     * @return Game object name.
+     */
+    public abstract String getName();
+
+    /**
+     * Set the name of the game object.
+     *
+     * @param name Game object name.
+     */
+    public abstract void setName(String name);
+
+    /**
      * Get the parent game object.
      *
      * @return Parent game object.
