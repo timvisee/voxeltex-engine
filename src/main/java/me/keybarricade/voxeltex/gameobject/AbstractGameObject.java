@@ -5,28 +5,28 @@ import org.joml.Vector3f;
 
 import java.util.List;
 
-public abstract class GameObjectAbstract {
+public abstract class AbstractGameObject {
 
     /**
      * Get all children.
      *
      * @return Game object children.
      */
-    public abstract List<GameObjectAbstract> getChildren();
+    public abstract List<AbstractGameObject> getChildren();
 
     /**
      * Get the parent game object.
      *
      * @return Parent game object.
      */
-    public abstract GameObjectAbstract getParent();
+    public abstract AbstractGameObject getParent();
 
     /**
      * Set the parent game object.
      *
      * @param parent Parent game object.
      */
-    protected abstract void setParent(GameObjectAbstract parent);
+    protected abstract void setParent(AbstractGameObject parent);
 
     /**
      * Get the number of children inside this game object.
@@ -43,7 +43,7 @@ public abstract class GameObjectAbstract {
      *
      * @param gameObject Game object to add.
      */
-    public abstract void addChild(GameObjectAbstract gameObject);
+    public abstract void addChild(AbstractGameObject gameObject);
 
     /**
      * Get a child of this game object by it's index.
@@ -52,7 +52,7 @@ public abstract class GameObjectAbstract {
      *
      * @return The child game object.
      */
-    public abstract GameObjectAbstract getChild(int i);
+    public abstract AbstractGameObject getChild(int i);
 
     /**
      * Remove a child from this game object.
@@ -61,7 +61,7 @@ public abstract class GameObjectAbstract {
      *
      * @return True if any game object was removed, false if not.
      */
-    public abstract boolean removeChild(GameObjectAbstract gameObject);
+    public abstract boolean removeChild(AbstractGameObject gameObject);
 
     /**
      * Remove a child from this game object.
@@ -70,7 +70,7 @@ public abstract class GameObjectAbstract {
      *
      * @return The removed game object or null if no game object was removed.
      */
-    public abstract GameObjectAbstract removeChild(int i);
+    public abstract AbstractGameObject removeChild(int i);
 
     /**
      * Get the game object position.

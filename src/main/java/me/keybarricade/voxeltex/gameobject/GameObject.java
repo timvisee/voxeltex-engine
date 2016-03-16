@@ -6,20 +6,19 @@ import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 
-public class GameObject extends GameObjectAbstract {
+public class GameObject extends AbstractGameObject {
 
     /**
      * The parent of this game object.
      */
-    private GameObjectAbstract parent = null;
+    private AbstractGameObject parent = null;
 
     /**
      * The children of this game object.
      */
-    private List<GameObjectAbstract> children = new ArrayList<>();
+    private List<AbstractGameObject> children = new ArrayList<>();
 
     /**
      * Game object position.
@@ -48,17 +47,17 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public GameObjectAbstract getParent() {
+    public AbstractGameObject getParent() {
         return this.parent;
     }
 
     @Override
-    protected void setParent(GameObjectAbstract parent) {
+    protected void setParent(AbstractGameObject parent) {
         this.parent = parent;
     }
 
     @Override
-    public List<GameObjectAbstract> getChildren() {
+    public List<AbstractGameObject> getChildren() {
         return this.children;
     }
 
@@ -72,7 +71,7 @@ public class GameObject extends GameObjectAbstract {
         int count = 0;
 
         // Loop through all the children, and count
-        for(GameObjectAbstract gameObject : this.children)
+        for(AbstractGameObject gameObject : this.children)
             count += gameObject.getChildCount(true);
 
         // Return the number of recursive children
@@ -80,7 +79,7 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public void addChild(GameObjectAbstract gameObject) {
+    public void addChild(AbstractGameObject gameObject) {
         // Set the parent
         gameObject.setParent(this);
 
@@ -89,7 +88,7 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public GameObjectAbstract getChild(int i) {
+    public AbstractGameObject getChild(int i) {
         // TODO: Make sure we're in bound?
 
         // Get the child by it's index
@@ -97,7 +96,7 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public boolean removeChild(GameObjectAbstract gameObject) {
+    public boolean removeChild(AbstractGameObject gameObject) {
         // Remove any game object
         if(!this.children.remove(gameObject))
             return false;
@@ -110,9 +109,9 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public GameObjectAbstract removeChild(int i) {
+    public AbstractGameObject removeChild(int i) {
         // Get the child that will be removed
-        GameObjectAbstract child = null;
+        AbstractGameObject child = null;
 
         // Remove the child by it's index, and make sure any child was removed
         if((child = this.children.remove(i)) == null)

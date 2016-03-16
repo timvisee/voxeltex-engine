@@ -3,7 +3,7 @@ package me.keybarricade.voxeltex.gameobject;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-public class GameObjectKinematic extends GameObject implements GameObjectKinematicInterface {
+public class KinematicGameObject extends GameObject implements GameObjectKinematicInterface {
 
     /**
      * Linear acceleration.
@@ -28,7 +28,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
     /**
      * Constructor.
      */
-    public GameObjectKinematic() {
+    public KinematicGameObject() {
         super();
     }
 
@@ -38,7 +38,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3f position, Quaternionf rotation) {
+    public KinematicGameObject(Vector3f position, Quaternionf rotation) {
         super(position, rotation);
     }
 
@@ -48,7 +48,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
+    public KinematicGameObject(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
         // Construct the super object
         super(position, rotation);
 
