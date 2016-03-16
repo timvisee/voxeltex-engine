@@ -2,8 +2,8 @@ package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
-import me.keybarricade.voxeltex.component.drawable.CubeRendererComponent;
-import me.keybarricade.voxeltex.component.drawable.GridRendererComponent;
+import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
+import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.time.Time;
@@ -88,8 +88,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         myObj.getTransform().setAngularVelocity(new Vector3f(0, 0, 1.0f));
 
         // Add the grid renderer and cube component
-        myObj.addComponent(new GridRendererComponent());
-        myObj.addComponent(new CubeRendererComponent());
+        myObj.addComponent(new GridDrawComponent());
+        myObj.addComponent(new CubeDrawComponent());
 
         // Create the main camera object and set it's position
         GameObject camObj = new GameObject("MainCamera");

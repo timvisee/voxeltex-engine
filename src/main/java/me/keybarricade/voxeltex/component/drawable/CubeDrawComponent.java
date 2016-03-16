@@ -2,7 +2,7 @@ package me.keybarricade.voxeltex.component.drawable;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class CubeRendererComponent extends AbstractDrawableComponent {
+public class CubeDrawComponent extends AbstractDrawableComponent {
 
     @Override
     public void update() { }
