@@ -5,6 +5,7 @@ import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.input.Input;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.time.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
@@ -52,12 +53,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      */
     // TODO: Remove public static, used for testing
     public static float mouseX, mouseY;
-
-    /**
-     * Key list.
-     */
-    // TODO: Remove public static, used for testing
-    public static boolean[] keyDown = new boolean[GLFW.GLFW_KEY_LAST];
 
     /**
      * Constructor.
@@ -152,18 +147,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         final int windowWidth = this.window.getWidth();
         final int windowHeight = this.window.getHeight();
 
-        // Create the key callback
-        glfwSetKeyCallback(this.window.getWindowId(), keyCallback = new GLFWKeyCallback() {
-            @Override
-            public void invoke(long window, int key, int scancode, int action, int mods) {
-                // Schedule a renderer window close when the escape key is pressed
-                if(key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-                    glfwSetWindowShouldClose(window, GL_TRUE);
-
-                // Set whether the key is pressed
-                keyDown[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
-            }
-        });
+        // Initialize the input manager
+        Input.init(this.window);
 
         // Create the framebuffer size callback
         glfwSetFramebufferSizeCallback(this.window.getWindowId(), fbCallback = new GLFWFramebufferSizeCallback() {

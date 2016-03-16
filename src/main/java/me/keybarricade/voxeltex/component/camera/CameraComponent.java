@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.component.camera;
 
+import me.keybarricade.voxeltex.input.Input;
 import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -35,21 +36,21 @@ public class CameraComponent extends AbstractCameraComponent {
         float rotateZ = 0.0f;
 
         // Handle camera inputs
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_W])
+        if(Input.isKeyDown(GLFW_KEY_W))
             getTransform().getLinearAcceleration().fma(accFactor, getTransform().forward(tmp));
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_S])
+        if(Input.isKeyDown(GLFW_KEY_S))
             getTransform().getLinearAcceleration().fma(-accFactor, getTransform().forward(tmp));
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_D])
+        if(Input.isKeyDown(GLFW_KEY_D))
             getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_A])
+        if(Input.isKeyDown(GLFW_KEY_A))
             getTransform().getLinearAcceleration().fma(-accFactor, getTransform().right(tmp));
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_Q])
+        if(Input.isKeyDown(GLFW_KEY_Q))
             rotateZ -= 1.0f;
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_E])
+        if(Input.isKeyDown(GLFW_KEY_E))
             rotateZ += 1.0f;
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_SPACE])
+        if(Input.isKeyDown(GLFW_KEY_SPACE))
             getTransform().getLinearAcceleration().fma(accFactor, getTransform().up(tmp));
-        if(VoxelTexRenderer.keyDown[GLFW_KEY_LEFT_CONTROL])
+        if(Input.isKeyDown(GLFW_KEY_LEFT_CONTROL))
             getTransform().getLinearAcceleration().fma(-accFactor, getTransform().up(tmp));
 
         // Set the angular velocity of the camera
