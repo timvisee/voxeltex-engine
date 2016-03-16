@@ -124,6 +124,13 @@
 
     <repositories>
 
+        <!-- JOML OpenGL mathematics library -->
+        <repository>
+            <id>oss.sonatype.org</id>
+            <name>Sonatype Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -158,6 +165,13 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.17</version>
+        </dependency>
+
+        <!-- JOML OpenGL mathematics library -->
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>1.7.2-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
