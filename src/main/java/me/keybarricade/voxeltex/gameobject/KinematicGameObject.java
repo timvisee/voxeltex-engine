@@ -105,18 +105,18 @@ public class KinematicGameObject extends GameObject implements GameObjectKinemat
         super.update();
 
         // TODO: Determine the delta time here.
-        float dt = 0.0f;
+        float deltaTime = 0.0f;
 
         // Update linear velocity based on linear acceleration
-        linVel.fma(dt, linAcc);
+        linVel.fma(deltaTime, linAcc);
 
         // Update angular velocity based on angular acceleration
-        angVel.fma(dt, angAcc);
+        angVel.fma(deltaTime, angAcc);
 
         // Update the rotation based on the angular velocity
-        getRotation().integrate(dt, angVel.x, angVel.y, angVel.z);
+        getRotation().integrate(deltaTime, angVel.x, angVel.y, angVel.z);
 
         // Update position based on linear velocity
-        getPosition().fma(dt, linVel);
+        getPosition().fma(deltaTime, linVel);
     }
 }
