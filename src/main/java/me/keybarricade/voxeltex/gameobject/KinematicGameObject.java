@@ -28,30 +28,38 @@ public class KinematicGameObject extends GameObject implements GameObjectKinemat
 
     /**
      * Constructor.
+     *
+     * @param name Game object name.
      */
-    public KinematicGameObject() {
-        super();
+    public KinematicGameObject(String name) {
+        super(name);
     }
 
     /**
      * Constructor.
      *
+     * @param name Game object name.
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public KinematicGameObject(Vector3f position, Quaternionf rotation) {
-        super(position, rotation);
+    public KinematicGameObject(String name, Vector3f position, Quaternionf rotation) {
+        super(name, position, rotation);
     }
 
     /**
      * Constructor.
      *
+     * @param name Game object name.
      * @param position Game object position.
      * @param rotation Game object rotation.
+     * @param linAcc Linear acceleration.
+     * @param linVel Linear velocity.
+     * @param angAcc Angular acceleration.
+     * @param angVel Angular velocity.
      */
-    public KinematicGameObject(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
+    public KinematicGameObject(String name, Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
         // Construct the super object
-        super(position, rotation);
+        super(name, position, rotation);
 
         // Set the linear and angular acceleration and velocity
         this.linAcc = linAcc;

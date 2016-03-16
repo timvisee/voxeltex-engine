@@ -42,6 +42,8 @@ public class GameObject extends AbstractGameObject {
 
     /**
      * Constructor.
+     *
+     * @param name Game object name.
      */
     public GameObject(String name) {
         super(name);
@@ -50,6 +52,7 @@ public class GameObject extends AbstractGameObject {
     /**
      * Constructor.
      *
+     * @param name Game object name.
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
