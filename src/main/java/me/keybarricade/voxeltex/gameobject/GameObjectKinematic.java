@@ -9,22 +9,22 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
     /**
      * Linear acceleration.
      */
-    private Vector3f linAcc = new Vector3f();
+    private Vector3fFactory linAcc = new Vector3fFactory();
 
     /**
      * Linear velocity.
      */
-    private Vector3f linVel = new Vector3f();
+    private Vector3fFactory linVel = new Vector3fFactory();
 
     /**
      * Angular acceleration. (local)
      */
-    private Vector3f angAcc = new Vector3f();
+    private Vector3fFactory angAcc = new Vector3fFactory();
 
     /**
      * Angular velocity. (local)
      */
-    private Vector3f angVel = new Vector3f();
+    private Vector3fFactory angVel = new Vector3fFactory();
 
     /**
      * Constructor.
@@ -39,7 +39,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3f position, Quaternionf rotation) {
+    public GameObjectKinematic(Vector3fFactory position, Quaternionf rotation) {
         super(position, rotation);
     }
 
@@ -49,7 +49,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
+    public GameObjectKinematic(Vector3fFactory position, Quaternionf rotation, Vector3fFactory linAcc, Vector3fFactory linVel, Vector3fFactory angAcc, Vector3fFactory angVel) {
         // Construct the super object
         super(position, rotation);
 
@@ -61,42 +61,42 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
     }
 
     @Override
-    public Vector3f getLinearAcceleration() {
+    public Vector3fFactory getLinearAcceleration() {
         return linAcc;
     }
 
     @Override
-    public void setLinearAcceleration(Vector3f linAcc) {
+    public void setLinearAcceleration(Vector3fFactory linAcc) {
         this.linAcc = linAcc;
     }
 
     @Override
-    public Vector3f getLinearVelocity() {
+    public Vector3fFactory getLinearVelocity() {
         return linVel;
     }
 
     @Override
-    public void setLinearVelocity(Vector3f linVel) {
+    public void setLinearVelocity(Vector3fFactory linVel) {
         this.linVel = linVel;
     }
 
     @Override
-    public Vector3f getAngularAcceleration() {
+    public Vector3fFactory getAngularAcceleration() {
         return angAcc;
     }
 
     @Override
-    public void setAngularAcceleration(Vector3f angAcc) {
+    public void setAngularAcceleration(Vector3fFactory angAcc) {
         this.angAcc = angAcc;
     }
 
     @Override
-    public Vector3f getAngularVelocity() {
+    public Vector3fFactory getAngularVelocity() {
         return angVel;
     }
 
     @Override
-    public void setAngularVelocity(Vector3f angVel) {
+    public void setAngularVelocity(Vector3fFactory angVel) {
         this.angVel = angVel;
     }
 

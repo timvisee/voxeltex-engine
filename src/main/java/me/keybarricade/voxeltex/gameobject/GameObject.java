@@ -1,8 +1,8 @@
 package me.keybarricade.voxeltex.gameobject;
 
-import me.keybarricade.voxeltex.math.vector.*;
-
+import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,9 +130,24 @@ public class GameObject extends GameObjectAbstract {
     }
 
     @Override
-    public Vector3f getPositionWorld() {
-        // TODO: Validate this method!
-        return getPosition().relativeZero();
+    public Vector3f getParentWorldPosition() {
+        // Return the parent position if set
+        if(this.parent != null)
+            return this.parent.getWorldPosition();
+
+        // Return zero
+        return Vector3fFactory.ZERO;
+    }
+
+    @Override
+    public Vector3f getWorldPosition() {
+        // TODO: Do rotation calculations!
+
+        // Get the parent position
+        Vector3f parentPos = getParentWorldPosition();
+
+        // Add the local position
+        return parentPos.add(getPosition(), new Vector3f());
     }
 
     @Override

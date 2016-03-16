@@ -9,54 +9,54 @@ public interface GameObjectKinematicInterface {
      *
      * @return Linear acceleration.
      */
-    Vector3f getLinearAcceleration();
+    Vector3fFactory getLinearAcceleration();
 
     /**
      * Set the linear acceleration.
      *
      * @param linAcc Linear acceleration.
      */
-    void setLinearAcceleration(Vector3f linAcc);
+    void setLinearAcceleration(Vector3fFactory linAcc);
 
     /**
      * Get the linear velocity.
      *
      * @return Set the linear velocity.
      */
-    Vector3f getLinearVelocity();
+    Vector3fFactory getLinearVelocity();
 
     /**
      * Set the linear velocity.
      *
      * @param linVel Linear velocity.
      */
-    void setLinearVelocity(Vector3f linVel);
+    void setLinearVelocity(Vector3fFactory linVel);
 
     /**
      * Get the angular acceleration.
      *
      * @return Angular acceleration.
      */
-    Vector3f getAngularAcceleration();
+    Vector3fFactory getAngularAcceleration();
 
     /**
      * Set the angular acceleration.
      *
      * @param angAcc Angular acceleration.
      */
-    void setAngularAcceleration(Vector3f angAcc);
+    void setAngularAcceleration(Vector3fFactory angAcc);
 
     /**
      * Get the angular velocity.
      *
      * @return Angular velocity.
      */
-    Vector3f getAngularVelocity();
+    Vector3fFactory getAngularVelocity();
 
     /**
      * Set the angular velocity.
      *
      * @param angVel Angular velocity.
      */
-    void setAngularVelocity(Vector3f angVel);
+    void setAngularVelocity(Vector3fFactory angVel);
 }
