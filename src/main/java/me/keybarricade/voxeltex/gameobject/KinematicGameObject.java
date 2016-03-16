@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.time.Time;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -104,19 +105,16 @@ public class KinematicGameObject extends GameObject implements GameObjectKinemat
         // Call the super update method
         super.update();
 
-        // TODO: Determine the delta time here.
-        float deltaTime = 0.0f;
-
         // Update linear velocity based on linear acceleration
-        linVel.fma(deltaTime, linAcc);
+        linVel.fma((float) Time.deltaTime, linAcc);
 
         // Update angular velocity based on angular acceleration
-        angVel.fma(deltaTime, angAcc);
+        angVel.fma((float) Time.deltaTime, angAcc);
 
         // Update the rotation based on the angular velocity
-        getRotation().integrate(deltaTime, angVel.x, angVel.y, angVel.z);
+        getRotation().integrate((float) Time.deltaTime, angVel.x, angVel.y, angVel.z);
 
         // Update position based on linear velocity
-        getPosition().fma(deltaTime, linVel);
+        getPosition().fma((float) Time.deltaTime, linVel);
     }
 }
