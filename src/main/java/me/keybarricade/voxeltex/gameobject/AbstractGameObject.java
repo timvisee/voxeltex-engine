@@ -249,9 +249,15 @@ public abstract class AbstractGameObject {
 
     /**
      * Update the game object.
-     * This will be called once each render.
+     * This will be called once each frame before drawing the game object.
      */
     public abstract void update();
+
+    /**
+     * Draw the game object.
+     * This will be called once each frame after updating the game object.
+     */
+    public abstract void draw();
 
     @Override
     public String toString() {

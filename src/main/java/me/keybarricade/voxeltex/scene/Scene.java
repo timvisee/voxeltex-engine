@@ -5,7 +5,7 @@ import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scene extends AbstractScene {
+public class Scene extends AbstractGameObjectScene {
 
     /**
      * List of game objects in this scene.
@@ -75,5 +75,19 @@ public class Scene extends AbstractScene {
 
         // Return the game object
         return gameObject;
+    }
+
+    @Override
+    public void update() {
+        // Update all game objects
+        for(AbstractGameObject gameObject : this.gameObjects)
+            gameObject.update();
+    }
+
+    @Override
+    public void draw() {
+        // Draw all game objects
+        for(AbstractGameObject gameObject : this.gameObjects)
+            gameObject.draw();
     }
 }

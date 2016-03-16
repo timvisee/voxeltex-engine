@@ -21,7 +21,14 @@ public abstract class AbstractComponent {
     /**
      * Update the component.
      *
-     * Called once each frame.
+     * Called once each frame before drawing.
      */
     public abstract void update();
+
+    /**
+     * Draw the component.
+     *
+     * Called once each frame after updating.
+     */
+    public abstract void draw();
 }
