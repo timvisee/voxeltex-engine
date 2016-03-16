@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class GameObjectKinematic extends GameObject implements GameObjectKinematicInterface {
@@ -23,6 +24,40 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * Angular velocity. (local)
      */
     private Vector3f angVel = new Vector3f();
+
+    /**
+     * Constructor.
+     */
+    public GameObjectKinematic() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param position Game object position.
+     * @param rotation Game object rotation.
+     */
+    public GameObjectKinematic(Vector3f position, Quaternionf rotation) {
+        super(position, rotation);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param position Game object position.
+     * @param rotation Game object rotation.
+     */
+    public GameObjectKinematic(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
+        // Construct the super object
+        super(position, rotation);
+
+        // Set the linear and angular acceleration and velocity
+        this.linAcc = linAcc;
+        this.linVel = linVel;
+        this.angAcc = angAcc;
+        this.angVel = angVel;
+    }
 
     @Override
     public Vector3f getLinearAcceleration() {
