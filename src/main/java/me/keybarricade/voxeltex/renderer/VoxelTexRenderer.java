@@ -22,10 +22,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
-    public Scene scene = new Scene();
-
-
-
+    /**
+     * Test scene.
+     */
+    // TODO: Remove this!
+    private Scene testScene = new Scene();
 
     /**
      * VoxelTex window where we'll be rendering on.
@@ -80,12 +81,18 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * This will initialize and start the rendering loop.
      */
     public void run() {
-        KinematicGameObject myObj = new KinematicGameObject("GridRenderer");
-        //myObj.setLinearVelocity(new Vector3f(0.1f, 0.1f, 0.1f));
+        // Create an object for testing
+        KinematicGameObject myObj = new KinematicGameObject("TestObject");
+
+        // Set some angular velocity
+        myObj.setAngularVelocity(new Vector3f(0, 0, 1.0f));
+
+        // Add the grid renderer and cube component
         myObj.addComponent(new GridRendererComponent());
         myObj.addComponent(new CubeRendererComponent());
 
-        scene.addGameObject(myObj);
+        // Add the game object
+        testScene.addGameObject(myObj);
 
         try {
             // Initialize the renderer
@@ -253,8 +260,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update the camera
             camera.update(Time.deltaTimeFloat);
 
-            // Update the scene
-            scene.update();
+            // Update the test scene
+            testScene.update();
 
             // Set the default viewport
             this.window.glViewportDefault();
@@ -274,8 +281,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             glMatrixMode(GL_MODELVIEW);
             glLoadMatrixf(this.camera.apply(mat.identity()).get(fb));
 
-            // Draw the scene
-            scene.draw();
+            // Draw the test scene
+            testScene.draw();
 
             // Swap the buffers
             this.window.glSwapBuffers();
