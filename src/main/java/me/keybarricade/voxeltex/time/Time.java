@@ -73,6 +73,7 @@ public class Time {
 
         // Store the current times
         time = Time.timer.getElapsedTime();
+        timeFloat = (float) time;
         timeNano = Time.timer.getElapsedNano();
 
         // Calculate the delta times

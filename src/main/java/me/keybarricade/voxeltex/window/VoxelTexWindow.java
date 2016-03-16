@@ -14,7 +14,7 @@ public class VoxelTexWindow {
     /**
      * Window title.
      */
-    private String title = VoxelTex.ENGINE_NAME + " window";
+    private String title = VoxelTex.ENGINE_NAME + " Window";
 
     /**
      * Window width.

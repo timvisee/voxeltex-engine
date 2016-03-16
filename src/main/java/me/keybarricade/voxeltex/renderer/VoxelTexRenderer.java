@@ -194,10 +194,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
         // Set the default line width
         // TODO: Set this somewhere else?
-        glLineWidth(1.4f);
-
-        // Remember the current time.
-        long lastTime = System.nanoTime();
+        glLineWidth(1.0f);
 
         Vector3f tmp = new Vector3f();
         Matrix4f mat = new Matrix4f();
@@ -217,29 +214,28 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             float rotateZ = 0.0f;
 
             // Handle camera inputs
-            if (keyDown[GLFW_KEY_W])
+            if(keyDown[GLFW_KEY_W])
                 this.camera.getLinearAcceleration().fma(accFactor, this.camera.forward(tmp));
-            if (keyDown[GLFW_KEY_S])
+            if(keyDown[GLFW_KEY_S])
                 this.camera.getLinearAcceleration().fma(-accFactor, this.camera.forward(tmp));
-            if (keyDown[GLFW_KEY_D])
+            if(keyDown[GLFW_KEY_D])
                 this.camera.getLinearAcceleration().fma(accFactor, this.camera.right(tmp));
-            if (keyDown[GLFW_KEY_A])
+            if(keyDown[GLFW_KEY_A])
                 this.camera.getLinearAcceleration().fma(-accFactor, this.camera.right(tmp));
-            if (keyDown[GLFW_KEY_Q])
+            if(keyDown[GLFW_KEY_Q])
                 rotateZ -= 1.0f;
-            if (keyDown[GLFW_KEY_E])
+            if(keyDown[GLFW_KEY_E])
                 rotateZ += 1.0f;
-            if (keyDown[GLFW_KEY_SPACE])
+            if(keyDown[GLFW_KEY_SPACE])
                 this.camera.getLinearAcceleration().fma(accFactor, this.camera.up(tmp));
-            if (keyDown[GLFW_KEY_LEFT_CONTROL])
+            if(keyDown[GLFW_KEY_LEFT_CONTROL])
                 this.camera.getLinearAcceleration().fma(-accFactor, this.camera.up(tmp));
 
             // Set the angular velocity of the camera
             this.camera.getAngularVelocity().set(mouseY, mouseX, rotateZ);
 
             // Update the camera
-            System.out.println(Time.deltaTime);
-            camera.update(Time.deltaTimeFloat);
+            camera.update(Time.timeFloat);
 
             // Set the default viewport
             this.window.glViewportDefault();
