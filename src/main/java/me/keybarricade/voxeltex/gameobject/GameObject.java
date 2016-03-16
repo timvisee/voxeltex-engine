@@ -277,23 +277,15 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void update() {
-        // Update all components
-        for(AbstractComponent component : this.components)
-            component.update();
-
-        // Update all children
-        for(AbstractGameObject gameObject : this.children)
-            gameObject.update();
+        // Update all components and then the children
+        this.components.forEach(AbstractComponent::update);
+        this.children.forEach(AbstractGameObject::update);
     }
 
     @Override
     public void draw() {
-        // Draw all components
-        for(AbstractComponent component : this.components)
-            component.draw();
-
-        // Draw all children
-        for(AbstractGameObject gameObject : this.children)
-            gameObject.draw();
+        // Draw all components and then the children
+        this.components.forEach(AbstractComponent::draw);
+        this.children.forEach(AbstractGameObject::draw);
     }
 }
