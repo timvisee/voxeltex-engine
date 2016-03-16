@@ -39,10 +39,12 @@ public abstract class GameObject implements GameObjectInterface {
         this.rotation = rotation;
     }
 
+    @Override
     public List<GameObjectInterface> getChildren() {
         return this.children;
     }
 
+    @Override
     public int getChildCount(boolean recursive) {
         // Count the number of children if not recursive
         if(!recursive)
@@ -59,10 +61,12 @@ public abstract class GameObject implements GameObjectInterface {
         return count;
     }
 
+    @Override
     public void addChild(GameObjectInterface gameObject) {
         this.children.add(gameObject);
     }
 
+    @Override
     public GameObjectInterface getChild(int i) {
         // TODO: Make sure we're in bound?
 
@@ -70,29 +74,36 @@ public abstract class GameObject implements GameObjectInterface {
         return this.children.get(i);
     }
 
+    @Override
     public boolean removeChild(GameObjectInterface gameObject) {
         return this.children.remove(gameObject);
     }
 
+    @Override
     public boolean removeChild(int i) {
         return this.children.remove(i) != null;
     }
 
+    @Override
     public Vector3f getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(Vector3f position) {
         this.position = position;
     }
 
+    @Override
     public Quaternionf getRotation() {
         return rotation;
     }
 
+    @Override
     public void setRotation(Quaternionf rotation) {
         this.rotation = rotation;
     }
 
+    @Override
     public void update() { }
 }

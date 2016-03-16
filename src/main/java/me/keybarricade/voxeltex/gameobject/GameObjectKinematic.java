@@ -24,34 +24,42 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      */
     private Vector3f angVel = new Vector3f();
 
+    @Override
     public Vector3f getLinearAcceleration() {
         return linAcc;
     }
 
+    @Override
     public void setLinearAcceleration(Vector3f linAcc) {
         this.linAcc = linAcc;
     }
 
+    @Override
     public Vector3f getLinearVelocity() {
         return linVel;
     }
 
+    @Override
     public void setLinearVelocity(Vector3f linVel) {
         this.linVel = linVel;
     }
 
+    @Override
     public Vector3f getAngularAcceleration() {
         return angAcc;
     }
 
+    @Override
     public void setAngularAcceleration(Vector3f angAcc) {
         this.angAcc = angAcc;
     }
 
+    @Override
     public Vector3f getAngularVelocity() {
         return angVel;
     }
 
+    @Override
     public void setAngularVelocity(Vector3f angVel) {
         this.angVel = angVel;
     }
