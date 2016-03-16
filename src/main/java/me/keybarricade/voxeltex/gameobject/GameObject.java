@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 public class GameObject extends GameObjectAbstract {
@@ -133,11 +134,8 @@ public class GameObject extends GameObjectAbstract {
     public Vector3f getWorldPosition() {
         // TODO: Do rotation calculations!
 
-        // Get the parent position
-        Vector3f parentPos = getParentWorldPosition();
-
-        // Add the local position
-        return parentPos.add(getPosition(), new Vector3f());
+        // Calculate and return the world position
+        return getParentWorldPosition().add(getPosition(), Vector3fFactory.zero());
     }
 
     @Override
@@ -153,6 +151,12 @@ public class GameObject extends GameObjectAbstract {
     @Override
     public void setPosition(Vector3f position) {
         this.position = position;
+    }
+
+    @Override
+    public void setWorldPosition(Vector3f position) {
+        // Calculate and set the local position
+        setPosition(position.sub(getParentWorldPosition(), Vector3fFactory.zero()));
     }
 
     @Override
