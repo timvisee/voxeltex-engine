@@ -12,32 +12,156 @@ public class FreeCamera {
     /**
      * Linear acceleration.
      */
-    public Vector3f linAcc = new Vector3f();
+    private Vector3f linAcc = new Vector3f();
 
     /**
      * Linear velocity.
      */
-    public Vector3f linVel = new Vector3f();
+    private Vector3f linVel = new Vector3f();
 
     /**
      * Angular acceleration. (local)
      */
-    public Vector3f angAcc = new Vector3f();
+    private Vector3f angAcc = new Vector3f();
 
     /**
      * Angular velocity. (local)
      */
-    public Vector3f angVel = new Vector3f();
+    private Vector3f angVel = new Vector3f();
 
     /**
      * Camera position.
      */
-    public Vector3f position = new Vector3f(0, 0, 10);
+    private Vector3f position = new Vector3f(0, 0, 10);
 
     /**
      * Camera rotation.
      */
-    public Quaternionf rotation = new Quaternionf();
+    private Quaternionf rotation = new Quaternionf();
+
+    /**
+     * Constructor.
+     */
+    public FreeCamera() { }
+
+    /**
+     * Constructor.
+     *
+     * @param position Camera position.
+     * @param rotation Camera rotation.
+     */
+    public FreeCamera(Vector3f position, Quaternionf rotation) {
+        this.position = position;
+        this.rotation = rotation;
+    }
+
+    /**
+     * Get the linear acceleration.
+     *
+     * @return Linear acceleration.
+     */
+    public Vector3f getLinearAcceleration() {
+        return linAcc;
+    }
+
+    /**
+     * Set the linear acceleration.
+     *
+     * @param linAcc Linear acceleration.
+     */
+    public void setLinearAcceleration(Vector3f linAcc) {
+        this.linAcc = linAcc;
+    }
+
+    /**
+     * Get the linear velocity.
+     *
+     * @return Set the linear velocity.
+     */
+    public Vector3f getLinearVelocity() {
+        return linVel;
+    }
+
+    /**
+     * Set the linear velocity.
+     *
+     * @param linVel Linear velocity.
+     */
+    public void setLinearVelocity(Vector3f linVel) {
+        this.linVel = linVel;
+    }
+
+    /**
+     * Get the angular acceleration.
+     *
+     * @return Angular acceleration.
+     */
+    public Vector3f getAngularAcceleration() {
+        return angAcc;
+    }
+
+    /**
+     * Set the angular acceleration.
+     *
+     * @param angAcc Angular acceleration.
+     */
+    public void setAngularAcceleration(Vector3f angAcc) {
+        this.angAcc = angAcc;
+    }
+
+    /**
+     * Get the angular velocity.
+     *
+     * @return Angular velocity.
+     */
+    public Vector3f getAngularVelocity() {
+        return angVel;
+    }
+
+    /**
+     * Set the angular velocity.
+     *
+     * @param angVel Angular velocity.
+     */
+    public void setAngularVelocity(Vector3f angVel) {
+        this.angVel = angVel;
+    }
+
+    /**
+     * Get the camera position.
+     *
+     * @return Camera position.
+     */
+    public Vector3f getPosition() {
+        return position;
+    }
+
+    /**
+     * Set the camera position.
+     *
+     * @param position Camera position.
+     */
+    public void setPosition(Vector3f position) {
+        this.position = position;
+    }
+
+    /**
+     * Get the camera rotation.
+     *
+     * @return Camera rotation.
+     */
+    public Quaternionf getRotation() {
+        return rotation;
+    }
+
+    /**
+     * Set the camera rotation.
+     *
+     * @param rotation Camera rotation.
+     */
+    public void setRotation(Quaternionf rotation) {
+        this.rotation = rotation;
+    }
 
     /**
      * Update the camera based on the elapsed time.

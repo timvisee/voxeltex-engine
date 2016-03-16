@@ -53,7 +53,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         this.window = new VoxelTexWindow();
 
         // Set the camera position
-        this.camera.position.set(1, 5, 10);
+        this.camera.getPosition().set(1, 5, 10);
     }
 
     /**
@@ -203,7 +203,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Start a loop until the window should close
         while(!this.window.glWindowShouldCloseBoolean()) {
             // Reset t he camera acceleration
-            this.camera.linAcc.zero();
+            this.camera.getAngularVelocity().zero();
 
             // Define the acceleration factor
             float accFactor = 6.0f;
@@ -211,24 +211,24 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Handle camera inputs
             if (keyDown[GLFW_KEY_W])
-                this.camera.linAcc.fma(accFactor, this.camera.forward(tmp));
+                this.camera.getLinearAcceleration().fma(accFactor, this.camera.forward(tmp));
             if (keyDown[GLFW_KEY_S])
-                this.camera.linAcc.fma(-accFactor, this.camera.forward(tmp));
+                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.forward(tmp));
             if (keyDown[GLFW_KEY_D])
-                this.camera.linAcc.fma(accFactor, this.camera.right(tmp));
+                this.camera.getLinearAcceleration().fma(accFactor, this.camera.right(tmp));
             if (keyDown[GLFW_KEY_A])
-                this.camera.linAcc.fma(-accFactor, this.camera.right(tmp));
+                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.right(tmp));
             if (keyDown[GLFW_KEY_Q])
                 rotateZ -= 1.0f;
             if (keyDown[GLFW_KEY_E])
                 rotateZ += 1.0f;
             if (keyDown[GLFW_KEY_SPACE])
-                this.camera.linAcc.fma(accFactor, this.camera.up(tmp));
+                this.camera.getLinearAcceleration().fma(accFactor, this.camera.up(tmp));
             if (keyDown[GLFW_KEY_LEFT_CONTROL])
-                this.camera.linAcc.fma(-accFactor, this.camera.up(tmp));
+                this.camera.getLinearAcceleration().fma(-accFactor, this.camera.up(tmp));
 
             // Set the angular velocity of the camera
-            this.camera.angVel.set(mouseY, mouseX, rotateZ);
+            this.camera.getAngularVelocity().set(mouseY, mouseX, rotateZ);
 
             // Compute the delta time
             // TODO: Create a class for this!
