@@ -1,6 +1,6 @@
 package me.keybarricade;
 
-public class Main {
+public class KeyBarricade {
 
     /**
      * Application name.
@@ -19,12 +19,15 @@ public class Main {
     public static int APP_VERSION_CODE = 1;
 
     /**
-     * Main method, called on start.
+     * YamlWrapperExample method, called on start.
      *
      * @param args Start up arguments.
      */
     public static void main(String[] args) {
-        // Show initialization message
-        System.out.println("Initializing...");
+        // Load the app
+        App app = new App();
+
+        // Initialize the app
+        app.init();
     }
 }

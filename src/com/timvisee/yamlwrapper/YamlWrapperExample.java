@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.timvisee.yamlwrapper.configuration.YamlConfiguration;
 
-public class Main {
+public class YamlWrapperExample {
 
 	public static void main(String[] args) {
 		// Construct a YamlConfiguration instance
