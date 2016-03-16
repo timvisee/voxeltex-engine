@@ -2,9 +2,6 @@ package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
-import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +12,11 @@ public class GameObject extends AbstractGameObject {
      * Game object name.
      */
     private String name;
+
+    /**
+     * The transform instance of this object.
+     */
+    private Transform transform = new Transform(this);
 
     /**
      * The parent of this game object.
@@ -32,38 +34,12 @@ public class GameObject extends AbstractGameObject {
     private List<AbstractComponent> components = new ArrayList<>();
 
     /**
-     * Game object position.
-     */
-    private Vector3f position = new Vector3f(0, 0, 0);
-
-    /**
-     * Game object rotation.
-     */
-    private Quaternionf rotation = new Quaternionf();
-
-    /**
      * Constructor.
      *
      * @param name Game object name.
      */
     public GameObject(String name) {
         super(name);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param name Game object name.
-     * @param position Game object position.
-     * @param rotation Game object rotation.
-     */
-    public GameObject(String name, Vector3f position, Quaternionf rotation) {
-        // Call super
-        super(name);
-
-        // Set the position and rotation
-        this.position = position;
-        this.rotation = rotation;
     }
 
     @Override
@@ -74,6 +50,11 @@ public class GameObject extends AbstractGameObject {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public Transform getTransform() {
+        return this.transform;
     }
 
     @Override
@@ -237,51 +218,10 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public Vector3f getPosition() {
-        return position;
-    }
-
-    @Override
-    public Vector3f getWorldPosition() {
-        // TODO: Do rotation calculations!
-
-        // Calculate and return the world position
-        return getParentWorldPosition().add(getPosition(), Vector3fFactory.zero());
-    }
-
-    @Override
-    public Vector3f getParentWorldPosition() {
-        // Return the parent position if set
-        if(this.getParent() != null)
-            return getParent().getWorldPosition();
-
-        // Return zero
-        return Vector3fFactory.zero();
-    }
-
-    @Override
-    public void setPosition(Vector3f position) {
-        this.position = position;
-    }
-
-    @Override
-    public void setWorldPosition(Vector3f position) {
-        // Calculate and set the local position
-        setPosition(position.sub(getParentWorldPosition(), Vector3fFactory.zero()));
-    }
-
-    @Override
-    public Quaternionf getRotation() {
-        return rotation;
-    }
-
-    @Override
-    public void setRotation(Quaternionf rotation) {
-        this.rotation = rotation;
-    }
-
-    @Override
     public void update() {
+        // Update the transform
+        this.transform.update();
+
         // Update all components and then the children
         this.components.forEach(AbstractComponent::update);
         this.children.forEach(AbstractGameObject::update);

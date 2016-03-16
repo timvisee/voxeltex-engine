@@ -1,8 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -30,6 +28,13 @@ public abstract class AbstractGameObject {
      * @param name Game object name.
      */
     public abstract void setName(String name);
+
+    /**
+     * Get the transform object of this game object.
+     *
+     * @return Transform instance.
+     */
+    public abstract Transform getTransform();
 
     /**
      * Get the parent game object.
@@ -174,78 +179,6 @@ public abstract class AbstractGameObject {
      * @return The component that was removed, or null.
      */
     public abstract AbstractComponent removeComponent(int i);
-
-    /**
-     * Get the game object position.
-     *
-     * @return Game object position.
-     */
-    public abstract Vector3f getPosition();
-
-    /**
-     * Get the game object position in the world.
-     *
-     * @return Game object position.
-     */
-    public abstract Vector3f getWorldPosition();
-
-    /**
-     * Get the position of the parent game object.
-     * If the object doesn't have a parent, a zero vector will be returned.
-     *
-     * @return Parent game object position.
-     */
-    public abstract Vector3f getParentWorldPosition();
-
-    /**
-     * Set the game object position.
-     *
-     * @param position Game object position.
-     */
-    public abstract void setPosition(Vector3f position);
-
-    /**
-     * Set the game object position in the world.
-     *
-     * @param position Game object world position.
-     */
-    public abstract void setWorldPosition(Vector3f position);
-
-    /**
-     * Get the game object rotation.
-     *
-     * @return Game object rotation.
-     */
-    public abstract Quaternionf getRotation();
-
-    /**
-     * Get the game object rotation in the world.
-     *
-     * @return Game object rotation.
-     */
-    // TODO: public abstract Quaternionf getWorldRotation();
-
-    /**
-     * Get the rotation of the parent game object.
-     * If the object doesn't have a parent, a zero vector will be returned.
-     *
-     * @return Parent game object rotation.
-     */
-    // TODO: public abstract Quaternionf getParentWorldRotation();
-
-    /**
-     * Set the game object rotation.
-     *
-     * @param rotation Game object rotation.
-     */
-    public abstract void setRotation(Quaternionf rotation);
-
-    /**
-     * Set the game object rotation in the world.
-     *
-     * @param rotation Game object world rotation.
-     */
-    // TODO: public abstract void setWorldRotation(Quaternionf rotation);
 
     /**
      * Update the game object.
