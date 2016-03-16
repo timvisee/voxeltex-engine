@@ -206,8 +206,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update time Time object
             Time.update();
 
-            // Reset t he camera acceleration
-            this.camera.getAngularVelocity().zero();
+            // Reset the camera acceleration
+            this.camera.getLinearAcceleration().zero();
 
             // Define the acceleration factor
             float accFactor = 6.0f;
@@ -253,7 +253,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Obtain the camera's view matrix
             glMatrixMode(GL_MODELVIEW);
-            glLoadMatrixf(camera.apply(mat.identity()).get(fb));
+            glLoadMatrixf(this.camera.apply(mat.identity()).get(fb));
 
             // Render the testing grid and cube
             renderGrid();
