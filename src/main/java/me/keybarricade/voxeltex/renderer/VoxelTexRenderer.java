@@ -1,6 +1,10 @@
 package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.camera.FreeCamera;
+import me.keybarricade.voxeltex.component.drawable.CubeRendererComponent;
+import me.keybarricade.voxeltex.component.drawable.GridRendererComponent;
+import me.keybarricade.voxeltex.gameobject.KinematicGameObject;
+import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.time.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.joml.Matrix4f;
@@ -17,6 +21,11 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class VoxelTexRenderer extends VoxelTexBaseRenderer {
+
+    public Scene scene = new Scene();
+
+
+
 
     /**
      * VoxelTex window where we'll be rendering on.
@@ -54,7 +63,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         this.window = new VoxelTexWindow();
 
         // Set the camera position
-        this.camera.getPosition().set(1, 5, 10);
+        this.camera.getPosition().set(0, 1, 10);
     }
 
     /**
@@ -71,6 +80,13 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * This will initialize and start the rendering loop.
      */
     public void run() {
+        KinematicGameObject myObj = new KinematicGameObject("GridRenderer");
+        //myObj.setLinearVelocity(new Vector3f(0.1f, 0.1f, 0.1f));
+        myObj.addComponent(new GridRendererComponent());
+        myObj.addComponent(new CubeRendererComponent());
+
+        scene.addGameObject(myObj);
+
         try {
             // Initialize the renderer
             init();
@@ -237,6 +253,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update the camera
             camera.update(Time.deltaTimeFloat);
 
+            // Update the scene
+            scene.update();
+
             // Set the default viewport
             this.window.glViewportDefault();
 
@@ -255,9 +274,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             glMatrixMode(GL_MODELVIEW);
             glLoadMatrixf(this.camera.apply(mat.identity()).get(fb));
 
-            // Render the testing grid and cube
-            renderGrid();
-            renderCube();
+            // Draw the scene
+            scene.draw();
 
             // Swap the buffers
             this.window.glSwapBuffers();
@@ -265,86 +283,5 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Poll all events
             glfwPollEvents();
         }
-    }
-
-
-
-    /**
-     * Rendering tests.
-     */
-
-    /**
-     * Render a cube for testing.
-     */
-    void renderCube() {
-        // Enter quad drawing mode
-        glBegin(GL_QUADS);
-
-        // Set the color and draw the quad
-        glColor3f(   0.0f,  0.0f,  0.2f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-
-        // Set the color and draw the quad
-        glColor3f(   0.0f,  0.0f,  1.0f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-
-        // Set the color and draw the quad
-        glColor3f(   1.0f,  0.0f,  0.0f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-
-        // Set the color and draw the quad
-        glColor3f(   0.2f,  0.0f,  0.0f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-
-        // Set the color and draw the quad
-        glColor3f(   0.0f,  1.0f,  0.0f );
-        glVertex3f(  0.5f,  0.5f,  0.5f );
-        glVertex3f(  0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f, -0.5f );
-        glVertex3f( -0.5f,  0.5f,  0.5f );
-
-        // Set the color and draw the quad
-        glColor3f(   0.0f,  0.2f,  0.0f );
-        glVertex3f(  0.5f, -0.5f, -0.5f );
-        glVertex3f(  0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f,  0.5f );
-        glVertex3f( -0.5f, -0.5f, -0.5f );
-
-        // Finish drawing
-        glEnd();
-    }
-
-    /**
-     * Render a grid for testing.
-     */
-    void renderGrid() {
-        // Enable line drawing mode
-        glBegin(GL_LINES);
-
-        // Set the grid color
-        glColor3f(0.2f, 0.2f, 0.2f);
-
-        // Draw the grid
-        for(int i = -20; i <= 20; i++) {
-            glVertex3f(-20.0f, 0.0f, i);
-            glVertex3f(20.0f, 0.0f, i);
-            glVertex3f(i, 0.0f, -20.0f);
-            glVertex3f(i, 0.0f, 20.0f);
-        }
-
-        // Finish drawing
-        glEnd();
     }
 }

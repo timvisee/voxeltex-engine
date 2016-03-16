@@ -32,7 +32,7 @@ public class FreeCamera {
     /**
      * Camera position.
      */
-    private Vector3f position = new Vector3f(0, 0, 10);
+    private Vector3f position = new Vector3f(0, 0, 1);
 
     /**
      * Camera rotation.
