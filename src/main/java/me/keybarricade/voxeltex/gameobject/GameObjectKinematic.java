@@ -1,7 +1,8 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.math.vector.*;
+
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 public class GameObjectKinematic extends GameObject implements GameObjectKinematicInterface {
 

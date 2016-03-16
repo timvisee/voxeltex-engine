@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
-import org.joml.Vector3f;
+import me.keybarricade.voxeltex.math.vector.*;
 
 public interface GameObjectKinematicInterface {
 

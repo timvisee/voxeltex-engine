@@ -1,7 +1,8 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.math.vector.*;
+
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.List;
 
@@ -78,6 +79,13 @@ public abstract class GameObjectAbstract {
      * @return Game object position.
      */
     public abstract Vector3f getPosition();
+
+    /**
+     * Get the game object position in the world.
+     *
+     * @return Game object position.
+     */
+    public abstract Vector3f getPositionWorld();
 
     /**
      * Set the game object position.

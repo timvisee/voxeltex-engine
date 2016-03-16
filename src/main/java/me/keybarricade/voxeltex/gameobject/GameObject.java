@@ -1,12 +1,14 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.math.vector.*;
+
 import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameObject extends GameObjectAbstract {
+
+public class GameObject extends GameObjectAbstract {
 
     /**
      * The parent of this game object.
@@ -125,6 +127,12 @@ public abstract class GameObject extends GameObjectAbstract {
     @Override
     public Vector3f getPosition() {
         return position;
+    }
+
+    @Override
+    public Vector3f getPositionWorld() {
+        // TODO: Validate this method!
+        return getPosition().relativeZero();
     }
 
     @Override
