@@ -12,7 +12,7 @@ public class AbstractDrawableComponent extends BaseComponent implements Drawable
     @Override
     public void draw() {
         // Set the drawing position to the world position of the component
-        Vector3f worldPos = getOwner().getWorldPosition();
+        Vector3f worldPos = getTransform().getWorldPosition();
         glTranslatef(worldPos.x, worldPos.y, worldPos.z);
 
         // TODO: Set the drawing rotation

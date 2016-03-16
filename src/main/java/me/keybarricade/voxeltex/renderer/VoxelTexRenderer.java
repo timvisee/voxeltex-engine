@@ -4,7 +4,7 @@ import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeRendererComponent;
 import me.keybarricade.voxeltex.component.drawable.GridRendererComponent;
-import me.keybarricade.voxeltex.gameobject.KinematicGameObject;
+import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.time.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
@@ -82,18 +82,18 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      */
     public void run() {
         // Create an object for testing
-        KinematicGameObject myObj = new KinematicGameObject("TestObject");
+        GameObject myObj = new GameObject("TestObject");
 
         // Set some angular velocity
-        myObj.setAngularVelocity(new Vector3f(0, 0, 1.0f));
+        myObj.getTransform().setAngularVelocity(new Vector3f(0, 0, 1.0f));
 
         // Add the grid renderer and cube component
         myObj.addComponent(new GridRendererComponent());
         myObj.addComponent(new CubeRendererComponent());
 
         // Create the main camera object and set it's position
-        KinematicGameObject camObj = new KinematicGameObject("MainCamera");
-        camObj.setPosition(new Vector3f(0, 1, 10));
+        GameObject camObj = new GameObject("MainCamera");
+        camObj.getTransform().setPosition(new Vector3f(0, 1, 10));
 
         // Create and add the camera component
         this.mainCameraComponent = new CameraComponent();
