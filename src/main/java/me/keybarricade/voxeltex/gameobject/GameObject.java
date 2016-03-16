@@ -136,7 +136,7 @@ public class GameObject extends GameObjectAbstract {
             return this.parent.getWorldPosition();
 
         // Return zero
-        return Vector3fFactory.ZERO;
+        return Vector3fFactory.zero();
     }
 
     @Override

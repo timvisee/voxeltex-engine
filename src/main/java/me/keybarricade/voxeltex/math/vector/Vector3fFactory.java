@@ -5,14 +5,20 @@ import org.joml.Vector3f;
 public class Vector3fFactory {
 
     /**
-     * Zero vector.
+     * Create a zero vector instance.
+     *
+     * @return Zero vector instance.
      */
-    // TODO: Make sure this can't be changed!
-    public static final Vector3f ZERO = new Vector3f(0.0f, 0.0f, 0.0f);
+    public static Vector3f zero() {
+        return new Vector3f(0.0f, 0.0f, 0.0f);
+    }
 
     /**
-     * Zero vector.
+     * Create a one vector instance.
+     *
+     * @return One vector instance.
      */
-    // TODO: Make sure this can't be changed!
-    public static final Vector3f ONE = new Vector3f(1.0f, 1.0f, 1.0f);
+    public static Vector3f one() {
+        return new Vector3f(1.0f, 1.0f, 1.0f);
+    }
 }
