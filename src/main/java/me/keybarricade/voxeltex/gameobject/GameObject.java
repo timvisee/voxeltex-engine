@@ -6,17 +6,17 @@ import org.joml.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameObject implements GameObjectInterface {
+public abstract class GameObject extends GameObjectAbstract {
 
     /**
      * The parent of this game object.
      */
-    private GameObjectInterface parent = null;
+    private GameObjectAbstract parent = null;
 
     /**
      * The children of this game object.
      */
-    private List<GameObject> children = new ArrayList<>();
+    private List<GameObjectAbstract> children = new ArrayList<>();
 
     /**
      * Game object position.
@@ -45,21 +45,17 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public GameObjectInterface getParent() {
+    public GameObjectAbstract getParent() {
         return this.parent;
     }
 
-    /**
-     * Set the parent game object.
-     *
-     * @param parent Parent game object.
-     */
-    protected void setParent(GameObjectInterface parent) {
+    @Override
+    protected void setParent(GameObjectAbstract parent) {
         this.parent = parent;
     }
 
     @Override
-    public List<GameObject> getChildren() {
+    public List<GameObjectAbstract> getChildren() {
         return this.children;
     }
 
@@ -73,7 +69,7 @@ public abstract class GameObject implements GameObjectInterface {
         int count = 0;
 
         // Loop through all the children, and count
-        for(GameObjectInterface gameObject : this.children)
+        for(GameObjectAbstract gameObject : this.children)
             count += gameObject.getChildCount(true);
 
         // Return the number of recursive children
@@ -81,7 +77,7 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public void addChild(GameObject gameObject) {
+    public void addChild(GameObjectAbstract gameObject) {
         // Set the parent
         gameObject.setParent(gameObject);
 
@@ -90,7 +86,7 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public GameObjectInterface getChild(int i) {
+    public GameObjectAbstract getChild(int i) {
         // TODO: Make sure we're in bound?
 
         // Get the child by it's index
@@ -98,7 +94,7 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public boolean removeChild(GameObject gameObject) {
+    public boolean removeChild(GameObjectAbstract gameObject) {
         // Remove any game object
         if(!this.children.remove(gameObject))
             return false;
@@ -111,9 +107,9 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     @Override
-    public GameObject removeChild(int i) {
+    public GameObjectAbstract removeChild(int i) {
         // Get the child that will be removed
-        GameObject child = null;
+        GameObjectAbstract child = null;
 
         // Remove the child by it's index, and make sure any child was removed
         if((child = this.children.remove(i)) == null)
