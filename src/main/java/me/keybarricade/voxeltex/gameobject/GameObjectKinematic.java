@@ -1,30 +1,29 @@
 package me.keybarricade.voxeltex.gameobject;
 
-import me.keybarricade.voxeltex.math.vector.*;
-
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class GameObjectKinematic extends GameObject implements GameObjectKinematicInterface {
 
     /**
      * Linear acceleration.
      */
-    private Vector3fFactory linAcc = new Vector3fFactory();
+    private Vector3f linAcc = new Vector3f();
 
     /**
      * Linear velocity.
      */
-    private Vector3fFactory linVel = new Vector3fFactory();
+    private Vector3f linVel = new Vector3f();
 
     /**
      * Angular acceleration. (local)
      */
-    private Vector3fFactory angAcc = new Vector3fFactory();
+    private Vector3f angAcc = new Vector3f();
 
     /**
      * Angular velocity. (local)
      */
-    private Vector3fFactory angVel = new Vector3fFactory();
+    private Vector3f angVel = new Vector3f();
 
     /**
      * Constructor.
@@ -39,7 +38,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3fFactory position, Quaternionf rotation) {
+    public GameObjectKinematic(Vector3f position, Quaternionf rotation) {
         super(position, rotation);
     }
 
@@ -49,7 +48,7 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
      * @param position Game object position.
      * @param rotation Game object rotation.
      */
-    public GameObjectKinematic(Vector3fFactory position, Quaternionf rotation, Vector3fFactory linAcc, Vector3fFactory linVel, Vector3fFactory angAcc, Vector3fFactory angVel) {
+    public GameObjectKinematic(Vector3f position, Quaternionf rotation, Vector3f linAcc, Vector3f linVel, Vector3f angAcc, Vector3f angVel) {
         // Construct the super object
         super(position, rotation);
 
@@ -61,42 +60,42 @@ public class GameObjectKinematic extends GameObject implements GameObjectKinemat
     }
 
     @Override
-    public Vector3fFactory getLinearAcceleration() {
+    public Vector3f getLinearAcceleration() {
         return linAcc;
     }
 
     @Override
-    public void setLinearAcceleration(Vector3fFactory linAcc) {
+    public void setLinearAcceleration(Vector3f linAcc) {
         this.linAcc = linAcc;
     }
 
     @Override
-    public Vector3fFactory getLinearVelocity() {
+    public Vector3f getLinearVelocity() {
         return linVel;
     }
 
     @Override
-    public void setLinearVelocity(Vector3fFactory linVel) {
+    public void setLinearVelocity(Vector3f linVel) {
         this.linVel = linVel;
     }
 
     @Override
-    public Vector3fFactory getAngularAcceleration() {
+    public Vector3f getAngularAcceleration() {
         return angAcc;
     }
 
     @Override
-    public void setAngularAcceleration(Vector3fFactory angAcc) {
+    public void setAngularAcceleration(Vector3f angAcc) {
         this.angAcc = angAcc;
     }
 
     @Override
-    public Vector3fFactory getAngularVelocity() {
+    public Vector3f getAngularVelocity() {
         return angVel;
     }
 
     @Override
-    public void setAngularVelocity(Vector3fFactory angVel) {
+    public void setAngularVelocity(Vector3f angVel) {
         this.angVel = angVel;
     }
 

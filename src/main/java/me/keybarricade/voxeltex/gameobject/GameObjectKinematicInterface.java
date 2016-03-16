@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
-import me.keybarricade.voxeltex.math.vector.*;
+import org.joml.Vector3f;
 
 public interface GameObjectKinematicInterface {
 
@@ -9,54 +9,54 @@ public interface GameObjectKinematicInterface {
      *
      * @return Linear acceleration.
      */
-    Vector3fFactory getLinearAcceleration();
+    Vector3f getLinearAcceleration();
 
     /**
      * Set the linear acceleration.
      *
      * @param linAcc Linear acceleration.
      */
-    void setLinearAcceleration(Vector3fFactory linAcc);
+    void setLinearAcceleration(Vector3f linAcc);
 
     /**
      * Get the linear velocity.
      *
      * @return Set the linear velocity.
      */
-    Vector3fFactory getLinearVelocity();
+    Vector3f getLinearVelocity();
 
     /**
      * Set the linear velocity.
      *
      * @param linVel Linear velocity.
      */
-    void setLinearVelocity(Vector3fFactory linVel);
+    void setLinearVelocity(Vector3f linVel);
 
     /**
      * Get the angular acceleration.
      *
      * @return Angular acceleration.
      */
-    Vector3fFactory getAngularAcceleration();
+    Vector3f getAngularAcceleration();
 
     /**
      * Set the angular acceleration.
      *
      * @param angAcc Angular acceleration.
      */
-    void setAngularAcceleration(Vector3fFactory angAcc);
+    void setAngularAcceleration(Vector3f angAcc);
 
     /**
      * Get the angular velocity.
      *
      * @return Angular velocity.
      */
-    Vector3fFactory getAngularVelocity();
+    Vector3f getAngularVelocity();
 
     /**
      * Set the angular velocity.
      *
      * @param angVel Angular velocity.
      */
-    void setAngularVelocity(Vector3fFactory angVel);
+    void setAngularVelocity(Vector3f angVel);
 }
