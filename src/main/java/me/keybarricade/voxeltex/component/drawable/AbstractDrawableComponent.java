@@ -5,9 +5,7 @@ import org.joml.Vector3f;
 
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
-public class AbstractDrawableComponent extends BaseComponent implements DrawableComponentInterface {
-    @Override
-    public void update() { }
+public abstract class AbstractDrawableComponent extends BaseComponent implements DrawableComponentInterface {
 
     @Override
     public void draw() {
