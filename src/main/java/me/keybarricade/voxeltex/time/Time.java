@@ -2,6 +2,8 @@ package me.keybarricade.voxeltex.time;
 
 public class Time {
 
+    // TODO: Make sure none of these time values has an overflow!
+
     /**
      * Timer instance, used to calculate time.
      */
@@ -15,7 +17,12 @@ public class Time {
     /**
      * The time in seconds the frame started rendering.
      */
-    public static double time = 0;
+    public static double time = 0.0;
+
+    /**
+     * The time in seconds the frame started rendering as a float.
+     */
+    public static float timeFloat = 0.0f;
 
     /**
      * The time in nanoseconds the frame started rendering.
@@ -25,7 +32,12 @@ public class Time {
     /**
      * The time between the last frame and this frame in seconds.
      */
-    public static double deltaTime = 0;
+    public static double deltaTime = 0.0;
+
+    /**
+     * The time between the last frame and this frame in seconds as a float.
+     */
+    public static float deltaTimeFloat = 0.0f;
 
     /**
      * The time between the last frame and this frame in nanoseconds.
@@ -52,25 +64,28 @@ public class Time {
 
     /**
      * Update the times.
+     * This should only be called once when the frame starts.
      */
     public static void update() {
         // Move the time and nano time to the last time
-        double lastTime = time;
-        long lastTimeNano = timeNano;
+        double lastTime = Time.time;
+        long lastTimeNano = Time.timeNano;
 
         // Store the current times
         time = Time.timer.getElapsedTime();
         timeNano = Time.timer.getElapsedNano();
 
         // Calculate the delta times
-        if(!isFirst) {
-            deltaTime = time - lastTime;
-            deltaTimeNano = timeNano - lastTimeNano;
+        if(!Time.isFirst) {
+            Time.deltaTime = Time.time - lastTime;
+            Time.deltaTimeFloat = (float) Time.deltaTime;
+            Time.deltaTimeNano = Time.timeNano - lastTimeNano;
 
         } else {
-            deltaTime = 0;
-            deltaTimeNano = 0;
-            isFirst = false;
+            Time.deltaTime = 0.0;
+            Time.deltaTimeFloat = 0.0f;
+            Time.deltaTimeNano = 0;
+            Time.isFirst = false;
         }
     }
 }
