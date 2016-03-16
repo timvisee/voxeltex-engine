@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.camera.FreeCamera;
+import me.keybarricade.voxeltex.time.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -182,6 +183,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Create the rendering capabilities, required by LWJGL
         GL.createCapabilities();
 
+        // Initialize the Time object
+        Time.init();
+
         // Set the clear (default) color
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
@@ -202,6 +206,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
         // Start a loop until the window should close
         while(!this.window.glWindowShouldCloseBoolean()) {
+            // Update time Time object
+            Time.update();
+
             // Reset t he camera acceleration
             this.camera.getAngularVelocity().zero();
 
@@ -230,14 +237,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Set the angular velocity of the camera
             this.camera.getAngularVelocity().set(mouseY, mouseX, rotateZ);
 
-            // Compute the delta time
-            // TODO: Create a class for this!
-            long thisTime = System.nanoTime();
-            float diff = (float) ((thisTime - lastTime) / 1E9);
-            lastTime = thisTime;
-
             // Update the camera
-            camera.update(diff);
+            System.out.println(Time.deltaTime);
+            camera.update(Time.deltaTimeFloat);
 
             // Set the default viewport
             this.window.glViewportDefault();
