@@ -8,7 +8,7 @@
 
     <version>0.1</version>
 
-    <name>Key Barricade</name>
+    <title>KeyBarricade</title>
     <description>Key Barricade game.</description>
     <inceptionYear>2016</inceptionYear>
     <url>https://github.com/timvisee/KeyBarricade</url>
@@ -31,7 +31,7 @@
 
     <licenses>
         <license>
-            <name>The GNU General Public Licence version 3 (GPLv3)</name>
+            <!--<title>The GNU General Public Licence version 3 (GPLv3)</title>-->
             <url>http://www.gnu.org/licenses/gpl-3.0.html</url>
         </license>
     </licenses>
@@ -98,7 +98,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.name}-${project.version}</finalName>
+        <finalName>${project.title}-${project.version}</finalName>
         <resources>
             <resource>
                 <targetPath>.</targetPath>
@@ -123,6 +123,12 @@
     </build>
 
     <repositories>
+
+        <!-- JOML OpenGL mathematics library -->
+        <repository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
 
     </repositories>
 
@@ -158,6 +164,13 @@
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>1.17</version>
+        </dependency>
+
+        <!-- JOML OpenGL mathematics library -->
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>1.7.2-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
