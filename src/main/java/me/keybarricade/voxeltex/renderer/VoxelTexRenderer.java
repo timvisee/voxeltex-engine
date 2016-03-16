@@ -235,7 +235,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             this.camera.getAngularVelocity().set(mouseY, mouseX, rotateZ);
 
             // Update the camera
-            camera.update(Time.timeFloat);
+            camera.update(Time.deltaTimeFloat);
 
             // Set the default viewport
             this.window.glViewportDefault();
