@@ -2,7 +2,7 @@ package me.keybarricade.voxeltex.gameobject;
 
 import org.joml.Vector3f;
 
-public class GameObjectKinematic extends GameObject {
+public class GameObjectKinematic extends GameObject implements GameObjectKinematicInterface {
 
     /**
      * Linear acceleration.
@@ -24,74 +24,34 @@ public class GameObjectKinematic extends GameObject {
      */
     private Vector3f angVel = new Vector3f();
 
-    /**
-     * Get the linear acceleration.
-     *
-     * @return Linear acceleration.
-     */
     public Vector3f getLinearAcceleration() {
         return linAcc;
     }
 
-    /**
-     * Set the linear acceleration.
-     *
-     * @param linAcc Linear acceleration.
-     */
     public void setLinearAcceleration(Vector3f linAcc) {
         this.linAcc = linAcc;
     }
 
-    /**
-     * Get the linear velocity.
-     *
-     * @return Set the linear velocity.
-     */
     public Vector3f getLinearVelocity() {
         return linVel;
     }
 
-    /**
-     * Set the linear velocity.
-     *
-     * @param linVel Linear velocity.
-     */
     public void setLinearVelocity(Vector3f linVel) {
         this.linVel = linVel;
     }
 
-    /**
-     * Get the angular acceleration.
-     *
-     * @return Angular acceleration.
-     */
     public Vector3f getAngularAcceleration() {
         return angAcc;
     }
 
-    /**
-     * Set the angular acceleration.
-     *
-     * @param angAcc Angular acceleration.
-     */
     public void setAngularAcceleration(Vector3f angAcc) {
         this.angAcc = angAcc;
     }
 
-    /**
-     * Get the angular velocity.
-     *
-     * @return Angular velocity.
-     */
     public Vector3f getAngularVelocity() {
         return angVel;
     }
 
-    /**
-     * Set the angular velocity.
-     *
-     * @param angVel Angular velocity.
-     */
     public void setAngularVelocity(Vector3f angVel) {
         this.angVel = angVel;
     }
