@@ -31,7 +31,7 @@ public abstract class GameObject extends GameObjectAbstract {
     /**
      * Constructor.
      */
-    public GameObject(GameObject parent) { }
+    public GameObject() { }
 
     /**
      * Constructor.
