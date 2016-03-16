@@ -77,6 +77,7 @@
 
     <dependencies>
 
+        <!-- LWJGL libraries -->
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>
@@ -99,6 +100,13 @@
             <artifactId>lwjgl-platform</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>natives-linux</classifier>
+        </dependency>
+
+        <!-- YAML library -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.17</version>
         </dependency>
 
     </dependencies>
