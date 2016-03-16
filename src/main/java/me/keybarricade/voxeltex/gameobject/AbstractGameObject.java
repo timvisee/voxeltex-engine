@@ -1,18 +1,12 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.component.AbstractComponent;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.List;
 
 public abstract class AbstractGameObject {
-
-    /**
-     * Get all children.
-     *
-     * @return Game object children.
-     */
-    public abstract List<AbstractGameObject> getChildren();
 
     /**
      * Get the parent game object.
@@ -27,6 +21,13 @@ public abstract class AbstractGameObject {
      * @param parent Parent game object.
      */
     protected abstract void setParent(AbstractGameObject parent);
+
+    /**
+     * Get all children.
+     *
+     * @return Game object children.
+     */
+    public abstract List<AbstractGameObject> getChildren();
 
     /**
      * Get the number of children inside this game object.
@@ -71,6 +72,54 @@ public abstract class AbstractGameObject {
      * @return The removed game object or null if no game object was removed.
      */
     public abstract AbstractGameObject removeChild(int i);
+
+    /**
+     * Get all components in this game object.
+     *
+     * @return Game object components.
+     */
+    public abstract List<AbstractComponent> getComponents();
+
+    /**
+     * Get the number of components in this game object.
+     *
+     * @return Component count.
+     */
+    public abstract int getComponentCount();
+
+    /**
+     * Add a component to this game object.
+     *
+     * @param component Component to add.
+     */
+    public abstract void addComponent(AbstractComponent component);
+
+    /**
+     * Get the component at the given index.
+     *
+     * @param i Component index.
+     *
+     * @return Component.
+     */
+    public abstract AbstractComponent getComponent(int i);
+
+    /**
+     * Remove a component from the game object.
+     *
+     * @param component Component to remove.
+     *
+     * @return True if any component was removed, false if not.
+     */
+    public abstract boolean removeComponent(AbstractComponent component);
+
+    /**
+     * Remove a component at the given index.
+     *
+     * @param i Component index.
+     *
+     * @return The component that was removed, or null.
+     */
+    public abstract AbstractComponent removeComponent(int i);
 
     /**
      * Get the game object position.

@@ -15,7 +15,7 @@ public abstract class BaseComponent extends AbstractComponent {
     }
 
     @Override
-    protected void setOwner(AbstractGameObject gameObject) {
+    public void setOwner(AbstractGameObject gameObject) {
         this.owner = gameObject;
     }
 

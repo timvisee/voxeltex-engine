@@ -16,7 +16,7 @@ public abstract class AbstractComponent {
      *
      * @param gameObject Owner.
      */
-    protected abstract void setOwner(AbstractGameObject gameObject);
+    public abstract void setOwner(AbstractGameObject gameObject);
 
     /**
      * Update the component.

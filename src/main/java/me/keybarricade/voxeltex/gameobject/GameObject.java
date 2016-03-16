@@ -1,12 +1,12 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class GameObject extends AbstractGameObject {
 
@@ -19,6 +19,11 @@ public class GameObject extends AbstractGameObject {
      * The children of this game object.
      */
     private List<AbstractGameObject> children = new ArrayList<>();
+
+    /**
+     * The components on this game object.
+     */
+    private List<AbstractComponent> components = new ArrayList<>();
 
     /**
      * Game object position.
@@ -111,7 +116,7 @@ public class GameObject extends AbstractGameObject {
     @Override
     public AbstractGameObject removeChild(int i) {
         // Get the child that will be removed
-        AbstractGameObject child = null;
+        AbstractGameObject child;
 
         // Remove the child by it's index, and make sure any child was removed
         if((child = this.children.remove(i)) == null)
@@ -122,6 +127,55 @@ public class GameObject extends AbstractGameObject {
 
         // Return the child
         return child;
+    }
+
+    @Override
+    public List<AbstractComponent> getComponents() {
+        return this.components;
+    }
+
+    @Override
+    public int getComponentCount() {
+        return this.components.size();
+    }
+
+    @Override
+    public void addComponent(AbstractComponent component) {
+        this.components.add(component);
+    }
+
+    @Override
+    public AbstractComponent getComponent(int i) {
+        return this.components.get(i);
+    }
+
+    @Override
+    public boolean removeComponent(AbstractComponent component) {
+        // Remove any component
+        if(!this.components.remove(component))
+            return false;
+
+        // Reset the owner
+        component.setOwner(null);
+
+        // Return the result
+        return true;
+    }
+
+    @Override
+    public AbstractComponent removeComponent(int i) {
+        // Get the component that will be removed
+        AbstractComponent component;
+
+        // Remove the component by it's index, and make sure any component was removed
+        if((component = this.components.remove(i)) == null)
+            return null;
+
+        // Reset the owner
+        component.setOwner(null);
+
+        // Return the component
+        return component;
     }
 
     @Override
