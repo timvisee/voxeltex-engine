@@ -14,12 +14,12 @@ public abstract class GameObject implements GameObjectInterface {
     private List<GameObjectInterface> children = new ArrayList<>();
 
     /**
-     * Camera position.
+     * Game object position.
      */
-    private Vector3f position = new Vector3f(0, 0, 10);
+    private Vector3f position = new Vector3f(0, 0, 0);
 
     /**
-     * Camera rotation.
+     * Game object rotation.
      */
     private Quaternionf rotation = new Quaternionf();
 
@@ -31,8 +31,8 @@ public abstract class GameObject implements GameObjectInterface {
     /**
      * Constructor.
      *
-     * @param position Camera position.
-     * @param rotation Camera rotation.
+     * @param position Game object position.
+     * @param rotation Game object rotation.
      */
     public GameObject(Vector3f position, Quaternionf rotation) {
         this.position = position;
@@ -118,36 +118,36 @@ public abstract class GameObject implements GameObjectInterface {
     }
 
     /**
-     * Get the camera position.
+     * Get the game object position.
      *
-     * @return Camera position.
+     * @return Game object position.
      */
     public Vector3f getPosition() {
         return position;
     }
 
     /**
-     * Set the camera position.
+     * Set the game object position.
      *
-     * @param position Camera position.
+     * @param position Game object position.
      */
     public void setPosition(Vector3f position) {
         this.position = position;
     }
 
     /**
-     * Get the camera rotation.
+     * Get the game object rotation.
      *
-     * @return Camera rotation.
+     * @return Game object rotation.
      */
     public Quaternionf getRotation() {
         return rotation;
     }
 
     /**
-     * Set the camera rotation.
+     * Set the game object rotation.
      *
-     * @param rotation Camera rotation.
+     * @param rotation Game object rotation.
      */
     public void setRotation(Quaternionf rotation) {
         this.rotation = rotation;
@@ -157,7 +157,5 @@ public abstract class GameObject implements GameObjectInterface {
      * Update the game object.
      * This will be called once each render.
      */
-    public void update() {
-
-    }
+    public void update() { }
 }

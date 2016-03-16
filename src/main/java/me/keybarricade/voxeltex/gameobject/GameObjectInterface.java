@@ -1,5 +1,8 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+
 import java.util.List;
 
 public interface GameObjectInterface {
@@ -54,6 +57,34 @@ public interface GameObjectInterface {
      * @return True if any game object was removed, false if not.
      */
     boolean removeChild(int i);
+
+    /**
+     * Get the game object position.
+     *
+     * @return Game object position.
+     */
+     Vector3f getPosition();
+
+    /**
+     * Set the game object position.
+     *
+     * @param position Game object position.
+     */
+    void setPosition(Vector3f position);
+
+    /**
+     * Get the game object rotation.
+     *
+     * @return Game object rotation.
+     */
+    Quaternionf getRotation();
+
+    /**
+     * Set the game object rotation.
+     *
+     * @param rotation Game object rotation.
+     */
+    void setRotation(Quaternionf rotation);
 
     /**
      * Update the game object.
