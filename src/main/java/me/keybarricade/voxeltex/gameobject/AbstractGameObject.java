@@ -30,9 +30,9 @@ public abstract class AbstractGameObject {
     public abstract void setName(String name);
 
     /**
-     * Get the transform object of this game object.
+     * Get the transformation of the game object.
      *
-     * @return Transform instance.
+     * @return Game object transformation.
      */
     public abstract Transform getTransform();
 

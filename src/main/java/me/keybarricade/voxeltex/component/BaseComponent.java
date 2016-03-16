@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.component;
 
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
+import me.keybarricade.voxeltex.gameobject.Transform;
 
 public abstract class BaseComponent extends AbstractComponent {
 
@@ -17,6 +18,11 @@ public abstract class BaseComponent extends AbstractComponent {
     @Override
     public void setOwner(AbstractGameObject gameObject) {
         this.owner = gameObject;
+    }
+
+    @Override
+    public Transform getTransform() {
+        return this.owner.getTransform();
     }
 
     @Override

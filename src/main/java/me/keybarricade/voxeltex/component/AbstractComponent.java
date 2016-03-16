@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.component;
 
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
+import me.keybarricade.voxeltex.gameobject.Transform;
 
 public abstract class AbstractComponent {
 
@@ -17,6 +18,13 @@ public abstract class AbstractComponent {
      * @param gameObject Owner.
      */
     public abstract void setOwner(AbstractGameObject gameObject);
+
+    /**
+     * Get the transformation of the owner object.
+     *
+     * @return Owner object transformation.
+     */
+    public abstract Transform getTransform();
 
     /**
      * Update the component.
