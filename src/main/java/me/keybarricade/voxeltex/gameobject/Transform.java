@@ -140,9 +140,10 @@ public class Transform {
      * @param position Game object world position.
      */
     public void setWorldPosition(Vector3f position) {
-        // Set the local position by subtracting the world position of the parent
+        // Set the local position by subtracting the world position of the parent and rotating it by the world rotation
+        // of this object
         setPosition(
-                position.sub(getParentWorldPosition(), Vector3fFactory.identity())
+                position.sub(getParentWorldPosition(), Vector3fFactory.identity()).rotate(getWorldRotation().invert())
         );
     }
 
@@ -215,7 +216,14 @@ public class Transform {
         this.rotation = rotation;
     }
 
-    // TODO: Set world rotation!
+    /**
+     * Set the game object world space rotation.
+     *
+     * @param rotation Game object world space rotation.
+     */
+    public void setWorldRotation(Quaternionf rotation) {
+        this.rotation = rotation.mul(getParentWorldRotation().invert(), QuaternionfFactory.identity());
+    }
 
     /**
      * Get the linear acceleration.
@@ -340,7 +348,18 @@ public class Transform {
     }
 
     /**
-     * Apply the world transform of the current object to the given matrix.
+     * Apply the local transform of the object to the given matrix.
+     *
+     * @param dest Matrix.
+     *
+     * @return The transformed matrix.
+     */
+    public Matrix4f applyTransform(Matrix4f dest) {
+        return dest.translate(-this.position.x, -this.position.y, -this.position.z).rotate(this.rotation);
+    }
+
+    /**
+     * Apply the world transform of the object to the given matrix.
      *
      * @param dest Matrix.
      *
@@ -351,10 +370,7 @@ public class Transform {
         if(getOwner().hasParent())
             getOwner().getParent().getTransform().applyWorldTransform(dest);
 
-        // Translate the matrix with the object's local position
-        dest.translate(-this.position.x, -this.position.y, -this.position.z).rotate(this.rotation);
-
-        // Return the matrix
-        return dest;
+        // Apply the local transformation and return
+        return applyTransform(dest);
     }
 }
