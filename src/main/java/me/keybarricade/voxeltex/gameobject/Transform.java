@@ -2,12 +2,11 @@ package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.time.Time;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class Transform {
-
-    // TODO: Move velocity and acceleration
 
     /**
      * The owner of this transform object.
@@ -77,10 +76,25 @@ public class Transform {
      * @return Game object position.
      */
     public Vector3f getWorldPosition() {
-        // TODO: Do rotation calculations!
+        // Get the parent position
+        Vector3f parentPos = new Vector3f(getParentWorldPosition());
+
+        // TODO: We should use some sort of rotation here!
+        parentPos.rotate(getRotation());
 
         // Calculate and return the world position
-        return getParentWorldPosition().add(getPosition(), Vector3fFactory.zero());
+        return parentPos.add(getPosition());
+    }
+
+    /**
+     * Get the game object position in the world.
+     *
+     * @param dest Vector destination.
+     *
+     * @return Game object position.
+     */
+    public Vector3f getWorldPosition(Vector3f dest) {
+        return getParentWorldPosition().add(getPosition(), dest);
     }
 
     /**
@@ -92,7 +106,7 @@ public class Transform {
     public Vector3f getParentWorldPosition() {
         // Return the parent position if set
         if(getOwner().getParent() != null)
-            return getPosition();
+            return getOwner().getParent().getTransform().getWorldPosition();
 
         // Return zero
         return Vector3fFactory.zero();
@@ -127,21 +141,6 @@ public class Transform {
     }
 
     /**
-     * Get the game object rotation in the world.
-     *
-     * @return Game object rotation.
-     */
-    // TODO: public abstract Quaternionf getWorldRotation();
-
-    /**
-     * Get the rotation of the parent game object.
-     * If the object doesn't have a parent, a zero vector will be returned.
-     *
-     * @return Parent game object rotation.
-     */
-    // TODO: public abstract Quaternionf getParentWorldRotation();
-
-    /**
      * Set the game object rotation.
      *
      * @param rotation Game object rotation.
@@ -149,13 +148,6 @@ public class Transform {
     public void setRotation(Quaternionf rotation) {
         this.rotation = rotation;
     }
-
-    /**
-     * Set the game object rotation in the world.
-     *
-     * @param rotation Game object world rotation.
-     */
-    // TODO: public abstract void setWorldRotation(Quaternionf rotation);
 
     /**
      * Get the linear acceleration.
@@ -277,5 +269,24 @@ public class Transform {
      */
     public Vector3f up(Vector3f dest) {
         return this.rotation.positiveY(dest);
+    }
+
+    /**
+     * Apply the world transform of the current object to the given matrix.
+     *
+     * @param dest Matrix.
+     *
+     * @return The transformed matrix.
+     */
+    public Matrix4f applyWorldTransform(Matrix4f dest) {
+        // Apply the parent to the matrix first if available
+        if(getOwner().hasParent())
+            getOwner().getParent().getTransform().applyWorldTransform(dest);
+
+        // Translate the matrix with the object's local position
+        dest.translate(-this.position.x, -this.position.y, -this.position.z).rotate(this.rotation);
+
+        // Return the matrix
+        return dest;
     }
 }

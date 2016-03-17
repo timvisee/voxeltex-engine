@@ -25,35 +25,35 @@ public class CameraComponent extends AbstractCameraComponent {
 
     @Override
     public void updateCamera() {
-        Vector3f tmp = new Vector3f();
-
-        // Reset the camera acceleration
-        getTransform().getLinearAcceleration().zero();
-
-        // Define the acceleration factor
-        float accFactor = 6.0f;
-        float rotateZ = 0.0f;
-
-        // Handle camera inputs
-        if(Input.isKeyDown(GLFW_KEY_W))
-            getTransform().getLinearAcceleration().fma(accFactor, getTransform().forward(tmp));
-        if(Input.isKeyDown(GLFW_KEY_S))
-            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().forward(tmp));
-        if(Input.isKeyDown(GLFW_KEY_D))
-            getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
-        if(Input.isKeyDown(GLFW_KEY_A))
-            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().right(tmp));
-        if(Input.isKeyDown(GLFW_KEY_Q))
-            rotateZ -= 1.0f;
-        if(Input.isKeyDown(GLFW_KEY_E))
-            rotateZ += 1.0f;
-        if(Input.isKeyDown(GLFW_KEY_SPACE))
-            getTransform().getLinearAcceleration().fma(accFactor, getTransform().up(tmp));
-        if(Input.isKeyDown(GLFW_KEY_LEFT_CONTROL))
-            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().up(tmp));
-
-        // Set the angular velocity of the camera
-        getTransform().getAngularVelocity().set(Input.getMouseY(), Input.getMouseX(), rotateZ);
+//        Vector3f tmp = new Vector3f();
+//
+//        // Reset the camera acceleration
+//        getTransform().getLinearAcceleration().zero();
+//
+//        // Define the acceleration factor
+//        float accFactor = 6.0f;
+//        float rotateZ = 0.0f;
+//
+//        // Handle camera inputs
+//        if(Input.isKeyDown(GLFW_KEY_W))
+//            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().forward(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_S))
+//            getTransform().getLinearAcceleration().fma(accFactor, getTransform().forward(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_D))
+//            getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_A))
+//            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().right(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_Q))
+//            rotateZ -= 1.0f;
+//        if(Input.isKeyDown(GLFW_KEY_E))
+//            rotateZ += 1.0f;
+//        if(Input.isKeyDown(GLFW_KEY_SPACE))
+//            getTransform().getLinearAcceleration().fma(accFactor, getTransform().up(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_LEFT_CONTROL))
+//            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().up(tmp));
+//
+//        // Set the angular velocity of the camera
+//        getTransform().getAngularVelocity().set(Input.getMouseY(), Input.getMouseX(), rotateZ);
     }
 
     @Override

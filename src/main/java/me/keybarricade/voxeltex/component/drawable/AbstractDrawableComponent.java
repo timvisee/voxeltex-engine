@@ -1,7 +1,7 @@
 package me.keybarricade.voxeltex.component.drawable;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
-import org.joml.AxisAngle4f;
+import me.keybarricade.voxeltex.component.camera.MainCamera;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -18,32 +18,23 @@ public abstract class AbstractDrawableComponent extends BaseComponent implements
      */
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
+    /**
+     * Start the drawing of the component.
+     */
     public void drawStart() {
-        // Save the current matrix state
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
+        // Create a view matrix base based on the camera position
+        Matrix4f viewMatrix = MainCamera.createCameraMatrix();
 
-        Vector3f pos = getTransform().getPosition();
+        // Apply the object's world transformation to the matrix
+        getTransform().applyWorldTransform(viewMatrix);
 
-        Matrix4f matrix = new Matrix4f();
-
-        matrix.translate(pos.x, pos.y, pos.z).rotate(getTransform().getRotation());
-
-        Quaternionf rot = new Quaternionf(getTransform().getRotation());
-
-        Vector3f euler = new Vector3f();
-        rot.getEulerAnglesXYZ(euler);
-
-        AxisAngle4f test = rot.normalize().get(new AxisAngle4f());
-
-        glMatrixMode(GL_MODELVIEW);
-
-        glRotatef(test.angle * 10.0f, test.x, test.y, test.z);
-
-        // Set the matrix mode
-        //glLoadMatrixf(matrix.get(fb));
+        // Load the matrix to the GPU
+        glLoadMatrixf(viewMatrix.get(fb));
     }
 
+    /**
+     * End the drawing of the component.
+     */
     public void drawEnd() {
         // Pop the last matrix
         glPopMatrix();
