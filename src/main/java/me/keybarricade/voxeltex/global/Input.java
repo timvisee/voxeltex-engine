@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex.input;
+package me.keybarricade.voxeltex.global;
 
 import me.keybarricade.voxeltex.input.key.KeyInputManager;
 import me.keybarricade.voxeltex.input.mouse.MouseInputManager;

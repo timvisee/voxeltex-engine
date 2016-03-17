@@ -1,5 +1,6 @@
-package me.keybarricade.voxeltex.component.camera;
+package me.keybarricade.voxeltex.global;
 
+import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
 import org.joml.Matrix4f;
