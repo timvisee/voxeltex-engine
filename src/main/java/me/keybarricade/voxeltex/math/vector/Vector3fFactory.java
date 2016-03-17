@@ -12,7 +12,7 @@ public class Vector3fFactory {
      * @return The vector.
      */
     public static Vector3f identity(Vector3f dest) {
-        return dest.set(0);
+        return dest.zero();
     }
 
     /**
