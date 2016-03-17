@@ -3,6 +3,7 @@ package me.keybarricade.voxeltex.renderer;
 import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.camera.MainCamera;
+import me.keybarricade.voxeltex.component.drawable.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
@@ -70,41 +71,42 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      */
     public void run() {
         // Create a grid renderer object
-        GameObject gridObject = new GameObject("GridRenderer");
+        GameObject gridObject = new GameObject("AxisGridRenderer");
+        gridObject.addComponent(new AxisDrawComponent());
         gridObject.addComponent(new GridDrawComponent());
         this.testScene.addGameObject(gridObject);
 
         // Create an object for testing
         GameObject baseObject = new GameObject("BaseObject");
-        baseObject.getTransform().setAngularVelocity(new Vector3f(0, -0.5f, 0));
-        baseObject.getTransform().setPosition(new Vector3f(0, 0, 5.0f));
+        baseObject.getTransform().setPosition(new Vector3f(0, 0, -1.0f));
+        baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
         baseObject.addComponent(new CubeDrawComponent());
         testScene.addGameObject(baseObject);
 
         // Create a sub object for testing
         GameObject subObject1 = new GameObject("SubObject1");
         subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
-        subObject1.getTransform().setPosition(new Vector3f(-1.5f, -1.5f, 0));
+        subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
         subObject1.addComponent(new CubeDrawComponent());
         baseObject.addChild(subObject1);
 
         // Create a sub object for testing
         GameObject subObject2 = new GameObject("SubObject2");
         subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
-        subObject2.getTransform().setPosition(new Vector3f(-1.5f, -1.5f, 0));
+        subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
         subObject2.addComponent(new CubeDrawComponent());
         subObject1.addChild(subObject2);
 
         // Create a sub object for testing
         GameObject subObject3 = new GameObject("SubObject3");
-        subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, -1.2f, 0.0f));
-        subObject3.getTransform().setPosition(new Vector3f(1.5f, -1.5f, 0));
+        subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
+        subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, 1.2f, 0.0f));
         subObject3.addComponent(new CubeDrawComponent());
         subObject1.addChild(subObject3);
 
         // Create the main camera object and set it's position
         GameObject cameraObject = new GameObject("MainCamera");
-        cameraObject.getTransform().setPosition(new Vector3f(0, -0.50f, -3.0f));
+        cameraObject.getTransform().setPosition(new Vector3f(0, 1.50f, -5.0f));
 
         // Create and add the camera component
         this.mainCameraComponent = new CameraComponent();

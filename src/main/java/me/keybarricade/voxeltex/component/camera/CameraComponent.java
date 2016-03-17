@@ -8,7 +8,6 @@ import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_CONTROL;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 import static org.lwjgl.opengl.GL11.glLoadMatrixf;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
@@ -40,9 +39,9 @@ public class CameraComponent extends AbstractCameraComponent {
 //        if(Input.isKeyDown(GLFW_KEY_S))
 //            getTransform().getLinearAcceleration().fma(accFactor, getTransform().forward(tmp));
 //        if(Input.isKeyDown(GLFW_KEY_D))
-//            getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
-//        if(Input.isKeyDown(GLFW_KEY_A))
 //            getTransform().getLinearAcceleration().fma(-accFactor, getTransform().right(tmp));
+//        if(Input.isKeyDown(GLFW_KEY_A))
+//            getTransform().getLinearAcceleration().fma(accFactor, getTransform().right(tmp));
 //        if(Input.isKeyDown(GLFW_KEY_Q))
 //            rotateZ -= 1.0f;
 //        if(Input.isKeyDown(GLFW_KEY_E))

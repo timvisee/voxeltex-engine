@@ -21,19 +21,13 @@ public abstract class AbstractDrawableComponent extends BaseComponent implements
      */
     public void drawStart() {
         // Create a view matrix base based on the camera position
-        Matrix4f viewMatrix = MainCamera.createCameraMatrix();
+        Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
 
         // Apply the object's world transformation to the matrix
         getTransform().applyWorldTransform(viewMatrix);
 
         // Load the matrix to the GPU
         glLoadMatrixf(viewMatrix.get(fb));
-
-//        // Alternative draw setup
-//        Matrix4f viewMatrix = MainCamera.createCameraMatrix();
-//        Vector3f test = getTransform().getWorldPosition();
-//        viewMatrix.translate(-test.x, -test.y, -test.z).rotate(getTransform().getWorldRotation());
-//        glLoadMatrixf(viewMatrix.get(fb));
     }
 
     /**
@@ -41,6 +35,7 @@ public abstract class AbstractDrawableComponent extends BaseComponent implements
      */
     public void drawEnd() {
         // Pop the last matrix
+        // TODO: Remove this?
         glPopMatrix();
     }
 }

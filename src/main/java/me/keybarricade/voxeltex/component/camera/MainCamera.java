@@ -104,22 +104,23 @@ public class MainCamera {
     }
 
     /**
-     * Create the camera base matrix.
+     * Create the relative camera base matrix.
      *
-     * @return Camera base matrix.
+     * @return Relative camera base matrix.
      */
-    public static Matrix4f createCameraMatrix() {
-        return createCameraMatrix(new Matrix4f());
+    public static Matrix4f createRelativeCameraMatrix() {
+        return createRelativeCameraMatrix(new Matrix4f());
     }
 
     /**
-     * Create the camera base matrix.
+     * Create the relative camera base matrix.
      *
-     * @param dest Destination matrix.
+     * @param dest Destination matrix. (allocation free)
      *
-     * @return Camera base matrix.
+     * @return Relative camera base matrix.
      */
-    public static Matrix4f createCameraMatrix(Matrix4f dest) {
-        return dest.rotate(cameraRotation).translate(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    public static Matrix4f createRelativeCameraMatrix(Matrix4f dest) {
+        // TODO: Should we inverse the rotation?
+        return dest.rotate(cameraRotation).translate(cameraPosition.x, -cameraPosition.y, cameraPosition.z);
     }
 }
