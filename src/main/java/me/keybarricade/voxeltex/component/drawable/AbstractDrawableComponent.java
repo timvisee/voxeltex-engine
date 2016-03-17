@@ -3,8 +3,6 @@ package me.keybarricade.voxeltex.component.drawable;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.camera.MainCamera;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -30,6 +28,12 @@ public abstract class AbstractDrawableComponent extends BaseComponent implements
 
         // Load the matrix to the GPU
         glLoadMatrixf(viewMatrix.get(fb));
+
+//        // Alternative draw setup
+//        Matrix4f viewMatrix = MainCamera.createCameraMatrix();
+//        Vector3f test = getTransform().getWorldPosition();
+//        viewMatrix.translate(-test.x, -test.y, -test.z).rotate(getTransform().getWorldRotation());
+//        glLoadMatrixf(viewMatrix.get(fb));
     }
 
     /**

@@ -76,14 +76,18 @@ public class Transform {
      * @return Game object position.
      */
     public Vector3f getWorldPosition() {
-        // Get the parent position
-        Vector3f parentPos = new Vector3f(getParentWorldPosition());
+        // Copy the local position
+        Vector3f pos = new Vector3f(getPosition());
 
-        // TODO: We should use some sort of rotation here!
-        parentPos.rotate(getRotation());
+        // Apply the world rotation of the parent
+        if(getOwner().hasParent())
+            pos.rotate(getOwner().getParent().getTransform().getWorldRotation());
+
+        // Add the world rotation of the parent
+        pos.add(getParentWorldPosition());
 
         // Calculate and return the world position
-        return parentPos.add(getPosition());
+        return pos;
     }
 
     /**
@@ -105,7 +109,7 @@ public class Transform {
      */
     public Vector3f getParentWorldPosition() {
         // Return the parent position if set
-        if(getOwner().getParent() != null)
+        if(getOwner().hasParent())
             return getOwner().getParent().getTransform().getWorldPosition();
 
         // Return zero
@@ -127,6 +131,8 @@ public class Transform {
      * @param position Game object world position.
      */
     public void setWorldPosition(Vector3f position) {
+        // TODO: Validate this!
+
         // Calculate and set the local position
         setPosition(position.sub(getParentWorldPosition(), Vector3fFactory.zero()));
     }
@@ -138,6 +144,49 @@ public class Transform {
      */
     public Quaternionf getRotation() {
         return rotation;
+    }
+
+    /**
+     * Get the game object rotation in the world.
+     *
+     * @return Game object rotation.
+     */
+    public Quaternionf getWorldRotation() {
+        // Get the parent rotation
+        Quaternionf parentRot = new Quaternionf(getParentWorldRotation());
+
+        // Multiply the parent's rotation with the current rotation
+        parentRot.mul(getRotation(), parentRot);
+
+        // Return the parent rotation
+        return parentRot;
+    }
+
+    /**
+     * Get the game object rotation in the world.
+     *
+     * @param dest Quaternion destination.
+     *
+     * @return Game object rotation.
+     */
+    public Quaternionf getWorldRotation(Quaternionf dest) {
+        return getParentWorldRotation().mul(getRotation(), dest);
+    }
+
+    /**
+     * Get the rotation of the parent game object.
+     * If the object doesn't have a parent, a zero quaternion will be returned.
+     *
+     * @return Parent game object rotation.
+     */
+    public Quaternionf getParentWorldRotation() {
+        // Return the parent position if set
+        if(getOwner().getParent() != null)
+            return getOwner().getParent().getTransform().getWorldRotation();
+
+        // Return zero
+        // TODO: Use a factory here
+        return new Quaternionf();
     }
 
     /**
