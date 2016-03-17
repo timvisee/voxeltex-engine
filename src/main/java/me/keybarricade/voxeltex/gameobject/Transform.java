@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.math.quaternion.QuaternionfFactory;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.time.Time;
 import org.joml.Matrix4f;
@@ -16,12 +17,12 @@ public class Transform {
     /**
      * Game object position.
      */
-    private Vector3f position = new Vector3f(0, 0, 0);
+    private Vector3f position = Vector3fFactory.identity();
 
     /**
      * Game object rotation.
      */
-    private Quaternionf rotation = new Quaternionf();
+    private Quaternionf rotation = QuaternionfFactory.identity();
 
     /**
      * Linear acceleration.
@@ -76,29 +77,25 @@ public class Transform {
      * @return Game object position.
      */
     public Vector3f getWorldPosition() {
-        // Copy the local position
-        Vector3f pos = new Vector3f(getPosition());
-
-        // Apply the world rotation of the parent
-        if(getOwner().hasParent())
-            pos.rotate(getOwner().getParent().getTransform().getWorldRotation());
-
-        // Add the world rotation of the parent
-        pos.add(getParentWorldPosition());
-
-        // Calculate and return the world position
-        return pos;
+        return getWorldPosition(Vector3fFactory.identity());
     }
 
     /**
      * Get the game object position in the world.
      *
-     * @param dest Vector destination.
+     * @param dest Vector destination. (allocation free)
      *
      * @return Game object position.
      */
     public Vector3f getWorldPosition(Vector3f dest) {
-        return getParentWorldPosition().add(getPosition(), dest);
+        // Copy the local position
+        dest.set(this.position);
+
+        // Apply the world rotation of the parent
+        dest.rotate(getParentWorldRotation());
+
+        // Add the world rotation of the parent and return the result
+        return dest.add(getParentWorldPosition());
     }
 
     /**
@@ -108,12 +105,24 @@ public class Transform {
      * @return Parent game object position.
      */
     public Vector3f getParentWorldPosition() {
+        return getParentWorldPosition(Vector3fFactory.identity());
+    }
+
+    /**
+     * Get the position of the parent game object.
+     * If the object doesn't have a parent, a zero vector will be returned.
+     *
+     * @param dest Vector destination. (allocation free)
+     *
+     * @return Parent game object position.
+     */
+    public Vector3f getParentWorldPosition(Vector3f dest) {
         // Return the parent position if set
         if(getOwner().hasParent())
-            return getOwner().getParent().getTransform().getWorldPosition();
+            return getOwner().getParent().getTransform().getWorldPosition(dest);
 
         // Return zero
-        return Vector3fFactory.zero();
+        return Vector3fFactory.identity(dest);
     }
 
     /**
@@ -131,10 +140,10 @@ public class Transform {
      * @param position Game object world position.
      */
     public void setWorldPosition(Vector3f position) {
-        // TODO: Validate this!
-
-        // Calculate and set the local position
-        setPosition(position.sub(getParentWorldPosition(), Vector3fFactory.zero()));
+        // Set the local position by subtracting the world position of the parent
+        setPosition(
+                position.sub(getParentWorldPosition(), Vector3fFactory.identity())
+        );
     }
 
     /**
@@ -152,25 +161,22 @@ public class Transform {
      * @return Game object rotation.
      */
     public Quaternionf getWorldRotation() {
-        // Get the parent rotation
-        Quaternionf parentRot = new Quaternionf(getParentWorldRotation());
-
-        // Multiply the parent's rotation with the current rotation
-        parentRot.mul(getRotation(), parentRot);
-
-        // Return the parent rotation
-        return parentRot;
+        return getWorldRotation(QuaternionfFactory.identity());
     }
 
     /**
      * Get the game object rotation in the world.
      *
-     * @param dest Quaternion destination.
+     * @param dest Quaternion destination. (allocation free)
      *
      * @return Game object rotation.
      */
     public Quaternionf getWorldRotation(Quaternionf dest) {
-        return getParentWorldRotation().mul(getRotation(), dest);
+        // Get the parent rotation
+        getParentWorldRotation(dest);
+
+        // Multiply the parent's rotation with the current rotation and return the result
+        return dest.mul(getRotation(), dest);
     }
 
     /**
@@ -180,13 +186,24 @@ public class Transform {
      * @return Parent game object rotation.
      */
     public Quaternionf getParentWorldRotation() {
+        return getParentWorldRotation(QuaternionfFactory.identity());
+    }
+
+    /**
+     * Get the rotation of the parent game object.
+     * If the object doesn't have a parent, a zero quaternion will be returned.
+     *
+     * @param dest Quaternion destination. (allocation free)
+     *
+     * @return Parent game object rotation.
+     */
+    public Quaternionf getParentWorldRotation(Quaternionf dest) {
         // Return the parent position if set
-        if(getOwner().getParent() != null)
-            return getOwner().getParent().getTransform().getWorldRotation();
+        if(getOwner().hasParent())
+            return getOwner().getParent().getTransform().getWorldRotation(dest);
 
         // Return zero
-        // TODO: Use a factory here
-        return new Quaternionf();
+        return dest.identity();
     }
 
     /**
@@ -197,6 +214,8 @@ public class Transform {
     public void setRotation(Quaternionf rotation) {
         this.rotation = rotation;
     }
+
+    // TODO: Set world rotation!
 
     /**
      * Get the linear acceleration.
