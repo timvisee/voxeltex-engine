@@ -2,6 +2,8 @@ package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
+import me.keybarricade.voxeltex.component.camera.MainCamera;
+import me.keybarricade.voxeltex.component.drawable.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
@@ -68,29 +70,58 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * This will initialize and start the rendering loop.
      */
     public void run() {
+        // Create a grid renderer object
+        GameObject axisObject = new GameObject("AxisGridRenderer");
+        axisObject.addComponent(new AxisDrawComponent());
+        axisObject.getTransform().setPosition(new Vector3f(0.05f));
+        this.testScene.addGameObject(axisObject);
+
+        // Create a grid renderer object
+        GameObject gridObject = new GameObject("AxisGridRenderer");
+        gridObject.addComponent(new GridDrawComponent());
+        this.testScene.addGameObject(gridObject);
+
         // Create an object for testing
-        GameObject myObj = new GameObject("TestObject");
+        GameObject baseObject = new GameObject("BaseObject");
+        baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
+        baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
+        baseObject.addComponent(new CubeDrawComponent());
+        testScene.addGameObject(baseObject);
 
-        // Set some angular velocity
-        myObj.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 1.0f));
-        myObj.getTransform().setPosition(new Vector3f(0, 0, -5.0f));
-        //myObj.getTransform().setLinearVelocity(new Vector3f(1.0f, 0, 0));
+        // Create a sub object for testing
+        GameObject subObject1 = new GameObject("SubObject1");
+        subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
+        subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
+        subObject1.addComponent(new CubeDrawComponent());
+        baseObject.addChild(subObject1);
 
-        // Add the grid renderer and cube component
-        myObj.addComponent(new GridDrawComponent());
-        myObj.addComponent(new CubeDrawComponent());
+        // Create a sub object for testing
+        GameObject subObject2 = new GameObject("SubObject2");
+        subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
+        subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
+        subObject2.addComponent(new CubeDrawComponent());
+        subObject1.addChild(subObject2);
+
+        // Create a sub object for testing
+        GameObject subObject3 = new GameObject("SubObject3");
+        subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
+        subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, 1.2f, 0.0f));
+        subObject3.addComponent(new CubeDrawComponent());
+        subObject1.addChild(subObject3);
 
         // Create the main camera object and set it's position
-        GameObject camObj = new GameObject("MainCamera");
-        camObj.getTransform().setPosition(new Vector3f(0, 1, 10));
-
-        // Create and add the camera component
+        GameObject cameraObject = new GameObject("MainCamera");
+        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         this.mainCameraComponent = new CameraComponent();
-        camObj.addComponent(this.mainCameraComponent);
+        cameraObject.addComponent(this.mainCameraComponent);
+        testScene.addGameObject(cameraObject);
+        MainCamera.setCamera(this.mainCameraComponent);
 
-        // Add the game object
-        testScene.addGameObject(myObj);
-        testScene.addGameObject(camObj);
+        // Create a grid renderer object
+        GameObject testAxis = new GameObject("TestAxis");
+        testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
+        testAxis.addComponent(new AxisDrawComponent());
+        cameraObject.addChild(testAxis);
 
         try {
             // Initialize the renderer
@@ -207,6 +238,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // TODO: Can we do this in the regular update call?
             mainCameraComponent.updateCamera();
 
+            // Update the position of the main camera
+            MainCamera.update();
+
             // Update the test scene
             testScene.update();
 
@@ -220,16 +254,12 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             final int windowWidth = this.window.getWidth();
             final int windowHeight = this.window.getHeight();
 
-            // Enable matrix mode
+            // Enable the projection mode and configure the camera
             glMatrixMode(GL_PROJECTION);
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
 
-            // Apply the camera's view matrix
-            this.mainCameraComponent.applyViewMatrix();
-
-            // Push the matrix
-            // TODO: Should we keep this here?
-            glPushMatrix();
+            // Enable the model view mode
+            glMatrixMode(GL_MODELVIEW);
 
             // Draw the test scene
             testScene.draw();
