@@ -355,8 +355,7 @@ public class Transform {
      * @return The transformed matrix.
      */
     public Matrix4f applyTransform(Matrix4f dest) {
-        // TODO: Should we inverse the rotation?
-        return dest.translate(this.position.x, this.position.y, this.position.z).rotate(this.rotation.invert(QuaternionfFactory.identity()));
+        return dest.translate(this.position.x, this.position.y, this.position.z).rotate(this.rotation);
     }
 
     /**

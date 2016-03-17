@@ -120,7 +120,6 @@ public class MainCamera {
      * @return Relative camera base matrix.
      */
     public static Matrix4f createRelativeCameraMatrix(Matrix4f dest) {
-        // TODO: Should we inverse the rotation?
-        return dest.rotate(cameraRotation).translate(cameraPosition.x, -cameraPosition.y, cameraPosition.z);
+        return dest.rotate(cameraRotation.invert(new Quaternionf())).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
     }
 }

@@ -71,14 +71,19 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      */
     public void run() {
         // Create a grid renderer object
+        GameObject axisObject = new GameObject("AxisGridRenderer");
+        axisObject.addComponent(new AxisDrawComponent());
+        axisObject.getTransform().setPosition(new Vector3f(0.05f));
+        this.testScene.addGameObject(axisObject);
+
+        // Create a grid renderer object
         GameObject gridObject = new GameObject("AxisGridRenderer");
-        gridObject.addComponent(new AxisDrawComponent());
         gridObject.addComponent(new GridDrawComponent());
         this.testScene.addGameObject(gridObject);
 
         // Create an object for testing
         GameObject baseObject = new GameObject("BaseObject");
-        baseObject.getTransform().setPosition(new Vector3f(0, 0, -1.0f));
+        baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
         baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
         baseObject.addComponent(new CubeDrawComponent());
         testScene.addGameObject(baseObject);
@@ -106,13 +111,17 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
         // Create the main camera object and set it's position
         GameObject cameraObject = new GameObject("MainCamera");
-        cameraObject.getTransform().setPosition(new Vector3f(0, 1.50f, -5.0f));
-
-        // Create and add the camera component
+        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         this.mainCameraComponent = new CameraComponent();
         cameraObject.addComponent(this.mainCameraComponent);
-        MainCamera.setCamera(this.mainCameraComponent);
         testScene.addGameObject(cameraObject);
+        MainCamera.setCamera(this.mainCameraComponent);
+
+        // Create a grid renderer object
+        GameObject testAxis = new GameObject("TestAxis");
+        testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
+        testAxis.addComponent(new AxisDrawComponent());
+        cameraObject.addChild(testAxis);
 
         try {
             // Initialize the renderer
