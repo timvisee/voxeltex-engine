@@ -72,7 +72,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         GameObject myObj = new GameObject("TestObject");
 
         // Set some angular velocity
-        myObj.getTransform().setAngularVelocity(new Vector3f(0, 0, 1.0f));
+        myObj.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 1.0f));
+        myObj.getTransform().setPosition(new Vector3f(0, 0, -5.0f));
+        //myObj.getTransform().setLinearVelocity(new Vector3f(1.0f, 0, 0));
 
         // Add the grid renderer and cube component
         myObj.addComponent(new GridDrawComponent());
@@ -224,6 +226,10 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Apply the camera's view matrix
             this.mainCameraComponent.applyViewMatrix();
+
+            // Push the matrix
+            // TODO: Should we keep this here?
+            glPushMatrix();
 
             // Draw the test scene
             testScene.draw();

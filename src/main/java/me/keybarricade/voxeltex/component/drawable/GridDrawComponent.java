@@ -11,9 +11,6 @@ public class GridDrawComponent extends AbstractDrawableComponent {
 
     @Override
     public void draw() {
-        // Call the super
-        super.draw();
-
         // Enable line drawing mode
         glBegin(GL_LINES);
 

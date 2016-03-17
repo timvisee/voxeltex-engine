@@ -1,7 +1,6 @@
 package me.keybarricade.voxeltex.component.camera;
 
 import me.keybarricade.voxeltex.input.Input;
-import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
@@ -63,6 +62,7 @@ public class CameraComponent extends AbstractCameraComponent {
         Vector3f pos = getTransform().getPosition();
 
         // Apply the camera transformation to the matrix
+        // TODO: Should we do this the other way around?
         return m.rotate(getTransform().getRotation()).translate(-pos.x, -pos.y, -pos.z);
     }
 

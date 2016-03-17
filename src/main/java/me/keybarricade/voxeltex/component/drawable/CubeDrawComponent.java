@@ -9,9 +9,6 @@ public class CubeDrawComponent extends AbstractDrawableComponent {
 
     @Override
     public void draw() {
-        // Call the super
-        super.draw();
-
         // Enter quad drawing mode
         glBegin(GL_QUADS);
 

@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
+import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
 
 import java.util.ArrayList;
@@ -230,7 +231,20 @@ public class GameObject extends AbstractGameObject {
     @Override
     public void draw() {
         // Draw all drawable components and all children
-        this.components.stream().filter(component -> component instanceof DrawableComponentInterface).forEach(component -> ((DrawableComponentInterface) component).draw());
+        for(AbstractComponent component : this.components) {
+            // Make sure the component is drawable
+            if(!(component instanceof DrawableComponentInterface))
+                continue;
+
+            // Cast the component
+            AbstractDrawableComponent drawable = (AbstractDrawableComponent) component;
+
+            // Draw the component
+            drawable.drawStart();
+            drawable.draw();
+            drawable.drawEnd();
+        }
+
         this.children.forEach(AbstractGameObject::draw);
     }
 }
