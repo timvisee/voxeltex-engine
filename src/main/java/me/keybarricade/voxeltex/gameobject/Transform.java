@@ -7,6 +7,8 @@ import org.joml.Vector3f;
 
 public class Transform {
 
+    // TODO: Move velocity and acceleration
+
     /**
      * The owner of this transform object.
      */
