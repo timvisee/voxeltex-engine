@@ -1,13 +1,12 @@
 package me.keybarricade.voxeltex.renderer;
 
-import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
-import me.keybarricade.voxeltex.component.camera.CameraComponent;
-import me.keybarricade.voxeltex.component.camera.MainCamera;
+import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.component.drawable.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.input.Input;
+import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.time.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
@@ -36,11 +35,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * VoxelTex window where we'll be rendering on.
      */
     private VoxelTexWindow window;
-
-    /**
-     * The main camera component used for rendering.
-     */
-    private AbstractCameraComponent mainCameraComponent;
 
     /**
      * Callbacks.
@@ -110,18 +104,15 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         subObject1.addChild(subObject3);
 
         // Create the main camera object and set it's position
-        GameObject cameraObject = new GameObject("MainCamera");
-        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        this.mainCameraComponent = new CameraComponent();
-        cameraObject.addComponent(this.mainCameraComponent);
-        testScene.addGameObject(cameraObject);
-        MainCamera.setCamera(this.mainCameraComponent);
+        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        testScene.addGameObject(fpsCameraPrefab);
 
         // Create a grid renderer object
         GameObject testAxis = new GameObject("TestAxis");
         testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
         testAxis.addComponent(new AxisDrawComponent());
-        cameraObject.addChild(testAxis);
+        fpsCameraPrefab.addChild(testAxis);
 
         try {
             // Initialize the renderer
@@ -233,10 +224,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         while(!this.window.glWindowShouldCloseBoolean()) {
             // Update time Time object
             Time.update();
-
-            // Update the camera
-            // TODO: Can we do this in the regular update call?
-            mainCameraComponent.updateCamera();
 
             // Update the position of the main camera
             MainCamera.update();
