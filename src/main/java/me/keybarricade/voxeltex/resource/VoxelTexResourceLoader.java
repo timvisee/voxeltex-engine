@@ -1,5 +1,7 @@
 package me.keybarricade.voxeltex.resource;
 
+import me.keybarricade.voxeltex.util.BufferUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,28 +48,29 @@ public class VoxelTexResourceLoader {
         InputStream resourceStream = loadResourceAsStream(path);
 
         try {
+            // Create a buffer and output stream for reading
             byte[] buffer = new byte[1024];
             ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-            int line = 0;
-            // read bytes from stream, and store them in buffer
-            while ((line = resourceStream.read(buffer)) != -1) {
-                // Writes bytes from byte array (buffer) into output stream.
+            int line;
+            // Read bytes from the stream, buffer them and put them in the output stream afterwards
+            while((line = resourceStream.read(buffer)) != -1)
                 os.write(buffer, 0, line);
-            }
+
+            // Flush and close the resource and ouput streams
             resourceStream.close();
             os.flush();
             os.close();
 
-            // Convert to a bytes array
-            byte[] bytes = os.toByteArray();
+            // Allocate a new byte buffer (important)
+            ByteBuffer byteBuffer = BufferUtil.createByteBuffer(os.size() + 1);
 
-            // Create a byte buffer for the bytes array
-            ByteBuffer buff = ByteBuffer.allocate(bytes.length);
+            // Put the byte array into the buffer
+            byteBuffer.put(os.toByteArray());
 
-            // Put the bytes into the buffer and return it
-            buff.put(bytes);
-            return buff;
+            // Flip the buffer and return
+            byteBuffer.flip();
+            return byteBuffer;
 
         } catch(IOException ex) {
             ex.printStackTrace();
