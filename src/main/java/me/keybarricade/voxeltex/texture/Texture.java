@@ -1,5 +1,8 @@
 package me.keybarricade.voxeltex.texture;
 
+import me.keybarricade.voxeltex.util.BufferUtil;
+import me.keybarricade.voxeltex.util.Color;
+
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;

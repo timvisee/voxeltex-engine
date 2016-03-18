@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.texture;
 
+import me.keybarricade.voxeltex.util.BufferUtil;
 import org.lwjgl.BufferUtils;
 
 import java.io.IOException;
