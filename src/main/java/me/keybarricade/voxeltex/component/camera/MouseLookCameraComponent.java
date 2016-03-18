@@ -8,13 +8,11 @@ public class MouseLookCameraComponent extends CameraComponent {
     /**
      * Mouse sensitivity on the X axis.
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private float mouseSensitivityX = 2.0f;
 
     /**
      * Mouse sensitivity on the Y axis.
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private float mouseSensitivityY = 2.0f;
 
     @Override
@@ -41,5 +39,41 @@ public class MouseLookCameraComponent extends CameraComponent {
 
         // Center the mouse cursor
         Input.centerMouseCursor();
+    }
+
+    /**
+     * Get the mouse sensitivity on the X coordinate.
+     *
+     * @return Sensitivity.
+     */
+    public float getMouseSensitivityX() {
+        return mouseSensitivityX;
+    }
+
+    /**
+     * Set the mouse sensitivity on the X coordinate.
+     *
+     * @param mouseSensitivityX Sensitivity.
+     */
+    public void setMouseSensitivityX(float mouseSensitivityX) {
+        this.mouseSensitivityX = mouseSensitivityX;
+    }
+
+    /**
+     * Get the mouse sensitivity on the Y coordinate.
+     *
+     * @return Sensitivity.
+     */
+    public float getMouseSensitivityY() {
+        return mouseSensitivityY;
+    }
+
+    /**
+     * Set the mouse sensitivity on the Y coordinate.
+     *
+     * @param mouseSensitivityY Sensitivity.
+     */
+    public void setMouseSensitivityY(float mouseSensitivityY) {
+        this.mouseSensitivityY = mouseSensitivityY;
     }
 }
