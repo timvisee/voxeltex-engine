@@ -230,8 +230,10 @@ public class GameObject extends AbstractGameObject {
         this.transform.update();
 
         // Update all components and then the children
-        this.components.forEach(AbstractComponent::update);
-        this.children.forEach(AbstractGameObject::update);
+        for(AbstractComponent component : this.components)
+            component.update();
+        for(AbstractGameObject child : this.children)
+            child.update();
     }
 
     @Override
@@ -251,6 +253,8 @@ public class GameObject extends AbstractGameObject {
             drawable.drawEnd();
         }
 
-        this.children.forEach(AbstractGameObject::draw);
+        // Draw all children
+        for(AbstractGameObject child : this.children)
+            child.draw();
     }
 }
