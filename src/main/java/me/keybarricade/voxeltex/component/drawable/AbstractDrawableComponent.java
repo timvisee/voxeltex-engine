@@ -1,7 +1,7 @@
 package me.keybarricade.voxeltex.component.drawable;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
-import me.keybarricade.voxeltex.component.camera.MainCamera;
+import me.keybarricade.voxeltex.global.MainCamera;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 

@@ -24,7 +24,4 @@ public abstract class BaseComponent extends AbstractComponent {
     public Transform getTransform() {
         return this.owner.getTransform();
     }
-
-    @Override
-    public abstract void update();
 }

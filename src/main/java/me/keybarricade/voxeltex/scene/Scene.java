@@ -46,7 +46,11 @@ public class Scene extends AbstractGameObjectScene {
 
     @Override
     public void addGameObject(AbstractGameObject gameObject) {
+        // Add the game object to the list
         this.gameObjects.add(gameObject);
+
+        // Start the game object
+        gameObject.start();
     }
 
     @Override

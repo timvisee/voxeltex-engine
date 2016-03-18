@@ -1,5 +1,6 @@
-package me.keybarricade.voxeltex.component.camera;
+package me.keybarricade.voxeltex.global;
 
+import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
 import org.joml.Matrix4f;
@@ -55,13 +56,8 @@ public class MainCamera {
      *
      * @param mainCameraComponent Main camera component.
      */
-    // TODO: Also accept game objects (with a camera attached to them) here!
     public static void setCamera(AbstractCameraComponent mainCameraComponent) {
-        // Set the main camera
         MainCamera.mainCameraComponent = mainCameraComponent;
-
-        // Update the camera positions in the world
-        update();
     }
 
     /**
@@ -83,6 +79,9 @@ public class MainCamera {
         // TODO: Make sure the rotation is cumulative over all objects
         cameraPosition = transform.getWorldPosition();
         cameraRotation = transform.getRotation();
+
+        // Update the camera itself
+        MainCamera.mainCameraComponent.updateCamera();
     }
 
     /**

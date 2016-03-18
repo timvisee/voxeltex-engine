@@ -163,11 +163,14 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void addComponent(AbstractComponent component) {
+        // Add the component
+        this.components.add(component);
+
         // Set the component owner
         component.setOwner(this);
 
-        // Add the component
-        this.components.add(component);
+        // Start the component
+        component.start();
     }
 
     @Override
@@ -217,6 +220,9 @@ public class GameObject extends AbstractGameObject {
         // Return the component
         return component;
     }
+
+    @Override
+    public void start() { }
 
     @Override
     public void update() {
