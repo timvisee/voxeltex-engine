@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.renderer;
 
+import me.keybarricade.voxeltex.component.drawable.QuadDrawComponent;
 import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.component.drawable.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
