@@ -65,6 +65,7 @@ public class Image {
      *
      * @return Image.
      */
+    // TODO: This is causing an NPE when using the image in a Texture, fix this!
     public static Image loadFromEngineResources(String path) {
         // Create a byte buffer for the image to load
         ByteBuffer imageBuffer;

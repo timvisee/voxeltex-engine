@@ -208,7 +208,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Create a grid renderer object
             GameObject quadTest = new GameObject("TextureRenderer");
-            quadTest.addComponent(new QuadDrawComponent());
+            quadTest.addComponent(new TexturedQuadDrawComponent());
             this.testScene.addGameObject(quadTest);
 
             created = true;

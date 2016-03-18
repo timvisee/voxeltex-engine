@@ -1,13 +1,19 @@
 package me.keybarricade.voxeltex.component.drawable;
 
-import me.keybarricade.voxeltex.shader.Shader;
-import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
+import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
+import me.keybarricade.voxeltex.shader.Shader;
+import me.keybarricade.voxeltex.texture.Image;
+import me.keybarricade.voxeltex.texture.Texture;
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class QuadDrawComponent extends AbstractDrawableComponent {
+public class TexturedQuadDrawComponent extends AbstractDrawableComponent {
 
     /**
      * The size of the cube on all three axis.
@@ -25,11 +31,46 @@ public class QuadDrawComponent extends AbstractDrawableComponent {
     @Override
     public void update() { }
 
+    private Texture texture;
+    private Shader shader;
+
     @Override
     public void draw() {
         // Calculate half of the sizes
         float xHalf = size.x / 2f;
         float yHalf = size.y / 2f;
+
+        // Load a texture if it hasn't been loaded yet
+        if(texture == null) {
+            // Load and bind the shader
+            shader = Shader.fromEngineResources("assets/shaders/texvert.vert", "assets/shaders/texfrag.frag");
+            shader.bind();
+
+            // Activate the texture
+            glActiveTexture(GL_TEXTURE0);
+
+            // Load a test texture
+            // TODO: Load from resources here!
+            texture = Texture.fromImage(Image.loadFromPath("./src/main/resources/res/voxeltex/assets/images/test1.png"));
+//            texture = Texture.fromImage(Image.loadFromEngineResources("assets/images/test1.png"));
+        }
+
+        // Get the projection matrix
+        Matrix4f mat = new Matrix4f(VoxelTexRenderer.mat);
+        mat.scale(0.5f, 0.5f, 0.5f);
+
+        // Get the view matrix
+        Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
+        getTransform().applyWorldTransform(viewMatrix);
+
+        // Configure the shader
+        shader.setUniformMatrix4f("pr_matrix", mat);
+        shader.setUniformMatrix4f("ml_matrix", viewMatrix);
+        shader.setUniform1f("tex", 0);
+
+        // Bind the texture and shader to OpenGL
+        shader.bind();
+        texture.bind();
 
         // Enter quad drawing mode
         glBegin(GL_QUADS);
