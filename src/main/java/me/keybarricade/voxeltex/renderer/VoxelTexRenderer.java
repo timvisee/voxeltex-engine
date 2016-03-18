@@ -1,10 +1,7 @@
 package me.keybarricade.voxeltex.renderer;
 
-import me.keybarricade.voxeltex.component.drawable.QuadDrawComponent;
+import me.keybarricade.voxeltex.component.drawable.*;
 import me.keybarricade.voxeltex.global.MainCamera;
-import me.keybarricade.voxeltex.component.drawable.AxisDrawComponent;
-import me.keybarricade.voxeltex.component.drawable.CubeDrawComponent;
-import me.keybarricade.voxeltex.component.drawable.GridDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.global.Input;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
@@ -65,56 +62,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * This will initialize and start the rendering loop.
      */
     public void run() {
-        // Create a grid renderer object
-        GameObject axisObject = new GameObject("AxisGridRenderer");
-        axisObject.addComponent(new AxisDrawComponent());
-        axisObject.getTransform().setPosition(new Vector3f(0.05f));
-        this.testScene.addGameObject(axisObject);
-
-        // Create a grid renderer object
-        GameObject gridObject = new GameObject("AxisGridRenderer");
-        gridObject.addComponent(new GridDrawComponent());
-        this.testScene.addGameObject(gridObject);
-
-        // Create an object for testing
-        GameObject baseObject = new GameObject("BaseObject");
-        baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
-        baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
-        baseObject.addComponent(new CubeDrawComponent());
-        testScene.addGameObject(baseObject);
-
-        // Create a sub object for testing
-        GameObject subObject1 = new GameObject("SubObject1");
-        subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
-        subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
-        subObject1.addComponent(new CubeDrawComponent());
-        baseObject.addChild(subObject1);
-
-        // Create a sub object for testing
-        GameObject subObject2 = new GameObject("SubObject2");
-        subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
-        subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
-        subObject2.addComponent(new CubeDrawComponent());
-        subObject1.addChild(subObject2);
-
-        // Create a sub object for testing
-        GameObject subObject3 = new GameObject("SubObject3");
-        subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
-        subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, 1.2f, 0.0f));
-        subObject3.addComponent(new CubeDrawComponent());
-        subObject1.addChild(subObject3);
-
-        // Create the main camera object and set it's position
-        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        testScene.addGameObject(fpsCameraPrefab);
-
-        // Create a grid renderer object
-        GameObject testAxis = new GameObject("TestAxis");
-        testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
-        testAxis.addComponent(new AxisDrawComponent());
-        fpsCameraPrefab.addChild(testAxis);
-
         try {
             // Initialize the renderer
             init();
@@ -196,12 +143,76 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         Input.centerMouseCursor();
     }
 
+    private boolean created = false;
+    public static Matrix4f mat = new Matrix4f();
+
     /**
      * Rendering loop.
      */
     public void loop() {
         // Create the rendering capabilities, required by LWJGL
         GL.createCapabilities();
+
+        if(!created) {
+            // TODO: Put this in a different spot, where the engine has already loaded!
+
+            // Create a grid renderer object
+            GameObject axisObject = new GameObject("AxisGridRenderer");
+            axisObject.addComponent(new AxisDrawComponent());
+            axisObject.getTransform().setPosition(new Vector3f(0.05f));
+            this.testScene.addGameObject(axisObject);
+
+            // Create a grid renderer object
+            GameObject gridObject = new GameObject("AxisGridRenderer");
+            gridObject.addComponent(new GridDrawComponent());
+            this.testScene.addGameObject(gridObject);
+
+            // Create an object for testing
+            GameObject baseObject = new GameObject("BaseObject");
+            baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
+            baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
+            baseObject.addComponent(new CubeDrawComponent());
+            testScene.addGameObject(baseObject);
+
+            // Create a sub object for testing
+            GameObject subObject1 = new GameObject("SubObject1");
+            subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
+            subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
+            subObject1.addComponent(new CubeDrawComponent());
+            baseObject.addChild(subObject1);
+
+            // Create a sub object for testing
+            GameObject subObject2 = new GameObject("SubObject2");
+            subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
+            subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
+            subObject2.addComponent(new CubeDrawComponent());
+            subObject1.addChild(subObject2);
+
+            // Create a sub object for testing
+            GameObject subObject3 = new GameObject("SubObject3");
+            subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
+            subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, 1.2f, 0.0f));
+            subObject3.addComponent(new CubeDrawComponent());
+            subObject1.addChild(subObject3);
+
+            // Create the main camera object and set it's position
+            FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+            fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+            testScene.addGameObject(fpsCameraPrefab);
+
+            // Create a grid renderer object
+            GameObject testAxis = new GameObject("TestAxis");
+            testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
+            testAxis.addComponent(new AxisDrawComponent());
+            fpsCameraPrefab.addChild(testAxis);
+
+            // Create a grid renderer object
+            GameObject quadTest = new GameObject("TextureRenderer");
+            quadTest.addComponent(new QuadDrawComponent());
+            this.testScene.addGameObject(quadTest);
+
+            created = true;
+        }
 
         // Initialize the Time object
         Time.init();
@@ -217,7 +228,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         glLineWidth(1.0f);
 
         Vector3f tmp = new Vector3f();
-        Matrix4f mat = new Matrix4f();
+        mat = new Matrix4f();
         // FloatBuffer for transferring matrices to OpenGL
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
@@ -248,6 +259,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Enable the model view mode
             glMatrixMode(GL_MODELVIEW);
+
+            //int vbo = glGenBuffers();
 
             // Draw the test scene
             testScene.draw();
