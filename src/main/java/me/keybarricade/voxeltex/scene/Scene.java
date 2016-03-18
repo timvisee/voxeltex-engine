@@ -84,12 +84,14 @@ public class Scene extends AbstractGameObjectScene {
     @Override
     public void update() {
         // Update all game objects
-        this.gameObjects.forEach(AbstractGameObject::update);
+        for(AbstractGameObject gameObject : this.gameObjects)
+            gameObject.update();
     }
 
     @Override
     public void draw() {
         // Draw all game objects
-        this.gameObjects.forEach(AbstractGameObject::draw);
+        for(AbstractGameObject gameObject : this.gameObjects)
+            gameObject.draw();
     }
 }
