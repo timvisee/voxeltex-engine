@@ -69,7 +69,7 @@ public class Image {
         // Load the image file into the image buffer
         try {
             // TODO: Allocate enough memory for the image!
-            imageBuffer = BufferUtil.fileToByteBuffer(path, 8 * 1024);
+            imageBuffer = BufferUtil.fileToByteBuffer(path);
 
         } catch(IOException e) {
             // TODO: Use a default image!
