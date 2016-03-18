@@ -27,6 +27,13 @@ public abstract class AbstractComponent {
     public abstract Transform getTransform();
 
     /**
+     * Start the component.
+     *
+     * Called when the component is created on the game object.
+     */
+    public abstract void start();
+
+    /**
      * Update the component.
      *
      * Called once each frame before drawing.

@@ -181,6 +181,12 @@ public abstract class AbstractGameObject {
     public abstract AbstractComponent removeComponent(int i);
 
     /**
+     * Start the game object.
+     * This will be called as soon as the game object is being created.
+     */
+    public abstract void start();
+
+    /**
      * Update the game object.
      * This will be called once each frame before drawing the game object.
      */
