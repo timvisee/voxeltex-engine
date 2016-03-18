@@ -18,7 +18,10 @@ public class MouseLookCameraComponent extends CameraComponent {
     private float mouseSensitivityY = 2.0f;
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 
     @Override
     public void update() { }
