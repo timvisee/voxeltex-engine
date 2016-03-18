@@ -94,16 +94,6 @@
 
     <build>
         <finalName>${project.name}-${project.version}</finalName>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <!-- Copy native LWJGL libraries to target directory -->
             <plugin>
@@ -178,6 +168,17 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -216,13 +217,6 @@
             <artifactId>lwjgl-platform</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>natives-linux</classifier>
-        </dependency>
-
-        <!-- PNG Decoder library -->
-        <dependency>
-            <groupId>org.l33tlabs.twl</groupId>
-            <artifactId>pngdecoder</artifactId>
-            <version>1.0</version>
         </dependency>
 
         <!-- YAML library -->
