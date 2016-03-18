@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.texture;
 
+import me.keybarricade.voxeltex.resource.VoxelTexResourceLoader;
 import me.keybarricade.voxeltex.util.BufferUtil;
 import org.lwjgl.BufferUtils;
 
@@ -58,11 +59,39 @@ public class Image {
     }
 
     /**
-     * Constructor.
+     * Load an image from the given path.
      *
      * @param path Image path.
+     *
+     * @return Image.
      */
-    public Image(String path) {
+    public static Image loadFromEngineResources(String path) {
+        // Create a byte buffer for the image to load
+        ByteBuffer imageBuffer;
+
+        // Load the image file into the image buffer
+        imageBuffer = VoxelTexResourceLoader.loadResourceInByteBuffer(path);
+
+        // Create some integer buffers for STB interaction
+        IntBuffer w = BufferUtils.createIntBuffer(1);
+        IntBuffer h = BufferUtils.createIntBuffer(1);
+        IntBuffer c = BufferUtils.createIntBuffer(1);
+
+        // Load the image into memory using STB
+        ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
+
+        // Create the image instance and return it
+        return new Image(image, w.get(0), h.get(0), c.get(0));
+    }
+
+    /**
+     * Load an image from the given path.
+     *
+     * @param path Image path.
+     *
+     * @return Image.
+     */
+    public static Image loadFromPath(String path) {
         // Create a byte buffer for the image to load
         ByteBuffer imageBuffer;
 
@@ -83,12 +112,10 @@ public class Image {
         IntBuffer c = BufferUtils.createIntBuffer(1);
 
         // Load the image into memory using STB
-        image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
+        ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
 
-        // Set the image fields
-        this.width = w.get(0);
-        this.height = w.get(0);
-        this.components = w.get(0);
+        // Create the image instance and return it
+        return new Image(image, w.get(0), h.get(0), c.get(0));
     }
 
     /**
