@@ -20,6 +20,9 @@ public class FpsCameraComponent extends MouseLookCameraComponent {
     private float flySpeedFast = 100.0f;
 
     @Override
+    public void start() { }
+
+    @Override
     public void update() { }
 
     @Override
