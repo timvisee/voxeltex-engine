@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.component.camera;
 
+import me.keybarricade.voxeltex.global.MainCamera;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
@@ -18,7 +19,10 @@ public class CameraComponent extends AbstractCameraComponent {
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     @Override
-    public void start() { }
+    public void start() {
+        // Register the camera as main camera
+        MainCamera.setCamera(this);
+    }
 
     @Override
     public void update() { }
