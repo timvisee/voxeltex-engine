@@ -35,8 +35,8 @@ public class CubeDrawComponent extends AbstractDrawableComponent {
 
         // Set the color and draw the quad
         glColor3f(0.0f, 0.0f, 0.2f );
-        glVertex3f(center.x + xHalf, center.y + -yHalf, center.z + -zHalf);
-        glVertex3f(center.x + xHalf, center.y + yHalf, center.z + -zHalf);
+        glVertex3f(center.x + xHalf, center.y - yHalf, center.z - zHalf);
+        glVertex3f(center.x + xHalf, center.y + yHalf, center.z - zHalf);
         glVertex3f(center.x - xHalf, center.y + yHalf, center.z - zHalf);
         glVertex3f(center.x - xHalf, center.y - yHalf, center.z - zHalf);
 
