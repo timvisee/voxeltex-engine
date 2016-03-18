@@ -4,8 +4,8 @@ import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import me.keybarricade.voxeltex.shader.Shader;
-import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 
@@ -51,9 +51,13 @@ public class TexturedQuadDrawComponent extends AbstractDrawableComponent {
 
             // Load a test texture
             // TODO: Load from resources here!
-            texture = Texture.fromImage(Image.loadFromPath("./src/main/resources/res/voxeltex/assets/images/test1.png"));
+//            texture = Texture.fromImage(Image.loadFromPath("./src/main/resources/res/voxeltex/assets/images/test1.png"));
 //            texture = Texture.fromImage(Image.loadFromEngineResources("assets/images/test1.png"));
+            texture = Texture.fromColor(new Color(1, 0.5f, 0, 1), 16, 16);
         }
+
+        // Bind the shader to OpenGL
+        shader.bind();
 
         // Get the projection matrix
         Matrix4f mat = new Matrix4f(VoxelTexRenderer.mat);
@@ -69,7 +73,6 @@ public class TexturedQuadDrawComponent extends AbstractDrawableComponent {
         shader.setUniform1f("tex", 0);
 
         // Bind the texture and shader to OpenGL
-        shader.bind();
         texture.bind();
 
         // Enter quad drawing mode
