@@ -110,16 +110,38 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
      * @param offset Offset.
      */
     public QuadMeshGenerator(int orientation, Vector2f size, Vector3f offset) {
+        // Generate and store the quad vertexes
+        float[] vertexes = generateVertexes(orientation, size, offset);
+
+        // Generate the texture coordinates in the same order
+        float[] textures = generateTextures();
+
+        // Create and store the raw mesh
+        this.raw = new RawMesh(vertexes, textures);
+    }
+
+    @Override
+    public RawMesh getRawMesh() {
+        return this.raw;
+    }
+
+    /**
+     * Generate the vertexes for a quad.
+     *
+     * @param orientation Quad orientation.
+     * @param size Quad size.
+     * @param offset Quad offset.
+     *
+     * @return Quad vertexes.
+     */
+    public static float[] generateVertexes(int orientation, Vector2f size, Vector3f offset) {
         // Calculate half of the offset values
         Vector2f halfSize = size.mul(0.5f, Vector2fFactory.identity());
 
-        // Define the vertexes array
-        float[] vertexes = new float[0];
-
-        // Generate the vertexes for the quad based on the specified orientation
-        switch(orientation) {
+        // Generate the vertexes for the quad based on the specified orientation and return them
+        switch (orientation) {
             case ORIENTATION_X:
-                vertexes = new float[]{
+                return new float[]{
                         // Left-bottom triangle
                         offset.x, offset.y - halfSize.x, offset.z + halfSize.y,
                         offset.x, offset.y - halfSize.x, offset.z - halfSize.y,
@@ -130,10 +152,9 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x, offset.y + halfSize.x, offset.z + halfSize.y,
                         offset.x, offset.y - halfSize.x, offset.z + halfSize.y
                 };
-                break;
 
             case ORIENTATION_Y:
-                vertexes = new float[]{
+                return new float[]{
                         // Left-bottom triangle
                         offset.x - halfSize.x, offset.y, offset.z + halfSize.y,
                         offset.x - halfSize.x, offset.y, offset.z - halfSize.y,
@@ -144,10 +165,9 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x + halfSize.x, offset.y, offset.z + halfSize.y,
                         offset.x - halfSize.x, offset.y, offset.z + halfSize.y
                 };
-                break;
 
             case ORIENTATION_Z:
-                vertexes = new float[]{
+                return new float[]{
                         // Left-bottom triangle
                         offset.x - halfSize.x, offset.y + halfSize.y, offset.z,
                         offset.x - halfSize.x, offset.y - halfSize.y, offset.z,
@@ -158,11 +178,19 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x + halfSize.x, offset.y + halfSize.y, offset.z,
                         offset.x - halfSize.x, offset.y + halfSize.y, offset.z
                 };
-                break;
         }
 
-        // Generate the texture coordinates in the same order
-        float[] textures = {
+        // Invalid orientation, throw exception
+        throw new RuntimeException("Invalid quad orientation");
+    }
+
+    /**
+     * Generate the texture coordinates for a quad mesh.
+     *
+     * @return Textures.
+     */
+    public static float[] generateTextures() {
+        return new float[]{
                 // Left-bottom triangle
                 0, 1,
                 0, 0,
@@ -173,13 +201,5 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                 1, 1,
                 0, 1
         };
-
-        // Create and store the raw mesh
-        this.raw = new RawMesh(vertexes, textures);
-    }
-
-    @Override
-    public RawMesh getRawMesh() {
-        return this.raw;
     }
 }
