@@ -249,8 +249,38 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void draw() {
-        // TODO: Only configure this if this object contains any drawable object!
+        // Define whether we started drawing
+        boolean drawing = false;
 
+        // Draw all drawable components and all children
+        for(AbstractComponent component : this.components) {
+            // Make sure the component is drawable
+            if(component instanceof DrawableComponentInterface) {
+                // Make sure the drawing mode is enabled
+                if(!drawing) {
+                    // Start the drawing process and set the flag
+                    drawStart();
+                    drawing = true;
+                }
+
+                // Draw the component
+                ((DrawableComponentInterface) component).draw();
+            }
+        }
+
+        // End the drawing process if it was enabled
+        if(drawing)
+            drawEnd();
+
+        // Draw all children
+        for(AbstractGameObject child : this.children)
+            child.draw();
+    }
+
+    /**
+     * Prepare and start the drawing process.
+     */
+    private void drawStart() {
         // Create a view matrix base based on the camera position
         Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
 
@@ -259,18 +289,13 @@ public class GameObject extends AbstractGameObject {
 
         // Load the matrix to the GPU
         glLoadMatrixf(viewMatrix.get(fb));
+    }
 
-        // Draw all drawable components and all children
-        for(AbstractComponent component : this.components)
-            // Draw the component if it's drawable
-            if(component instanceof DrawableComponentInterface)
-                ((DrawableComponentInterface) component).draw();
-
+    /**
+     * End the current drawing process.
+     */
+    private void drawEnd() {
         // Pop the OpenGL matrix
         glPopMatrix();
-
-        // Draw all children
-        for(AbstractGameObject child : this.children)
-            child.draw();
     }
 }
