@@ -3,6 +3,8 @@ package me.keybarricade.voxeltex.component;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
 
+import java.util.List;
+
 public abstract class AbstractComponent {
 
     /**
@@ -25,6 +27,46 @@ public abstract class AbstractComponent {
      * @return Owner object transformation.
      */
     public abstract Transform getTransform();
+
+    /**
+     * Get all components in this game object.
+     *
+     * @return Game object components.
+     */
+    public abstract List<AbstractComponent> getComponents();
+
+    /**
+     * Check whether this game object has any components.
+     *
+     * @return True if this game object has any components, fale if not.
+     */
+    public abstract boolean hasComponents();
+
+    /**
+     * Get the number of components in this game object.
+     *
+     * @return Component count.
+     */
+    public abstract int getComponentCount();
+
+    /**
+     * Get the component at the given index.
+     *
+     * @param i Component index.
+     *
+     * @return Component.
+     */
+    public abstract AbstractComponent getComponent(int i);
+
+    /**
+     * Get the first component of the given type.
+     *
+     * @param componentType Component type.
+     * @param <T> Component type.
+     *
+     * @return The first component of the given type or null if none was found.
+     */
+    public abstract <T extends AbstractComponent> T getComponent(Class<T> componentType);
 
     /**
      * Start the component.
