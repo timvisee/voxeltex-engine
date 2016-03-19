@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.texture;
 
-import me.keybarricade.voxeltex.resource.VoxelTexResourceLoader;
+import me.keybarricade.voxeltex.resource.engine.EngineAssetLoader;
 import me.keybarricade.voxeltex.util.BufferUtil;
 import org.lwjgl.BufferUtils;
 
@@ -66,12 +66,12 @@ public class Image {
      * @return Image.
      */
     // TODO: This is causing an NPE when using the image in a Texture, fix this!
-    public static Image loadFromEngineResources(String path) {
+    public static Image loadFromEngineAssets(String path) {
         // Create a byte buffer for the image to load
         ByteBuffer imageBuffer;
 
         // Load the image file into the image buffer
-        imageBuffer = VoxelTexResourceLoader.loadResourceInByteBuffer(path);
+        imageBuffer = EngineAssetLoader.getInstance().loadResourceByteBuffer(path);
 
         // Create some integer buffers for STB interaction
         IntBuffer w = BufferUtils.createIntBuffer(1);

@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.shader;
 
-import me.keybarricade.voxeltex.resource.VoxelTexResourceLoader;
+import me.keybarricade.voxeltex.resource.engine.EngineAssetLoader;
 import me.keybarricade.voxeltex.util.FileUtil;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
@@ -61,10 +61,10 @@ public class Shader {
      *
      * @return Loaded shader.
      */
-    public static Shader fromEngineResources(String vertexResourcePath, String fragmentResourcePath) {
+    public static Shader fromEngineAssets(String vertexResourcePath, String fragmentResourcePath) {
         // Load the shader sources
-        vertexSource = VoxelTexResourceLoader.loadResourceAsString(vertexResourcePath);
-        fragmentSource = VoxelTexResourceLoader.loadResourceAsString(fragmentResourcePath);
+        vertexSource = EngineAssetLoader.getInstance().loadResourceString(vertexResourcePath);
+        fragmentSource = EngineAssetLoader.getInstance().loadResourceString(fragmentResourcePath);
 
         // Load and return the shader
         return Shader.load();

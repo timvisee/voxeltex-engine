@@ -43,14 +43,14 @@ public class TexturedQuadDrawComponent extends AbstractDrawableComponent {
         // Load a texture if it hasn't been loaded yet
         if(texture == null) {
             // Load and bind the shader
-            shader = Shader.fromEngineResources("assets/shaders/texvert.vert", "assets/shaders/texfrag.frag");
+            shader = Shader.fromEngineAssets("shaders/texvert.vert", "shaders/texfrag.frag");
             shader.bind();
 
             // Activate the texture
             glActiveTexture(GL_TEXTURE0);
 
             // Load a test texture
-            texture = Texture.fromImage(Image.loadFromEngineResources("assets/images/test3.png"));
+            texture = Texture.fromImage(Image.loadFromEngineAssets("images/test3.png"));
         }
 
         // Bind the shader to OpenGL
