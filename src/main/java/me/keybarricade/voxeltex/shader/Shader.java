@@ -196,12 +196,6 @@ public class Shader {
         glDeleteProgram(this.programId);
     }
 
-
-
-
-
-
-
     /**
      * Retrieve uniform location of a variable from the shader.
      *

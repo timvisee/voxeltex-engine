@@ -8,8 +8,6 @@ import org.joml.Vector3f;
 
 public class QuadMeshGenerator extends AbstractMeshGenerator {
 
-    // TODO: Add axis orientation option!
-
     /**
      * Quad orientation on the X axis.
      */
@@ -113,8 +111,7 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
      */
     public QuadMeshGenerator(int orientation, Vector2f size, Vector3f offset) {
         // Calculate half of the offset values
-        Vector2f s = size.mul(0.5f, Vector2fFactory.identity());
-        Vector3f o = offset.div(2.0f, Vector3fFactory.identity());
+        Vector2f halfSize = size.mul(0.5f, Vector2fFactory.identity());
 
         // Define the vertexes array
         float[] vertexes = new float[0];
@@ -124,42 +121,42 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
             case ORIENTATION_X:
                 vertexes = new float[]{
                         // Left-bottom triangle
-                        o.x, o.y - s.x, o.z + s.y,
-                        o.x, o.y - s.x, o.z - s.y,
-                        o.x, o.y + s.x, o.z - s.y,
+                        offset.x, offset.y - halfSize.x, offset.z + halfSize.y,
+                        offset.x, offset.y - halfSize.x, offset.z - halfSize.y,
+                        offset.x, offset.y + halfSize.x, offset.z - halfSize.y,
 
                         // Right-top triangle
-                        o.x, o.y + s.x, o.z - s.y,
-                        o.x, o.y + s.x, o.z + s.y,
-                        o.x, o.y - s.x, o.z + s.y
+                        offset.x, offset.y + halfSize.x, offset.z - halfSize.y,
+                        offset.x, offset.y + halfSize.x, offset.z + halfSize.y,
+                        offset.x, offset.y - halfSize.x, offset.z + halfSize.y
                 };
                 break;
 
             case ORIENTATION_Y:
                 vertexes = new float[]{
                         // Left-bottom triangle
-                        o.x - s.x, o.y, o.z + s.y,
-                        o.x - s.x, o.y, o.z - s.y,
-                        o.x + s.x, o.y, o.z - s.y,
+                        offset.x - halfSize.x, offset.y, offset.z + halfSize.y,
+                        offset.x - halfSize.x, offset.y, offset.z - halfSize.y,
+                        offset.x + halfSize.x, offset.y, offset.z - halfSize.y,
 
                         // Right-top triangle
-                        o.x + s.x, o.y, o.z - s.y,
-                        o.x + s.x, o.y, o.z + s.y,
-                        o.x - s.x, o.y, o.z + s.y
+                        offset.x + halfSize.x, offset.y, offset.z - halfSize.y,
+                        offset.x + halfSize.x, offset.y, offset.z + halfSize.y,
+                        offset.x - halfSize.x, offset.y, offset.z + halfSize.y
                 };
                 break;
 
             case ORIENTATION_Z:
                 vertexes = new float[]{
                         // Left-bottom triangle
-                        o.x - s.x, o.y + s.y, o.z,
-                        o.x - s.x, o.y - s.y, o.z,
-                        o.x + s.x, o.y - s.y, o.z,
+                        offset.x - halfSize.x, offset.y + halfSize.y, offset.z,
+                        offset.x - halfSize.x, offset.y - halfSize.y, offset.z,
+                        offset.x + halfSize.x, offset.y - halfSize.y, offset.z,
 
                         // Right-top triangle
-                        o.x + s.x, o.y - s.y, o.z,
-                        o.x + s.x, o.y + s.y, o.z,
-                        o.x - s.x, o.y + s.y, o.z
+                        offset.x + halfSize.x, offset.y - halfSize.y, offset.z,
+                        offset.x + halfSize.x, offset.y + halfSize.y, offset.z,
+                        offset.x - halfSize.x, offset.y + halfSize.y, offset.z
                 };
                 break;
         }
