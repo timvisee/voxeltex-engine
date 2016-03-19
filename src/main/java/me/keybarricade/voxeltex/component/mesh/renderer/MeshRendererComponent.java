@@ -96,10 +96,10 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             getTransform().applyWorldTransform(viewMatrix);
 
             // Configure the shader
-            material.getShader().setUniformMatrix4f("pr_matrix", mat);
-            material.getShader().setUniformMatrix4f("ml_matrix", viewMatrix);
+            material.getShader().setUniformMatrix4f("prMatrix", mat);
+            material.getShader().setUniformMatrix4f("mlMatrix", viewMatrix);
             if(material.hasTexture())
-                material.getShader().setUniform1f("tex", material.getTexture().getId());
+                material.getShader().setUniform1f("texture", material.getTexture().getId());
         }
 
         // Draw the mesh attached to the mesh filter
