@@ -73,18 +73,15 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         if(!hasMeshFilterComponent() || !getMeshFilterComponent().hasMesh())
             return;
 
-        // Make sure there's a material available for rendering
-        if(!hasMaterial())
-            return;
-
         // TODO: Should we also render if no material is available, with a default color of some sort?
         // TODO: Add compatibility for multiple materials!
-
-        // Get the main material
-        Material material = getMaterial(0);
+        // TODO: Use a default material if none is found!
 
         // Make sure a material is available before using it
         if(hasMaterial()) {
+            // Get the main material
+            Material material = getMaterial(0);
+
             // Bind the material to OpenGL
             material.bind();
 
@@ -109,7 +106,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
         // Unbind the material
         if(hasMaterial())
-            material.unbind();
+            getMaterial(0).unbind();
     }
 
     /**
