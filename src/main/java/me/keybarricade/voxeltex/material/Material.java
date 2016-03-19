@@ -26,6 +26,15 @@ public class Material implements MaterialInterface {
         this.texture = texture;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param shader Material shader.
+     */
+    public Material(Shader shader) {
+        this.shader = shader;
+    }
+
     @Override
     public Shader getShader() {
         return shader;
@@ -42,19 +51,32 @@ public class Material implements MaterialInterface {
     }
 
     @Override
+    public boolean hasTexture() {
+        return getTexture() != null;
+    }
+
+    @Override
     public void setTexture(Texture texture) {
         this.texture = texture;
     }
 
     @Override
     public void bind() {
+        // Bind the shader
         this.shader.bind();
-        this.texture.bind();
+
+        // Bind the texture if available
+        if(hasTexture())
+            this.texture.bind();
     }
 
     @Override
     public void unbind() {
-        Texture.unbind();
+        // Unbind the texture if available
+        if(hasTexture())
+            Texture.unbind();
+
+        // Unbind the shader
         Shader.unbind();
     }
 }

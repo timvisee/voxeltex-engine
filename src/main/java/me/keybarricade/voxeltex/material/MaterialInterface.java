@@ -29,6 +29,13 @@ public interface MaterialInterface {
     Texture getTexture();
 
     /**
+     * Check whether this material has any texture assigned.
+     *
+     * @return True if a texture is assigned, false if not.
+     */
+    boolean hasTexture();
+
+    /**
      * Set the material texture.
      *
      * @param texture Material texture.
