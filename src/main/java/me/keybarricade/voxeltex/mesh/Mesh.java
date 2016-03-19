@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.mesh;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 
 import java.nio.FloatBuffer;
@@ -11,6 +12,11 @@ public class Mesh {
      * The raw mesh object containing the vertexes data.
      */
     private RawMesh raw;
+
+    /**
+     * The number of vertexes in the buffered mesh.
+     */
+    private int vertexCount;
 
     /**
      * Vertex buffer.
@@ -142,6 +148,9 @@ public class Mesh {
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         }
 
+        // Set the number of vertexes
+        this.vertexCount = this.raw.getVertexCount();
+
         // TODO: We can destroy the buffers here?
     }
 
@@ -179,5 +188,39 @@ public class Mesh {
         // Reset the VBO handles
         this.vboVertexHandle = 0;
         this.vboTextureHandle = 0;
+
+        // Reset the vertex count
+        this.vertexCount = 0;
+    }
+
+    /**
+     * TODO: THIS MUST MOVE TO THE MESH RENDERER!
+     */
+    public void draw() {
+        // Bind the vertex buffer
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboVertexHandle);
+        GL11.glVertexPointer(this.raw.getVertexAxisCount(), GL11.GL_FLOAT, 0, 0L);
+
+        // Bind the texture coordinate buffer if available
+        if(hasTextureData()) {
+            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboTextureHandle);
+            GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
+        }
+
+        // Enable the client states for the buffers if available
+        GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+        if(hasTextureData())
+            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+
+        // Draw the mesh
+        GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, this.vertexCount);
+
+        // Disable the client used states
+        GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+        if(hasTextureData())
+            GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+
+        // Unbind all buffers
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 }
