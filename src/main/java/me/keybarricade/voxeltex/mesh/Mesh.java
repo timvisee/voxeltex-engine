@@ -26,7 +26,7 @@ public class Mesh {
     /**
      * Texture buffer.
      */
-    public FloatBuffer textureBuffer;
+    private FloatBuffer textureBuffer;
 
     /**
      * VBO vertex buffer handle.
