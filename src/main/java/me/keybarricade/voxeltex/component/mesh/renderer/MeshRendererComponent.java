@@ -22,10 +22,47 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
      */
     private List<Material> materials = new ArrayList<>();
 
+    /**
+     * Constructor.
+     */
+    public MeshRendererComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param meshFilter Mesh filter.
+     * @param materials List of materials.
+     */
+    public MeshRendererComponent(MeshFilterComponentInterface meshFilter, List<Material> materials) {
+        this.meshFilter = meshFilter;
+        this.materials = materials;
+    }
+
+    /**
+     * Constructor.
+     * The mesh filter that is attached to the same game object is used automatically.
+     *
+     * @param material Material.
+     */
+    public MeshRendererComponent(Material material) {
+        setMaterial(material);
+    }
+
+    /**
+     * Constructor.
+     * The mesh filter that is attached to the same game object is used automatically.
+     *
+     * @param materials List of materials.
+     */
+    public MeshRendererComponent(List<Material> materials) {
+        this.materials = materials;
+    }
+
     @Override
     public void start() {
-        // Get the mesh filter
-        this.meshFilter = getComponent(AbstractMeshFilterComponent.class);
+        // Get the mesh filter if it hasn't been configured already
+        if(!hasMeshFilterComponent())
+            this.meshFilter = getComponent(AbstractMeshFilterComponent.class);
 
         // TODO: Make sure we're indeed having the class?
     }

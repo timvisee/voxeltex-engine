@@ -10,6 +10,11 @@ public class MeshFilterComponent extends AbstractMeshFilterComponent {
     private Mesh mesh;
 
     /**
+     * Comstructor.
+     */
+    public MeshFilterComponent() { }
+
+    /**
      * Constructor.
      *
      * @param mesh Mesh to attach.

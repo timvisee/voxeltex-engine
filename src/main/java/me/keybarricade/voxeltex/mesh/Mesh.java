@@ -194,7 +194,7 @@ public class Mesh {
     }
 
     /**
-     * TODO: THIS MUST MOVE TO THE MESH RENDERER!
+     * Render or draw the mesh using OpenGL.
      */
     public void draw() {
         // Bind the vertex buffer
