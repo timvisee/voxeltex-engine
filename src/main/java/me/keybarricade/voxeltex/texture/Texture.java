@@ -100,9 +100,22 @@ public class Texture {
      * @return Texture.
      */
     public static Texture fromImage(Image image) {
-        Texture texture = fromByteBuffer(image.getImage(), image.getWidth(), image.getHeight(), image.getComponents());
+        // Create and return the texture
+        return fromByteBuffer(image.getImage(), image.getWidth(), image.getHeight(), image.getComponents());
+    }
 
-        // Dispose the image since we're done
+    /**
+     * Create a texture based on the given image and consume/dispose the image.
+     *
+     * @param image Image to use for the texture.
+     *
+     * @return Texture.
+     */
+    public static Texture consumeImage(Image image) {
+        // Create the texture
+        Texture texture = fromImage(image);
+
+        // Dispose/consume the image since we're done
         image.dispose();
 
         // Return the texture that was created
