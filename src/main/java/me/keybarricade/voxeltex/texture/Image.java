@@ -52,10 +52,14 @@ public class Image {
      * @param components Components on this image.
      */
     public Image(ByteBuffer image, int width, int height, int components) {
+        // Set the image fields
         this.image = image;
         this.width = width;
         this.height = height;
         this.components = components;
+
+        // Add the image to the image manager
+        ImageTracker.trackImage(this);
     }
 
     /**
@@ -161,5 +165,8 @@ public class Image {
     public void dispose() {
         // Free the image memory through STB
         stbi_image_free(image);
+
+        // Remove the image from the image manager
+        ImageTracker.untrackImage(this);
     }
 }

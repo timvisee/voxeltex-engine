@@ -56,9 +56,12 @@ public class Texture {
     /**
      * Constructor.
      */
-    public Texture() {
+    private Texture() {
         // Assign a texture ID from OpenGL
         this.id = glGenTextures();
+
+        // Add the texture to the texture manager
+        TextureTracker.trackTexture(this);
     }
 
     /**
@@ -291,6 +294,10 @@ public class Texture {
      * This will free the memory used by this texture.
      */
     public void dispose() {
+        // Remove the texture from OpenGL
         glDeleteTextures(id);
+
+        // Remove the image from the texture manager
+        TextureTracker.untrackTexture(this);
     }
 }
