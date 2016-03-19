@@ -184,7 +184,7 @@ public class GameObject extends AbstractGameObject {
 
         // Loop through all components to find an applicable one
         for(AbstractComponent component : this.components)
-            if(component.getClass().isAssignableFrom(componentType))
+            if(componentType.isAssignableFrom(component.getClass()))
                 //noinspection unchecked
                 return (T) component;
 
