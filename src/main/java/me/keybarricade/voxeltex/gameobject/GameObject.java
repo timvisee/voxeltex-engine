@@ -1,11 +1,17 @@
 package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
-import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
+import me.keybarricade.voxeltex.global.MainCamera;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL11.glLoadMatrixf;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
 
 public class GameObject extends AbstractGameObject {
 
@@ -33,6 +39,11 @@ public class GameObject extends AbstractGameObject {
      * The components on this game object.
      */
     private List<AbstractComponent> components = new ArrayList<>();
+
+    /**
+     * Float buffer for the rendering matrix.
+     */
+    private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     /**
      * Constructor.
@@ -238,20 +249,25 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void draw() {
+        // TODO: Only configure this if this object contains any drawable object!
+
+        // Create a view matrix base based on the camera position
+        Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
+
+        // Apply the object's world transformation to the matrix
+        getTransform().applyWorldTransform(viewMatrix);
+
+        // Load the matrix to the GPU
+        glLoadMatrixf(viewMatrix.get(fb));
+
         // Draw all drawable components and all children
-        for(AbstractComponent component : this.components) {
-            // Make sure the component is drawable
-            if(!(component instanceof DrawableComponentInterface))
-                continue;
+        for(AbstractComponent component : this.components)
+            // Draw the component if it's drawable
+            if(component instanceof DrawableComponentInterface)
+                ((DrawableComponentInterface) component).draw();
 
-            // Cast the component
-            AbstractDrawableComponent drawable = (AbstractDrawableComponent) component;
-
-            // Draw the component
-            drawable.drawStart();
-            drawable.draw();
-            drawable.drawEnd();
-        }
+        // Pop the OpenGL matrix
+        glPopMatrix();
 
         // Draw all children
         for(AbstractGameObject child : this.children)
