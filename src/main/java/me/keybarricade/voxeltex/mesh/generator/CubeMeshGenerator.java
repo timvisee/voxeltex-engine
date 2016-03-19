@@ -97,64 +97,14 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         // Copy all vertexes from the raw meshes into the new vertexes array
         for(int i = 0; i < quadMeshes.size(); i++)
             // Get the raw mesh and copy
-            System.arraycopy(quadMeshes.get(i).getVertexes(), 0, vertexes, i * vertexCountSingle + 0, vertexCountSingle);
+            System.arraycopy(quadMeshes.get(i).getVertexes(), 0, vertexes, i * vertexCountSingle, vertexCountSingle);
 
         // Generate the texture coordinates in the same order
-        float[] textures = {
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1,
-
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1,
-
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1,
-
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1,
-
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1,
-
-                // Left-bottom triangle
-                0, 1,
-                0, 0,
-                1, 0,
-                // Right-top triangle
-                1, 0,
-                1, 1,
-                0, 1
-        };
+        float[] textures = new float[12 * 6];
+        for(int i = 0; i < 6; i++) {
+            float[] quadTextures = QuadMeshGenerator.generateTextures();
+            System.arraycopy(quadTextures, 0, textures, i * 12, 12);
+        }
 
         // Create and store the raw mesh
         this.raw = new RawMesh(vertexes, textures);
