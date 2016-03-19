@@ -2,7 +2,7 @@ package me.keybarricade.voxeltex.component.mesh.filter;
 
 import me.keybarricade.voxeltex.mesh.Mesh;
 
-public class MeshFilterComponent extends AbstractMeshFilter {
+public class MeshFilterComponent extends AbstractMeshFilterComponent {
 
     /**
      * Attached mesh.
