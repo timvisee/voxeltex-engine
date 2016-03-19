@@ -33,7 +33,11 @@ public class Shader {
      * @param programId Program ID of this shader.
      */
     private Shader(int programId) {
+        // Set the fields
         this.programId = programId;
+
+        // Track the shader
+        ShaderTracker.trackShader(this);
     }
 
     /**
@@ -193,7 +197,11 @@ public class Shader {
      * Dispose the shader.
      */
     public void dispose() {
+        // Dispose the shader from OpenGL
         glDeleteProgram(this.programId);
+
+        // Untrack the shader
+        ShaderTracker.untrackShader(this);
     }
 
     /**

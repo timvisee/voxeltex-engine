@@ -70,8 +70,5 @@ public class ImageTracker {
 
         // Remove all images (should have been removed already)
         images.clear();
-
-        // Remove all images
-        images.clear();
     }
 }
