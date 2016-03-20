@@ -1,5 +1,7 @@
 package me.keybarricade.voxeltex.shader;
 
+import me.keybarricade.voxeltex.global.MainCamera;
+import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 
 public class Shader extends AbstractShader {
@@ -24,5 +26,9 @@ public class Shader extends AbstractShader {
     }
 
     @Override
-    public void update() { }
+    public void update() {
+        // Configure the projection and view matrix of the shader
+        setUniformMatrix4f("projectionMatrix", VoxelTexRenderer.mat);
+        setUniformMatrix4f("viewMatrix", MainCamera.createRelativeCameraMatrix());
+    }
 }

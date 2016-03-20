@@ -87,19 +87,10 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             material.bind();
             material.getShader().update();
 
-            // TODO: Move this shader configuration code somewhere else!
-
-            // Calculate the projection matrix
-            Matrix4f projectionMatrix = new Matrix4f(VoxelTexRenderer.mat);
-            projectionMatrix.scale(0.5f, 0.5f, 0.5f);
-
-            // Calculate the model matrix
+            // TODO: Move this to the shader update method!
+            // Calculate the model matrix and update the shader
             Vector3f pos = getTransform().getPosition();
             Matrix4f modelMatrix = new Matrix4f().rotate(getTransform().getRotation()).translate(pos.x, pos.y, pos.z);
-
-            // Configure the shader
-            material.getShader().setUniformMatrix4f("projectionMatrix", projectionMatrix);
-            material.getShader().setUniformMatrix4f("viewMatrix", MainCamera.createRelativeCameraMatrix());
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
             // Set the shader texture if a texture is available
