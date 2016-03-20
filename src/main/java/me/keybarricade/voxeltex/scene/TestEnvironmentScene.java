@@ -33,7 +33,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
-//        gridObject.addComponent(new GridDrawComponent());
+        gridObject.addComponent(new GridDrawComponent());
         gridObject.addComponent(new AxisDrawComponent());
         addGameObject(gridObject);
 
