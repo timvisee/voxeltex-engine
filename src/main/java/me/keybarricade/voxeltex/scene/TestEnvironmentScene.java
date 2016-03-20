@@ -8,6 +8,7 @@ import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
+import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Quaternionf;
@@ -81,6 +82,7 @@ public class TestEnvironmentScene extends Scene {
         // Load the sand texture
         Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
+        ((TexturedShader) sandMaterial.getShader()).getTile().set(3.0f);
 
         QuadPrefab quad = new QuadPrefab();
         quad.setMaterial(sandMaterial);
