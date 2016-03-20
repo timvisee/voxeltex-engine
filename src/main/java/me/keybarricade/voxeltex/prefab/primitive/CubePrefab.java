@@ -15,6 +15,16 @@ public class CubePrefab extends GameObject {
     private static final String DEFAULT_NAME = "CubePrefab";
 
     /**
+     * Mesh filter component.
+     */
+    private MeshFilterComponent meshFilter;
+
+    /**
+     * Mesh renderer component.
+     */
+    private MeshRendererComponent meshRenderer;
+
+    /**
      * Constructor.
      */
     public CubePrefab() {
@@ -35,11 +45,42 @@ public class CubePrefab extends GameObject {
         // Call the super
         super.start();
 
-        // Add a mesh filter component with a cube mesh
-        addComponent(new MeshFilterComponent(new CubeMeshGenerator().createMesh()));
-
-        // Add a mesh renderer component with the default material
+        // Create the mesh filter and renderer components
+        this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator().createMesh());
         // TODO: Use proper shader here!
-        addComponent(new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT)));
+        this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
+
+        // Add the mesh filter and renderer components to the object
+        addComponent(this.meshFilter);
+        addComponent(this.meshRenderer);
+    }
+
+    /**
+     * Get the mesh filter component.
+     *
+     * @return Mesh filter component.
+     */
+    public MeshFilterComponent getMeshFilter() {
+        return meshFilter;
+    }
+
+    /**
+     * Get the mesh renderer component.
+     *
+     * @return Mesh renderer component.
+     */
+    public MeshRendererComponent getMeshRenderer() {
+        return meshRenderer;
+    }
+
+    /**
+     * Set the cube material.
+     *
+     * @param material Cube material.
+     */
+    public void setMaterial(Material material) {
+        // Make sure the mesh renderer has been configured
+        if(this.meshRenderer != null)
+            this.meshRenderer.setMaterial(material);
     }
 }
