@@ -44,11 +44,14 @@ public abstract class AbstractScene {
     }
 
     /**
-     * Set whether the scene has started.
-     *
-     * @param started True if the scene has started, false if not.
+     * Start the scene.
      */
-    public void setStarted(boolean started) {
+    public void start() {
+        // Make sure the scene hasn't been started already
+        if(isStarted())
+            return;
+
+        // Set the started flag
         this.started = started;
     }
 

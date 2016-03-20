@@ -89,9 +89,16 @@ public abstract class AbstractComponent {
     public abstract <T extends AbstractComponent> T getComponent(Class<T> componentType);
 
     /**
+     * Create the component.
+     *
+     * Called when the component is added to a game object that is in a scene.
+     */
+    public abstract void create();
+
+    /**
      * Start the component.
      *
-     * Called when the component is created on the game object.
+     * Called when the scene the game object is in is started.
      */
     public abstract void start();
 

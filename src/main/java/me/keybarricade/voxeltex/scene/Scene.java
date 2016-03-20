@@ -52,8 +52,12 @@ public class Scene extends AbstractGameObjectScene {
         // Add the game object to the list
         this.gameObjects.add(gameObject);
 
-        // Start the game object
-        gameObject.start();
+        // Create the game object
+        gameObject.create();
+
+        // Start the game object if the scene has started
+        if(isStarted())
+            gameObject.start();
     }
 
     @Override

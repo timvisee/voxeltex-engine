@@ -13,6 +13,16 @@ public abstract class AbstractGameObjectScene extends AbstractScene {
      */
     public abstract List<AbstractGameObject> getGameObjects();
 
+    @Override
+    public void start() {
+        // Call the super
+        super.start();
+
+        // Start all game objects
+        for(AbstractGameObject gameObject : this.getGameObjects())
+            gameObject.start();
+    }
+
     /**
      * Get the number of game objects in this scene.
      *

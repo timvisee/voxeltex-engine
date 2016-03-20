@@ -122,8 +122,12 @@ public class GameObject extends AbstractGameObject {
         // Add the game object to the children
         this.children.add(gameObject);
 
-        // Start the game object
-        gameObject.start();
+        // Create the game object
+        gameObject.create();
+
+        // Start the game object if the scene has started
+        if(getScene().isStarted())
+            gameObject.start();
     }
 
     @Override
@@ -186,8 +190,12 @@ public class GameObject extends AbstractGameObject {
         // Set the component owner
         component.setOwner(this);
 
-        // Start the component
-        component.start();
+        // Create the component
+        component.create();
+
+        // Start the component if the scene is started
+        if(getScene().isStarted())
+            component.start();
     }
 
     @Override
@@ -239,10 +247,26 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public void create() { }
+    public void create() {
+        // Create the children
+        for(AbstractGameObject child : this.children)
+            child.create();
+
+        // Create all components
+        for(AbstractComponent component : this.components)
+            component.create();
+    }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Start the children
+        for(AbstractGameObject child : this.children)
+            child.start();
+
+        // Start all components
+        for(AbstractComponent component : this.components)
+            component.start();
+    }
 
     @Override
     public void update() {
