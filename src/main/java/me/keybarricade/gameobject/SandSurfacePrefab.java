@@ -2,7 +2,6 @@ package me.keybarricade.gameobject;
 
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
-import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector2f;
@@ -20,7 +19,7 @@ public class SandSurfacePrefab extends QuadPrefab {
         Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
 
         // Create a sand surface material
-        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
+        Material sandMaterial = new Material(sandTexture);
         sandMaterial.getTiling().set(5.0f);
 
         // Set the quad material to sand

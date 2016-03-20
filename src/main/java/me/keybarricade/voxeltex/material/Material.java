@@ -2,6 +2,7 @@ package me.keybarricade.voxeltex.material;
 
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.shader.Shader;
+import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector2f;
 
@@ -40,6 +41,16 @@ public class Material implements MaterialInterface {
      */
     public Material(Shader shader) {
         this.shader = shader;
+    }
+
+    /**
+     * Constructor for a textured material. This material will use the default texture shader.
+     *
+     * @param texture Material texture.
+     */
+    public Material(Texture texture) {
+        this.shader = ShaderManager.SHADER_DEFAULT_TEXTURED;
+        this.texture = texture;
     }
 
     @Override
