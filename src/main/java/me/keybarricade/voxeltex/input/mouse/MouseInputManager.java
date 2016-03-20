@@ -67,8 +67,7 @@ public class MouseInputManager implements MouseInputInterface {
      */
     public void init() {
         // Get the window width and height
-        final int windowWidth = this.window.getWidth();
-        final int windowHeight = this.window.getHeight();
+        final VoxelTexWindow wind = this.window;
 
         // Create and set the mouse button callback
         glfwSetMouseButtonCallback(this.window.getWindowId(), mouseButtonCallback = new GLFWMouseButtonCallback() {
@@ -82,10 +81,11 @@ public class MouseInputManager implements MouseInputInterface {
         // Create and set the cursor position callback
         glfwSetCursorPosCallback(this.window.getWindowId(), cursorPosCallback = new GLFWCursorPosCallback() {
             public void invoke(long window, double xPos, double yPos) {
-                float normX = (float) ((xPos - windowWidth / 2.0) / windowWidth * 2.0);
-                float normY = (float) ((yPos - windowHeight / 2.0) / windowHeight * 2.0);
-                mouseX = Math.max(-windowWidth / 2.0f, Math.min(windowWidth / 2.0f, normX));
-                mouseY = Math.max(-windowHeight / 2.0f, Math.min(windowHeight / 2.0f, normY));
+                // TODO: Set a new callback each time the window is resized instead of getting the window size dynamically each time
+                float normX = (float) ((xPos - wind.getWidth() / 2.0) / wind.getWidth() * 2.0);
+                float normY = (float) ((yPos - wind.getHeight() / 2.0) / wind.getHeight() * 2.0);
+                mouseX = Math.max(-wind.getWidth() / 2.0f, Math.min(wind.getWidth() / 2.0f, normX));
+                mouseY = Math.max(-wind.getHeight() / 2.0f, Math.min(wind.getHeight() / 2.0f, normY));
             }
         });
     }

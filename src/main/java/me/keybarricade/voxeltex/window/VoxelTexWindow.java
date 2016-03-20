@@ -60,7 +60,7 @@ public class VoxelTexWindow {
      * @return Window width.
      */
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     /**
@@ -78,7 +78,7 @@ public class VoxelTexWindow {
      * @return Window height.
      */
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     /**
