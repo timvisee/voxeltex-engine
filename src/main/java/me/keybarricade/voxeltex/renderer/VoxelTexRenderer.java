@@ -1,5 +1,7 @@
 package me.keybarricade.voxeltex.renderer;
 
+import me.keybarricade.voxeltex.VoxelTex;
+import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.component.drawable.*;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -36,15 +38,20 @@ import static org.lwjgl.system.MemoryUtil.*;
 public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
     /**
-     * Test scene.
+     * Engine instance this renderer was created from.
      */
-    // TODO: Remove this!
-    private Scene testScene = new Scene();
+    private VoxelTexEngine engine;
 
     /**
      * VoxelTex window where we'll be rendering on.
      */
     private VoxelTexWindow window;
+
+    /**
+     * Test scene.
+     * TODO: Move this to a scene manager in the engine class
+     */
+    private Scene testScene = new Scene();
 
     /**
      * Callbacks.
@@ -54,61 +61,46 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
     /**
      * Constructor.
+     *
+     * @param engine Engine instance this renderer was created from.
      */
-    public VoxelTexRenderer() {
-        // Construct the window
+    public VoxelTexRenderer(VoxelTexEngine engine) {
+        // Set the engine
+        this.engine = engine;
+
+        // Create a window instance
         this.window = new VoxelTexWindow();
     }
 
     /**
-     * Get the VoxelTex window.
+     * Get the engine instance this renderer was created from.
      *
-     * @return VoxelTex window.
+     * @return Engine.
      */
-    public VoxelTexWindow getWindow() {
-        return this.window;
+    public VoxelTexEngine getEngine() {
+        return this.engine;
     }
 
     /**
-     * Run the renderer.
-     * This will initialize and start the rendering loop.
+     * Get the rendering window.
+     *
+     * @return Window.
      */
-    public void run() {
-        try {
-            // Initialize the renderer
-            init();
-
-            // Loop the renderer
-            loop();
-
-            // Destroy the window
-            this.window.glDestroyWindow();
-
-            // Dispose all tracked textures, images and shaders
-            TextureTracker.disposeAll();
-            ImageTracker.disposeAll();
-            ShaderTracker.disposeAll();
-
-            // Free all callbacks
-            // TODO: Fix this, free methods not available anymore
-            //keyCallback.free();
-            //fbCallback.free();
-            //cpCallback.free();
-
-        } finally {
-            // Terminate the renderer
-            glfwTerminate();
-
-            // Free all callbacks
-            // TODO: Fix this, free method not available anymore
-            //errorCallback.free();
-        }
+    public VoxelTexWindow getWindow() {
+        return window;
     }
+
+    // TODO: Move these
+    private boolean created = false;
+    public static Matrix4f mat = new Matrix4f();
 
     /**
      * Initialize the renderer.
      */
     public void init() {
+        // Show a status message
+        System.out.println("Initializing " + VoxelTex.ENGINE_NAME + " renderer...");
+
         // Create and configure the error callback, make sure it was created successfully
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
         if(glfwInit() != GL11.GL_TRUE)
@@ -124,7 +116,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Create the window
         this.window.glCreateWindow();
 
-        // Initialize the input manager
+        // Initialize the input manager for this window
         Input.init(this.window);
 
         // Create the framebuffer size callback
@@ -150,7 +142,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Make the window context
         this.window.glMakeContextCurrent();
 
-        // Set the swap interval
+        // Set the swap interval (V-sync)
         glfwSwapInterval(0);
 
         // Show the window
@@ -158,20 +150,63 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
         // Center the cursor
         Input.centerMouseCursor();
+
+        // Create the rendering capabilities, required by LWJGL
+        GL.createCapabilities();
+
+        // Print the OpenGL version
+        System.out.println("OpenGL " + GL11.glGetString(GL11.GL_VERSION));
+
+        // Set the clear color
+        glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+
+        // Enable depth testing
+        glEnable(GL_DEPTH_TEST);
+
+        // Load the engine shaders
+        ShaderManager.load();
+
+        // Initialize the Time object
+        Time.init();
+
+        // Show a status message
+        System.out.println(VoxelTex.ENGINE_NAME + " renderer initialized successfully!");
     }
 
-    private boolean created = false;
-    public static Matrix4f mat = new Matrix4f();
+    /**
+     * Run the renderer.
+     * This will initialize and start the rendering loop.
+     */
+    public void start() {
+        try {
+            // Loop the renderer
+            loop();
+
+            // Destroy the window
+            this.window.glDestroyWindow();
+
+            // Dispose all tracked textures, images and shaders
+            TextureTracker.disposeAll();
+            ImageTracker.disposeAll();
+            ShaderTracker.disposeAll();
+
+            // Free all callbacks
+            // TODO: Free/release the input callbacks
+            fbCallback.release();
+
+        } finally {
+            // Terminate the renderer
+            glfwTerminate();
+
+            // Release the error callback
+            errorCallback.release();
+        }
+    }
 
     /**
      * Rendering loop.
      */
     public void loop() {
-        // Create the rendering capabilities, required by LWJGL
-        GL.createCapabilities();
-
-        // Load the engine shaders
-        ShaderManager.load();
 
         if(!created) {
             // TODO: Put this in a different spot, where the engine has already loaded!
@@ -241,23 +276,11 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             created = true;
         }
 
-        // Initialize the Time object
-        Time.init();
-
-        // Set the clear (default) color
-        glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
-
-        // Enable depth testing
-        glEnable(GL_DEPTH_TEST);
-
-        // Set the default line width
-        // TODO: Set this somewhere else?
-        glLineWidth(1.0f);
-
-        Vector3f tmp = new Vector3f();
-        mat = new Matrix4f();
-        // FloatBuffer for transferring matrices to OpenGL
+        // FloatBuffer for transferring the projection view matrix to OpenGL
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
+
+        // Update the time to ensure it starts from zero in the first loop
+        Time.update();
 
         // Start a loop until the window should close
         while(!this.window.glWindowShouldCloseBoolean()) {
@@ -267,32 +290,26 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update the position of the main camera
             MainCamera.update();
 
-            // Update the test scene
+            // Update the scene
             testScene.update();
 
-            // Set the default viewport
+            // Set the default viewport and clear the color and depth buffer
             this.window.glViewportDefault();
-
-            // Clear the color and depth buffer
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Get the window width and height
             final int windowWidth = this.window.getWidth();
             final int windowHeight = this.window.getHeight();
 
-            // Enable the projection mode and configure the camera
+            // Enable the projection mode to configure the camera, and revert back to model view mode
             glMatrixMode(GL_PROJECTION);
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
-
-            // Enable the model view mode
             glMatrixMode(GL_MODELVIEW);
 
-            //int vbo = glGenBuffers();
-
-            // Draw the test scene
+            // Draw the scene
             testScene.draw();
 
-            // Swap the buffers
+            // Swap the buffers to render the frame
             this.window.glSwapBuffers();
 
             // Poll all events

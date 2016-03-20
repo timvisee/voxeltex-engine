@@ -14,7 +14,7 @@ public class VoxelTexWindow {
     /**
      * Window title.
      */
-    private String title = VoxelTex.ENGINE_NAME + " Window";
+    private String title = VoxelTex.getEngineNameFull() + " Window";
 
     /**
      * Window width.
@@ -198,7 +198,6 @@ public class VoxelTexWindow {
     /**
      * Set the GL viewport with the default configuration.
      */
-    // TODO: Make this configurable!
     public void glViewportDefault() {
         glViewport(0, 0, width, height);
     }

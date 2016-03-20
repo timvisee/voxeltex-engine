@@ -1,9 +1,13 @@
 package me.keybarricade;
 
-import me.keybarricade.voxeltex.VoxelTex;
-import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
+import me.keybarricade.voxeltex.VoxelTexEngine;
 
 public class App {
+
+    /**
+     * VoxelTex engine instance.
+     */
+    private VoxelTexEngine engine;
 
     /**
      * Constructor.
@@ -17,8 +21,32 @@ public class App {
         // Show initialization message
         System.out.println("Initializing...");
 
-        // Create and run the renderer
-        VoxelTexRenderer renderer = VoxelTex.createRenderer(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
-        renderer.run();
+        // Initialize the VoxelTex engine
+        initEngine();
+
+        // Start the VoxelTex engine
+        startEngine();
+    }
+
+    /**
+     * Initialize the VoxelTex engine.
+     */
+    public void initEngine() {
+        // Create a VoxelTex engine instance
+        this.engine = new VoxelTexEngine();
+
+        // Set the title
+        //this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
+
+        // Initialize the engine
+        this.engine.init();
+    }
+
+    /**
+     * Start the VoxelTex engine after it has been initialized.
+     */
+    public void startEngine() {
+        // Start the engine
+        this.engine.start();
     }
 }

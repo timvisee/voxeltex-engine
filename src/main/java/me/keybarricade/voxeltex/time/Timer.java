@@ -83,7 +83,7 @@ public class Timer {
     }
 
     /**
-     * Check whether the timer has ever been started. The timer doesn't have to run now.
+     * Check whether the timer has ever been started. The timer doesn't have to start now.
      *
      * @return True if started, false if not.
      */

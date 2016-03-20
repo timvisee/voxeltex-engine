@@ -6,7 +6,7 @@ public abstract class VoxelTexBaseRenderer {
      * Run the renderer.
      * This will initialize and start the rendering loop.
      */
-    public abstract void run();
+    public abstract void start();
 
     /**
      * Initialize the renderer.
