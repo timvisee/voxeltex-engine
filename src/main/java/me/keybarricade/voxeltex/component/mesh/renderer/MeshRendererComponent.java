@@ -2,11 +2,8 @@ package me.keybarricade.voxeltex.component.mesh.renderer;
 
 import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
-import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;

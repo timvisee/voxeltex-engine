@@ -1,8 +1,6 @@
 package me.keybarricade.voxeltex.component.drawable;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glVertex3f;
+import org.lwjgl.opengl.GL11;
 
 public class GridDrawComponent extends AbstractDrawableComponent {
 
@@ -16,23 +14,23 @@ public class GridDrawComponent extends AbstractDrawableComponent {
     public void draw() {
         // Set the thickness of the axis drawn
         // TODO: Make this configurable
-        glLineWidth(1.0f);
+        GL11.glLineWidth(1.0f);
 
         // Enable line drawing mode
-        glBegin(GL_LINES);
+        GL11.glBegin(GL11.GL_LINES);
 
         // Set the grid color
-        glColor3f(0.2f, 0.2f, 0.2f);
+        GL11.glColor3f(0.2f, 0.2f, 0.2f);
 
         // Draw the grid
         for(int i = -20; i <= 20; i++) {
-            glVertex3f(-20.0f, 0.0f, i);
-            glVertex3f(20.0f, 0.0f, i);
-            glVertex3f(i, 0.0f, -20.0f);
-            glVertex3f(i, 0.0f, 20.0f);
+            GL11.glVertex3f(-20.0f, 0.0f, i);
+            GL11.glVertex3f(20.0f, 0.0f, i);
+            GL11.glVertex3f(i, 0.0f, -20.0f);
+            GL11.glVertex3f(i, 0.0f, 20.0f);
         }
 
         // Finish drawing
-        glEnd();
+        GL11.glEnd();
     }
 }

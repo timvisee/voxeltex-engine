@@ -3,11 +3,7 @@ package me.keybarricade.voxeltex.input.key;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallback;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
-import static org.lwjgl.opengl.GL11.GL_TRUE;
+import org.lwjgl.opengl.GL11;
 
 public class KeyInputManager implements KeyInputInterface {
 
@@ -59,16 +55,16 @@ public class KeyInputManager implements KeyInputInterface {
             public void invoke(long window, int key, int scancode, int action, int mods) {
                 // TODO: Move this to a different class?
                 // Schedule a renderer window close when the escape key is pressed
-                if(key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-                    glfwSetWindowShouldClose(window, GL_TRUE);
+                if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE)
+                    GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
 
                 // Set whether the key is pressed
-                keysDown[key] = action == GLFW_PRESS || action == GLFW_REPEAT;
+                keysDown[key] = action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT;
             }
         };
 
         // Register the key callback for the given window.
-        glfwSetKeyCallback(window.getWindowId(), keyCallback);
+        GLFW.glfwSetKeyCallback(window.getWindowId(), keyCallback);
     }
 
     /**
