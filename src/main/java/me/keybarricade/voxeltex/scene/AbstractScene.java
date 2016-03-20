@@ -47,12 +47,15 @@ public abstract class AbstractScene {
      * Start the scene.
      */
     public void start() {
+        // Show a status message
+        System.out.println("Starting scene...");
+
         // Make sure the scene hasn't been started already
         if(isStarted())
             return;
 
         // Set the started flag
-        this.started = started;
+        this.started = true;
     }
 
     /**

@@ -126,7 +126,7 @@ public class GameObject extends AbstractGameObject {
         gameObject.create();
 
         // Start the game object if the scene has started
-        if(getScene().isStarted())
+        if(isSceneStarted())
             gameObject.start();
     }
 
@@ -194,7 +194,7 @@ public class GameObject extends AbstractGameObject {
         component.create();
 
         // Start the component if the scene is started
-        if(getScene().isStarted())
+        if(isSceneStarted())
             component.start();
     }
 

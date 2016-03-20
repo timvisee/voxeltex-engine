@@ -65,7 +65,7 @@ public class SceneManager {
         // Load the scene
         System.out.println("Loading scene...");
         scene.load();
-        System.out.println("Scene loaded successfully!");
+        System.out.println("Scene loaded");
     }
 
     /**

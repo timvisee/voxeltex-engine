@@ -42,6 +42,21 @@ public abstract class AbstractComponent {
     }
 
     /**
+     * Check whether the scene the game object of this component is in is started.
+     * If the game object isn't in any scene, false will be returned.
+     *
+     * @return True if the scene is started, false if not.
+     */
+    public boolean isSceneStarted() {
+        // Make sure a scene is set
+        if(getScene() == null)
+            return false;
+
+        // Return the result
+        return getScene().isStarted();
+    }
+
+    /**
      * Get the transformation of the owner object.
      *
      * @return Owner object transformation.

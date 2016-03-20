@@ -62,6 +62,21 @@ public abstract class AbstractGameObject {
     }
 
     /**
+     * Check whether the scene this game object is in is started.
+     * If this game object isn't in any scene, false will be returned.
+     *
+     * @return True if started, false if not.
+     */
+    public boolean isSceneStarted() {
+        // Make sure a scene is set
+        if(this.scene == null)
+            return false;
+
+        // Return the result
+        return this.scene.isStarted();
+    }
+
+    /**
      * Set the scene this game object is in.
      *
      * @param scene Game object scene.
