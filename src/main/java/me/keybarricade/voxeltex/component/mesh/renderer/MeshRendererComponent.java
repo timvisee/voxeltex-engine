@@ -90,7 +90,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             // TODO: Move this to the shader update method!
             // Calculate the model matrix and update the shader
             Vector3f pos = getTransform().getPosition();
-            Matrix4f modelMatrix = new Matrix4f().rotate(getTransform().getRotation()).translate(pos.x, pos.y, pos.z);
+            Matrix4f modelMatrix = new Matrix4f().translate(pos.x, pos.y, pos.z).rotate(getTransform().getRotation());
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
             // Set the shader texture if a texture is available
