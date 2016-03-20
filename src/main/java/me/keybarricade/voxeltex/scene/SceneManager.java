@@ -69,6 +69,15 @@ public class SceneManager {
     }
 
     /**
+     * Start the current scene if it hasn't started yet.
+     */
+    public void start() {
+        // Make sure a scene is loaded, then start it
+        if(isSceneLoaded())
+            this.scene.start();
+    }
+
+    /**
      * Update the scene that is currently loaded.
      */
     public void update() {

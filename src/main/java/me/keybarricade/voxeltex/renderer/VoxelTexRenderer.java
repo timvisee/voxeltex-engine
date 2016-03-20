@@ -195,6 +195,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Update the time to ensure it starts from zero in the first loop
         Time.update();
 
+        // Start the scene if it hasn't started yet
+        getEngine().getSceneManager().start();
+
         // Start a loop until the window should close
         while(!this.window.glWindowShouldCloseBoolean()) {
             // Update time Time object
