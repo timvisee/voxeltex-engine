@@ -118,6 +118,9 @@ public class GameObject extends AbstractGameObject {
 
         // Add the game object to the children
         this.children.add(gameObject);
+
+        // Start the game object
+        gameObject.start();
     }
 
     @Override
