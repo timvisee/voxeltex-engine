@@ -1,5 +1,7 @@
 package me.keybarricade.voxeltex;
 
+import me.keybarricade.voxeltex.scene.TestEnvironmentScene;
+
 public class VoxelTex {
 
     /**
@@ -24,5 +26,30 @@ public class VoxelTex {
      */
     public static String getEngineNameFull() {
         return ENGINE_NAME + " v" + ENGINE_VERSION_NAME;
+    }
+
+    /**
+     * Run the VoxelTex engine with the test environment.
+     *
+     * @param args Startup arguments.
+     */
+    public static void main(String[] args) {
+        // Define the engine variable
+        VoxelTexEngine engine;
+
+        // Create a VoxelTex engine instance
+        engine = new VoxelTexEngine();
+
+        // Set the title
+        engine.setTitle(ENGINE_NAME + " v" + ENGINE_VERSION_NAME + " - Test Environment");
+
+        // Initialize the engine
+        engine.init();
+
+        // Load the test environment scene
+        engine.getSceneManager().loadScene(new TestEnvironmentScene());
+
+        // Start the engine
+        engine.start();
     }
 }

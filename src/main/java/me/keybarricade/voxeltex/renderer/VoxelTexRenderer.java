@@ -2,29 +2,15 @@ package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.VoxelTex;
 import me.keybarricade.voxeltex.VoxelTexEngine;
-import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
-import me.keybarricade.voxeltex.component.drawable.line.GridDrawComponent;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.MainCamera;
-import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.global.Input;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.generator.CubeMeshGenerator;
-import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
-import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
-import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.shader.ShaderTracker;
-import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.ImageTracker;
-import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.texture.TextureTracker;
 import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -47,12 +33,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * VoxelTex window where we'll be rendering on.
      */
     private VoxelTexWindow window;
-
-    /**
-     * Test scene.
-     * TODO: Move this to a scene manager in the engine class
-     */
-    private Scene testScene = new Scene();
 
     /**
      * Callbacks.
@@ -207,6 +187,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * Rendering loop.
      */
     public void loop() {
+        System.out.println(VoxelTex.ENGINE_NAME + " engine started!");
+
         // FloatBuffer for transferring the projection view matrix to OpenGL
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
@@ -221,8 +203,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update the position of the main camera
             MainCamera.update();
 
-            // Update the scene
-            testScene.update();
+            // Update the current scene
+            getEngine().getSceneManager().update();
 
             // Set the default viewport and clear the color and depth buffer
             this.window.glViewportDefault();
@@ -237,8 +219,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
             glMatrixMode(GL_MODELVIEW);
 
-            // Draw the scene
-            testScene.draw();
+            // Draw the current scene
+            getEngine().getSceneManager().draw();
 
             // Swap the buffers to render the frame
             this.window.glSwapBuffers();

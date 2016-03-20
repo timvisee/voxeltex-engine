@@ -1,6 +1,7 @@
 package me.keybarricade;
 
 import me.keybarricade.voxeltex.VoxelTexEngine;
+import me.keybarricade.voxeltex.scene.TestEnvironmentScene;
 
 public class App {
 
@@ -19,7 +20,7 @@ public class App {
      */
     public void init() {
         // Show initialization message
-        System.out.println("Initializing...");
+        System.out.println("Initializing " + KeyBarricade.APP_NAME + "...");
 
         // Initialize the VoxelTex engine
         initEngine();
@@ -36,7 +37,7 @@ public class App {
         this.engine = new VoxelTexEngine();
 
         // Set the title
-        //this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
+        this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
 
         // Initialize the engine
         this.engine.init();
@@ -46,6 +47,9 @@ public class App {
      * Start the VoxelTex engine after it has been initialized.
      */
     public void startEngine() {
+        // Load the default scene
+        this.engine.getSceneManager().loadScene(new TestEnvironmentScene());
+
         // Start the engine
         this.engine.start();
     }

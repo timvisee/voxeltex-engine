@@ -22,57 +22,47 @@ public class TestEnvironmentScene extends Scene {
         // Load the super
         super.load();
 
-        // Create a grid renderer object
-        GameObject axisObject = new GameObject("AxisGridRenderer");
-        axisObject.addComponent(new AxisDrawComponent());
-        addGameObject(axisObject);
+        // Create the main camera object
+        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        addGameObject(fpsCameraPrefab);
 
-        // Create a grid renderer object
+        // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
         gridObject.addComponent(new GridDrawComponent());
+        gridObject.addComponent(new AxisDrawComponent());
         addGameObject(gridObject);
 
-        // Create an object for testing
+        // Create a basic cube
         CubePrefab baseObject = new CubePrefab();
         baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
         baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
         addGameObject(baseObject);
 
-        // Create a sub object for testing
+        // Add a basic sub cube
         CubePrefab subObject1 = new CubePrefab();
         subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
         subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
         baseObject.addChild(subObject1);
 
-        // Create a sub object for testing
+        // Add a basic sub cube
         CubePrefab subObject2 = new CubePrefab();
         subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
         subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
         subObject1.addChild(subObject2);
 
-        // Create a sub object for testing
+        // Add a basic sub cube
         CubePrefab subObject3 = new CubePrefab();
         subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
         subObject3.getTransform().setRotation(new Quaternionf(0.25f, 0, 0));
         subObject3.getTransform().setAngularVelocity(new Vector3f(0, -3.3f, 0));
         subObject1.addChild(subObject3);
 
-        // Create a sub object for testing
+        // Add a basic sub cube
         CubePrefab subObject4 = new CubePrefab();
         subObject4.getTransform().setPosition(new Vector3f(0, 1.35f, 0));
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject3.addChild(subObject4);
-
-        // Create the main camera object and set it's position
-        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        addGameObject(fpsCameraPrefab);
-
-        // Create a grid renderer object
-        GameObject testAxis = new GameObject("TestAxis");
-        testAxis.getTransform().setPosition(new Vector3f(-1.60f, -1.19f, -3.0f));
-        testAxis.addComponent(new AxisDrawComponent());
-        fpsCameraPrefab.addChild(testAxis);
 
         Texture texture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
         for(int i = 0; i < 8; i++) {

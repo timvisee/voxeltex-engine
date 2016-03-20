@@ -1,8 +1,14 @@
 package me.keybarricade.voxeltex;
 
 import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
+import me.keybarricade.voxeltex.scene.SceneManager;
 
 public class VoxelTexEngine {
+
+    /**
+     * Scene manager for this engine.
+     */
+    private SceneManager sceneManager = new SceneManager();
 
     /**
      * Renderer instance.
@@ -13,6 +19,15 @@ public class VoxelTexEngine {
      * Engine and window title.
      */
     private String title = VoxelTex.getEngineNameFull() + " Window";
+
+    /**
+     * Get the scene manager.
+     *
+     * @return Scene manager.
+     */
+    public SceneManager getSceneManager() {
+        return this.sceneManager;
+    }
 
     /**
      * Get the renderer instance.
