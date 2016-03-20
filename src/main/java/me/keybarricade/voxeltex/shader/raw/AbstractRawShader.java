@@ -17,5 +17,5 @@ public abstract class AbstractRawShader implements RawShaderInterface {
      *
      * @return OpenGL shader program ID.
      */
-    protected abstract int compile();
+    public abstract int compile();
 }
