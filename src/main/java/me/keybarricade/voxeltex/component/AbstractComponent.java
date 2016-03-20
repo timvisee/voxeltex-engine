@@ -3,6 +3,7 @@ package me.keybarricade.voxeltex.component;
 import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 
 import java.util.List;
 
@@ -29,6 +30,15 @@ public abstract class AbstractComponent {
      */
     public VoxelTexEngine getEngine() {
         return getOwner().getEngine();
+    }
+
+    /**
+     * Get the scene instance the game object of this component is in.
+     *
+     * @return Scene.
+     */
+    public AbstractScene getScene() {
+        return getOwner().getScene();
     }
 
     /**

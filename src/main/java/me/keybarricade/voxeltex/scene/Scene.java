@@ -46,11 +46,11 @@ public class Scene extends AbstractGameObjectScene {
 
     @Override
     public void addGameObject(AbstractGameObject gameObject) {
+        // Set the scene of the game object
+        gameObject.setScene(this);
+
         // Add the game object to the list
         this.gameObjects.add(gameObject);
-
-        // Set the engine of the game object
-        gameObject.setEngine(getEngine());
 
         // Start the game object
         gameObject.start();

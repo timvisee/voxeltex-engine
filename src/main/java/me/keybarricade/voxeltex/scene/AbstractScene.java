@@ -10,6 +10,11 @@ public abstract class AbstractScene {
     private VoxelTexEngine engine;
 
     /**
+     * Defines whether the scene has started. True if started, false if not.
+     */
+    private boolean started;
+
+    /**
      * The engine instance this scene is in.
      *
      * @return Engine.
@@ -27,6 +32,24 @@ public abstract class AbstractScene {
      */
     public void setEngine(VoxelTexEngine engine) {
         this.engine = engine;
+    }
+
+    /**
+     * Check whether the scene is started.
+     *
+     * @return True if started, false if not.
+     */
+    public boolean isStarted() {
+        return started;
+    }
+
+    /**
+     * Set whether the scene has started.
+     *
+     * @param started True if the scene has started, false if not.
+     */
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
     /**
