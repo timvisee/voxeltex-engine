@@ -1,5 +1,6 @@
-package me.keybarricade.voxeltex.shader;
+package me.keybarricade.voxeltex.shader.specific;
 
+import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
 
