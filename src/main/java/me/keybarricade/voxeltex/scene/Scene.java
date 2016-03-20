@@ -82,6 +82,9 @@ public class Scene extends AbstractGameObjectScene {
     }
 
     @Override
+    public void load() { }
+
+    @Override
     public void update() {
         // Update all game objects
         for(AbstractGameObject gameObject : this.gameObjects)
