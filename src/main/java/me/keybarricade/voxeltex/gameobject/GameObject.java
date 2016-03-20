@@ -282,7 +282,7 @@ public class GameObject extends AbstractGameObject {
      */
     private void drawStart() {
         // Create a view matrix base based on the camera position
-        Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
+        Matrix4f viewMatrix = MainCamera.createCameraViewMatrix();
 
         // Apply the object's world transformation to the matrix
         getTransform().applyWorldTransform(viewMatrix);

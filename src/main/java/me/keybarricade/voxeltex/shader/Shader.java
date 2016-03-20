@@ -29,6 +29,6 @@ public class Shader extends AbstractShader {
     public void update() {
         // Configure the projection and view matrix of the shader
         setUniformMatrix4f("projectionMatrix", VoxelTexRenderer.mat);
-        setUniformMatrix4f("viewMatrix", MainCamera.createRelativeCameraMatrix());
+        setUniformMatrix4f("viewMatrix", MainCamera.createCameraViewMatrix());
     }
 }
