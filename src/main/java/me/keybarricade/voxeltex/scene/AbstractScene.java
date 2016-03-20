@@ -1,6 +1,33 @@
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
+
 public abstract class AbstractScene {
+
+    /**
+     * The engine instance this scene is loaded in.
+     */
+    private VoxelTexEngine engine;
+
+    /**
+     * The engine instance this scene is in.
+     *
+     * @return Engine.
+     */
+    public VoxelTexEngine getEngine() {
+        return this.engine;
+    }
+
+    /**
+     * Set the engine instance.
+     *
+     * @param engine Engine instance.
+     *
+     * @return Engine.
+     */
+    public void setEngine(VoxelTexEngine engine) {
+        this.engine = engine;
+    }
 
     /**
      * Load the scene.

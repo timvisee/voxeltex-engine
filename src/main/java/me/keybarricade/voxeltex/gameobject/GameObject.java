@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
 import me.keybarricade.voxeltex.global.MainCamera;
@@ -24,6 +25,11 @@ public class GameObject extends AbstractGameObject {
      * The transform instance of this object.
      */
     private Transform transform = new Transform(this);
+
+    /**
+     * The engine this game object is in.
+     */
+    private VoxelTexEngine engine;
 
     /**
      * The parent of this game object.
@@ -67,6 +73,16 @@ public class GameObject extends AbstractGameObject {
     @Override
     public Transform getTransform() {
         return this.transform;
+    }
+
+    @Override
+    public VoxelTexEngine getEngine() {
+        return this.engine;
+    }
+
+    @Override
+    public void setEngine(VoxelTexEngine engine) {
+        this.engine = engine;
     }
 
     @Override

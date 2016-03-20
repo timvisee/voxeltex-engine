@@ -1,11 +1,36 @@
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
+
 public class SceneManager {
+
+    /**
+     * The engine instance this scene manager is for.
+     */
+    private VoxelTexEngine engine;
 
     /**
      * Current loaded scene.
      */
     private Scene scene = null;
+
+    /**
+     * Constructor.
+     *
+     * @param engine VoxelTex engine instance.
+     */
+    public SceneManager(VoxelTexEngine engine) {
+        this.engine = engine;
+    }
+
+    /**
+     * Get the VoxelTex engine instance.
+     *
+     * @return Engine instance.
+     */
+    public VoxelTexEngine getEngine() {
+        return engine;
+    }
 
     /**
      * Get the loaded scene.
@@ -33,6 +58,9 @@ public class SceneManager {
     public void loadScene(Scene scene) {
         // Set the loaded scene
         this.scene = scene;
+
+        // Set the scene engine
+        scene.setEngine(getEngine());
 
         // Load the scene
         System.out.println("Loading scene...");

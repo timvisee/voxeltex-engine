@@ -8,7 +8,7 @@ public class VoxelTexEngine {
     /**
      * Scene manager for this engine.
      */
-    private SceneManager sceneManager = new SceneManager();
+    private SceneManager sceneManager = new SceneManager(this);
 
     /**
      * Renderer instance.

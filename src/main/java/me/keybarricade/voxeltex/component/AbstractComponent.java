@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.component;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
 
@@ -20,6 +21,15 @@ public abstract class AbstractComponent {
      * @param gameObject Owner.
      */
     public abstract void setOwner(AbstractGameObject gameObject);
+
+    /**
+     * Get the engine instance the game object of this component is in.
+     *
+     * @return Engine.
+     */
+    public VoxelTexEngine getEngine() {
+        return getOwner().getEngine();
+    }
 
     /**
      * Get the transformation of the owner object.

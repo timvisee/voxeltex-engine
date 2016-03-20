@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.component.AbstractComponent;
 
 import java.util.List;
@@ -35,6 +36,20 @@ public abstract class AbstractGameObject {
      * @return Game object transformation.
      */
     public abstract Transform getTransform();
+
+    /**
+     * Get the instance of the engine this game object is in.
+     *
+     * @return Engine instance.
+     */
+    public abstract VoxelTexEngine getEngine();
+
+    /**
+     * Set the instance of the engine this game object is in.
+     *
+     * @param engine Engine instance.
+     */
+    public abstract void setEngine(VoxelTexEngine engine);
 
     /**
      * Get the parent game object.

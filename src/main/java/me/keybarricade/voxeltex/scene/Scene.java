@@ -49,6 +49,9 @@ public class Scene extends AbstractGameObjectScene {
         // Add the game object to the list
         this.gameObjects.add(gameObject);
 
+        // Set the engine of the game object
+        gameObject.setEngine(getEngine());
+
         // Start the game object
         gameObject.start();
     }
