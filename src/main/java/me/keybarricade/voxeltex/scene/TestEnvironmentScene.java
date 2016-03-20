@@ -6,6 +6,7 @@ import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
+import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
@@ -30,7 +31,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
-        gridObject.addComponent(new GridDrawComponent());
+//        gridObject.addComponent(new GridDrawComponent());
         gridObject.addComponent(new AxisDrawComponent());
         addGameObject(gridObject);
 
@@ -69,12 +70,20 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
-        for(int i = 0; i < 8; i++) {
+        for(int i = 0; i < 10; i++) {
             // Load the texture shader
             CubePrefab quadTest = new CubePrefab();
-            quadTest.getTransform().setPosition(new Vector3f(1.2f * i, 0, 0));
+            quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 5.0f - 1.5f * i));
             addGameObject(quadTest);
             quadTest.setMaterial(boxMaterial);
         }
+
+        // Load the sand texture
+        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
+
+        QuadPrefab quad = new QuadPrefab();
+        quad.setMaterial(sandMaterial);
+        addGameObject(quad);
     }
 }
