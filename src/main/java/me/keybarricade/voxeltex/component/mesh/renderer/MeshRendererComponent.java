@@ -83,8 +83,9 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             // Get the main material
             Material material = getMaterial(0);
 
-            // Bind the material to OpenGL
+            // Bind material to OpenGL and update the shader
             material.bind();
+            material.getShader().update();
 
             // TODO: Move this shader configuration code somewhere else!
 

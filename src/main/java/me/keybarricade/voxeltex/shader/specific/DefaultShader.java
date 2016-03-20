@@ -3,6 +3,7 @@ package me.keybarricade.voxeltex.shader.specific;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
+import me.keybarricade.voxeltex.util.Color;
 
 public class DefaultShader extends Shader {
 
@@ -39,5 +40,14 @@ public class DefaultShader extends Shader {
      */
     public DefaultShader(AbstractRawShader rawShader) {
         super(rawShader);
+    }
+
+    @Override
+    public void update() {
+        // Update the super
+        super.update();
+
+        // Set the shader color
+        setUniform4f("colour", Color.GREEN.toVector4f());
     }
 }

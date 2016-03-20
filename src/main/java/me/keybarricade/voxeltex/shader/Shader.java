@@ -22,4 +22,7 @@ public class Shader extends AbstractShader {
         // Compile the shader and use it's program ID
         this(rawShader.compile());
     }
+
+    @Override
+    public void update() { }
 }

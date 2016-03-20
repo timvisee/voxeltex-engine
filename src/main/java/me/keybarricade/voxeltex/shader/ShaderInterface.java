@@ -14,6 +14,11 @@ public interface ShaderInterface {
     int getProgramId();
 
     /**
+     * Update the shader before using it, to update all parameters.
+     */
+    void update();
+
+    /**
      * Bind the compiled shader to the current OpenGL instance.
      */
     void bind();
