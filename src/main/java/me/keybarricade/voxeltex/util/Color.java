@@ -1,5 +1,7 @@
 package me.keybarricade.voxeltex.util;
 
+import org.joml.Vector4f;
+
 public class Color {
 
     /**
@@ -197,5 +199,14 @@ public class Color {
 
         // Combine the values into the result
         return red | (green << 8) | (blue << 16) | (alpha << 24);
+    }
+
+    /**
+     * Get the vector representation of this color.
+     *
+     * @return Vector.
+     */
+    public Vector4f toVector4f() {
+        return new Vector4f(this.red, this.green, this.blue, this.alpha);
     }
 }
