@@ -6,6 +6,7 @@ import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,17 +88,20 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
             // TODO: Move this shader configuration code somewhere else!
 
-            // Get the projection matrix
-            Matrix4f mat = new Matrix4f(VoxelTexRenderer.mat);
-            mat.scale(0.5f, 0.5f, 0.5f);
+            // Calculate the projection matrix
+            Matrix4f projectionMatrix = new Matrix4f(VoxelTexRenderer.mat);
+            projectionMatrix.scale(0.5f, 0.5f, 0.5f);
 
-            // Get the view matrix
-            Matrix4f viewMatrix = MainCamera.createRelativeCameraMatrix();
-            getTransform().applyWorldTransform(viewMatrix);
+            // Calculate the model matrix
+            Vector3f pos = getTransform().getPosition();
+            Matrix4f modelMatrix = new Matrix4f().rotate(getTransform().getRotation()).translate(pos.x, pos.y, pos.z);
 
             // Configure the shader
-            material.getShader().setUniformMatrix4f("projectionMatrix", mat);
-            material.getShader().setUniformMatrix4f("modelMatrix", viewMatrix);
+            material.getShader().setUniformMatrix4f("projectionMatrix", projectionMatrix);
+            material.getShader().setUniformMatrix4f("viewMatrix", MainCamera.createRelativeCameraMatrix());
+            material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
+
+            // Set the shader texture if a texture is available
             if(material.hasTexture())
                 material.getShader().setUniform1f("texture", material.getTexture().getId());
         }
