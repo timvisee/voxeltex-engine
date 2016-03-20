@@ -28,7 +28,7 @@ public class CubePrefab extends GameObject {
      * Constructor.
      */
     public CubePrefab() {
-        super(DEFAULT_NAME);
+        this(DEFAULT_NAME);
     }
 
     /**
@@ -38,12 +38,6 @@ public class CubePrefab extends GameObject {
      */
     public CubePrefab(String name) {
         super(name);
-    }
-
-    @Override
-    public void create() {
-        // Call the super
-        super.create();
 
         // Create the mesh filter component
         this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator().createMesh());
@@ -55,6 +49,12 @@ public class CubePrefab extends GameObject {
         // Add the mesh filter and renderer components to the object
         addComponent(this.meshFilter);
         addComponent(this.meshRenderer);
+    }
+
+    @Override
+    public void create() {
+        // Call the super
+        super.create();
     }
 
     /**
