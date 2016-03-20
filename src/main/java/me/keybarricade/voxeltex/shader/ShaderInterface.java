@@ -16,7 +16,8 @@ public interface ShaderInterface {
 
     /**
      * Update the shader before using it, to update all parameters.
-     * @param material
+     *
+     * @param material Material this shader should be updated for.
      */
     void update(Material material);
 

@@ -41,4 +41,14 @@ public class TexturedShader extends Shader {
     public TexturedShader(AbstractRawShader rawShader) {
         super(rawShader);
     }
+
+    @Override
+    public void update(Material material) {
+        // Call the parent
+        super.update(material);
+
+        // Send texture tiling data
+        if(material != null)
+            setUniform2f("tiling", material.getTiling());
+    }
 }

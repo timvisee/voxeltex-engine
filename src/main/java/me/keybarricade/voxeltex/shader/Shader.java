@@ -31,9 +31,5 @@ public class Shader extends AbstractShader {
         // Configure the projection and view matrix of the shader
         setUniformMatrix4f("projectionMatrix", VoxelTexRenderer.mat);
         setUniformMatrix4f("viewMatrix", MainCamera.createCameraViewMatrix());
-
-        // Configure the tiling
-        if(material != null)
-            setUniform2f("tiling", material.getTiling());
     }
 }
