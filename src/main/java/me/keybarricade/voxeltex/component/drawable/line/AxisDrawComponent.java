@@ -1,4 +1,6 @@
-package me.keybarricade.voxeltex.component.drawable;
+package me.keybarricade.voxeltex.component.drawable.line;
+
+import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
 
 import static org.lwjgl.opengl.GL11.*;
 

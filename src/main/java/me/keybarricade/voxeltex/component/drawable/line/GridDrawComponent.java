@@ -1,5 +1,6 @@
-package me.keybarricade.voxeltex.component.drawable;
+package me.keybarricade.voxeltex.component.drawable.line;
 
+import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
 import org.lwjgl.opengl.GL11;
 
 public class GridDrawComponent extends AbstractDrawableComponent {

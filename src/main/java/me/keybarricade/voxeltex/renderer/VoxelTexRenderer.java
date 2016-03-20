@@ -2,7 +2,8 @@ package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.VoxelTex;
 import me.keybarricade.voxeltex.VoxelTexEngine;
-import me.keybarricade.voxeltex.component.drawable.*;
+import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
+import me.keybarricade.voxeltex.component.drawable.line.GridDrawComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.MainCamera;
