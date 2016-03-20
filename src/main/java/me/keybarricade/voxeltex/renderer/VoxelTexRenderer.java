@@ -1,14 +1,26 @@
 package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.component.drawable.*;
+import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
+import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.mesh.generator.CubeMeshGenerator;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
+import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.time.Time;
+import me.keybarricade.voxeltex.shader.ShaderManager;
+import me.keybarricade.voxeltex.shader.ShaderTracker;
+import me.keybarricade.voxeltex.texture.Image;
+import me.keybarricade.voxeltex.texture.ImageTracker;
+import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.texture.TextureTracker;
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
@@ -71,6 +83,11 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Destroy the window
             this.window.glDestroyWindow();
+
+            // Dispose all tracked textures, images and shaders
+            TextureTracker.disposeAll();
+            ImageTracker.disposeAll();
+            ShaderTracker.disposeAll();
 
             // Free all callbacks
             // TODO: Fix this, free methods not available anymore
@@ -153,13 +170,15 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Create the rendering capabilities, required by LWJGL
         GL.createCapabilities();
 
+        // Load the engine shaders
+        ShaderManager.load();
+
         if(!created) {
             // TODO: Put this in a different spot, where the engine has already loaded!
 
             // Create a grid renderer object
             GameObject axisObject = new GameObject("AxisGridRenderer");
             axisObject.addComponent(new AxisDrawComponent());
-            axisObject.getTransform().setPosition(new Vector3f(0.05f));
             this.testScene.addGameObject(axisObject);
 
             // Create a grid renderer object
@@ -168,32 +187,35 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             this.testScene.addGameObject(gridObject);
 
             // Create an object for testing
-            GameObject baseObject = new GameObject("BaseObject");
+            CubePrefab baseObject = new CubePrefab();
             baseObject.getTransform().setPosition(new Vector3f(0, 1, -1.0f));
             baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
-            baseObject.addComponent(new CubeDrawComponent());
             testScene.addGameObject(baseObject);
 
             // Create a sub object for testing
-            GameObject subObject1 = new GameObject("SubObject1");
+            CubePrefab subObject1 = new CubePrefab();
             subObject1.getTransform().setAngularVelocity(new Vector3f(0.0f, 2.5f, 0.0f));
             subObject1.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
-            subObject1.addComponent(new CubeDrawComponent());
             baseObject.addChild(subObject1);
 
             // Create a sub object for testing
-            GameObject subObject2 = new GameObject("SubObject2");
+            CubePrefab subObject2 = new CubePrefab();
             subObject2.getTransform().setAngularVelocity(new Vector3f(0.0f, 3.0f, 0.0f));
             subObject2.getTransform().setPosition(new Vector3f(1.5f, 1.5f, 0));
-            subObject2.addComponent(new CubeDrawComponent());
             subObject1.addChild(subObject2);
 
             // Create a sub object for testing
-            GameObject subObject3 = new GameObject("SubObject3");
+            CubePrefab subObject3 = new CubePrefab();
             subObject3.getTransform().setPosition(new Vector3f(-1.5f, 1.5f, 0));
-            subObject3.getTransform().setAngularVelocity(new Vector3f(0.0f, 1.2f, 0.0f));
-            subObject3.addComponent(new CubeDrawComponent());
+            subObject3.getTransform().setRotation(new Quaternionf(0.25f, 0, 0));
+            subObject3.getTransform().setAngularVelocity(new Vector3f(0, -3.3f, 0));
             subObject1.addChild(subObject3);
+
+            // Create a sub object for testing
+            CubePrefab subObject4 = new CubePrefab();
+            subObject4.getTransform().setPosition(new Vector3f(0, 1.35f, 0));
+            subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
+            subObject3.addChild(subObject4);
 
             // Create the main camera object and set it's position
             FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
@@ -202,15 +224,19 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Create a grid renderer object
             GameObject testAxis = new GameObject("TestAxis");
-            testAxis.getTransform().setPosition(new Vector3f(-1.35f, -1.10f, -3.0f));
+            testAxis.getTransform().setPosition(new Vector3f(-1.60f, -1.19f, -3.0f));
             testAxis.addComponent(new AxisDrawComponent());
             fpsCameraPrefab.addChild(testAxis);
 
-            // Create a grid renderer object
-            GameObject quadTest = new GameObject("TextureRenderer");
-            quadTest.getTransform().setPosition(new Vector3f(1.5f, 0, 0));
-            quadTest.addComponent(new TexturedQuadDrawComponent());
-            this.testScene.addGameObject(quadTest);
+            Texture texture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
+            for(int i = 0; i < 8; i++) {
+                // Load the texture shader
+                GameObject quadTest = new GameObject("TextureRenderer");
+                quadTest.getTransform().setPosition(new Vector3f(1.2f * i, 0, 0));
+                quadTest.addComponent(new MeshFilterComponent(new CubeMeshGenerator().createMesh()));
+                quadTest.addComponent(new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, texture)));
+                this.testScene.addGameObject(quadTest);
+            }
 
             created = true;
         }
