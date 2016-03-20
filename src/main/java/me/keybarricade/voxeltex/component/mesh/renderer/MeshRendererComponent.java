@@ -96,8 +96,8 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             getTransform().applyWorldTransform(viewMatrix);
 
             // Configure the shader
-            material.getShader().setUniformMatrix4f("prMatrix", mat);
-            material.getShader().setUniformMatrix4f("mlMatrix", viewMatrix);
+            material.getShader().setUniformMatrix4f("projectionMatrix", mat);
+            material.getShader().setUniformMatrix4f("modelMatrix", viewMatrix);
             if(material.hasTexture())
                 material.getShader().setUniform1f("texture", material.getTexture().getId());
         }
