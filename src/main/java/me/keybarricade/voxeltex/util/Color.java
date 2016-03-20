@@ -50,6 +50,11 @@ public class Color {
     public static final Color BLUE = new Color(0x0000FF);
 
     /**
+     * Orange color default.
+     */
+    public static final Color ORANGE = new Color(0xFFA500);
+
+    /**
      * Constructor.
      *
      * @param red Red channel intensity, from 0 to 1.

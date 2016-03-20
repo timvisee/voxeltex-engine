@@ -48,6 +48,6 @@ public class DefaultShader extends Shader {
         super.update();
 
         // Set the shader color
-        setUniform4f("colour", Color.GREEN.toVector4f());
+        setUniform4f("colour", Color.ORANGE.toVector4f());
     }
 }
