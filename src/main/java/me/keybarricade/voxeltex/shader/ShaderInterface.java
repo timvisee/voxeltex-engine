@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.shader;
 
+import me.keybarricade.voxeltex.material.Material;
 import org.joml.*;
 
 import java.nio.FloatBuffer;
@@ -15,8 +16,9 @@ public interface ShaderInterface {
 
     /**
      * Update the shader before using it, to update all parameters.
+     * @param material
      */
-    void update();
+    void update(Material material);
 
     /**
      * Bind the compiled shader to the current OpenGL instance.

@@ -2,6 +2,7 @@ package me.keybarricade.voxeltex.material;
 
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.texture.Texture;
+import org.joml.Vector2f;
 
 public interface MaterialInterface {
 
@@ -41,6 +42,20 @@ public interface MaterialInterface {
      * @param texture Material texture.
      */
     void setTexture(Texture texture);
+
+    /**
+     * Get the texture tiling factor.
+     *
+     * @return Tiling factor.
+     */
+    Vector2f getTiling();
+
+    /**
+     * Set the texture tiling factor.
+     *
+     * @param tile Tiling factor.
+     */
+    void setTiling(Vector2f tile);
 
     /**
      * Bind the current material to OpenGL before rendering.

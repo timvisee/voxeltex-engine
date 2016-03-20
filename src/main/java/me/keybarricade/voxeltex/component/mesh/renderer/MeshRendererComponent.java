@@ -80,7 +80,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
             // Bind material to OpenGL and update the shader
             material.bind();
-            material.getShader().update();
+            material.getShader().update(material);
 
             // TODO: Move this to the shader update method!
             // Calculate the model matrix and update the shader

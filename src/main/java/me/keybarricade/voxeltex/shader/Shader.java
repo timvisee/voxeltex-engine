@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.shader;
 
 import me.keybarricade.voxeltex.global.MainCamera;
+import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 
@@ -26,9 +27,13 @@ public class Shader extends AbstractShader {
     }
 
     @Override
-    public void update() {
+    public void update(Material material) {
         // Configure the projection and view matrix of the shader
         setUniformMatrix4f("projectionMatrix", VoxelTexRenderer.mat);
         setUniformMatrix4f("viewMatrix", MainCamera.createCameraViewMatrix());
+
+        // Configure the tiling
+        if(material != null)
+            setUniform2f("tiling", material.getTiling());
     }
 }
