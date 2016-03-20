@@ -29,7 +29,7 @@ public class VoxelTexWindow {
     /**
      * Window key.
      */
-    private long window;
+    private long window = -1;
 
     /**
      * Constructor.
@@ -51,7 +51,12 @@ public class VoxelTexWindow {
      * @param title Frame title.
      */
     public void setTitle(String title) {
+        // Set the window title
         this.title = title;
+
+        // Update the title if the window is already created
+        if(isCreated())
+            glfwSetWindowTitle(this.window, title);
     }
 
     /**
@@ -120,6 +125,15 @@ public class VoxelTexWindow {
     }
 
     /**
+     * Check whether the window is created and/or visible.
+     *
+     * @return True if the window is created and/or visible, false if not.
+     */
+    public boolean isCreated() {
+        return this.window >= 0;
+    }
+
+    /**
      * Center the cursor to the middle of the screen.
      */
     public void centerCursorPosition() {
@@ -160,7 +174,11 @@ public class VoxelTexWindow {
      * Destroy the window.
      */
     public void glDestroyWindow() {
+        // Destroy the window
         glfwDestroyWindow(this.window);
+
+        // Reset the window handle
+        this.window = -1;
     }
 
     /**
