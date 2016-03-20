@@ -12,6 +12,10 @@ public class AxisDrawComponent extends AbstractDrawableComponent {
 
     @Override
     public void draw() {
+        // Set the thickness of the axis drawn
+        // TODO: Make this configurable
+        glLineWidth(5.0f);
+
         // Enable line drawing mode
         glBegin(GL_LINES);
 
