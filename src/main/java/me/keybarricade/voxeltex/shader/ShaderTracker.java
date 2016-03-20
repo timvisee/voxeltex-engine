@@ -8,14 +8,14 @@ public class ShaderTracker {
     /**
      * List of shaders managed by the engine.
      */
-    private static List<Shader> shaders = new ArrayList<>();
+    private static List<AbstractShader> shaders = new ArrayList<>();
 
     /**
      * Add a new shader to the tracker.
      *
      * @param shader Shader to add.
      */
-    public static void trackShader(Shader shader) {
+    public static void trackShader(AbstractShader shader) {
         shaders.add(shader);
     }
 
@@ -24,7 +24,7 @@ public class ShaderTracker {
      *
      * @return List of shaders.
      */
-    public static List<Shader> getShaders() {
+    public static List<AbstractShader> getShaders() {
         return shaders;
     }
 
@@ -44,7 +44,7 @@ public class ShaderTracker {
      *
      * @return True if a shader was removed from the tracker, false othewrise.
      */
-    public static boolean untrackShader(Shader shader) {
+    public static boolean untrackShader(AbstractShader shader) {
         return shaders.remove(shader);
     }
 
@@ -55,7 +55,7 @@ public class ShaderTracker {
      *
      * @return Removed shader.
      */
-    public static Shader untrackShader(int i) {
+    public static AbstractShader untrackShader(int i) {
         return shaders.remove(i);
     }
 

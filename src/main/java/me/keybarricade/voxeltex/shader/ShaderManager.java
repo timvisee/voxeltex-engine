@@ -11,6 +11,6 @@ public class ShaderManager {
      * Load the engine shaders.
      */
     public static void load() {
-        DEFAULT_TEXTURED = Shader.fromEngineAssets("shaders/textured.vert", "shaders/textured.frag");
+        DEFAULT_TEXTURED = new TexturedShader();
     }
 }

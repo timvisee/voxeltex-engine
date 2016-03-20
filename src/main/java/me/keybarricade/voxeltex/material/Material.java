@@ -77,6 +77,6 @@ public class Material implements MaterialInterface {
             Texture.unbind();
 
         // Unbind the shader
-        Shader.unbind();
+        this.shader.unbind();
     }
 }
