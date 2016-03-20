@@ -6,6 +6,9 @@ import org.lwjgl.opengl.GL11;
 public class GridDrawComponent extends AbstractDrawableComponent {
 
     @Override
+    public void create() { }
+
+    @Override
     public void start() { }
 
     @Override

@@ -41,12 +41,14 @@ public class CubePrefab extends GameObject {
     }
 
     @Override
-    public void start() {
+    public void create() {
         // Call the super
-        super.start();
+        super.create();
 
-        // Create the mesh filter and renderer components
+        // Create the mesh filter component
         this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator().createMesh());
+
+        // Create the mesh renderer component
         // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 

@@ -9,6 +9,9 @@ import java.util.List;
 public abstract class AbstractMeshRendererComponent extends BaseComponent implements MeshRendererComponentInterface {
 
     @Override
+    public void create() { }
+
+    @Override
     public void start() { }
 
     @Override

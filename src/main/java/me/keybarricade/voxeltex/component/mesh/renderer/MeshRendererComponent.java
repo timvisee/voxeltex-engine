@@ -61,8 +61,6 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         // Get the mesh filter if it hasn't been configured already
         if(!hasMeshFilterComponent())
             this.meshFilter = getComponent(AbstractMeshFilterComponent.class);
-
-        // TODO: Make sure we're indeed having the class?
     }
 
     @Override

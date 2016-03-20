@@ -10,6 +10,9 @@ public abstract class AbstractTextureProviderComponent extends BaseComponent imp
     }
 
     @Override
+    public void create() { }
+
+    @Override
     public void start() { }
 
     @Override
