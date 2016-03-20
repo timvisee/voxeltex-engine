@@ -4,8 +4,10 @@ import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.mesh.generator.QuadMeshGenerator;
 import me.keybarricade.voxeltex.shader.ShaderManager;
+import org.joml.Vector2f;
 
 public class QuadPrefab extends GameObject {
 
@@ -37,10 +39,21 @@ public class QuadPrefab extends GameObject {
      * @param name Game object name.
      */
     public QuadPrefab(String name) {
+        this(name, Vector2fFactory.one());
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     * @param size Quad size.
+     */
+    public QuadPrefab(String name, Vector2f size) {
+        // Construct the super
         super(name);
 
         // Create the mesh filter component
-        this.meshFilter = new MeshFilterComponent(new QuadMeshGenerator(10.0f).createMesh());
+        this.meshFilter = new MeshFilterComponent(new QuadMeshGenerator(size).createMesh());
 
         // Create the mesh renderer component
         // TODO: Use proper shader here!

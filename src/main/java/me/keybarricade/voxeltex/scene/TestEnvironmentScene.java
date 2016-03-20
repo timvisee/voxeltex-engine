@@ -12,6 +12,7 @@ import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Quaternionf;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class TestEnvironmentScene extends Scene {
@@ -84,7 +85,7 @@ public class TestEnvironmentScene extends Scene {
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
         ((TexturedShader) sandMaterial.getShader()).getTile().set(3.0f);
 
-        QuadPrefab quad = new QuadPrefab();
+        QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
         addGameObject(quad);
     }

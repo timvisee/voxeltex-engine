@@ -4,8 +4,10 @@ import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.mesh.generator.CubeMeshGenerator;
 import me.keybarricade.voxeltex.shader.ShaderManager;
+import org.joml.Vector3f;
 
 public class CubePrefab extends GameObject {
 
@@ -37,10 +39,21 @@ public class CubePrefab extends GameObject {
      * @param name Game object name.
      */
     public CubePrefab(String name) {
+        this(name, Vector3fFactory.one());
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     * @param size Cube size.
+     */
+    public CubePrefab(String name, Vector3f size) {
+        // Construct the super
         super(name);
 
         // Create the mesh filter component
-        this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator().createMesh());
+        this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator(size).createMesh());
 
         // Create the mesh renderer component
         // TODO: Use proper shader here!
