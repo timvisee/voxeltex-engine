@@ -213,7 +213,7 @@ public class Transform {
      * @param rotation Game object rotation.
      */
     public void setRotation(Quaternionf rotation) {
-        this.rotation = rotation;
+        this.rotation = rotation.normalize();
     }
 
     /**
