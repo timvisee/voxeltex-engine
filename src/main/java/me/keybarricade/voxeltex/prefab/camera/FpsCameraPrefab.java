@@ -27,9 +27,9 @@ public class FpsCameraPrefab extends GameObject {
     }
 
     @Override
-    public void start() {
+    public void create() {
         // Call the super
-        super.start();
+        super.create();
 
         // Add the FPS camera component
         addComponent(new FpsCameraComponent());

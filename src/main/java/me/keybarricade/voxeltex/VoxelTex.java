@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex;
 
-import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
+import me.keybarricade.voxeltex.scene.TestEnvironmentScene;
 
 public class VoxelTex {
 
@@ -10,27 +10,46 @@ public class VoxelTex {
     public static final String ENGINE_NAME = "VoxelTex";
 
     /**
-     * Create a new renderer.
-     *
-     * @param title Window title.
-     *
-     * @return Renderer instance.
+     * Engine version name.
      */
-    public static VoxelTexRenderer createRenderer(String title) {
-        // Show a status message
-        System.out.println("Creating " + ENGINE_NAME + " renderer...");
+    public static final String ENGINE_VERSION_NAME = "0.1";
 
-        // Create the voxel renderer
-        VoxelTexRenderer renderer = new VoxelTexRenderer();
+    /**
+     * Engine version code.
+     */
+    public static final int ENGINE_VERSION_CODE = 1;
 
-        // Set the window title
-        // TODO: Enable this again!
-        //renderer.getWindow().setTitle(title);
+    /**
+     * Get the full engine name string, including the version number.
+     *
+     * @return Engine name string.
+     */
+    public static String getEngineNameFull() {
+        return ENGINE_NAME + " v" + ENGINE_VERSION_NAME;
+    }
 
-        // Show a status message
-        System.out.println(ENGINE_NAME + " renderer created!");
+    /**
+     * Run the VoxelTex engine with the test environment.
+     *
+     * @param args Startup arguments.
+     */
+    public static void main(String[] args) {
+        // Define the engine variable
+        VoxelTexEngine engine;
 
-        // Return the renderer
-        return renderer;
+        // Create a VoxelTex engine instance
+        engine = new VoxelTexEngine();
+
+        // Set the title
+        engine.setTitle(ENGINE_NAME + " v" + ENGINE_VERSION_NAME + " - Test Environment");
+
+        // Initialize the engine
+        engine.init();
+
+        // Load the test environment scene
+        engine.getSceneManager().loadScene(new TestEnvironmentScene());
+
+        // Start the engine
+        engine.start();
     }
 }

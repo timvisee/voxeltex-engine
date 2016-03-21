@@ -14,7 +14,7 @@ public class VoxelTexWindow {
     /**
      * Window title.
      */
-    private String title = VoxelTex.ENGINE_NAME + " Window";
+    private String title = VoxelTex.getEngineNameFull() + " Window";
 
     /**
      * Window width.
@@ -29,7 +29,7 @@ public class VoxelTexWindow {
     /**
      * Window key.
      */
-    private long window;
+    private long window = -1;
 
     /**
      * Constructor.
@@ -51,7 +51,12 @@ public class VoxelTexWindow {
      * @param title Frame title.
      */
     public void setTitle(String title) {
+        // Set the window title
         this.title = title;
+
+        // Update the title if the window is already created
+        if(isCreated())
+            glfwSetWindowTitle(this.window, title);
     }
 
     /**
@@ -60,7 +65,7 @@ public class VoxelTexWindow {
      * @return Window width.
      */
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     /**
@@ -78,7 +83,7 @@ public class VoxelTexWindow {
      * @return Window height.
      */
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     /**
@@ -117,6 +122,15 @@ public class VoxelTexWindow {
      */
     public void setWindowId(long window) {
         this.window = window;
+    }
+
+    /**
+     * Check whether the window is created and/or visible.
+     *
+     * @return True if the window is created and/or visible, false if not.
+     */
+    public boolean isCreated() {
+        return this.window >= 0;
     }
 
     /**
@@ -160,7 +174,11 @@ public class VoxelTexWindow {
      * Destroy the window.
      */
     public void glDestroyWindow() {
+        // Destroy the window
         glfwDestroyWindow(this.window);
+
+        // Reset the window handle
+        this.window = -1;
     }
 
     /**
@@ -180,7 +198,6 @@ public class VoxelTexWindow {
     /**
      * Set the GL viewport with the default configuration.
      */
-    // TODO: Make this configurable!
     public void glViewportDefault() {
         glViewport(0, 0, width, height);
     }

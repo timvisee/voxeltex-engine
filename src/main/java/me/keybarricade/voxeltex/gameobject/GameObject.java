@@ -1,11 +1,17 @@
 package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
-import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
+import me.keybarricade.voxeltex.global.MainCamera;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL11.glLoadMatrixf;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
 
 public class GameObject extends AbstractGameObject {
 
@@ -33,6 +39,11 @@ public class GameObject extends AbstractGameObject {
      * The components on this game object.
      */
     private List<AbstractComponent> components = new ArrayList<>();
+
+    /**
+     * Float buffer for the rendering matrix.
+     */
+    private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     /**
      * Constructor.
@@ -105,8 +116,18 @@ public class GameObject extends AbstractGameObject {
         // Set the parent
         gameObject.setParent(this);
 
+        // Set the scene
+        gameObject.setScene(getScene());
+
         // Add the game object to the children
         this.children.add(gameObject);
+
+        // Create the game object
+        gameObject.create();
+
+        // Start the game object if the scene has started
+        if(isSceneStarted())
+            gameObject.start();
     }
 
     @Override
@@ -169,8 +190,12 @@ public class GameObject extends AbstractGameObject {
         // Set the component owner
         component.setOwner(this);
 
-        // Start the component
-        component.start();
+        // Create the component
+        component.create();
+
+        // Start the component if the scene is started
+        if(isSceneStarted())
+            component.start();
     }
 
     @Override
@@ -184,7 +209,7 @@ public class GameObject extends AbstractGameObject {
 
         // Loop through all components to find an applicable one
         for(AbstractComponent component : this.components)
-            if(component.getClass().isAssignableFrom(componentType))
+            if(componentType.isAssignableFrom(component.getClass()))
                 //noinspection unchecked
                 return (T) component;
 
@@ -222,7 +247,26 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public void start() { }
+    public void create() {
+        // Create the children
+        for(AbstractGameObject child : this.children)
+            child.create();
+
+        // Create all components
+        for(AbstractComponent component : this.components)
+            component.create();
+    }
+
+    @Override
+    public void start() {
+        // Start the children
+        for(AbstractGameObject child : this.children)
+            child.start();
+
+        // Start all components
+        for(AbstractComponent component : this.components)
+            component.start();
+    }
 
     @Override
     public void update() {
@@ -238,23 +282,53 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void draw() {
+        // Define whether we started drawing
+        boolean drawing = false;
+
         // Draw all drawable components and all children
         for(AbstractComponent component : this.components) {
             // Make sure the component is drawable
-            if(!(component instanceof DrawableComponentInterface))
-                continue;
+            if(component instanceof DrawableComponentInterface) {
+                // Make sure the drawing mode is enabled
+                if(!drawing) {
+                    // Start the drawing process and set the flag
+                    drawStart();
+                    drawing = true;
+                }
 
-            // Cast the component
-            AbstractDrawableComponent drawable = (AbstractDrawableComponent) component;
-
-            // Draw the component
-            drawable.drawStart();
-            drawable.draw();
-            drawable.drawEnd();
+                // Draw the component
+                ((DrawableComponentInterface) component).draw();
+            }
         }
+
+        // End the drawing process if it was enabled
+        if(drawing)
+            drawEnd();
 
         // Draw all children
         for(AbstractGameObject child : this.children)
             child.draw();
+    }
+
+    /**
+     * Prepare and start the drawing process.
+     */
+    private void drawStart() {
+        // Create a view matrix base based on the camera position
+        Matrix4f viewMatrix = MainCamera.createCameraViewMatrix();
+
+        // Apply the object's world transformation to the matrix
+        getTransform().applyWorldTransform(viewMatrix);
+
+        // Load the matrix to the GPU
+        glLoadMatrixf(viewMatrix.get(fb));
+    }
+
+    /**
+     * End the current drawing process.
+     */
+    private void drawEnd() {
+        // Pop the OpenGL matrix
+        glPopMatrix();
     }
 }

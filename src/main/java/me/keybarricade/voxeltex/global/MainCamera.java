@@ -103,22 +103,22 @@ public class MainCamera {
     }
 
     /**
-     * Create the relative camera base matrix.
+     * Create the camera view matrix.
      *
-     * @return Relative camera base matrix.
+     * @return Camera view matrix.
      */
-    public static Matrix4f createRelativeCameraMatrix() {
-        return createRelativeCameraMatrix(new Matrix4f());
+    public static Matrix4f createCameraViewMatrix() {
+        return createCameraViewMatrix(new Matrix4f());
     }
 
     /**
-     * Create the relative camera base matrix.
+     * Create the camera view matrix.
      *
      * @param dest Destination matrix. (allocation free)
      *
-     * @return Relative camera base matrix.
+     * @return Camera view matrix.
      */
-    public static Matrix4f createRelativeCameraMatrix(Matrix4f dest) {
+    public static Matrix4f createCameraViewMatrix(Matrix4f dest) {
         return dest.rotate(cameraRotation.invert(new Quaternionf())).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
     }
 }

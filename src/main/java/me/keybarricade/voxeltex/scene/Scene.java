@@ -46,11 +46,18 @@ public class Scene extends AbstractGameObjectScene {
 
     @Override
     public void addGameObject(AbstractGameObject gameObject) {
+        // Set the scene of the game object
+        gameObject.setScene(this);
+
         // Add the game object to the list
         this.gameObjects.add(gameObject);
 
-        // Start the game object
-        gameObject.start();
+        // Create the game object
+        gameObject.create();
+
+        // Start the game object if the scene has started
+        if(isStarted())
+            gameObject.start();
     }
 
     @Override
@@ -80,6 +87,9 @@ public class Scene extends AbstractGameObjectScene {
         // Return the game object
         return gameObject;
     }
+
+    @Override
+    public void load() { }
 
     @Override
     public void update() {

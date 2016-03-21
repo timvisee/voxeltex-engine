@@ -94,16 +94,6 @@
 
     <build>
         <finalName>${project.name}-${project.version}</finalName>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-                <includes>
-                    <include>*</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <!-- Copy native LWJGL libraries to target directory -->
             <plugin>
@@ -175,6 +165,17 @@
                         <argument>me.keybarricade.KeyBarricade</argument>
                     </arguments>
                     <mainClass>me.keybarricade.KeyBarricade</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**</include>
+                    </includes>
                 </configuration>
             </plugin>
 

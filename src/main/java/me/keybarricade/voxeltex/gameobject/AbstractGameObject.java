@@ -1,10 +1,17 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.component.AbstractComponent;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 
 import java.util.List;
 
 public abstract class AbstractGameObject {
+
+    /**
+     * The scene this game object is in.
+     */
+    private AbstractScene scene;
 
     /**
      * Constructor.
@@ -35,6 +42,53 @@ public abstract class AbstractGameObject {
      * @return Game object transformation.
      */
     public abstract Transform getTransform();
+
+    /**
+     * Get the instance of the engine this game object is in.
+     *
+     * @return Engine instance.
+     */
+    public VoxelTexEngine getEngine() {
+        return this.scene.getEngine();
+    }
+
+    /**
+     * Get the scene this game object is in.
+     *
+     * @return Game object scene.
+     */
+    public AbstractScene getScene() {
+        return this.scene;
+    }
+
+    /**
+     * Check whether the scene this game object is in is started.
+     * If this game object isn't in any scene, false will be returned.
+     *
+     * @return True if started, false if not.
+     */
+    public boolean isSceneStarted() {
+        // Make sure a scene is set
+        if(this.scene == null)
+            return false;
+
+        // Return the result
+        return this.scene.isStarted();
+    }
+
+    /**
+     * Set the scene this game object is in.
+     *
+     * @param scene Game object scene.
+     */
+    public void setScene(AbstractScene scene) {
+        // Set the scene
+        this.scene = scene;
+
+        // Set the scene of the children
+        for(AbstractGameObject child : this.getChildren())
+            child.setScene(this.scene);
+    }
 
     /**
      * Get the parent game object.
@@ -181,8 +235,14 @@ public abstract class AbstractGameObject {
     public abstract AbstractComponent removeComponent(int i);
 
     /**
+     * Create the game object.
+     * This will be called when the game object is added to the scene.
+     */
+    public abstract void create();
+
+    /**
      * Start the game object.
-     * This will be called as soon as the game object is being created.
+     * This will be called when the scene this game object is in is started.
      */
     public abstract void start();
 

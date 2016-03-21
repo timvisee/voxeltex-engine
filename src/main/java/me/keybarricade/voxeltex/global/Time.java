@@ -1,4 +1,6 @@
-package me.keybarricade.voxeltex.time;
+package me.keybarricade.voxeltex.global;
+
+import me.keybarricade.voxeltex.time.Timer;
 
 public class Time {
 

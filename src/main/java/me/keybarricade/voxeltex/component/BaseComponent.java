@@ -3,6 +3,8 @@ package me.keybarricade.voxeltex.component;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.gameobject.Transform;
 
+import java.util.List;
+
 public abstract class BaseComponent extends AbstractComponent {
 
     /**
@@ -23,5 +25,30 @@ public abstract class BaseComponent extends AbstractComponent {
     @Override
     public Transform getTransform() {
         return this.owner.getTransform();
+    }
+
+    @Override
+    public List<AbstractComponent> getComponents() {
+        return getOwner().getComponents();
+    }
+
+    @Override
+    public boolean hasComponents() {
+        return getOwner().hasComponents();
+    }
+
+    @Override
+    public int getComponentCount() {
+        return getOwner().getComponentCount();
+    }
+
+    @Override
+    public AbstractComponent getComponent(int i) {
+        return getOwner().getComponent(i);
+    }
+
+    @Override
+    public <T extends AbstractComponent> T getComponent(Class<T> componentType) {
+        return getOwner().getComponent(componentType);
     }
 }

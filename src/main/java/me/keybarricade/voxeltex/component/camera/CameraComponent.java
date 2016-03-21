@@ -19,6 +19,9 @@ public class CameraComponent extends AbstractCameraComponent {
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     @Override
+    public void create() { }
+
+    @Override
     public void start() {
         // Register the camera as main camera
         MainCamera.setCamera(this);

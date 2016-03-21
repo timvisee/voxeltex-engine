@@ -2,7 +2,7 @@ package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.math.quaternion.QuaternionfFactory;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
-import me.keybarricade.voxeltex.time.Time;
+import me.keybarricade.voxeltex.global.Time;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -213,7 +213,7 @@ public class Transform {
      * @param rotation Game object rotation.
      */
     public void setRotation(Quaternionf rotation) {
-        this.rotation = rotation;
+        this.rotation = rotation.normalize();
     }
 
     /**
