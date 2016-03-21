@@ -113,11 +113,14 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
         // Generate and store the quad vertexes
         float[] vertexes = generateVertexes(orientation, size, offset);
 
+        // Generate and store the quad vertexes
+        float[] normals = generateNormals(orientation);
+
         // Generate the texture coordinates in the same order
         float[] textures = generateTextures();
 
         // Create and store the raw mesh
-        this.raw = new RawMesh(vertexes, textures);
+        this.raw = new RawMesh(vertexes, normals, textures);
     }
 
     @Override
@@ -177,6 +180,60 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x + halfSize.x, offset.y - halfSize.y, offset.z,
                         offset.x + halfSize.x, offset.y + halfSize.y, offset.z,
                         offset.x - halfSize.x, offset.y + halfSize.y, offset.z
+                };
+        }
+
+        // Invalid orientation, throw exception
+        throw new RuntimeException("Invalid quad orientation");
+    }
+
+    /**
+     * Generate the normals for a quad.
+     *
+     * @param orientation Quad orientation.
+     *
+     * @return Quad normals.
+     */
+    public static float[] generateNormals(int orientation) {
+        // Generate the vertexes for the quad based on the specified orientation and return them
+        switch (orientation) {
+            case ORIENTATION_X:
+                return new float[]{
+                        // Left-bottom triangle
+                        1, 0, 0,
+                        1, 0, 0,
+                        1, 0, 0,
+
+                        // Right-top triangle
+                        1, 0, 0,
+                        1, 0, 0,
+                        1, 0, 0
+                };
+
+            case ORIENTATION_Y:
+                return new float[]{
+                        // Left-bottom triangle
+                        0, 1, 0,
+                        0, 1, 0,
+                        0, 1, 0,
+
+                        // Right-top triangle
+                        0, 1, 0,
+                        0, 1, 0,
+                        0, 1, 0
+                };
+
+            case ORIENTATION_Z:
+                return new float[]{
+                        // Left-bottom triangle
+                        0, 0, 1,
+                        0, 0, 1,
+                        0, 0, 1,
+
+                        // Right-top triangle
+                        0, 0, 1,
+                        0, 0, 1,
+                        0, 0, 1
                 };
         }
 

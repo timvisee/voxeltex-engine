@@ -44,6 +44,27 @@ public interface MaterialInterface {
     void setTexture(Texture texture);
 
     /**
+     * Get the material normal.
+     *
+     * @return Material normal.
+     */
+    Texture getNormal();
+
+    /**
+     * Check whether this material has any normal assigned.
+     *
+     * @return True if a normal is assigned, false if not.
+     */
+    boolean hasNormal();
+
+    /**
+     * Set the material normal.
+     *
+     * @param normal Material normal.
+     */
+    void setNormal(Texture normal);
+    
+    /**
      * Get the texture tiling factor.
      *
      * @return Tiling factor.

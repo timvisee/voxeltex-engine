@@ -4,9 +4,14 @@ import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponen
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
 import me.keybarricade.voxeltex.material.Material;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL13;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
@@ -88,8 +93,31 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
             // Set the shader texture if a texture is available
-            if(material.hasTexture())
+//            if(material.hasTexture())
+//                material.getShader().setUniform1f("texture", material.getTexture().getId());
+
+
+
+
+            if(material.hasTexture()) {
+
+                glActiveTexture(GL_TEXTURE0);
+                material.getTexture().bind();
+
+                if(material.hasNormal()) {
+                    glActiveTexture(GL_TEXTURE1);
+                    material.getNormal().bind();
+                }
+
+
                 material.getShader().setUniform1f("texture", material.getTexture().getId());
+
+                material.getShader().setUniform1f("u_texture", 0);
+
+                if (material.hasNormal()) {
+                    material.getShader().setUniform1f("u_normal", 1);
+                }
+            }
         }
 
         // Draw the mesh attached to the mesh filter

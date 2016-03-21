@@ -137,10 +137,9 @@ public class RawModel {
             parsedNormals.add(this.normals.get((int) face.getNormal().z - 1));
         }
 
-        // TODO: Implement normals to raw meshes!
-
-        // Create a vertexes array with the proper size
+        // Create a vertexes and normals array with the proper size
         float[] vertexes = new float[parsedVertexes.size() * 3];
+        float[] normals = new float[parsedNormals.size() * 3];
 
         // Put the vertex coordinates in the vertexes array
         for(int i = 0; i < parsedVertexes.size(); i++) {
@@ -153,7 +152,19 @@ public class RawModel {
             vertexes[i * 3 + 2] = vertex.z;
         }
 
+        // Put the normal coordinates in the normals array
+        for(int i = 0; i < parsedNormals.size(); i++) {
+            // Get the normal
+            Vector3f normal = parsedNormals.get(i);
+
+            // Set the normal coordinates in the array
+            normals[i * 3] = normal.x;
+            normals[i * 3 + 1] = normal.y;
+            normals[i * 3 + 2] = normal.z;
+        }
+
         // Create and return the raw mesh
-        return new RawMesh(vertexes);
+        // TODO: Load texture coords, or skip it?
+        return new RawMesh(vertexes, normals, new float[0]);
     }
 }

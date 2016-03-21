@@ -19,6 +19,11 @@ public class Material implements MaterialInterface {
     private Texture texture;
 
     /**
+     * Material texture normal.
+     */
+    private Texture normal;
+
+    /**
      * Texture tiling.
      */
     private Vector2f tile = Vector2fFactory.one();
@@ -30,8 +35,20 @@ public class Material implements MaterialInterface {
      * @param texture Material texture.
      */
     public Material(Shader shader, Texture texture) {
+        this(shader, texture, null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param shader Material shader.
+     * @param texture Material texture.
+     * @param normal Texture normal.
+     */
+    public Material(Shader shader, Texture texture, Texture normal) {
         this.shader = shader;
         this.texture = texture;
+        this.normal = normal;
     }
 
     /**
@@ -40,7 +57,7 @@ public class Material implements MaterialInterface {
      * @param shader Material shader.
      */
     public Material(Shader shader) {
-        this.shader = shader;
+        this(shader, null, null);
     }
 
     /**
@@ -49,8 +66,7 @@ public class Material implements MaterialInterface {
      * @param texture Material texture.
      */
     public Material(Texture texture) {
-        this.shader = ShaderManager.SHADER_DEFAULT_TEXTURED;
-        this.texture = texture;
+        this(ShaderManager.SHADER_DEFAULT_TEXTURED, texture, null);
     }
 
     @Override
@@ -79,6 +95,21 @@ public class Material implements MaterialInterface {
     }
 
     @Override
+    public Texture getNormal() {
+        return this.normal;
+    }
+
+    @Override
+    public boolean hasNormal() {
+        return this.normal != null;
+    }
+
+    @Override
+    public void setNormal(Texture normal) {
+        this.normal = normal;
+    }
+
+    @Override
     public Vector2f getTiling() {
         return this.tile;
     }
@@ -93,9 +124,11 @@ public class Material implements MaterialInterface {
         // Bind the shader
         this.shader.bind();
 
-        // Bind the texture if available
+        // Bind the texture and normal if available
         if(hasTexture())
             this.texture.bind();
+        if(hasNormal())
+            this.normal.bind();
     }
 
     @Override
