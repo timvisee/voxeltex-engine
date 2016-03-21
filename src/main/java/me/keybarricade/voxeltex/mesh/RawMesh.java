@@ -8,19 +8,24 @@ public class RawMesh {
     public static final int VERTEX_AXIS_COUNT = 3;
 
     /**
+     * Number of axis used in the normal specification.
+     */
+    public static final int NORMAL_AXIS_COUNT = 3;
+
+    /**
      * Number of axis used in the texture coordinate specification.
      */
     public static final int TEXTURE_AXIS_COUNT = 2;
 
     /**
-     * Number of vertexes in this mesh.
-     */
-    private int vertexCount;
-
-    /**
      * Vertexes of this mesh.
      */
     private float[] vertexes = new float[0];
+
+    /**
+     * Normal coordinates of this mesh.
+     */
+    private float[] normals = new float[0];
 
     /**
      * Texture coordinates of this mesh.
@@ -33,24 +38,20 @@ public class RawMesh {
      * @param vertexes The vertexes data.
      */
     public RawMesh(float[] vertexes) {
-        // Set the vertexes and textures
-        this.vertexes = vertexes;
-
-        // Determine and set the vertex count
-        this.vertexCount = this.vertexes.length / VERTEX_AXIS_COUNT;
+        this(vertexes, new float[0], new float[0]);
     }
 
     /**
      * Constructor.
      *
      * @param vertexes The vertexes data.
+     * @param normals The normals data.
      * @param textures The textures data.
      */
-    public RawMesh(float[] vertexes, float[] textures) {
-        // Construct the vertexes
-        this(vertexes);
-
-        // Set the textures data
+    public RawMesh(float[] vertexes, float[] normals, float[] textures) {
+        // Set the fields
+        this.vertexes = vertexes;
+        this.normals = normals;
         this.textures = textures;
     }
 
@@ -60,7 +61,7 @@ public class RawMesh {
      * @return Vertex count.
      */
     public int getVertexCount() {
-        return this.vertexCount;
+        return this.vertexes.length / VERTEX_AXIS_COUNT;
     }
 
     /**
@@ -70,6 +71,33 @@ public class RawMesh {
      */
     public float[] getVertexes() {
         return this.vertexes;
+    }
+
+    /**
+     * Get the number of normals in this this mesh.
+     *
+     * @return Normal count.
+     */
+    public int getNormalCount() {
+        return this.normals.length / NORMAL_AXIS_COUNT;
+    }
+
+    /**
+     * Get all raw normal coordinates of this mesh.
+     *
+     * @return Normals.
+     */
+    public float[] getNormals() {
+        return this.normals;
+    }
+
+    /**
+     * Check whether this mesh has any normal data.
+     *
+     * @return True if this mash has normal data, false if not.
+     */
+    public boolean hasNormalData() {
+        return this.normals.length > 0;
     }
 
     /**
@@ -97,6 +125,15 @@ public class RawMesh {
      */
     public int getVertexAxisCount() {
         return VERTEX_AXIS_COUNT;
+    }
+
+    /**
+     * Get the number of axis used for normal data.
+     *
+     * @return Normal axis count.
+     */
+    public int getNormalAxisCount() {
+        return NORMAL_AXIS_COUNT;
     }
 
     /**
