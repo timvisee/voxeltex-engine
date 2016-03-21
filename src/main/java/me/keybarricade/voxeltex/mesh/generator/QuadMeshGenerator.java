@@ -117,7 +117,7 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
         float[] textures = generateTextures();
 
         // Create and store the raw mesh
-        this.raw = new RawMesh(vertexes, textures);
+        this.raw = new RawMesh(vertexes, new float[0], textures);
     }
 
     @Override
