@@ -124,9 +124,11 @@ public class Material implements MaterialInterface {
         // Bind the shader
         this.shader.bind();
 
-        // Bind the texture if available
+        // Bind the texture and normal if available
         if(hasTexture())
             this.texture.bind();
+        if(hasNormal())
+            this.normal.bind();
     }
 
     @Override
