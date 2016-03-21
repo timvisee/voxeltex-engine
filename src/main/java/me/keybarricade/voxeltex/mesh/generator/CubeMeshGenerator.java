@@ -91,13 +91,23 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         final int vertexCountSingle = quadMeshes.get(0).getVertexCount() * RawMesh.VERTEX_AXIS_COUNT; // TODO: GET THIS FROM SOMEWHERE!
         final int vertexCountAll = vertexCountSingle * quadMeshes.size();
 
-        // Define the vertexes array
+        // Define the vertexes and normals array
         float[] vertexes = new float[vertexCountAll];
+        float[] normals = new float[0];
+
+        // Initialize the normals array if available
+        if(quadMeshes.get(0).hasNormalData())
+            normals = new float[vertexCountAll];
 
         // Copy all vertexes from the raw meshes into the new vertexes array
-        for(int i = 0; i < quadMeshes.size(); i++)
-            // Get the raw mesh and copy
+        for(int i = 0; i < quadMeshes.size(); i++) {
+            // Put the vertexes in the array
             System.arraycopy(quadMeshes.get(i).getVertexes(), 0, vertexes, i * vertexCountSingle, vertexCountSingle);
+
+            // Put the normals in the array if available
+            if(normals.length > 0)
+                System.arraycopy(quadMeshes.get(i).getNormals(), 0, normals, i * vertexCountSingle, vertexCountSingle);
+        }
 
         // Generate the texture coordinates in the same order
         float[] textures = new float[12 * 6];
@@ -107,7 +117,7 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         }
 
         // Create and store the raw mesh
-        this.raw = new RawMesh(vertexes, new float[0], textures);
+        this.raw = new RawMesh(vertexes, normals, textures);
     }
 
     @Override
