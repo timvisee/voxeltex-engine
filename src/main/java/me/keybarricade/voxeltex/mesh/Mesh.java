@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.mesh;
 
+import me.keybarricade.voxeltex.model.RawModel;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -46,6 +47,19 @@ public class Mesh {
     public Mesh(RawMesh raw) {
         // Set the raw mesh
         this.raw = raw;
+
+        // Buffer the mesh
+        bufferMesh();
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param raw Raw model.
+     */
+    public Mesh(RawModel raw) {
+        // Set the raw mesh
+        this.raw = raw.toRawMesh();
 
         // Buffer the mesh
         bufferMesh();
