@@ -34,13 +34,20 @@ public class FpsCameraComponent extends MouseLookCameraComponent {
         Vector3f target = getTransform().getLinearVelocity().zero();
 
         // Determine the linear velocity based on user input
-        target.set(
+        target.add(
                 (Input.isKeyDown(GLFW_KEY_D) ? flySpeed : 0) + (Input.isKeyDown(GLFW_KEY_A) ? -flySpeed : 0),
-                (Input.isKeyDown(GLFW_KEY_SPACE) ? flySpeed : 0) + (Input.isKeyDown(GLFW_KEY_LEFT_CONTROL) ? -flySpeed : 0),
+                0.0f,
                 (Input.isKeyDown(GLFW_KEY_W) ? -flySpeed : 0) + (Input.isKeyDown(GLFW_KEY_S) ? flySpeed : 0)
         );
 
         // Rotate the linear velocity vector based on the rotation of the object
         target.rotate(getTransform().getRotation());
+
+        // Add the vertical movement
+        target.add(
+                0.0f,
+                (Input.isKeyDown(GLFW_KEY_SPACE) ? flySpeed : 0) + (Input.isKeyDown(GLFW_KEY_LEFT_CONTROL) ? -flySpeed : 0),
+                0.0f
+        );
     }
 }
