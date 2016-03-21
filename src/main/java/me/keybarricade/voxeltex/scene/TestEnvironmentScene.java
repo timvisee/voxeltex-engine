@@ -2,29 +2,21 @@ package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.drawable.line.GridDrawComponent;
-import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.ObjLoader;
+import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
-import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-
-import java.io.IOException;
-
-import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
-import static org.lwjgl.opengl.GL11.GL_LINE;
-import static org.lwjgl.opengl.GL11.glPolygonMode;
 
 public class TestEnvironmentScene extends Scene {
 
@@ -42,22 +34,18 @@ public class TestEnvironmentScene extends Scene {
         fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         addGameObject(fpsCameraPrefab);
 
-        // Create an object to render the center axis and grid
-        try {
-            GameObject suzanneObj = new GameObject("Suzanne");
-            suzanneObj.addComponent(new MeshFilterComponent(new Mesh(ObjLoader.loadModel("models/suzanne.obj").toRawMesh())));
-            suzanneObj.addComponent(new MeshRendererComponent(boxMaterial));
-            suzanneObj.getTransform().getPosition().set(-3.0f, 1.5f, 0);
-            addGameObject(suzanneObj);
+        // Create a model that is loaded from a file
+        GameObject suzanneObj = new GameObject("Suzanne");
+        suzanneObj.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/suzanne.obj"))));
+        suzanneObj.addComponent(new MeshRendererComponent(boxMaterial));
+        suzanneObj.getTransform().getPosition().set(-3.0f, 1.5f, 0);
+        addGameObject(suzanneObj);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        GameObject lightObject = new GameObject("Light");
-        lightObject.addComponent(new LightSourceComponent());
-        lightObject.getTransform().getPosition().set(1.0f, 1.0f, 0);
-        addGameObject(lightObject);
+//        // Light source object
+//        GameObject lightObject = new GameObject("Light");
+//        lightObject.addComponent(new LightSourceComponent());
+//        lightObject.getTransform().getPosition().set(1.0f, 1.0f, 0);
+//        addGameObject(lightObject);
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
