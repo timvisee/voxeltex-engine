@@ -87,7 +87,7 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
             quadMeshes.add(quadMesh.getRawMesh());
         }
 
-        // Calculate the number of vertices for each mesh, and all of them combined
+        // Calculate the number of vertexes for each mesh, and all of them combined
         final int vertexCountSingle = quadMeshes.get(0).getVertexCount() * RawMesh.VERTEX_AXIS_COUNT; // TODO: GET THIS FROM SOMEWHERE!
         final int vertexCountAll = vertexCountSingle * quadMeshes.size();
 
