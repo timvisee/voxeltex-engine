@@ -60,30 +60,54 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         Vector2f quadSize = Vector2fFactory.identity();
         Vector3f quadOffset = Vector3fFactory.identity();
 
-        // Generate a quad face for each axis, twice
-        for(int i = -1; i < 2; i += 2) {
+        // TODO: Improve this code!
+        {
             // Determine the quad size and offset for the X axis orientation
             quadSize.set(size.y, size.z);
-            quadOffset.set(0f).add(offset).add(size.x / 2.0f * i, 0f, 0f);
+            quadOffset.set(0f).add(offset).add(-(size.x / 2.0f), 0f, 0f);
 
             // Generate the quad for this position and add the raw mesh to the list
-            QuadMeshGenerator quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X, quadSize, quadOffset);
+            QuadMeshGenerator quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X_NEGATIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
 
             // Determine the quad size and offset for the Y axis orientation
             quadSize.set(size.x, size.z);
-            quadOffset.set(0f).add(offset).add(0f, size.y / 2.0f * i, 0f);
+            quadOffset.set(0f).add(offset).add(0f, -(size.y / 2.0f), 0f);
 
             // Generate the quad for this position and add the raw mesh to the list
-            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y, quadSize, quadOffset);
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y_NEGATIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
 
             // Determine the quad size and offset for the Z axis orientation
             quadSize.set(size.x, size.y);
-            quadOffset.set(0f).add(offset).add(0f, 0f, size.z / 2.0f * i);
+            quadOffset.set(0f).add(offset).add(0f, 0f, -(size.z / 2.0f));
 
             // Generate the quad for this position and add the raw mesh to the list
-            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z, quadSize, quadOffset);
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z_NEGATIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the X axis orientation
+            quadSize.set(size.y, size.z);
+            quadOffset.set(0f).add(offset).add(size.x / 2.0f, 0f, 0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X_POSITIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the Y axis orientation
+            quadSize.set(size.x, size.z);
+            quadOffset.set(0f).add(offset).add(0f, size.y / 2.0f, 0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y_POSITIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the Z axis orientation
+            quadSize.set(size.x, size.y);
+            quadOffset.set(0f).add(offset).add(0f, 0f, size.z / 2.0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z_POSITIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
         }
 
