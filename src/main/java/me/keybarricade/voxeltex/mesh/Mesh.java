@@ -7,6 +7,10 @@ import org.lwjgl.opengl.GL15;
 
 import java.nio.FloatBuffer;
 
+import static org.lwjgl.opengl.GL11.GL_NO_ERROR;
+import static org.lwjgl.opengl.GL11.glGetError;
+import static org.lwjgl.opengl.GLUtil.getErrorString;
+
 public class Mesh {
 
     /**
@@ -189,7 +193,7 @@ public class Mesh {
         // Buffer the normal data if the mesh has any configured
         if(this.raw.hasNormalData()) {
             // Create a flipped float buffer for the normal coordinates
-            this.normalBuffer = BufferUtils.createFloatBuffer(this.raw.getVertexCount() * this.raw.getNormalAxisCount());
+            this.normalBuffer = BufferUtils.createFloatBuffer(this.raw.getNormalCount() * this.raw.getNormalAxisCount());
             this.normalBuffer.put(this.raw.getNormals());
             this.normalBuffer.flip();
 
@@ -271,6 +275,11 @@ public class Mesh {
      * Render or draw the mesh using OpenGL.
      */
     public void draw() {
+//        // Show an error if occurred
+//        int err;
+//        if((err = glGetError()) != GL_NO_ERROR)
+//            System.out.println("Begin mesh draw: " + getErrorString(err));
+
         // Bind the vertex buffer
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboVertexHandle);
         GL11.glVertexPointer(this.raw.getVertexAxisCount(), GL11.GL_FLOAT, 0, 0L);
@@ -278,7 +287,7 @@ public class Mesh {
         // Bind the normal coordinate buffer if available
         if(hasNormalData()) {
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboNormalHandle);
-            GL11.glTexCoordPointer(this.raw.getNormalAxisCount(), GL11.GL_FLOAT, 0, 0L);
+            GL11.glNormalPointer(GL11.GL_FLOAT, 0, 0L);
         }
 
         // Bind the texture coordinate buffer if available
@@ -287,7 +296,7 @@ public class Mesh {
             GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
         }
 
-        // Enable the client states for the buffers if available
+        // Enable the client states for the buffers that were bound
         GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
@@ -298,14 +307,17 @@ public class Mesh {
         GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, this.vertexCount);
 
         // Disable the client used states
-        GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-        if(hasTextureData())
-            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+        GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-        GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+        if(hasTextureData())
+            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         // Unbind all buffers
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+
+//        // Show an error if occurred
+//        if((err = glGetError()) != GL_NO_ERROR)
+//            System.out.println("End mesh draw: " + getErrorString(err));
     }
 }
