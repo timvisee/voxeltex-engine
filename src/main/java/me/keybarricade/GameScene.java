@@ -32,7 +32,7 @@ public class GameScene extends Scene {
 
         // Load the box texture
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, boxTexture);
+        Material boxMaterial = new Material(boxTexture);
 
         // Spawn 5 boxes
         for(int i = 0; i < 5; i++) {
