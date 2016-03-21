@@ -27,7 +27,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Load the box texture
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, boxTexture);
+        Material boxMaterial = new Material(boxTexture);
 
         // Create the main camera object
         FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
