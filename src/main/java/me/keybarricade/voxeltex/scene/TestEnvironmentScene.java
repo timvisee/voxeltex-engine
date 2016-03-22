@@ -102,9 +102,9 @@ public class TestEnvironmentScene extends Scene {
         }
 
         // Load the sand texture
-        Texture rockTexture = Texture.fromImage(Image.loadFromEngineAssets("images/rock.png"));
-        Texture rockTextureNormal = Texture.fromImage(Image.loadFromEngineAssets("images/rock_normal.png"));
-        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, rockTexture, rockTextureNormal);
+        Texture rockTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        //Texture rockTextureNormal = Texture.fromImage(Image.loadFromEngineAssets("images/rock_normal.png"));
+        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, rockTexture);
         sandMaterial.getTiling().set(3.0f);
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
