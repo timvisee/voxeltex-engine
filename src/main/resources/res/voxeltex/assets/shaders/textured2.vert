@@ -1,4 +1,4 @@
-#version 330
+#version 400 core
 
 layout (location = 0) in vec4 position;
 layout (location = 2) in vec3 normal; // TODO: Why is this always at 2?
