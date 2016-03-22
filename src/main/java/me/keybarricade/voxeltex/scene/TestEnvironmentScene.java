@@ -70,7 +70,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Create a basic cube
         CubePrefab baseObject = new CubePrefab();
-        baseObject.getTransform().setPosition(new Vector3f(-4.0f, 0.5f, -3f));
+        baseObject.getTransform().setPosition(new Vector3f(0, 0.5f, -3f));
         baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
         baseObject.setMaterial(boxMaterial);
         addGameObject(baseObject);
@@ -103,12 +103,14 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
-        for(int i = 0; i < 100; i++) {
-            // Load the texture shader
-            CubePrefab quadTest = new CubePrefab();
-            quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 7 - 1.5f * i));
-            addGameObject(quadTest);
-            quadTest.setMaterial(boxMaterial);
+        for (int j = 0; j < 10; j++) {
+            for(int i = 0; i < 15; i++) {
+                // Load the texture shader
+                CubePrefab quadTest = new CubePrefab();
+                quadTest.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                addGameObject(quadTest);
+                quadTest.setMaterial(boxMaterial);
+            }
         }
 
         // Load the sand texture
@@ -119,6 +121,7 @@ public class TestEnvironmentScene extends Scene {
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
+        //quad.getTransform().setPosition(new Vector3f(-10, 0, -10));
         addGameObject(quad);
     }
 }
