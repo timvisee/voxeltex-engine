@@ -1,6 +1,6 @@
 #version 120
 
-out vec4 color;
+vec4 color;
 
 uniform vec4 colour;
 
