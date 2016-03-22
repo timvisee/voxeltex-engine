@@ -1,15 +1,23 @@
 package me.keybarricade.voxeltex.mesh;
 
+import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.model.RawModel;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 
-import static org.lwjgl.opengl.GL11.GL_NO_ERROR;
-import static org.lwjgl.opengl.GL11.glGetError;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GLUtil.getErrorString;
+import static org.lwjgl.opengles.GLES20.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengles.GLES20.glEnableVertexAttribArray;
 
 public class Mesh {
 
@@ -186,9 +194,9 @@ public class Mesh {
 
         // Create a VBO handle for the vertexes and bind the buffer
         vboVertexHandle = GL15.glGenBuffers();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, this.vboVertexHandle);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, this.vertexBuffer, GL15.GL_STATIC_DRAW);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, this.vboVertexHandle);
+        GL15.glBufferData(GL_ARRAY_BUFFER, this.vertexBuffer, GL15.GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         // Buffer the normal data if the mesh has any configured
         if(this.raw.hasNormalData()) {
@@ -199,9 +207,9 @@ public class Mesh {
 
             // Create a VBO handle for the normal coordinates and bind the buffer
             vboNormalHandle = GL15.glGenBuffers();
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, this.vboNormalHandle);
-            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, this.normalBuffer, GL15.GL_STATIC_DRAW);
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+            glBindBuffer(GL_ARRAY_BUFFER, this.vboNormalHandle);
+            GL15.glBufferData(GL_ARRAY_BUFFER, this.normalBuffer, GL15.GL_STATIC_DRAW);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
         }
 
         // Buffer the texture data if the mesh has any configured
@@ -213,9 +221,9 @@ public class Mesh {
 
             // Create a VBO handle for the texture coordinates and bind the buffer
             vboTextureHandle = GL15.glGenBuffers();
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, this.vboTextureHandle);
-            GL15.glBufferData(GL15.GL_ARRAY_BUFFER, this.textureBuffer, GL15.GL_STATIC_DRAW);
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+            glBindBuffer(GL_ARRAY_BUFFER, this.vboTextureHandle);
+            GL15.glBufferData(GL_ARRAY_BUFFER, this.textureBuffer, GL15.GL_STATIC_DRAW);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
         }
 
         // Set the number of vertexes and normals
@@ -274,34 +282,29 @@ public class Mesh {
     /**
      * Render or draw the mesh using OpenGL.
      */
-    public void draw() {
-//        // Show an error if occurred
-//        int err;
-//        if((err = glGetError()) != GL_NO_ERROR)
-//            System.out.println("Begin mesh draw: " + getErrorString(err));
-
+    public void draw(Material material) {
         // Bind the vertex buffer
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboVertexHandle);
+        glBindBuffer(GL_ARRAY_BUFFER, vboVertexHandle);
         GL11.glVertexPointer(this.raw.getVertexAxisCount(), GL11.GL_FLOAT, 0, 0L);
 
         // Bind the normal coordinate buffer if available
         if(hasNormalData()) {
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboNormalHandle);
+            glBindBuffer(GL_ARRAY_BUFFER, vboNormalHandle);
             GL11.glNormalPointer(GL11.GL_FLOAT, 0, 0L);
         }
 
         // Bind the texture coordinate buffer if available
-        if(hasTextureData()) {
-            GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboTextureHandle);
-            GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
-        }
+//        if(hasTextureData()) {
+//            glBindBuffer(GL_ARRAY_BUFFER, vboTextureHandle);
+//            GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
+//        }
 
         // Enable the client states for the buffers that were bound
         GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
-        if(hasTextureData())
-            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+//        if(hasTextureData())
+//            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         // Draw the mesh
         GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, this.vertexCount);
@@ -310,8 +313,8 @@ public class Mesh {
         GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-        if(hasTextureData())
-            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+//        if(hasTextureData())
+//            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         // Unbind all buffers
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);

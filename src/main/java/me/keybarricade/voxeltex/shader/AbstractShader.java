@@ -52,6 +52,17 @@ public abstract class AbstractShader implements ShaderInterface {
     }
 
     /**
+     * Retrieve an attribute location of this shader.
+     *
+     * @param name Attribute name.
+     *
+     * @return Attribute location.
+     */
+    public int getAttributeLocation(String name) {
+        return glGetAttribLocation(this.programId, name);
+    }
+
+    /**
      * Retrieve uniform location of a variable from the shader.
      *
      * @param name Variable name.
