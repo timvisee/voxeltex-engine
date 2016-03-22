@@ -22,7 +22,7 @@ public interface LightSourceComponentInterface {
      *
      * @return Light type.
      */
-    int getType();
+    int getLightType();
 
     /**
      * Set the light type.
@@ -34,33 +34,33 @@ public interface LightSourceComponentInterface {
      *
      * @param type Light type.
      */
-    void setType(int type);
+    void setLightType(int type);
 
     /**
      * Get the color intensity of the light.
      *
      * @return Color intensity.
      */
-    Vector3f getColor();
+    Vector3f getLightColor();
 
     /**
      * Set the color intensity of the light.
      *
      * @param color Color intensity.
      */
-    void setColor(Vector3f color);
+    void setLightColor(Vector3f color);
 
     /**
      * Get the light brightness.
      *
      * @return Light brightness.
      */
-    float getBrightness();
+    float getLightBrightness();
 
     /**
      * Set the light brightness.
      *
      * @param brightness Light brightness.
      */
-    void setBrightness(float brightness);
+    void setLightBrightness(float brightness);
 }

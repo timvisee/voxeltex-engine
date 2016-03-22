@@ -12,7 +12,7 @@ varying vec4 position;
 varying vec3 surfaceNormal;
 
 // Light data
-const int LIGHT_COUNT_MAX = 12;
+const int LIGHT_COUNT_MAX = 16;
 uniform int lightCount;
 uniform int lightType[LIGHT_COUNT_MAX];
 uniform vec3 lightPosition[LIGHT_COUNT_MAX];

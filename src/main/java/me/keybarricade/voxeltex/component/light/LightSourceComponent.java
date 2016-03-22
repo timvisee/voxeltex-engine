@@ -117,32 +117,32 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
     }
 
     @Override
-    public int getType() {
+    public int getLightType() {
         return this.light.getType();
     }
 
     @Override
-    public void setType(int type) {
+    public void setLightType(int type) {
         this.light.setType(type);
     }
 
     @Override
-    public Vector3f getColor() {
+    public Vector3f getLightColor() {
         return this.light.getColor();
     }
 
     @Override
-    public void setColor(Vector3f color) {
+    public void setLightColor(Vector3f color) {
         this.light.setColor(color);
     }
 
     @Override
-    public float getBrightness() {
+    public float getLightBrightness() {
         return this.light.getBrightness();
     }
 
     @Override
-    public void setBrightness(float brightness) {
+    public void setLightBrightness(float brightness) {
         this.light.setBrightness(brightness);
     }
 }
