@@ -5,9 +5,26 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 public class MouseInputManager implements MouseInputInterface {
+
+    /**
+     * Normal mouse cursor mode.
+     * The mouse cursor behaves as normal.
+     */
+    public static final int CURSOR_MODE_NORMAL = GLFW.GLFW_CURSOR_NORMAL;
+
+    /**
+     * Hidden mouse cursor mode.
+     * The mouse cursor behaves as normal, but is hidden.
+     */
+    public static final int CURSOR_MODE_HIDDEN = GLFW.GLFW_CURSOR_HIDDEN;
+
+    /**
+     * Captured mouse cursor mode.
+     * The mouse cursor is captured by the window and thus invisible. The mouse moves around like normal, but in a
+     * virtually infinite space.
+     */
+    public static final int CURSOR_MODE_CAPTURED = GLFW.GLFW_CURSOR_DISABLED;
 
     /**
      * Cursor position callback.
@@ -30,14 +47,44 @@ public class MouseInputManager implements MouseInputInterface {
     private boolean[] buttonDown = new boolean[GLFW.GLFW_MOUSE_BUTTON_LAST];
 
     /**
-     * The x coordinate of the mouse cursor.
+     * Local flag which defines whether the mouse cursor handler has started.
      */
-    public float mouseX;
+    private boolean mouseCursorHandlerActive = false;
 
     /**
-     * The y coordinate of the mouse cursor.
+     * The X position of the mouse relative to the window (real time).
      */
-    public float mouseY;
+    private float mouseX = 0f;
+
+    /**
+     * The Y position of the mouse relative to the window (real time).
+     */
+    private float mouseY = 0f;
+
+    /**
+     * The mouse X position of the current mouse tick.
+     */
+    private float mouseTickX = 0f;
+
+    /**
+     * The mouse Y position of the current mouse tick.
+     */
+    private float mouseTickY = 0f;
+
+    /**
+     * The mouse X relative movement since the last mouse tick.
+     */
+    private float mouseDeltaX = 0f;
+
+    /**
+     * The mouse Y relative movement since the last mouse tick.
+     */
+    private float mouseDeltaY = 0f;
+
+    /**
+     * The cursor mode the mouse is currently in.
+     */
+    private int cursorMode = CURSOR_MODE_NORMAL;
 
     /**
      * Constructor.
@@ -66,28 +113,41 @@ public class MouseInputManager implements MouseInputInterface {
      * Initialize.
      */
     public void init() {
-        // Get the window width and height
-        final VoxelTexWindow wind = this.window;
-
         // Create and set the mouse button callback
-        glfwSetMouseButtonCallback(this.window.getWindowId(), mouseButtonCallback = new GLFWMouseButtonCallback() {
+        GLFW.glfwSetMouseButtonCallback(this.window.getWindowId(), mouseButtonCallback = new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long window, int button, int action, int mods) {
                 // Set whether the mouse button is pressed
-                buttonDown[button] = action == GLFW_PRESS || action == GLFW_REPEAT;
+                buttonDown[button] = action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT;
             }
         });
 
         // Create and set the cursor position callback
-        glfwSetCursorPosCallback(this.window.getWindowId(), cursorPosCallback = new GLFWCursorPosCallback() {
+        GLFW.glfwSetCursorPosCallback(this.window.getWindowId(), cursorPosCallback = new GLFWCursorPosCallback() {
             public void invoke(long window, double xPos, double yPos) {
-                // TODO: Set a new callback each time the window is resized instead of getting the window size dynamically each time
-                float normX = (float) ((xPos - wind.getWidth() / 2.0) / wind.getWidth() * 2.0);
-                float normY = (float) ((yPos - wind.getHeight() / 2.0) / wind.getHeight() * 2.0);
-                mouseX = Math.max(-wind.getWidth() / 2.0f, Math.min(wind.getWidth() / 2.0f, normX));
-                mouseY = Math.max(-wind.getHeight() / 2.0f, Math.min(wind.getHeight() / 2.0f, normY));
+                mouseX = (float) xPos;
+                mouseY = (float) yPos;
             }
         });
+    }
+
+    /**
+     * Update/tick the mouse cursor input.
+     */
+    public void update() {
+        // Make sure the mouse input handler started before calculating the mouse delta
+        if(this.mouseCursorHandlerActive) {
+            this.mouseDeltaX = this.mouseX - this.mouseTickX;
+            this.mouseDeltaY = this.mouseY - this.mouseTickY;
+        }
+
+        // Store the mouse positions to make them readable next frame
+        this.mouseTickX = this.mouseX;
+        this.mouseTickY = this.mouseY;
+
+        // Start the mouse handler when coordinates are received
+        if(!this.mouseCursorHandlerActive && (this.mouseX != 0 || this.mouseY != 0))
+            this.mouseCursorHandlerActive = true;
     }
 
     /**
@@ -107,21 +167,37 @@ public class MouseInputManager implements MouseInputInterface {
      * @return Window.
      */
     public VoxelTexWindow getWindow() {
-        return window;
+        return this.window;
     }
 
     @Override
     public float getMouseX() {
-        return mouseX;
+        return this.mouseTickX;
     }
 
-    /**
-     * Get the y coordinate of the mouse cursor.
-     *
-     * @return Y coordinate.
-     */
+    @Override
     public float getMouseY() {
-        return mouseY;
+        return this.mouseTickY;
+    }
+
+    @Override
+    public float getMouseDeltaX() {
+        return this.mouseDeltaX;
+    }
+
+    @Override
+    public float getMouseDeltaY() {
+        return this.mouseDeltaY;
+    }
+
+    @Override
+    public float getMouseAsyncX() {
+        return this.mouseX;
+    }
+
+    @Override
+    public float getMouseAsyncY() {
+        return this.mouseY;
     }
 
     @Override
@@ -129,10 +205,22 @@ public class MouseInputManager implements MouseInputInterface {
         return this.buttonDown[mouseButtonCode];
     }
 
-    /**
-     * Center the mouse cursor on the window.
-     */
+    @Override
     public void centerMouseCursor() {
         this.window.centerCursorPosition();
+    }
+
+    @Override
+    public int getMouseCursorMode() {
+        return this.cursorMode;
+    }
+
+    @Override
+    public void setMouseCursorMode(int cursorMode) {
+        // Set the cursor mode
+        GLFW.glfwSetInputMode(this.window.getWindowId(), GLFW.GLFW_CURSOR, cursorMode);
+
+        // Update the cursor mode field
+        this.cursorMode = cursorMode;
     }
 }
