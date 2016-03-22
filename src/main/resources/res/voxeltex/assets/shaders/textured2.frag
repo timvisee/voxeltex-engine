@@ -1,4 +1,4 @@
-#version 400 core
+#version 330
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix = mat4(1.0);
