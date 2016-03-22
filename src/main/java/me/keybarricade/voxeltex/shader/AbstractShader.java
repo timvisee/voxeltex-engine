@@ -4,6 +4,7 @@ import org.joml.*;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -70,7 +71,7 @@ public abstract class AbstractShader implements ShaderInterface {
      *
      * @return Uniform variable location.
      */
-    private int getUniformLocation(String name) {
+    public int getUniformLocation(String name) {
         return glGetUniformLocation(this.programId, name);
     }
 
@@ -82,6 +83,11 @@ public abstract class AbstractShader implements ShaderInterface {
     @Override
     public void setUniform1i(String name, int value) {
         glUniform1i(getUniformLocation(name), value);
+    }
+
+    @Override
+    public void setUniform1iv(String name, IntBuffer buff) {
+        glUniform1iv(getUniformLocation(name), buff);
     }
 
     @Override
@@ -105,6 +111,11 @@ public abstract class AbstractShader implements ShaderInterface {
     }
 
     @Override
+    public void setUniform3fv(String name, FloatBuffer buff) {
+        glUniform3fv(getUniformLocation(name), buff);
+    }
+
+    @Override
     public void setUniform4f(String name, Vector4f value) {
         glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
     }
@@ -112,6 +123,11 @@ public abstract class AbstractShader implements ShaderInterface {
     @Override
     public void setUniform4i(String name, Vector4i value) {
         glUniform4i(getUniformLocation(name), value.x, value.y, value.z, value.w);
+    }
+
+    @Override
+    public void setUniform4fv(String name, FloatBuffer buff) {
+        glUniform4fv(getUniformLocation(name), buff);
     }
 
     @Override

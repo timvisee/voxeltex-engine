@@ -1,9 +1,11 @@
 package me.keybarricade.voxeltex.shader;
 
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 import org.joml.*;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 public interface ShaderInterface {
 
@@ -16,10 +18,10 @@ public interface ShaderInterface {
 
     /**
      * Update the shader before using it, to update all parameters.
-     *
+     * @param scene The scene this shader is rendered in.
      * @param material Material this shader should be updated for.
      */
-    void update(Material material);
+    void update(AbstractScene scene, Material material);
 
     /**
      * Bind the compiled shader to the current OpenGL instance.
@@ -51,6 +53,14 @@ public interface ShaderInterface {
      * @param value Integer value.
      */
     void setUniform1i(String name, int value);
+
+    /**
+     * Set a variable to an array of integers.
+     *
+     * @param name Variable name.
+     * @param buff Integer buffer.
+     */
+    void setUniform1iv(String name, IntBuffer buff);
 
     /**
      * Set a variable to two float values.
@@ -85,6 +95,14 @@ public interface ShaderInterface {
     void setUniform3i(String name, Vector3i value);
 
     /**
+     * Set a variable to an array of three floats.
+     *
+     * @param name Variable name.
+     * @param buff Float buffer.
+     */
+    void setUniform3fv(String name, FloatBuffer buff);
+
+    /**
      * Set a variable to four float values.
      *
      * @param name Variable name.
@@ -93,12 +111,20 @@ public interface ShaderInterface {
     void setUniform4f(String name, Vector4f value);
 
     /**
-     * Set a variable to two integer values.
+     * Set a variable to four integer values.
      *
      * @param name Variable name.
      * @param value Integer values.
      */
     void setUniform4i(String name, Vector4i value);
+
+    /**
+     * Set a variable to a four sized float array.
+     *
+     * @param name Variable name.
+     * @param buff Float buffers.
+     */
+    void setUniform4fv(String name, FloatBuffer buff);
 
     /**
      * Set a variable to a float matrix.

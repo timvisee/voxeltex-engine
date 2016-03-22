@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.VoxelTexEngine;
+import me.keybarricade.voxeltex.light.LightManager;
 
 public abstract class AbstractScene {
 
@@ -8,6 +9,11 @@ public abstract class AbstractScene {
      * The engine instance this scene is loaded in.
      */
     private VoxelTexEngine engine;
+
+    /**
+     * Light manager for this scene.
+     */
+    private LightManager lightManager = new LightManager();
 
     /**
      * Defines whether the scene has started. True if started, false if not.
@@ -32,6 +38,15 @@ public abstract class AbstractScene {
      */
     public void setEngine(VoxelTexEngine engine) {
         this.engine = engine;
+    }
+
+    /**
+     * Get the light manager for this scene.
+     *
+     * @return Scene light manager.
+     */
+    public LightManager getLightManager() {
+        return this.lightManager;
     }
 
     /**

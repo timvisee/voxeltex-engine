@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.shader.specific;
 
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
@@ -43,11 +44,14 @@ public class TexturedShader extends Shader {
     }
 
     @Override
-    public void update(Material material) {
+    public void update(AbstractScene scene, Material material) {
         // Call the parent
-        super.update(material);
+        super.update(scene, material);
 
-        // Send texture tiling data
+        // Send the lighting data to the shader
+        scene.getLightManager().sendToShader(this);
+
+        // Send texture tiling data to the shader
         if(material != null)
             setUniform2f("tiling", material.getTiling());
     }
