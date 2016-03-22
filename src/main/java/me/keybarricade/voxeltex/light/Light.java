@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.light;
 
-import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -55,7 +55,7 @@ public class Light {
      * @param color Light color intensity.
      * @param brightness Light brightness.
      */
-    public Light(int type, GameObject gameObject, Vector3f color, float brightness) {
+    public Light(int type, AbstractGameObject gameObject, Vector3f color, float brightness) {
         this.type = type;
         updatePosition(gameObject);
         this.color.set(color);
@@ -200,7 +200,7 @@ public class Light {
      *
      * @param lightObject Game object.
      */
-    public void updatePosition(GameObject lightObject) {
+    public void updatePosition(AbstractGameObject lightObject) {
         // Update the position based on the world space position of the given object
         updatePosition(
                 lightObject.getTransform().getWorldPosition(this.position),

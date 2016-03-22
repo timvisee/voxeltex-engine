@@ -1,6 +1,6 @@
 package me.keybarricade.voxeltex.light;
 
-import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import me.keybarricade.voxeltex.shader.Shader;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -56,7 +56,7 @@ public class LightManager {
      * @param color Light color intensity.
      * @param brightness Light brightness.
      */
-    public Light createLight(int type, GameObject gameObject, Vector3f color, float brightness) {
+    public Light createLight(int type, AbstractGameObject gameObject, Vector3f color, float brightness) {
         return addLight(new Light(type, gameObject, color, brightness));
     }
 

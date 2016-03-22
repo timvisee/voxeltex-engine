@@ -191,7 +191,9 @@ public class GameObject extends AbstractGameObject {
         component.setOwner(this);
 
         // Create the component
-        component.create();
+        // TODO: Properly check whether the game object is created
+        if(getScene() != null)
+            component.create();
 
         // Start the component if the scene is started
         if(isSceneStarted())
