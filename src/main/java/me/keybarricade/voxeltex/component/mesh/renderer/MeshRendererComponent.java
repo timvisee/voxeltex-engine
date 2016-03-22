@@ -83,8 +83,6 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         if(!hasMeshFilterComponent() || !getMeshFilterComponent().hasMesh())
             return;
 
-        int texHandle = -1;
-
         // TODO: Should we also render if no material is available, with a default color of some sort?
         // TODO: Add compatibility for multiple materials!
         // TODO: Use a default material if none is found!
@@ -103,26 +101,14 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             Matrix4f modelMatrix = getTransform().applyWorldTransform(new Matrix4f());
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
-            if(material.hasTexture())
-                material.getShader().setUniform1f("modelTexture", material.getTexture().getId());
-
-            // TODO: Move this to a better position!
-            Mesh mesh = meshFilter.getMesh();
-            if(mesh.hasTextureData()) {
-                texHandle = material.getShader().getAttributeLocation("vertTexCoord");
-                GL20.glEnableVertexAttribArray(texHandle);
-                GL20.glVertexAttribPointer(texHandle, mesh.getRawMesh().getTextureAxisCount(), GL11.GL_FLOAT, false, 0, mesh.getTextureBuffer());
+            if(material.hasTexture()) {
+                material.getShader().setUniform1f("texture", material.getTexture().getId());
+                // TODO: Bind the normal!
             }
-
-            // Draw the mesh attached to the mesh filter
-            this.meshFilter.getMesh().draw(materials.get(0));
-
-            // TODO: Move this to a better position!
-            glDisableVertexAttribArray(texHandle);
-
-        } else {
-            // TODO: Draw with the default material if none was given!
         }
+
+        // Draw the mesh attached to the mesh filter
+        this.meshFilter.getMesh().draw();
 
         // Unbind the material
         if(hasMaterial())

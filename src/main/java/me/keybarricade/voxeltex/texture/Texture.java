@@ -2,11 +2,14 @@ package me.keybarricade.voxeltex.texture;
 
 import me.keybarricade.voxeltex.util.BufferUtil;
 import me.keybarricade.voxeltex.util.Color;
+import org.lwjgl.opengl.GL13;
 
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class Texture {
 
@@ -134,7 +137,8 @@ public class Texture {
      */
     public static Texture fromByteBuffer(ByteBuffer buffer, int width, int height, int components) {
         Texture texture = new Texture();
-        texture.bind();
+        // TODO: Should we bind here?
+        texture.bind(GL13.GL_TEXTURE0);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
@@ -232,8 +236,14 @@ public class Texture {
 
     /**
      * Bind the current texture to OpenGL.
+     *
+     * @param glTextureId The OpenGL texture ID.
      */
-    public void bind() {
+    public void bind(int glTextureId) {
+        // Activate the first texture
+        glActiveTexture(GL_TEXTURE0);
+
+        // Bind the texture
         glBindTexture(GL_TEXTURE_2D, this.id);
     }
 
