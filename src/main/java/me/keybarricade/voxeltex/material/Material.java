@@ -5,6 +5,7 @@ import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector2f;
+import org.lwjgl.opengl.GL13;
 
 public class Material implements MaterialInterface {
 
@@ -126,9 +127,9 @@ public class Material implements MaterialInterface {
 
         // Bind the texture and normal if available
         if(hasTexture())
-            this.texture.bind();
+            this.texture.bind(GL13.GL_TEXTURE0);
         if(hasNormal())
-            this.normal.bind();
+            this.normal.bind(GL13.GL_TEXTURE1);
     }
 
     @Override

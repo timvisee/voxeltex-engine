@@ -92,31 +92,9 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             Matrix4f modelMatrix = getTransform().applyWorldTransform(new Matrix4f());
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
-            // Set the shader texture if a texture is available
-//            if(material.hasTexture())
-//                material.getShader().setUniform1f("texture", material.getTexture().getId());
-
-
-
-
             if(material.hasTexture()) {
-
-                glActiveTexture(GL_TEXTURE0);
-                material.getTexture().bind();
-
-                if(material.hasNormal()) {
-                    glActiveTexture(GL_TEXTURE1);
-                    material.getNormal().bind();
-                }
-
-
                 material.getShader().setUniform1f("texture", material.getTexture().getId());
-
-                material.getShader().setUniform1f("u_texture", 0);
-
-                if (material.hasNormal()) {
-                    material.getShader().setUniform1f("u_normal", 1);
-                }
+                // TODO: Bind the normal!
             }
         }
 
