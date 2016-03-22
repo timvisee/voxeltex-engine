@@ -3,15 +3,24 @@ package me.keybarricade.voxeltex.component.mesh.renderer;
 import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.mesh.Mesh;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengles.GLES20.glEnableVertexAttribArray;
 
 public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
@@ -74,6 +83,8 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         if(!hasMeshFilterComponent() || !getMeshFilterComponent().hasMesh())
             return;
 
+        int texHandle = -1;
+
         // TODO: Should we also render if no material is available, with a default color of some sort?
         // TODO: Add compatibility for multiple materials!
         // TODO: Use a default material if none is found!
@@ -92,36 +103,26 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             Matrix4f modelMatrix = getTransform().applyWorldTransform(new Matrix4f());
             material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
 
-            // Set the shader texture if a texture is available
-//            if(material.hasTexture())
-//                material.getShader().setUniform1f("texture", material.getTexture().getId());
+            if(material.hasTexture())
+                material.getShader().setUniform1f("modelTexture", material.getTexture().getId());
 
-
-
-
-            if(material.hasTexture()) {
-
-                glActiveTexture(GL_TEXTURE0);
-                material.getTexture().bind();
-
-                if(material.hasNormal()) {
-                    glActiveTexture(GL_TEXTURE1);
-                    material.getNormal().bind();
-                }
-
-
-                material.getShader().setUniform1f("texture", material.getTexture().getId());
-
-                material.getShader().setUniform1f("u_texture", 0);
-
-                if (material.hasNormal()) {
-                    material.getShader().setUniform1f("u_normal", 1);
-                }
+            // TODO: Move this to a better position!
+            Mesh mesh = meshFilter.getMesh();
+            if(mesh.hasTextureData()) {
+                texHandle = material.getShader().getAttributeLocation("vertTexCoord");
+                GL20.glEnableVertexAttribArray(texHandle);
+                GL20.glVertexAttribPointer(texHandle, mesh.getRawMesh().getTextureAxisCount(), GL11.GL_FLOAT, false, 0, mesh.getTextureBuffer());
             }
-        }
 
-        // Draw the mesh attached to the mesh filter
-        this.meshFilter.getMesh().draw();
+            // Draw the mesh attached to the mesh filter
+            this.meshFilter.getMesh().draw(materials.get(0));
+
+            // TODO: Move this to a better position!
+            glDisableVertexAttribArray(texHandle);
+
+        } else {
+            // TODO: Draw with the default material if none was given!
+        }
 
         // Unbind the material
         if(hasMaterial())
