@@ -1,10 +1,6 @@
-#version 330
+#version 120
 
-layout (location = 0) in vec4 position;
-layout (location = 2) in vec3 normal; // TODO: Why is this always at 2?
-
-in vec2 vertTexCoord;
-out vec2 fragTexCoord;
+in vec4 position;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix = mat4(1.0);
@@ -13,23 +9,24 @@ uniform mat4 modelMatrix = mat4(1.0);
 out vec3 surfaceNormal;
 out vec3 toLightVector;
 
-uniform vec3 lightPosition = vec3(0.0, 1, 0.0);
+uniform vec3 lightPosition = vec3(0.0, 3.0, 0.0);
 out float lightDistance;
 
 void main() {
     // Pass the texture coordinates to the fragment shader
-    fragTexCoord = vertTexCoord;
+	gl_TexCoord[0] = gl_MultiTexCoord0 ;
 
     // Set the vertex point position
-	gl_Position = projectionMatrix * viewMatrix * modelMatrix * position;
+	gl_Position = projectionMatrix * viewMatrix * modelMatrix * gl_Vertex;
 
     // Calculate the vertex position
-	vec4 vertexPosition = modelMatrix * position;
+	vec4 vertexPosition = modelMatrix * gl_Vertex;
 
     // Calculate the distance to the light
     lightDistance = distance(vertexPosition.xyz, lightPosition);
 
     // Calculate the surface normal and light vector
-    surfaceNormal = (modelMatrix * vec4(normal, 0.0)).xyz;
+    surfaceNormal = (modelMatrix * vec4(gl_Normal, 0.0)).xyz;
+    //surfaceNormal = modelMatrix * gl_Normal;
     toLightVector = lightPosition - vertexPosition.xyz;
 }

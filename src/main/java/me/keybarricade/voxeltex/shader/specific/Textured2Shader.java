@@ -11,13 +11,13 @@ public class Textured2Shader extends Shader {
      * The engine asset path of the vertex shader.
      */
     // TODO: Revert this!
-    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/textured2.vert";
+    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/other/textured2.vert";
 
     /**
      * The engine asset path of the fragment shader.
      */
     // TODO: Revert this!
-    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/textured2.frag";
+    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/other/textured2.frag";
 
     /**
      * Constructor.

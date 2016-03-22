@@ -1,12 +1,12 @@
-#version 330
+#version 120
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix = mat4(1.0);
 uniform mat4 modelMatrix = mat4(1.0);
 
-uniform sampler2D modelTexture;
+uniform sampler2D texture;
 uniform vec3 lightColour = vec3(1.0, 0.5, 0.0);
-uniform vec3 lightPosition = vec3(0.0, 1, 0.0);
+uniform vec3 lightPosition = vec3(0.0, 3.0, 0.0);
 uniform vec2 tiling = vec2(1.0, 1.0);
 
 in vec2 fragTexCoord;
@@ -31,7 +31,7 @@ void main() {
     float brightness = max(nDotl, 0.0) * lightFadeFactor;
 
     // Calculate the diffuse color
-    vec3 diffuse = brightness * lightColour * 3.0;
+    vec3 diffuse = brightness * lightColour;
 
-    out_Color = vec4(diffuse, 1.0) * texture(modelTexture, fragTexCoord);
+    out_Color = vec4(diffuse, 1.0) * texture2D(texture, gl_TexCoord[0].st);
 }

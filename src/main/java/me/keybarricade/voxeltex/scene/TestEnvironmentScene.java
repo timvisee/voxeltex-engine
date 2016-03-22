@@ -14,6 +14,7 @@ import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -42,7 +43,7 @@ public class TestEnvironmentScene extends Scene {
         for(int i = 0; i < 5; i++) {
             GameObject suzanneObject = new GameObject("Suzanne");
             suzanneObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/suzanne.obj"))));
-            suzanneObject.addComponent(new MeshRendererComponent(boxMaterial));
+            suzanneObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.RED, 1, 1))));
             suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
             suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
             suzanneRoot.addChild(suzanneObject);
@@ -50,7 +51,7 @@ public class TestEnvironmentScene extends Scene {
 
         GameObject sphereObject = new GameObject("Sphere");
         sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
-        sphereObject.addComponent(new MeshRendererComponent(boxMaterial));
+        sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject.getTransform().getPosition().set(-4, 1f, 0);
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
