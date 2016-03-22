@@ -108,7 +108,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         }
 
         // Draw the mesh attached to the mesh filter
-        this.meshFilter.getMesh().draw();
+        this.meshFilter.getMesh().draw(materials.get(0));
 
         // Unbind the material
         if(hasMaterial())

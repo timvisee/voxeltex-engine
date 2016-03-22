@@ -294,17 +294,17 @@ public class Mesh {
         }
 
         // Bind the texture coordinate buffer if available
-//        if(hasTextureData()) {
-//            glBindBuffer(GL_ARRAY_BUFFER, vboTextureHandle);
-//            GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
-//        }
+        if(hasTextureData()) {
+            glBindBuffer(GL_ARRAY_BUFFER, vboTextureHandle);
+            GL11.glTexCoordPointer(this.raw.getTextureAxisCount(), GL11.GL_FLOAT, 0, 0L);
+        }
 
         // Enable the client states for the buffers that were bound
         GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glEnableClientState(GL11.GL_NORMAL_ARRAY);
-//        if(hasTextureData())
-//            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+        if(hasTextureData())
+            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         // Draw the mesh
         GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, this.vertexCount);
@@ -313,14 +313,10 @@ public class Mesh {
         GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
         if(hasNormalData())
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-//        if(hasTextureData())
-//            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+        if(hasTextureData())
+            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 
         // Unbind all buffers
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-
-//        // Show an error if occurred
-//        if((err = glGetError()) != GL_NO_ERROR)
-//            System.out.println("End mesh draw: " + getErrorString(err));
     }
 }
