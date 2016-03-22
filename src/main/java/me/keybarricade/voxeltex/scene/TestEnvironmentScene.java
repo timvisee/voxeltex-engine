@@ -102,7 +102,7 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 100; i++) {
             // Load the texture shader
             CubePrefab quadTest = new CubePrefab();
             quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 7 - 1.5f * i));
@@ -117,7 +117,6 @@ public class TestEnvironmentScene extends Scene {
         sandMaterial.getTiling().set(3.0f);
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
-        quad.getTransform().getPosition().set(5, 0, 5);
         quad.setMaterial(sandMaterial);
         addGameObject(quad);
     }
