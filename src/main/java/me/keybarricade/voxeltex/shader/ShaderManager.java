@@ -1,7 +1,6 @@
 package me.keybarricade.voxeltex.shader;
 
 import me.keybarricade.voxeltex.shader.specific.DefaultShader;
-import me.keybarricade.voxeltex.shader.specific.TestShader;
 import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 
 public class ShaderManager {

@@ -39,12 +39,21 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(suzanneRoot);
 
         // Create a model that is loaded from a file
-        GameObject suzanneObj = new GameObject("Suzanne");
-        suzanneObj.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/suzanne.obj"))));
-        suzanneObj.addComponent(new MeshRendererComponent(boxMaterial));
-        suzanneObj.getTransform().getPosition().set(0, 1f, -3f);
-        suzanneObj.getTransform().getAngularVelocity().set(0, -0.5f, 0);
-        suzanneRoot.addChild(suzanneObj);
+        for(int i = 0; i < 5; i++) {
+            GameObject suzanneObject = new GameObject("Suzanne");
+            suzanneObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/suzanne.obj"))));
+            suzanneObject.addComponent(new MeshRendererComponent(boxMaterial));
+            suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
+            suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
+            suzanneRoot.addChild(suzanneObject);
+        }
+
+        GameObject sphereObject = new GameObject("Sphere");
+        sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
+        sphereObject.addComponent(new MeshRendererComponent(boxMaterial));
+        sphereObject.getTransform().getPosition().set(-4, 1f, 0);
+        sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
+        addGameObject(sphereObject);
 
 //        // Light source object
 //        GameObject lightObject = new GameObject("Light");
@@ -96,15 +105,15 @@ public class TestEnvironmentScene extends Scene {
         for(int i = 0; i < 100; i++) {
             // Load the texture shader
             CubePrefab quadTest = new CubePrefab();
-            quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 75.0f - 1.5f * i));
+            quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 7 - 1.5f * i));
             addGameObject(quadTest);
             quadTest.setMaterial(boxMaterial);
         }
 
         // Load the sand texture
-        Texture rockTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
         //Texture rockTextureNormal = Texture.fromImage(Image.loadFromEngineAssets("images/rock_normal.png"));
-        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, rockTexture);
+        Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
         sandMaterial.getTiling().set(3.0f);
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));

@@ -3,15 +3,24 @@ package me.keybarricade.voxeltex.component.mesh.renderer;
 import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.mesh.Mesh;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengles.GLES20.glEnableVertexAttribArray;
 
 public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
@@ -99,7 +108,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
         }
 
         // Draw the mesh attached to the mesh filter
-        this.meshFilter.getMesh().draw();
+        this.meshFilter.getMesh().draw(materials.get(0));
 
         // Unbind the material
         if(hasMaterial())

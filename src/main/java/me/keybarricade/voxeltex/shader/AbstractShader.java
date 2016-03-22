@@ -34,6 +34,7 @@ public abstract class AbstractShader implements ShaderInterface {
 
     @Override
     public void bind() {
+        // Bind the shader program to OpenGL
         glUseProgram(this.programId);
     }
 
@@ -49,6 +50,17 @@ public abstract class AbstractShader implements ShaderInterface {
 
         // Untrack the shader
         ShaderTracker.untrackShader(this);
+    }
+
+    /**
+     * Retrieve an attribute location of this shader.
+     *
+     * @param name Attribute name.
+     *
+     * @return Attribute location.
+     */
+    public int getAttributeLocation(String name) {
+        return glGetAttribLocation(this.programId, name);
     }
 
     /**

@@ -60,30 +60,54 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         Vector2f quadSize = Vector2fFactory.identity();
         Vector3f quadOffset = Vector3fFactory.identity();
 
-        // Generate a quad face for each axis, twice
-        for(int i = -1; i < 2; i += 2) {
+        // TODO: Improve this code!
+        {
             // Determine the quad size and offset for the X axis orientation
             quadSize.set(size.y, size.z);
-            quadOffset.set(0f).add(offset).add(size.x / 2.0f * i, 0f, 0f);
+            quadOffset.set(0f).add(offset).add(-(size.x / 2.0f), 0f, 0f);
 
             // Generate the quad for this position and add the raw mesh to the list
-            QuadMeshGenerator quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X, quadSize, quadOffset);
+            QuadMeshGenerator quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X_NEGATIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
 
             // Determine the quad size and offset for the Y axis orientation
             quadSize.set(size.x, size.z);
-            quadOffset.set(0f).add(offset).add(0f, size.y / 2.0f * i, 0f);
+            quadOffset.set(0f).add(offset).add(0f, -(size.y / 2.0f), 0f);
 
             // Generate the quad for this position and add the raw mesh to the list
-            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y, quadSize, quadOffset);
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y_NEGATIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
 
             // Determine the quad size and offset for the Z axis orientation
             quadSize.set(size.x, size.y);
-            quadOffset.set(0f).add(offset).add(0f, 0f, size.z / 2.0f * i);
+            quadOffset.set(0f).add(offset).add(0f, 0f, -(size.z / 2.0f));
 
             // Generate the quad for this position and add the raw mesh to the list
-            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z, quadSize, quadOffset);
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z_NEGATIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the X axis orientation
+            quadSize.set(size.y, size.z);
+            quadOffset.set(0f).add(offset).add(size.x / 2.0f, 0f, 0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_X_POSITIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the Y axis orientation
+            quadSize.set(size.x, size.z);
+            quadOffset.set(0f).add(offset).add(0f, size.y / 2.0f, 0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Y_POSITIVE, quadSize, quadOffset);
+            quadMeshes.add(quadMesh.getRawMesh());
+
+            // Determine the quad size and offset for the Z axis orientation
+            quadSize.set(size.x, size.y);
+            quadOffset.set(0f).add(offset).add(0f, 0f, size.z / 2.0f);
+
+            // Generate the quad for this position and add the raw mesh to the list
+            quadMesh = new QuadMeshGenerator(QuadMeshGenerator.ORIENTATION_Z_POSITIVE, quadSize, quadOffset);
             quadMeshes.add(quadMesh.getRawMesh());
         }
 
@@ -91,13 +115,23 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         final int vertexCountSingle = quadMeshes.get(0).getVertexCount() * RawMesh.VERTEX_AXIS_COUNT; // TODO: GET THIS FROM SOMEWHERE!
         final int vertexCountAll = vertexCountSingle * quadMeshes.size();
 
-        // Define the vertexes array
+        // Define the vertexes and normals array
         float[] vertexes = new float[vertexCountAll];
+        float[] normals = new float[0];
+
+        // Initialize the normals array if available
+        if(quadMeshes.get(0).hasNormalData())
+            normals = new float[vertexCountAll];
 
         // Copy all vertexes from the raw meshes into the new vertexes array
-        for(int i = 0; i < quadMeshes.size(); i++)
-            // Get the raw mesh and copy
+        for(int i = 0; i < quadMeshes.size(); i++) {
+            // Put the vertexes in the array
             System.arraycopy(quadMeshes.get(i).getVertexes(), 0, vertexes, i * vertexCountSingle, vertexCountSingle);
+
+            // Put the normals in the array if available
+            if(normals.length > 0)
+                System.arraycopy(quadMeshes.get(i).getNormals(), 0, normals, i * vertexCountSingle, vertexCountSingle);
+        }
 
         // Generate the texture coordinates in the same order
         float[] textures = new float[12 * 6];
@@ -107,7 +141,7 @@ public class CubeMeshGenerator extends AbstractMeshGenerator {
         }
 
         // Create and store the raw mesh
-        this.raw = new RawMesh(vertexes, new float[0], textures);
+        this.raw = new RawMesh(vertexes, normals, textures);
     }
 
     @Override
