@@ -241,7 +241,7 @@ public class Texture {
      */
     public void bind(int glTextureId) {
         // Activate the first texture
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(glTextureId);
 
         // Bind the texture
         glBindTexture(GL_TEXTURE_2D, this.id);

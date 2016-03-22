@@ -1,7 +1,7 @@
 package me.keybarricade.voxeltex.shader;
 
 import me.keybarricade.voxeltex.shader.specific.DefaultShader;
-import me.keybarricade.voxeltex.shader.specific.Textured2Shader;
+import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 
 public class ShaderManager {
 
@@ -20,6 +20,6 @@ public class ShaderManager {
      */
     public static void load() {
         SHADER_DEFAULT = new DefaultShader();
-        SHADER_DEFAULT_TEXTURED = new Textured2Shader();
+        SHADER_DEFAULT_TEXTURED = new TexturedShader();
     }
 }

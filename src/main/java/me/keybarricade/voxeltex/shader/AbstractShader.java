@@ -34,6 +34,7 @@ public abstract class AbstractShader implements ShaderInterface {
 
     @Override
     public void bind() {
+        // Bind the shader program to OpenGL
         glUseProgram(this.programId);
     }
 
