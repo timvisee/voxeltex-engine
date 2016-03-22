@@ -1,6 +1,6 @@
-#version 330 core
+#version 120
 
-layout (location = 0) in vec4 position;
+in vec4 position;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix = mat4(1.0);
