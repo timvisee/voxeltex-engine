@@ -203,6 +203,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update time Time object
             Time.update();
 
+            // Update the input
+            Input.update();
+
             // Update the position of the main camera
             MainCamera.update();
 

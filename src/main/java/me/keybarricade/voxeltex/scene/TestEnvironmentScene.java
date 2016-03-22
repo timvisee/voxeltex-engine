@@ -14,6 +14,7 @@ import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -42,7 +43,7 @@ public class TestEnvironmentScene extends Scene {
         for(int i = 0; i < 5; i++) {
             GameObject suzanneObject = new GameObject("Suzanne");
             suzanneObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/suzanne.obj"))));
-            suzanneObject.addComponent(new MeshRendererComponent(boxMaterial));
+            suzanneObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.RED, 1, 1))));
             suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
             suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
             suzanneRoot.addChild(suzanneObject);
@@ -50,7 +51,7 @@ public class TestEnvironmentScene extends Scene {
 
         GameObject sphereObject = new GameObject("Sphere");
         sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
-        sphereObject.addComponent(new MeshRendererComponent(boxMaterial));
+        sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject.getTransform().getPosition().set(-4, 1f, 0);
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
@@ -69,7 +70,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Create a basic cube
         CubePrefab baseObject = new CubePrefab();
-        baseObject.getTransform().setPosition(new Vector3f(-4.0f, 0.5f, -3f));
+        baseObject.getTransform().setPosition(new Vector3f(0, 0.5f, -3f));
         baseObject.getTransform().setAngularVelocity(new Vector3f(0, 0.5f, 0));
         baseObject.setMaterial(boxMaterial);
         addGameObject(baseObject);
@@ -102,12 +103,14 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
-        for(int i = 0; i < 100; i++) {
-            // Load the texture shader
-            CubePrefab quadTest = new CubePrefab();
-            quadTest.getTransform().setPosition(new Vector3f(4, 0.5f, 7 - 1.5f * i));
-            addGameObject(quadTest);
-            quadTest.setMaterial(boxMaterial);
+        for (int j = 0; j < 10; j++) {
+            for(int i = 0; i < 15; i++) {
+                // Load the texture shader
+                CubePrefab quadTest = new CubePrefab();
+                quadTest.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                addGameObject(quadTest);
+                quadTest.setMaterial(boxMaterial);
+            }
         }
 
         // Load the sand texture
@@ -118,6 +121,7 @@ public class TestEnvironmentScene extends Scene {
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
+        //quad.getTransform().setPosition(new Vector3f(-10, 0, -10));
         addGameObject(quad);
     }
 }

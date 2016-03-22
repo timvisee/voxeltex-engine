@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.component.camera;
 
 import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.input.mouse.MouseInputManager;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 
 public class MouseLookCameraComponent extends CameraComponent {
@@ -16,7 +17,15 @@ public class MouseLookCameraComponent extends CameraComponent {
     private float mouseSensitivityY = 2.0f;
 
     @Override
-    public void update() { }
+    public void start() {
+        super.start();
+
+        // Center the mouse cursor in the window first (Note: Doesn't work on Mac OS X based systems)
+        Input.centerMouseCursor();
+
+        // Capture the mouse cursor
+        Input.setMouseCursorMode(MouseInputManager.CURSOR_MODE_CAPTURED);
+    }
 
     @Override
     public void updateCamera() {
@@ -24,15 +33,12 @@ public class MouseLookCameraComponent extends CameraComponent {
         super.updateCamera();
 
         // Determine the mouse movement
-        float yRot = Input.getMouseX() * this.mouseSensitivityX;
-        float xRot = Input.getMouseY() * this.mouseSensitivityY;
+        float yRot = Input.getMouseDeltaX() * this.mouseSensitivityX / getScene().getEngine().getRenderer().getWindow().getWidth();
+        float xRot = Input.getMouseDeltaY() * this.mouseSensitivityY / getScene().getEngine().getRenderer().getWindow().getHeight();
 
         // Rotate the current object around it's axis to move the view
         getTransform().getRotation().rotateAxis(-xRot, 1, 0, 0);
         getTransform().getRotation().rotateAxis(-yRot, getTransform().up(Vector3fFactory.identity()));
-
-        // Center the mouse cursor
-        Input.centerMouseCursor();
     }
 
     /**
