@@ -3,13 +3,15 @@ package me.keybarricade;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
+import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector3f;
 
 public class GameScene extends Scene {
@@ -44,5 +46,10 @@ public class GameScene extends Scene {
 
         // Create and add the sand surface prefab
         addGameObject(new SandSurfacePrefab());
+
+        // Add a sun
+        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDB813).toVector3f(), 25);
+        pointLight.getTransform().getPosition().set(0, 15, 0);
+        addGameObject(pointLight);
     }
 }

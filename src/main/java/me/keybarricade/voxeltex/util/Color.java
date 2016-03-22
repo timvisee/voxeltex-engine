@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.util;
 
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 public class Color {
@@ -204,6 +205,15 @@ public class Color {
 
         // Combine the values into the result
         return red | (green << 8) | (blue << 16) | (alpha << 24);
+    }
+
+    /**
+     * Get the vector representation of this color without the alpha channel.
+     *
+     * @return Vector.
+     */
+    public Vector3f toVector3f() {
+        return new Vector3f(this.red, this.green, this.blue);
     }
 
     /**

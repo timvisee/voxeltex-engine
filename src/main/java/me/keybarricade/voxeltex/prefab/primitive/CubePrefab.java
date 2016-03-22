@@ -64,12 +64,6 @@ public class CubePrefab extends GameObject {
         addComponent(this.meshRenderer);
     }
 
-    @Override
-    public void create() {
-        // Call the super
-        super.create();
-    }
-
     /**
      * Get the mesh filter component.
      *

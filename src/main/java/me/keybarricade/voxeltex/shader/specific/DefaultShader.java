@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.shader.specific;
 
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
@@ -44,9 +45,9 @@ public class DefaultShader extends Shader {
     }
 
     @Override
-    public void update(Material material) {
+    public void update(AbstractScene scene, Material material) {
         // Update the super
-        super.update(material);
+        super.update(scene, material);
 
         // Set the shader color
         setUniform4f("colour", Color.ORANGE.toVector4f());

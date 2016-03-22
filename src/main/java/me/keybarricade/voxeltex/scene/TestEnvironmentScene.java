@@ -1,14 +1,15 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
-import me.keybarricade.voxeltex.component.drawable.line.GridDrawComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
+import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.shader.ShaderManager;
@@ -123,5 +124,10 @@ public class TestEnvironmentScene extends Scene {
         quad.setMaterial(sandMaterial);
         //quad.getTransform().setPosition(new Vector3f(-10, 0, -10));
         addGameObject(quad);
+
+        // Add a light
+        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDB813).toVector3f(), 25);
+        pointLight.getTransform().getPosition().set(0, 15, 0);
+        addGameObject(pointLight);
     }
 }
