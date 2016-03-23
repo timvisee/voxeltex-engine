@@ -2,7 +2,6 @@ package me.keybarricade.voxeltex.global;
 
 import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
-import me.keybarricade.voxeltex.gameobject.Transform;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -17,12 +16,24 @@ public class MainCamera {
     /**
      * The world position of the camera on the last update.
      */
-    private static Vector3f cameraPosition;
+    private static final Vector3f cameraPosition = new Vector3f();
 
     /**
      * The world reotation of the camera on the last update.
      */
-    private static Quaternionf cameraRotation;
+    private static final Quaternionf cameraRotation = new Quaternionf();
+
+    /**
+     * Cached camera view matrix that is used for rendering from time to time.
+     * Caching and recycling the instance adds a huge performance benefit.
+     */
+    private static final Matrix4f cameraViewMatrixCache = new Matrix4f();
+
+    /**
+     * Cached camera world rotation.
+     * Caching and recycling the instance adds a performance benefit.
+     */
+    private static final Quaternionf cameraRotationCache = new Quaternionf();
 
     /**
      * Get the main camera component that is used for rendering.
@@ -72,12 +83,9 @@ public class MainCamera {
             return;
         }
 
-        // Get the camera transform
-        Transform transform = MainCamera.mainCameraComponent.getTransform();
-
         // Set the camera transform positions
-        transform.getWorldPosition(cameraPosition);
-        transform.getWorldRotation(cameraRotation);
+        mainCameraComponent.getTransform().getWorldPosition(cameraPosition);
+        mainCameraComponent.getTransform().getWorldRotation(cameraRotation);
 
         // Update the camera itself
         MainCamera.mainCameraComponent.updateCamera();
@@ -134,7 +142,4 @@ public class MainCamera {
             return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
         }
     }
-
-    private static final Matrix4f cameraViewMatrixCache = new Matrix4f();
-    private static final Quaternionf cameraRotationCache = new Quaternionf();
 }

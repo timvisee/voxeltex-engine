@@ -30,22 +30,28 @@ public class Light {
     /**
      * Light position in the world space.
      */
-    private Vector3f position = Vector3fFactory.identity();
+    private final Vector3f position = Vector3fFactory.identity();
 
     /**
      * Light rotation in the world space.
      */
-    private Vector3f rotation = Vector3fFactory.identity();
+    private final Vector3f rotation = Vector3fFactory.identity();
 
     /**
      * Light color intensity.
      */
-    private Vector3f color = Vector3fFactory.identity();
+    private final Vector3f color = Vector3fFactory.identity();
 
     /**
      * The brightness of the light.
      */
     private float brightness;
+
+    /**
+     * Cached light rotation.
+     * Caching and recycling the instance adds a performance benefit.
+     */
+    private static final Quaternionf lightRotationCache = new Quaternionf();
 
     /**
      * Constructor.
@@ -147,7 +153,7 @@ public class Light {
      * @param rotation Light rotation.
      */
     public void setRotation(Quaternionf rotation) {
-        this.rotation.set(rotation.getEulerAnglesXYZ(this.rotation));
+        rotation.getEulerAnglesXYZ(this.rotation);
     }
 
     /**
@@ -201,11 +207,14 @@ public class Light {
      * @param lightObject Game object.
      */
     public void updatePosition(AbstractGameObject lightObject) {
-        // Update the position based on the world space position of the given object
-        updatePosition(
-                lightObject.getTransform().getWorldPosition(this.position),
-                lightObject.getTransform().getWorldRotation()
-        );
+        // Only use the light rotation cache in once place at a time
+        synchronized(lightRotationCache) {
+            // Update the position based on the world space position of the given object
+            updatePosition(
+                    lightObject.getTransform().getWorldPosition(this.position),
+                    lightObject.getTransform().getWorldRotation(lightRotationCache)
+            );
+        }
     }
 
     /**
@@ -215,7 +224,11 @@ public class Light {
      * @param rotation Light source rotation.
      */
     public void updatePosition(Vector3f position, Quaternionf rotation) {
-        updatePosition(position, rotation.getEulerAnglesXYZ(this.rotation));
+        // Update the position
+        this.position.set(position);
+
+        // Convert the rotation to euler axes and set them
+        rotation.getEulerAnglesXYZ(this.rotation);
     }
 
     /**
@@ -225,6 +238,7 @@ public class Light {
      * @param rotation Light source rotation.
      */
     public void updatePosition(Vector3f position, Vector3f rotation) {
+        // Update the position and rotation
         this.position.set(position);
         this.rotation.set(rotation);
     }
