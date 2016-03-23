@@ -104,8 +104,9 @@ public class GameObject extends AbstractGameObject {
         int count = 0;
 
         // Loop through all the children, and count
-        for(AbstractGameObject gameObject : this.children)
-            count += gameObject.getChildCount(true);
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            count += this.children.get(i).getChildCount(true);
 
         // Return the number of recursive children
         return count;
@@ -210,10 +211,13 @@ public class GameObject extends AbstractGameObject {
         // TODO: Improve performance of this!
 
         // Loop through all components to find an applicable one
-        for(AbstractComponent component : this.components)
-            if(componentType.isAssignableFrom(component.getClass()))
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++) {
+            // Check whether this component is valid
+            if(componentType.isAssignableFrom(this.components.get(i).getClass()))
                 //noinspection unchecked
-                return (T) component;
+                return (T) this.components.get(i);
+        }
 
         // None found, return null
         return null;
@@ -251,44 +255,56 @@ public class GameObject extends AbstractGameObject {
     @Override
     public void create() {
         // Create the children
-        for(AbstractGameObject child : this.children)
-            child.create();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).create();
 
         // Create all components
-        for(AbstractComponent component : this.components)
-            component.create();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++)
+            this.components.get(i).create();
     }
 
     @Override
     public void start() {
         // Start the children
-        for(AbstractGameObject child : this.children)
-            child.start();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).start();
 
         // Start all components
-        for(AbstractComponent component : this.components)
-            component.start();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++)
+            this.components.get(i).start();
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         // Update the transform
         this.transform.update();
 
-        // Update all components and then the children
-        for(AbstractComponent component : this.components)
-            component.update();
-        for(AbstractGameObject child : this.children)
-            child.update();
+        // Update all components
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++)
+            this.components.get(i).update();
+
+        // Update all children
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).update();
     }
 
     @Override
-    public void draw() {
+    public synchronized void draw() {
         // Define whether we started drawing
         boolean drawing = false;
 
         // Draw all drawable components and all children
-        for(AbstractComponent component : this.components) {
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++) {
+            // Get the component instance
+            AbstractComponent component = this.components.get(i);
+
             // Make sure the component is drawable
             if(component instanceof DrawableComponentInterface) {
                 // Make sure the drawing mode is enabled
@@ -308,14 +324,15 @@ public class GameObject extends AbstractGameObject {
             drawEnd();
 
         // Draw all children
-        for(AbstractGameObject child : this.children)
-            child.draw();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).draw();
     }
 
     /**
      * Prepare and start the drawing process.
      */
-    private void drawStart() {
+    private synchronized void drawStart() {
         // Create a view matrix base based on the camera position
         Matrix4f viewMatrix = MainCamera.createCameraViewMatrix();
 
@@ -329,7 +346,7 @@ public class GameObject extends AbstractGameObject {
     /**
      * End the current drawing process.
      */
-    private void drawEnd() {
+    private synchronized void drawEnd() {
         // Pop the OpenGL matrix
         glPopMatrix();
     }
