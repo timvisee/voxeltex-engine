@@ -3,6 +3,7 @@ package me.keybarricade.voxeltex.prefab.light;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector3f;
 
 public class LightPrefab extends GameObject {
@@ -30,7 +31,7 @@ public class LightPrefab extends GameObject {
      * @param name Game object name.
      */
     public LightPrefab(String name) {
-        this(name, -1, null, -1);
+        this(name, -1, Color.WHITE, -1);
     }
 
     /**
@@ -40,7 +41,7 @@ public class LightPrefab extends GameObject {
      * @param lightType Light type.
      */
     public LightPrefab(String name, int lightType) {
-        this(name, lightType, null, -1);
+        this(name, lightType, Color.WHITE, -1);
     }
 
     /**
@@ -50,7 +51,7 @@ public class LightPrefab extends GameObject {
      * @param lightBrightness Light brightness.
      */
     public LightPrefab(String name, float lightBrightness) {
-        this(name, -1, null, lightBrightness);
+        this(name, -1, Color.WHITE, lightBrightness);
     }
 
     /**
@@ -79,10 +80,40 @@ public class LightPrefab extends GameObject {
      *
      * @param name Game object name.
      * @param lightType Light type.
+     * @param lightColor Light color intensity.
+     */
+    public LightPrefab(String name, int lightType, Color lightColor) {
+        this(name, lightType, lightColor, -1);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     * @param lightType Light type.
      * @param lightBrightness Light brightness.
      */
     public LightPrefab(String name, int lightType, float lightBrightness) {
-        this(name, lightType, null, lightBrightness);
+        this(name, lightType, Color.WHITE, lightBrightness);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     * @param lightType Light type.
+     * @param lightColor Light color intensity.
+     * @param lightBrightness Light brightness.
+     */
+    public LightPrefab(String name, int lightType, Color lightColor, float lightBrightness) {
+        // Construct the super
+        super(name);
+
+        // Create a light source component
+        this.lightSource = new LightSourceComponent(lightType, lightColor.toVector3f(), lightBrightness);
+
+        // Add the light source component to the object
+        addComponent(this.lightSource);
     }
 
     /**
