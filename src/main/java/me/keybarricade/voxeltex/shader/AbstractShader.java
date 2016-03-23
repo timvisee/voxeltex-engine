@@ -16,6 +16,12 @@ public abstract class AbstractShader implements ShaderInterface {
     protected int programId;
 
     /**
+     * Cached float buffer for a matrix.
+     * This is used to minimize object allocation which drastically improves performance.
+     */
+    private static final FloatBuffer matrixFloatBufferCache = BufferUtils.createFloatBuffer(16);
+
+    /**
      * Constructor.
      *
      * @param programId Program ID of this shader.
@@ -132,7 +138,11 @@ public abstract class AbstractShader implements ShaderInterface {
 
     @Override
     public void setUniformMatrix4f(String name, Matrix4f matrix) {
-        setUniformMatrix4f(name, matrix, BufferUtils.createFloatBuffer(16));
+        // TODO: Should we clean, rewind or flip the float buffer first?
+        // Synchronize so we don't modify the cached float buffer from multiple places at the same time
+        synchronized(matrixFloatBufferCache) {
+            setUniformMatrix4f(name, matrix, matrixFloatBufferCache);
+        }
     }
 
     @Override
