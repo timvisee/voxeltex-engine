@@ -1,8 +1,8 @@
 package me.keybarricade.voxeltex.gameobject;
 
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.math.quaternion.QuaternionfFactory;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
-import me.keybarricade.voxeltex.global.Time;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -355,7 +355,7 @@ public class Transform {
      * @return The transformed matrix.
      */
     public Matrix4f applyTransform(Matrix4f dest) {
-        return dest.translate(this.position.x, this.position.y, this.position.z).rotate(this.rotation);
+        return dest.translate(this.position).rotate(this.rotation);
     }
 
     /**
