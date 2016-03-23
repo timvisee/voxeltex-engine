@@ -27,8 +27,9 @@ public class Scene extends AbstractGameObjectScene {
         int count = 0;
 
         // Loop through all game objects and count the total
-        for(AbstractGameObject gameObject : this.gameObjects)
-            count += gameObject.getChildCount(true);
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjects.size(); i < size; i++)
+            count += this.gameObjects.get(i).getChildCount(true);
 
         // Return the object count
         return count;
@@ -94,14 +95,16 @@ public class Scene extends AbstractGameObjectScene {
     @Override
     public void update() {
         // Update all game objects
-        for(AbstractGameObject gameObject : this.gameObjects)
-            gameObject.update();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjects.size(); i < size; i++)
+            this.gameObjects.get(i).update();
     }
 
     @Override
     public void draw() {
         // Draw all game objects
-        for(AbstractGameObject gameObject : this.gameObjects)
-            gameObject.draw();
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjects.size(); i < size; i++)
+            this.gameObjects.get(i).draw();
     }
 }

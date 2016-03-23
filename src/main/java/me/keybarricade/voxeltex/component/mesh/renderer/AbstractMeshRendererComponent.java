@@ -15,11 +15,16 @@ public abstract class AbstractMeshRendererComponent extends BaseComponent implem
     public void start() { }
 
     @Override
-    public void update() { }
+    public synchronized void update() { }
 
     @Override
     public boolean hasMeshFilterComponent() {
         return getMeshFilterComponent() != null;
+    }
+
+    @Override
+    public Material getMaterial() {
+        return getMaterials().get(0);
     }
 
     @Override

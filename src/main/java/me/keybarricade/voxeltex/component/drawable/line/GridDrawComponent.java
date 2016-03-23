@@ -12,7 +12,7 @@ public class GridDrawComponent extends AbstractDrawableComponent {
     public void start() { }
 
     @Override
-    public void update() { }
+    public synchronized void update() { }
 
     @Override
     public void draw() {

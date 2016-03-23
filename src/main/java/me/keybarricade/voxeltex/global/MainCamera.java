@@ -2,7 +2,6 @@ package me.keybarricade.voxeltex.global;
 
 import me.keybarricade.voxeltex.component.camera.AbstractCameraComponent;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
-import me.keybarricade.voxeltex.gameobject.Transform;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -17,12 +16,29 @@ public class MainCamera {
     /**
      * The world position of the camera on the last update.
      */
-    private static Vector3f cameraPosition;
+    private static final Vector3f cameraPosition = new Vector3f();
 
     /**
      * The world reotation of the camera on the last update.
      */
-    private static Quaternionf cameraRotation;
+    private static final Quaternionf cameraRotation = new Quaternionf();
+
+    /**
+     * Projection matrix. This matrix is updated each frame before it's send to OpenGL.
+     */
+    private static final Matrix4f projectionMatrix = new Matrix4f();
+
+    /**
+     * Cached camera view matrix that is used for rendering from time to time.
+     * Caching and recycling the instance adds a huge performance benefit.
+     */
+    private static final Matrix4f cameraViewMatrixCache = new Matrix4f();
+
+    /**
+     * Cached camera world rotation.
+     * Caching and recycling the instance adds a performance benefit.
+     */
+    private static final Quaternionf cameraRotationCache = new Quaternionf();
 
     /**
      * Get the main camera component that is used for rendering.
@@ -63,22 +79,18 @@ public class MainCamera {
     /**
      * Update the camera positions.
      */
-    public static void update() {
+    public static synchronized void update() {
         // Make sure the main camera component is set
         if(MainCamera.mainCameraComponent == null) {
             // Reset the position and rotation
-            cameraPosition = new Vector3f();
-            cameraRotation = new Quaternionf();
+            cameraPosition.set(0);
+            cameraRotation.identity();
             return;
         }
 
-        // Get the camera transform
-        Transform transform = MainCamera.mainCameraComponent.getTransform();
-
         // Set the camera transform positions
-        // TODO: Make sure the rotation is cumulative over all objects
-        cameraPosition = transform.getWorldPosition();
-        cameraRotation = transform.getRotation();
+        mainCameraComponent.getTransform().getWorldPosition(cameraPosition);
+        mainCameraComponent.getTransform().getWorldRotation(cameraRotation);
 
         // Update the camera itself
         MainCamera.mainCameraComponent.updateCamera();
@@ -108,7 +120,14 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix() {
-        return createCameraViewMatrix(new Matrix4f());
+        // Make sure the camera view matrix isn't modified by something else while using it
+        synchronized(cameraViewMatrixCache) {
+            // Set the matrix to it's identity
+            cameraViewMatrixCache.identity();
+
+            // Create the camera view matrix
+            return createCameraViewMatrix(cameraViewMatrixCache);
+        }
     }
 
     /**
@@ -119,6 +138,32 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix(Matrix4f dest) {
-        return dest.rotate(cameraRotation.invert(new Quaternionf())).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+        // Make sure we aren't using the camera rotation somewhere else too
+        synchronized(cameraRotationCache) {
+            // Reset the camera rotation cache to it's identity
+            cameraRotationCache.identity();
+
+            // Apply the relative view to the matrix and return
+            return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+        }
+    }
+
+
+    /**
+     * Get the projection matrix.
+     *
+     * @return Projection matrix.
+     */
+    public static Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    /**
+     * Set the projection matrix.
+     *
+     * @param projectionMatrix Projection matrix.
+     */
+    public static void setProjectionMatrix(Matrix4f projectionMatrix) {
+        projectionMatrix.set(projectionMatrix);
     }
 }
