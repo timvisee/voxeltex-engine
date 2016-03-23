@@ -63,12 +63,12 @@ public class MainCamera {
     /**
      * Update the camera positions.
      */
-    public static void update() {
+    public static synchronized void update() {
         // Make sure the main camera component is set
         if(MainCamera.mainCameraComponent == null) {
             // Reset the position and rotation
-            cameraPosition = new Vector3f();
-            cameraRotation = new Quaternionf();
+            cameraPosition.set(0);
+            cameraRotation.identity();
             return;
         }
 
@@ -76,9 +76,8 @@ public class MainCamera {
         Transform transform = MainCamera.mainCameraComponent.getTransform();
 
         // Set the camera transform positions
-        // TODO: Make sure the rotation is cumulative over all objects
-        cameraPosition = transform.getWorldPosition();
-        cameraRotation = transform.getRotation();
+        transform.getWorldPosition(cameraPosition);
+        transform.getWorldRotation(cameraRotation);
 
         // Update the camera itself
         MainCamera.mainCameraComponent.updateCamera();
@@ -108,7 +107,14 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix() {
-        return createCameraViewMatrix(new Matrix4f());
+        // Make sure the camera view matrix isn't modified by something else while using it
+        synchronized(cameraViewMatrixCache) {
+            // Set the matrix to it's identity
+            cameraViewMatrixCache.identity();
+
+            // Create the camera view matrix
+            return createCameraViewMatrix(cameraViewMatrixCache);
+        }
     }
 
     /**
@@ -119,6 +125,16 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix(Matrix4f dest) {
-        return dest.rotate(cameraRotation.invert(new Quaternionf())).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+        // Make sure we aren't using the camera rotation somewhere else too
+        synchronized(cameraRotationCache) {
+            // Reset the camera rotation cache to it's identity
+            cameraRotationCache.identity();
+
+            // Apply the relative view to the matrix and return
+            return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+        }
     }
+
+    private static final Matrix4f cameraViewMatrixCache = new Matrix4f();
+    private static final Quaternionf cameraRotationCache = new Quaternionf();
 }
