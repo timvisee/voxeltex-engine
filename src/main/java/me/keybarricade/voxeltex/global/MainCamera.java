@@ -24,6 +24,11 @@ public class MainCamera {
     private static final Quaternionf cameraRotation = new Quaternionf();
 
     /**
+     * Projection matrix. This matrix is updated each frame before it's send to OpenGL.
+     */
+    private static final Matrix4f projectionMatrix = new Matrix4f();
+
+    /**
      * Cached camera view matrix that is used for rendering from time to time.
      * Caching and recycling the instance adds a huge performance benefit.
      */
@@ -141,5 +146,24 @@ public class MainCamera {
             // Apply the relative view to the matrix and return
             return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
         }
+    }
+
+
+    /**
+     * Get the projection matrix.
+     *
+     * @return Projection matrix.
+     */
+    public static Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    /**
+     * Set the projection matrix.
+     *
+     * @param projectionMatrix Projection matrix.
+     */
+    public static void setProjectionMatrix(Matrix4f projectionMatrix) {
+        projectionMatrix.set(projectionMatrix);
     }
 }

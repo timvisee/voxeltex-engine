@@ -2,25 +2,26 @@ package me.keybarricade.voxeltex.renderer;
 
 import me.keybarricade.voxeltex.VoxelTex;
 import me.keybarricade.voxeltex.VoxelTexEngine;
-import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.global.MainCamera;
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.shader.ShaderTracker;
 import me.keybarricade.voxeltex.texture.ImageTracker;
 import me.keybarricade.voxeltex.texture.TextureTracker;
-import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
-import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryUtil.memAddress;
 
 public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
@@ -70,9 +71,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     public VoxelTexWindow getWindow() {
         return window;
     }
-
-    // TODO: Move this
-    public static Matrix4f mat = new Matrix4f();
 
     /**
      * Initialize the renderer.
@@ -187,10 +185,11 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      * Rendering loop.
      */
     public void loop() {
+        // Show a status message
         System.out.println(VoxelTex.ENGINE_NAME + " engine started!");
 
         // FloatBuffer for transferring the projection view matrix to OpenGL
-        FloatBuffer fb = BufferUtils.createFloatBuffer(16);
+        final FloatBuffer matrixFrameBuffer = BufferUtils.createFloatBuffer(16);
 
         // Update the time to ensure it starts from zero in the first loop
         Time.update();
@@ -225,7 +224,14 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Enable the projection mode to configure the camera, and revert back to model view mode
             glMatrixMode(GL_PROJECTION);
-            glLoadMatrixf(mat.setPerspective((float) Math.toRadians(45), (float) windowWidth / windowHeight, 0.01f, 100.0f).get(fb));
+            glLoadMatrixf(
+                    MainCamera.getProjectionMatrix()
+                            .setPerspective(
+                                (float) Math.toRadians(45),
+                                (float) windowWidth / windowHeight,
+                                0.01f, 100.0f)
+                            .get(matrixFrameBuffer)
+            );
             glMatrixMode(GL_MODELVIEW);
 
             // Draw the current scene

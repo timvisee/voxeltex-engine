@@ -2,7 +2,6 @@ package me.keybarricade.voxeltex.shader;
 
 import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.renderer.VoxelTexRenderer;
 import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 
@@ -31,7 +30,7 @@ public class Shader extends AbstractShader {
     public void update(AbstractScene scene, Material material) {
         // Configure the projection and view matrix of the shader
         // TODO: Should we still send this data?
-        setUniformMatrix4f("projectionMatrix", VoxelTexRenderer.mat);
+        setUniformMatrix4f("projectionMatrix", MainCamera.getProjectionMatrix());
         setUniformMatrix4f("viewMatrix", MainCamera.createCameraViewMatrix());
     }
 }
