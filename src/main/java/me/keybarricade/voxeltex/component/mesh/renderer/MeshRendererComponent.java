@@ -3,6 +3,7 @@ package me.keybarricade.voxeltex.component.mesh.renderer;
 import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.shader.Shader;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -19,6 +20,12 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
      * List of materials used for rendering.
      */
     private List<Material> materials = new ArrayList<>();
+
+    /**
+     * Cached model matrix that is used for rendering from time to time.
+     * Caching and recycling the instance adds a huge performance benefit.
+     */
+    private final Matrix4f modelMatrixCache = new Matrix4f();
 
     /**
      * Constructor.
@@ -75,31 +82,36 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
 
         // Make sure a material is available before using it
         if(hasMaterial()) {
-            // Get the main material
-            Material material = getMaterial(0);
+            // Get the main material and shader
+            Material material = getMaterial();
+            Shader shader = material.getShader();
 
             // Bind material to OpenGL and update the shader
             material.bind();
-            material.getShader().update(getScene(), material);
+            shader.update(getScene(), material);
 
-            // TODO: Move this to the shader update method!
-            // Calculate the model matrix and update the shader
-            Matrix4f modelMatrix = getTransform().applyWorldTransform(new Matrix4f());
-            material.getShader().setUniformMatrix4f("modelMatrix", modelMatrix);
+            // Clear the model matrix and calculate it again for rendering, make sure it isn't modified by something else
+            synchronized(this.modelMatrixCache) {
+                this.modelMatrixCache.identity();
+                getTransform().applyWorldTransform(this.modelMatrixCache);
+            }
+
+            // Send the model matrix to the shader
+            shader.setUniformMatrix4f("modelMatrix", this.modelMatrixCache);
 
             // Bind the texture if available
-            if(material.hasTexture()) {
-                material.getShader().setUniform1f("texture", material.getTexture().getId());
-                // TODO: Bind the normal!
-            }
+            // TODO: Also bind the normal!
+            if(material.hasTexture())
+                shader.setUniform1f("texture", material.getTexture().getId());
+
+            // Draw the mesh attached to the mesh filter
+            this.meshFilter.getMesh().draw(material);
+
+            // Unbind the material
+            material.unbind();
         }
 
-        // Draw the mesh attached to the mesh filter
-        this.meshFilter.getMesh().draw(materials.get(0));
-
-        // Unbind the material
-        if(hasMaterial())
-            getMaterial(0).unbind();
+        // TODO: Also draw the mesh if no material is attached!
     }
 
     /**

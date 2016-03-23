@@ -44,6 +44,13 @@ public interface MeshRendererComponentInterface extends DrawableComponentInterfa
     List<Material> getMaterials();
 
     /**
+     * Get the main material. If the mesh renderer has multiple materials, the first will be returned.
+     *
+     * @return Material.
+     */
+    Material getMaterial();
+
+    /**
      * Get the material at the given index.
      *
      * @param i Material index.
