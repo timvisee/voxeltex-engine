@@ -129,5 +129,11 @@ public class TestEnvironmentScene extends Scene {
         LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDB813).toVector3f(), 25);
         pointLight.getTransform().getPosition().set(0, 15, 0);
         addGameObject(pointLight);
+
+        // Add a sun
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDB813).toVector3f(), 0.3f);
+        sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
+        sunLight.getTransform().getPosition().set(-5, 1, -3);
+        addGameObject(sunLight);
     }
 }

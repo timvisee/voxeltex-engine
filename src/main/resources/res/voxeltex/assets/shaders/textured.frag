@@ -19,40 +19,58 @@ uniform vec3 lightPosition[LIGHT_COUNT_MAX];
 uniform vec3 lightRotation[LIGHT_COUNT_MAX];
 uniform vec4 lightColor[LIGHT_COUNT_MAX];
 
-void main() {
+void main(void) {
     // Create a variable to define the diffuse color in
-    vec3 diffuse = vec3(0);
+    vec3 diffuse;
 
     // Calculate the lighting for all different lights
     for(int i = 0; i < lightCount; i++) {
-        // TODO: Validate the light type!
 
-        // Get the light position
-        vec3 pos = lightPosition[i];
+        // Process a directional light
+        if(lightType[i] == 1) {
+            // Get the light rotation, normalize it and normalize the normal vector of the surface
+            vec3 unitNormal = normalize(surfaceNormal);
+            vec3 unitLightDirection = normalize(lightRotation[i]);
 
-        // Calculate the distance to the light
-        float lightDistance = distance(position.xyz, pos);
+            // Calculate the dot product of both vectors and clamp the brightness to zero and above
+            float brightness = max(dot(unitNormal, unitLightDirection), 0.0) * lightColor[i].w;
 
-        // Calculate the light direction
-        vec3 lightDirection = pos - position.xyz;
+            // Calculate the diffuse color and append it to the result
+            diffuse += brightness * lightColor[i].xyz;
+        }
 
-        // Normalize the surface and light vector
-        vec3 unitNormal = normalize(surfaceNormal);
-        vec3 unitLightDirection = normalize(lightDirection);
+        // Process a point light
+        if(lightType[i] == 2) {
+            // Get the light position
+            vec3 pos = lightPosition[i];
 
-        // Calculate the light fading factor
-        float lightFadeFactor = 1 / pow(lightDistance, 2);
+            // Calculate the distance to the light
+            float lightDistance = distance(position.xyz, pos);
 
-        // Calculate the dot product of both vectors and clamp the brightness to zero and above
-        float nDotl = dot(unitNormal, unitLightDirection);
-        float brightness = max(nDotl, 0.0) * lightFadeFactor * lightColor[i].w;
+            // Calculate the light direction
+            vec3 lightDirection = pos - position.xyz;
 
-        // Calculate the diffuse color and append it to the result
-        diffuse += brightness * lightColor[i].xyz;
+            // Normalize the surface and light vector
+            vec3 unitNormal = normalize(surfaceNormal);
+            vec3 unitLightDirection = normalize(lightDirection);
+
+            // Calculate the light fading factor
+            float lightFadeFactor = 1 / pow(lightDistance, 2);
+
+            // Calculate the dot product of both vectors and clamp the brightness to zero and above
+            float brightness = max(dot(unitNormal, unitLightDirection), 0.0) * lightFadeFactor * lightColor[i].w;
+
+            // Calculate the diffuse color and append it to the result
+            diffuse += brightness * lightColor[i].xyz;
+        }
+
+        // Process a spot light
+        if(lightType[i] == 3) {
+            // TODO: Process spot light here!
+        }
     }
 
     // Multiply the diffuse lighting by three for better appearance
-    // TODO: Should we do this?
     diffuse *= vec3(3);
 
     // Add ambient light
