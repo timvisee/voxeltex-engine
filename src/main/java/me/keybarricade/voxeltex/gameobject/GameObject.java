@@ -46,6 +46,12 @@ public class GameObject extends AbstractGameObject {
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     /**
+     * View matrix cache.
+     * This is used to optimize performance and object allocation at runtime.
+     */
+    private static final Matrix4f viewMatrixCache = new Matrix4f();
+
+    /**
      * Constructor.
      *
      * @param name Game object name.
@@ -332,14 +338,20 @@ public class GameObject extends AbstractGameObject {
      * Prepare and start the drawing process.
      */
     private synchronized void drawStart() {
-        // Create a view matrix base based on the camera position
-        Matrix4f viewMatrix = MainCamera.createCameraViewMatrix();
+        // Do not use the cached view matrix in multiple places at the same time
+        synchronized(viewMatrixCache) {
+            // Reset the matrix to it's identity
+            viewMatrixCache.identity();
 
-        // Apply the object's world transformation to the matrix
-        getTransform().applyWorldTransform(viewMatrix);
+            // Apply the view matrix of the camera to the cached matrix
+            MainCamera.createCameraViewMatrix(viewMatrixCache);
 
-        // Load the matrix to the GPU
-        glLoadMatrixf(viewMatrix.get(fb));
+            // Apply the object's world transformation to the matrix
+            getTransform().applyWorldTransform(viewMatrixCache);
+
+            // Load the matrix to the GPU
+            glLoadMatrixf(viewMatrixCache.get(fb));
+        }
     }
 
     /**
