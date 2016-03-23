@@ -302,11 +302,10 @@ public class GameObject extends AbstractGameObject {
         // Draw all drawable components and all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++) {
-            // Get the component instance
-            AbstractComponent component = this.components.get(i);
+            // TODO: Improve the performance of this method!
 
             // Make sure the component is drawable
-            if(component instanceof DrawableComponentInterface) {
+            if(this.components.get(i) instanceof DrawableComponentInterface) {
                 // Make sure the drawing mode is enabled
                 if(!drawing) {
                     // Start the drawing process and set the flag
@@ -315,7 +314,7 @@ public class GameObject extends AbstractGameObject {
                 }
 
                 // Draw the component
-                ((DrawableComponentInterface) component).draw();
+                ((DrawableComponentInterface) this.components.get(i)).draw();
             }
         }
 
