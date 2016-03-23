@@ -21,7 +21,7 @@ uniform vec4 lightColor[LIGHT_COUNT_MAX];
 
 void main(void) {
     // Create a variable to define the diffuse color in
-    vec3 diffuse;
+    vec3 diffuse = vec3(0.0);
 
     // Calculate the lighting for all different lights
     for(int i = 0; i < lightCount; i++) {
