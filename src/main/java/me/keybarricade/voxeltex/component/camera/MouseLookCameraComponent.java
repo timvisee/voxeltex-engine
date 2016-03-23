@@ -2,7 +2,7 @@ package me.keybarricade.voxeltex.component.camera;
 
 import me.keybarricade.voxeltex.global.Input;
 import me.keybarricade.voxeltex.input.mouse.MouseInputManager;
-import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
+import org.joml.Vector3f;
 
 public class MouseLookCameraComponent extends CameraComponent {
 
@@ -15,6 +15,12 @@ public class MouseLookCameraComponent extends CameraComponent {
      * Mouse sensitivity on the Y axis.
      */
     private float mouseSensitivityY = 2.0f;
+
+    /**
+     * Cached up vector.
+     * Used to minimize object allocation which improves performance.
+     */
+    private static final Vector3f upVectorCache = new Vector3f();
 
     @Override
     public void start() {
@@ -36,9 +42,12 @@ public class MouseLookCameraComponent extends CameraComponent {
         float yRot = Input.getMouseDeltaX() * this.mouseSensitivityX / getScene().getEngine().getRenderer().getWindow().getWidth();
         float xRot = Input.getMouseDeltaY() * this.mouseSensitivityY / getScene().getEngine().getRenderer().getWindow().getHeight();
 
-        // Rotate the current object around it's axis to move the view
-        getTransform().getRotation().rotateAxis(-xRot, 1, 0, 0);
-        getTransform().getRotation().rotateAxis(-yRot, getTransform().up(Vector3fFactory.identity()));
+        // Synchronize to ensure we don't use the cached vector twice at the same time
+        synchronized(upVectorCache) {
+            // Rotate the current object around it's axis to move the view
+            getTransform().getRotation().rotateAxis(-xRot, 1, 0, 0);
+            getTransform().getRotation().rotateAxis(-yRot, getTransform().up(upVectorCache));
+        }
     }
 
     /**
