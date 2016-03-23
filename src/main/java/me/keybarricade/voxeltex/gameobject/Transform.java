@@ -45,6 +45,23 @@ public class Transform {
     private Vector3f angVel = new Vector3f();
 
     /**
+     * Shared lock for parent world object cache usage. Use a static instance to minimize the memory footprint.
+     */
+    private static final Object parentWorldSharedCacheLock = new Object();
+
+    /**
+     * Cached parent world position.
+     * Caching and recycling the instance adds a performance benefit. Use a static instance to minimize the memory footprint.
+     */
+    private static final Vector3f parentWorldPositionCache = new Vector3f();
+
+    /**
+     * Cached parent world rotation.
+     * Caching and recycling the instance adds a performance benefit. Use a static instance to minimize the memory footprint.
+     */
+    private static final Quaternionf parentWorldRotationCache = new Quaternionf();
+
+    /**
      * Constructor.
      *
      * @param owner The owner of this transformation.
@@ -91,11 +108,18 @@ public class Transform {
         // Copy the local position
         dest.set(this.position);
 
-        // Apply the world rotation of the parent
-        dest.rotate(getParentWorldRotation());
+        // Synchronize usage of the cache to prevent issues
+        synchronized(parentWorldSharedCacheLock) {
+            // Clear the parent world position and rotation cache
+            parentWorldPositionCache.zero();
+            parentWorldRotationCache.identity();
 
-        // Add the world rotation of the parent and return the result
-        return dest.add(getParentWorldPosition());
+            // Apply the world rotation of the parent
+            dest.rotate(getParentWorldRotation(parentWorldRotationCache));
+
+            // Add the world rotation of the parent and return the result
+            return dest.add(getParentWorldPosition(parentWorldPositionCache));
+        }
     }
 
     /**
@@ -122,7 +146,7 @@ public class Transform {
             return getOwner().getParent().getTransform().getWorldPosition(dest);
 
         // Return zero
-        return Vector3fFactory.identity(dest);
+        return dest.zero();
     }
 
     /**
@@ -140,11 +164,20 @@ public class Transform {
      * @param position Game object world position.
      */
     public void setWorldPosition(Vector3f position) {
-        // Set the local position by subtracting the world position of the parent and rotating it by the world rotation
-        // of this object
-        setPosition(
-                position.sub(getParentWorldPosition(), Vector3fFactory.identity()).rotate(getWorldRotation().invert())
-        );
+        // Make sure we aren't using the cache in multiple places
+        synchronized(parentWorldSharedCacheLock) {
+            // Clear the parent world position cache
+            parentWorldPositionCache.zero();
+            parentWorldRotationCache.identity();
+
+            // Set the local position by subtracting the world position of the parent and rotating it by the world rotation
+            // of this object
+            // TODO: Use cache for the second vector instance too?
+            setPosition(
+                    position.sub(getParentWorldPosition(parentWorldPositionCache), Vector3fFactory.identity())
+                            .rotate(getWorldRotation(parentWorldRotationCache).invert())
+            );
+        }
     }
 
     /**
@@ -153,7 +186,7 @@ public class Transform {
      * @return Game object rotation.
      */
     public Quaternionf getRotation() {
-        return rotation;
+        return this.rotation;
     }
 
     /**
@@ -213,6 +246,7 @@ public class Transform {
      * @param rotation Game object rotation.
      */
     public void setRotation(Quaternionf rotation) {
+        // Set the rotation and normalize to prevent weird rotation glitches on non-normalized quaternions
         this.rotation = rotation.normalize();
     }
 
@@ -222,7 +256,10 @@ public class Transform {
      * @param rotation Game object world space rotation.
      */
     public void setWorldRotation(Quaternionf rotation) {
-        this.rotation = rotation.mul(getParentWorldRotation().invert(), QuaternionfFactory.identity());
+        // Make sure we aren't using the rotation cache in multiple places
+        synchronized(parentWorldSharedCacheLock) {
+            this.rotation = rotation.mul(getParentWorldRotation(parentWorldRotationCache).invert(), this.rotation);
+        }
     }
 
     /**
@@ -300,7 +337,7 @@ public class Transform {
     /**
      * Update the transform.
      */
-    public void update() {
+    public synchronized void update() {
         // Update linear velocity based on linear acceleration
         linVel.fma(Time.deltaTimeFloat, this.linAcc);
 
@@ -317,7 +354,16 @@ public class Transform {
     /**
      * Compute forward direction in world space.
      *
-     * @param dest Destination.
+     * @return Destination.
+     */
+    public Vector3f forward() {
+        return forward(Vector3fFactory.identity());
+    }
+
+    /**
+     * Compute forward direction in world space.
+     *
+     * @param dest Destination. (allocation free)
      *
      * @return Destination.
      */
@@ -328,7 +374,16 @@ public class Transform {
     /**
      * Compute right direction in world-space.
      *
-     * @param dest Destination.
+     * @return Destination.
+     */
+    public Vector3f right() {
+        return right(Vector3fFactory.identity());
+    }
+
+    /**
+     * Compute right direction in world-space.
+     *
+     * @param dest Destination. (allocation free)
      *
      * @return Destination.
      */
@@ -339,7 +394,16 @@ public class Transform {
     /**
      * Compute up direction in world-space.
      *
-     * @param dest Destination.
+     * @return Destination.
+     */
+    public Vector3f up() {
+        return up(Vector3fFactory.identity());
+    }
+
+    /**
+     * Compute up direction in world-space.
+     *
+     * @param dest Destination. (allocation free)
      *
      * @return Destination.
      */
