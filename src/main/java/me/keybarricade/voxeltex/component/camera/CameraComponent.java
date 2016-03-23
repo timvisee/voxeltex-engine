@@ -7,9 +7,7 @@ import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.glLoadMatrixf;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.*;
 
 public class CameraComponent extends AbstractCameraComponent {
 
@@ -28,7 +26,7 @@ public class CameraComponent extends AbstractCameraComponent {
     }
 
     @Override
-    public void update() { }
+    public synchronized void update() { }
 
     @Override
     public void updateCamera() { }

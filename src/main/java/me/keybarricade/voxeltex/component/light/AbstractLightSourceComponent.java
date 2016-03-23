@@ -11,5 +11,5 @@ public abstract class AbstractLightSourceComponent extends BaseComponent impleme
     public void start() { }
 
     @Override
-    public void update() { }
+    public synchronized void update() { }
 }

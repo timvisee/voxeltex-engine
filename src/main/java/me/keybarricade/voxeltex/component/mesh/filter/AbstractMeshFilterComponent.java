@@ -11,7 +11,7 @@ public abstract class AbstractMeshFilterComponent extends BaseComponent implemen
     public void start() { }
 
     @Override
-    public void update() { }
+    public synchronized void update() { }
 
     @Override
     public boolean hasMesh() {

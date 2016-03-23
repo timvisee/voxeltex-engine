@@ -104,7 +104,7 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         // Update the position of the light
         this.light.updatePosition(getOwner());
 
