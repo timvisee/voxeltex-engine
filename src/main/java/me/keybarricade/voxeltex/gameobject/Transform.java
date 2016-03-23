@@ -17,32 +17,32 @@ public class Transform {
     /**
      * Game object position.
      */
-    private Vector3f position = Vector3fFactory.identity();
+    private final Vector3f position = Vector3fFactory.identity();
 
     /**
      * Game object rotation.
      */
-    private Quaternionf rotation = QuaternionfFactory.identity();
+    private final Quaternionf rotation = QuaternionfFactory.identity();
 
     /**
      * Linear acceleration.
      */
-    private Vector3f linAcc = new Vector3f();
+    private final Vector3f linAcc = new Vector3f();
 
     /**
      * Linear velocity.
      */
-    private Vector3f linVel = new Vector3f();
+    private final Vector3f linVel = new Vector3f();
 
     /**
      * Angular acceleration. (local)
      */
-    private Vector3f angAcc = new Vector3f();
+    private final Vector3f angAcc = new Vector3f();
 
     /**
      * Angular velocity. (local)
      */
-    private Vector3f angVel = new Vector3f();
+    private final Vector3f angVel = new Vector3f();
 
     /**
      * Shared lock for parent world object cache usage. Use a static instance to minimize the memory footprint.
@@ -155,7 +155,7 @@ public class Transform {
      * @param position Game object position.
      */
     public void setPosition(Vector3f position) {
-        this.position = position;
+        this.position.set(position);
     }
 
     /**
@@ -247,7 +247,7 @@ public class Transform {
      */
     public void setRotation(Quaternionf rotation) {
         // Set the rotation and normalize to prevent weird rotation glitches on non-normalized quaternions
-        this.rotation = rotation.normalize();
+        this.rotation.set(rotation).normalize();
     }
 
     /**
@@ -258,7 +258,11 @@ public class Transform {
     public void setWorldRotation(Quaternionf rotation) {
         // Make sure we aren't using the rotation cache in multiple places
         synchronized(parentWorldSharedCacheLock) {
-            this.rotation = rotation.mul(getParentWorldRotation(parentWorldRotationCache).invert(), this.rotation);
+            this.rotation.set(
+                    rotation.mul(
+                            getParentWorldRotation(parentWorldRotationCache).invert(),
+                            this.rotation)
+            );
         }
     }
 
@@ -277,7 +281,7 @@ public class Transform {
      * @param linAcc Linear acceleration.
      */
     public void setLinearAcceleration(Vector3f linAcc) {
-        this.linAcc = linAcc;
+        this.linAcc.set(linAcc);
     }
 
     /**
@@ -295,7 +299,7 @@ public class Transform {
      * @param linVel Linear velocity.
      */
     public void setLinearVelocity(Vector3f linVel) {
-        this.linVel = linVel;
+        this.linVel.set(linVel);
     }
 
     /**
@@ -313,7 +317,7 @@ public class Transform {
      * @param angAcc Angular acceleration.
      */
     public void setAngularAcceleration(Vector3f angAcc) {
-        this.angAcc = angAcc;
+        this.angAcc.set(angAcc);
     }
 
     /**
@@ -331,7 +335,7 @@ public class Transform {
      * @param angVel Angular velocity.
      */
     public void setAngularVelocity(Vector3f angVel) {
-        this.angVel = angVel;
+        this.angVel.set(angVel);
     }
 
     /**
