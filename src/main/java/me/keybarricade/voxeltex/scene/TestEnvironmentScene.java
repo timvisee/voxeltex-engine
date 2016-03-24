@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
+import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
@@ -47,6 +48,7 @@ public class TestEnvironmentScene extends Scene {
             suzanneObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.RED, 1, 1))));
             suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
             suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
+            suzanneObject.getTransform().getScale().set(2, 1, 1);
             suzanneRoot.addChild(suzanneObject);
         }
 
@@ -57,11 +59,11 @@ public class TestEnvironmentScene extends Scene {
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
 
-//        // Light source object
-//        GameObject lightObject = new GameObject("Light");
-//        lightObject.addComponent(new LightSourceComponent());
-//        lightObject.getTransform().getPosition().set(1.0f, 1.0f, 0);
-//        addGameObject(lightObject);
+        // Light source object
+        GameObject lightObject = new GameObject("Light");
+        lightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(0, 0, 1), 3));
+        lightObject.getTransform().getPosition().set(-4, 1, 6);
+        addGameObject(lightObject);
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
@@ -104,15 +106,34 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
+
+        // Add a matrix of boxes
         for (int j = 0; j < 10; j++) {
             for(int i = 0; i < 15; i++) {
                 // Load the texture shader
-                CubePrefab quadTest = new CubePrefab();
-                quadTest.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
-                addGameObject(quadTest);
-                quadTest.setMaterial(boxMaterial);
+                CubePrefab matrixBox = new CubePrefab();
+                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                matrixBox.setMaterial(boxMaterial);
+                addGameObject(matrixBox);
             }
         }
+
+        // Add some scaled boxes
+        CubePrefab boxA = new CubePrefab();
+        boxA.setMaterial(boxMaterial);
+        boxA.getTransform().setPosition(new Vector3f(-6f, 1.5f, 4));
+        boxA.getTransform().getScale().set(.5f, 1.5f, .5f);
+        CubePrefab boxB = new CubePrefab();
+        boxB.setMaterial(boxMaterial);
+        boxB.getTransform().setPosition(new Vector3f(0, 1, 0));
+        boxB.getTransform().getScale().set(1, 1, 2);
+        boxA.addChild(boxB);
+        CubePrefab boxC = new CubePrefab();
+        boxC.setMaterial(boxMaterial);
+        boxC.getTransform().setPosition(new Vector3f(0, 1, 0));
+        boxC.getTransform().getScale().set(1, 1, 1);
+        boxB.addChild(boxC);
+        addGameObject(boxA);
 
         // Load the sand texture
         Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));

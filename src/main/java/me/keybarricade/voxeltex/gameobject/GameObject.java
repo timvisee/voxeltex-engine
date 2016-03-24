@@ -340,14 +340,8 @@ public class GameObject extends AbstractGameObject {
     private synchronized void drawStart() {
         // Do not use the cached view matrix in multiple places at the same time
         synchronized(viewMatrixCache) {
-            // Reset the matrix to it's identity
-            viewMatrixCache.identity();
-
-            // Apply the view matrix of the camera to the cached matrix
-            MainCamera.createCameraViewMatrix(viewMatrixCache);
-
-            // Apply the object's world transformation to the matrix
-            getTransform().applyWorldTransform(viewMatrixCache);
+            // Combine the world camera and game object matrix to construct the view matrix
+            getTransform().addWorldMatrix(MainCamera.createCameraViewMatrix(viewMatrixCache));
 
             // Load the matrix to the GPU
             glLoadMatrixf(viewMatrixCache.get(fb));

@@ -24,6 +24,11 @@ public class MainCamera {
     private static final Quaternionf cameraRotation = new Quaternionf();
 
     /**
+     * The world scale of the camera on the last update.
+     */
+    private static final Vector3f cameraScale = new Vector3f();
+
+    /**
      * Projection matrix. This matrix is updated each frame before it's send to OpenGL.
      */
     private static final Matrix4f projectionMatrix = new Matrix4f();
@@ -33,12 +38,6 @@ public class MainCamera {
      * Caching and recycling the instance adds a huge performance benefit.
      */
     private static final Matrix4f cameraViewMatrixCache = new Matrix4f();
-
-    /**
-     * Cached camera world rotation.
-     * Caching and recycling the instance adds a performance benefit.
-     */
-    private static final Quaternionf cameraRotationCache = new Quaternionf();
 
     /**
      * Get the main camera component that is used for rendering.
@@ -85,12 +84,14 @@ public class MainCamera {
             // Reset the position and rotation
             cameraPosition.set(0);
             cameraRotation.identity();
+            cameraScale.set(1);
             return;
         }
 
         // Set the camera transform positions
         mainCameraComponent.getTransform().getWorldPosition(cameraPosition);
         mainCameraComponent.getTransform().getWorldRotation(cameraRotation);
+        mainCameraComponent.getTransform().getWorldScale(cameraScale);
 
         // Update the camera itself
         MainCamera.mainCameraComponent.updateCamera();
@@ -112,6 +113,15 @@ public class MainCamera {
      */
     public static Quaternionf getCameraRotationLastUpdate() {
         return cameraRotation;
+    }
+
+    /**
+     * Get the camera scale since the last update.
+     *
+     * @return Camera scale since the last update.
+     */
+    public static Vector3f getCameraScaleLastUpdate() {
+        return cameraScale;
     }
 
     /**
@@ -138,14 +148,12 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix(Matrix4f dest) {
-        // Make sure we aren't using the camera rotation somewhere else too
-        synchronized(cameraRotationCache) {
-            // Reset the camera rotation cache to it's identity
-            cameraRotationCache.identity();
+        // Make sure a camera is available, otherwise return the world origin matrix
+        if(!hasCamera())
+            return dest.identity();
 
-            // Apply the relative view to the matrix and return
-            return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
-        }
+        // Create and return the camera view matrix
+        return getCameraObject().getTransform().addWorldMatrix(dest.identity()).invert();
     }
 
 

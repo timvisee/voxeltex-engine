@@ -237,6 +237,12 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Draw the current scene
             getEngine().getSceneManager().draw();
 
+            // TODO: Move this to a different spot
+            Runtime r = Runtime.getRuntime();
+            String usedMem = ((r.totalMemory() - r.freeMemory()) / 1000000) + " MB";
+            String totalMem = (r.totalMemory() / 1000000) + " MB";
+            this.window.setTitle(VoxelTex.getEngineNameFull() + " - Debug - Memory: " + usedMem + " / " + totalMem);
+
             // Swap the buffers to render the frame
             this.window.glSwapBuffers();
 
