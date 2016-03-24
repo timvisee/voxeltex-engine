@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
+import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
@@ -58,11 +59,11 @@ public class TestEnvironmentScene extends Scene {
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
 
-//        // Light source object
-//        GameObject lightObject = new GameObject("Light");
-//        lightObject.addComponent(new LightSourceComponent());
-//        lightObject.getTransform().getPosition().set(1.0f, 1.0f, 0);
-//        addGameObject(lightObject);
+        // Light source object
+        GameObject lightObject = new GameObject("Light");
+        lightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(0, 0, 1), 3));
+        lightObject.getTransform().getPosition().set(-4, 1, 6);
+        addGameObject(lightObject);
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
@@ -105,13 +106,15 @@ public class TestEnvironmentScene extends Scene {
         subObject4.getTransform().setAngularVelocity(new Vector3f(3.1f, 4.2f, 2.9f));
         subObject4.setMaterial(boxMaterial);
         subObject3.addChild(subObject4);
+
+        // Add a matrix of boxes
         for (int j = 0; j < 10; j++) {
             for(int i = 0; i < 15; i++) {
                 // Load the texture shader
-                CubePrefab quadTest = new CubePrefab();
-                quadTest.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
-                addGameObject(quadTest);
-                quadTest.setMaterial(boxMaterial);
+                CubePrefab matrixBox = new CubePrefab();
+                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                matrixBox.setMaterial(boxMaterial);
+                addGameObject(matrixBox);
             }
         }
 
