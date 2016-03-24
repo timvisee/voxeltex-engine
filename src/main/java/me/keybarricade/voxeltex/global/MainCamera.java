@@ -138,14 +138,12 @@ public class MainCamera {
      * @return Camera view matrix.
      */
     public static Matrix4f createCameraViewMatrix(Matrix4f dest) {
-        // Make sure we aren't using the camera rotation somewhere else too
-        synchronized(cameraRotationCache) {
-            // Reset the camera rotation cache to it's identity
-            cameraRotationCache.identity();
+        // Make sure a camera is available, otherwise return the world origin matrix
+        if(!hasCamera())
+            return dest.identity();
 
-            // Apply the relative view to the matrix and return
-            return dest.identity().rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
-        }
+        // Create and return the camera view matrix
+        return getCameraObject().getTransform().addWorldMatrix(dest.identity()).invert();
     }
 
 
