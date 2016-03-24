@@ -144,7 +144,7 @@ public class MainCamera {
             cameraRotationCache.identity();
 
             // Apply the relative view to the matrix and return
-            return dest.rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
+            return dest.identity().rotate(cameraRotation.invert(cameraRotationCache)).translate(-cameraPosition.x, -cameraPosition.y, -cameraPosition.z);
         }
     }
 

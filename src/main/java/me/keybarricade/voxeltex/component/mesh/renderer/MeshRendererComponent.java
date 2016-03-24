@@ -90,14 +90,10 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             material.bind();
             shader.update(getScene(), material);
 
-            // Clear the model matrix and calculate it again for rendering, make sure it isn't modified by something else
+            // Get the model matrix and send it to the shader
             synchronized(this.modelMatrixCache) {
-                this.modelMatrixCache.identity();
-                getTransform().applyWorldTransform(this.modelMatrixCache);
+                shader.setUniformMatrix4f("modelMatrix", getTransform().getWorldMatrix(this.modelMatrixCache));
             }
-
-            // Send the model matrix to the shader
-            shader.setUniformMatrix4f("modelMatrix", this.modelMatrixCache);
 
             // Bind the texture if available
             // TODO: Also bind the normal!
