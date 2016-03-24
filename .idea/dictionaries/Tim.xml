@@ -1,7 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Tim">
     <words>
+      <w>collider</w>
       <w>lwjgl</w>
+      <w>rigidbody</w>
       <w>shaders</w>
     </words>
   </dictionary>
