@@ -12,7 +12,7 @@ public class Vector3fUtil {
      *
      * @return Converted vector.
      */
-    public static Vector3f vecmathToJoml(javax.vecmath.Vector3f source, Vector3f dest) {
+    public static Vector3f toJoml(javax.vecmath.Vector3f source, Vector3f dest) {
         // Set the coordinates
         dest.x = source.x;
         dest.y = source.y;
@@ -30,7 +30,7 @@ public class Vector3fUtil {
      *
      * @return Converted vector.
      */
-    public static javax.vecmath.Vector3f jomlToVecmath(Vector3f source, javax.vecmath.Vector3f dest) {
+    public static javax.vecmath.Vector3f toVecmath(Vector3f source, javax.vecmath.Vector3f dest) {
         // Set the coordinates
         dest.x = source.x;
         dest.y = source.y;

@@ -12,7 +12,7 @@ public class QuaternionfUtil {
      *
      * @return Converted quaternion.
      */
-    public static Quaternionf vecmathToJoml(javax.vecmath.Quat4f source, Quaternionf dest) {
+    public static Quaternionf toJoml(javax.vecmath.Quat4f source, Quaternionf dest) {
         // Set the coordinates
         dest.x = source.x;
         dest.y = source.y;
@@ -30,7 +30,7 @@ public class QuaternionfUtil {
      *
      * @return Converted quaternion.
      */
-    public static javax.vecmath.Quat4f jomlToVecmath(Quaternionf source, javax.vecmath.Quat4f dest) {
+    public static javax.vecmath.Quat4f toVecmath(Quaternionf source, javax.vecmath.Quat4f dest) {
         // Set the coordinates
         dest.x = source.x;
         dest.y = source.y;
