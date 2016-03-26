@@ -32,6 +32,19 @@ public class QuadColliderComponent extends AbstractColliderComponent {
     BoxShape bulletShape = null;
 
     /**
+     * Constructor.
+     *
+     * @param orientation Quad orientation.
+     * @param size Quad size.
+     * @param thickness Quad collider thickness.
+     */
+    public QuadColliderComponent(int orientation, Vector2f size, float thickness) {
+        this.orientation = orientation;
+        this.size = size;
+        this.thickness = thickness;
+    }
+
+    /**
      * Get the size of the collider.
      *
      * @return Collider size.

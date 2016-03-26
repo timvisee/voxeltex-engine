@@ -41,7 +41,7 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
     /**
      * Default quad orientation.
      */
-    private static final int DEFAULT_ORIENTATION = ORIENTATION_Y_POSITIVE;
+    public static final int DEFAULT_ORIENTATION = ORIENTATION_Y_POSITIVE;
 
     /**
      * The default size of the quad.

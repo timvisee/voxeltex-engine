@@ -6,6 +6,7 @@ import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.mesh.generator.QuadMeshGenerator;
+import me.keybarricade.voxeltex.physics.collider.primitive.QuadColliderComponent;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import org.joml.Vector2f;
 
@@ -17,6 +18,16 @@ public class QuadPrefab extends GameObject {
     private static final String DEFAULT_NAME = "QuadPrefab";
 
     /**
+     * Default orientation of the quad.
+     */
+    private static final int DEFAULT_ORIENTATION = QuadMeshGenerator.ORIENTATION_Y_POSITIVE;
+
+    /**
+     * Thickness of the quad collider. Required because a quad doesn't have a thickness by default.
+     */
+    private static final float COLLIDER_THICKNESS = 0.005f;
+
+    /**
      * Mesh filter component.
      */
     private MeshFilterComponent meshFilter;
@@ -25,6 +36,11 @@ public class QuadPrefab extends GameObject {
      * Mesh renderer component.
      */
     private MeshRendererComponent meshRenderer;
+
+    /**
+     * Quad collider component.
+     */
+    private QuadColliderComponent collider;
 
     /**
      * Constructor.
@@ -53,15 +69,19 @@ public class QuadPrefab extends GameObject {
         super(name);
 
         // Create the mesh filter component
-        this.meshFilter = new MeshFilterComponent(new QuadMeshGenerator(size).createMesh());
+        this.meshFilter = new MeshFilterComponent(new QuadMeshGenerator(DEFAULT_ORIENTATION, size).createMesh());
 
         // Create the mesh renderer component
         // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 
+        // Create and an appropriate quad collider
+        this.collider = new QuadColliderComponent(DEFAULT_ORIENTATION, size, COLLIDER_THICKNESS);
+
         // Add the mesh filter and renderer components to the object
         addComponent(this.meshFilter);
         addComponent(this.meshRenderer);
+        addComponent(this.collider);
     }
 
     @Override
@@ -86,6 +106,15 @@ public class QuadPrefab extends GameObject {
      */
     public MeshRendererComponent getMeshRenderer() {
         return meshRenderer;
+    }
+
+    /**
+     * Get the quad collider component.
+     *
+     * @return Quad collider component.
+     */
+    public QuadColliderComponent getCollider() {
+        return collider;
     }
 
     /**
