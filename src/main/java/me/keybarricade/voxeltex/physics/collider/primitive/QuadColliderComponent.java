@@ -40,7 +40,7 @@ public class QuadColliderComponent extends AbstractColliderComponent {
      */
     public QuadColliderComponent(int orientation, Vector2f size, float thickness) {
         this.orientation = orientation;
-        this.size = size;
+        this.size.set(size);
         this.thickness = thickness;
     }
 
@@ -68,7 +68,7 @@ public class QuadColliderComponent extends AbstractColliderComponent {
      * @return Quad orientation.
      */
     public int getOrientation() {
-        return orientation;
+        return this.orientation;
     }
 
     /**
@@ -86,7 +86,7 @@ public class QuadColliderComponent extends AbstractColliderComponent {
      * @return Quad thickness.
      */
     public float getThickness() {
-        return thickness;
+        return this.thickness;
     }
 
     /**
