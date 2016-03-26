@@ -75,7 +75,7 @@ public class QuadPrefab extends GameObject {
         // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 
-        // Create and an appropriate quad collider
+        // Create and add an appropriate quad collider
         this.collider = new QuadColliderComponent(DEFAULT_ORIENTATION, size, COLLIDER_THICKNESS);
 
         // Add the mesh filter and renderer components to the object

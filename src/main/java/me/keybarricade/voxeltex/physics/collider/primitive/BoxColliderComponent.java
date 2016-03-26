@@ -19,6 +19,15 @@ public class BoxColliderComponent extends AbstractColliderComponent {
     private BoxShape bulletShape = null;
 
     /**
+     * Constructor.
+     *
+     * @param size Box collider size.
+     */
+    public BoxColliderComponent(Vector3f size) {
+        this.size.set(size);
+    }
+
+    /**
      * Get the size of the collider.
      *
      * @return Collider size.

@@ -6,6 +6,7 @@ import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.mesh.generator.CubeMeshGenerator;
+import me.keybarricade.voxeltex.physics.collider.primitive.BoxColliderComponent;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import org.joml.Vector3f;
 
@@ -25,6 +26,11 @@ public class CubePrefab extends GameObject {
      * Mesh renderer component.
      */
     private MeshRendererComponent meshRenderer;
+
+    /**
+     * Box collider component.
+     */
+    private BoxColliderComponent collider;
 
     /**
      * Constructor.
@@ -59,9 +65,13 @@ public class CubePrefab extends GameObject {
         // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 
+        // Create and add an appropriate box collider
+        this.collider = new BoxColliderComponent(size);
+
         // Add the mesh filter and renderer components to the object
         addComponent(this.meshFilter);
         addComponent(this.meshRenderer);
+        addComponent(this.collider);
     }
 
     /**
@@ -70,7 +80,7 @@ public class CubePrefab extends GameObject {
      * @return Mesh filter component.
      */
     public MeshFilterComponent getMeshFilter() {
-        return meshFilter;
+        return this.meshFilter;
     }
 
     /**
@@ -79,7 +89,16 @@ public class CubePrefab extends GameObject {
      * @return Mesh renderer component.
      */
     public MeshRendererComponent getMeshRenderer() {
-        return meshRenderer;
+        return this.meshRenderer;
+    }
+
+    /**
+     * Get the box collider component.
+     *
+     * @return Box collider component.
+     */
+    public BoxColliderComponent getCollider() {
+        return this.collider;
     }
 
     /**
