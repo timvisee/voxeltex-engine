@@ -4,10 +4,8 @@ import com.bulletphysics.collision.broadphase.BroadphaseInterface;
 import com.bulletphysics.collision.broadphase.DbvtBroadphase;
 import com.bulletphysics.collision.dispatch.CollisionConfiguration;
 import com.bulletphysics.collision.dispatch.CollisionDispatcher;
-import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
 import com.bulletphysics.collision.shapes.CollisionShape;
-import com.bulletphysics.collision.shapes.SphereShape;
 import com.bulletphysics.collision.shapes.StaticPlaneShape;
 import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
@@ -18,16 +16,8 @@ import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSo
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.global.Time;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.scene.AbstractScene;
-import me.keybarricade.voxeltex.texture.Texture;
-import me.keybarricade.voxeltex.util.Color;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
@@ -44,10 +34,6 @@ public class ScenePhysicsEngine {
      * Bullet engine physics world instance.
      */
     private DynamicsWorld bulletDynamicsWorld;
-
-    // TODO: Remove this after testing!
-    private RigidBody ballRigidbody;
-    private GameObject ballObject;
 
     /**
      * Constructor.
@@ -85,7 +71,6 @@ public class ScenePhysicsEngine {
         // Create the ground and ball shapes
         // TODO: Remove this test
         CollisionShape groundShape = new StaticPlaneShape(new Vector3f(0, 1, 0), 0);
-        CollisionShape ballShape = new SphereShape(1);
 
         // Initialize the motion state and rigidbody construction info for the ground
         MotionState groundMotionState = new DefaultMotionState(new Transform(new Matrix4f(
@@ -106,40 +91,6 @@ public class ScenePhysicsEngine {
         // Instantiate a rigidbody for the ground
         RigidBody groundRigidbody = new RigidBody(groundBodyConstructionInfo);
         this.bulletDynamicsWorld.addRigidBody(groundRigidbody);
-
-        // Configure the ball transform
-        Transform ballTransform = new Transform(new Matrix4f(
-                new Quat4f(0, 0, 0, 1),
-                new Vector3f(0, 10, 0),
-                1.0f
-        ));
-
-        // Initialize the motion state and rigidbody construction info for the ball
-        // TODO: Remove this test!
-        MotionState ballMotionState = new DefaultMotionState(ballTransform);
-        Vector3f ballInertia = new Vector3f(0, 0, 0);
-        ballShape.calculateLocalInertia(2.5f, ballInertia);
-        RigidBodyConstructionInfo ballConstructionInfo = new RigidBodyConstructionInfo(2.5f, ballMotionState, ballShape, ballInertia);
-
-        // Set the restitution and angular damping of the ball
-        ballConstructionInfo.restitution = 0.5f;
-        ballConstructionInfo.angularDamping = 0.05f;
-
-        // Instantiate the rigidbody for the ball
-        ballRigidbody = new RigidBody(ballConstructionInfo);
-        ballRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
-        this.bulletDynamicsWorld.addRigidBody(ballRigidbody);
-
-
-        // Create a sphere object to simulate the falling ball
-        // TODO: Remove this!
-        GameObject sphere = new GameObject("Sphere");
-        sphere.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
-        sphere.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
-        //sphere.getTransform().getPosition().set(-4, 1f, 0);
-        //sphere.getTransform().getAngularVelocity().set(0, 1, 0);
-        ballObject = sphere;
-        getScene().addGameObject(sphere);
     }
 
     /**
@@ -150,15 +101,7 @@ public class ScenePhysicsEngine {
         // Simulate the next physics step
         bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat);
 
-        // Get the sphere position
-        Vector3f ballPosVec = ballRigidbody.getWorldTransform(new Transform()).origin;
-        Quat4f rot = ballRigidbody.getWorldTransform(new Transform()).getRotation(new Quat4f());
-        org.joml.Vector3f ballPos = new org.joml.Vector3f(ballPosVec.x, ballPosVec.y, ballPosVec.z);
-        org.joml.Quaternionf ballRot = new org.joml.Quaternionf(rot.x, rot.y, rot.z, rot.w);
-
-        // Update the position and rotation of the ball object to match the physics world
-        ballObject.getTransform().setPosition(ballPos);
-        ballObject.getTransform().setRotation(ballRot);
+        // TODO: Apply physics to all game objects?
     }
 
     /**
