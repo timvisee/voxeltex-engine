@@ -123,21 +123,23 @@ public class TestEnvironmentScene extends Scene {
         }
 
         // Add some scaled boxes
-        CubePrefab boxA = new CubePrefab();
-        boxA.setMaterial(boxMaterial);
-        boxA.getTransform().setPosition(new Vector3f(-6f, 1.5f, 4));
-        boxA.getTransform().getScale().set(.5f, 1.5f, .5f);
-        CubePrefab boxB = new CubePrefab();
-        boxB.setMaterial(boxMaterial);
-        boxB.getTransform().setPosition(new Vector3f(0, 1, 0));
-        boxB.getTransform().getScale().set(1, 1, 2);
-        boxA.addChild(boxB);
-        CubePrefab boxC = new CubePrefab();
-        boxC.setMaterial(boxMaterial);
-        boxC.getTransform().setPosition(new Vector3f(0, 1, 0));
-        boxC.getTransform().getScale().set(1, 1, 1);
-        boxB.addChild(boxC);
-        addGameObject(boxA);
+        CubePrefab scaledBoxA = new CubePrefab();
+        scaledBoxA.setMaterial(boxMaterial);
+        scaledBoxA.getTransform().setPosition(new Vector3f(-6f, 1.5f, 4));
+        scaledBoxA.getTransform().getScale().set(.5f, 1.5f, .5f);
+
+        CubePrefab scaledBoxB = new CubePrefab();
+        scaledBoxB.setMaterial(boxMaterial);
+        scaledBoxB.getTransform().setPosition(new Vector3f(0, 1, 0));
+        scaledBoxB.getTransform().getScale().set(1, 1, 2);
+        scaledBoxA.addChild(scaledBoxB);
+
+        CubePrefab scaledBoxC = new CubePrefab();
+        scaledBoxC.setMaterial(boxMaterial);
+        scaledBoxC.getTransform().setPosition(new Vector3f(0, 1, 0));
+        scaledBoxC.getTransform().getScale().set(1, 1, 1);
+        scaledBoxB.addChild(scaledBoxC);
+        addGameObject(scaledBoxA);
 
         // Load the sand texture
         Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
