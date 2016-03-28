@@ -1,10 +1,10 @@
-package me.keybarricade.voxeltex.physics.collider.primitive;
+package me.keybarricade.voxeltex.component.collider.primitive;
 
 import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.collision.shapes.CollisionShape;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.mesh.generator.QuadMeshGenerator;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
 import org.joml.Vector2f;
 
 import javax.vecmath.Vector3f;

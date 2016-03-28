@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex.physics.rigidbody;
+package me.keybarricade.voxeltex.component.rigidbody;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 

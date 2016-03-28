@@ -1,8 +1,8 @@
-package me.keybarricade.voxeltex.physics.collider.primitive;
+package me.keybarricade.voxeltex.component.collider.primitive;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.collision.shapes.SphereShape;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 
 public class SphereColliderComponent extends AbstractColliderComponent {
 

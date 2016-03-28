@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex.physics.rigidbody;
+package me.keybarricade.voxeltex.component.rigidbody;
 
 import com.bulletphysics.collision.dispatch.CollisionFlags;
 import com.bulletphysics.collision.shapes.CollisionShape;
@@ -7,9 +7,9 @@ import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.matrix.Matrix4fUtil;
 import me.keybarricade.voxeltex.physics.ScenePhysicsEngine;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
 import org.joml.Quaternionf;
 
 import javax.vecmath.Matrix4f;

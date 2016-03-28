@@ -1,4 +1,4 @@
-package me.keybarricade.voxeltex.physics.collider;
+package me.keybarricade.voxeltex.component.collider;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
 import me.keybarricade.voxeltex.component.BaseComponent;
