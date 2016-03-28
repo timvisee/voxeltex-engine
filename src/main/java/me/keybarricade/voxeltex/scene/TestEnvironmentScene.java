@@ -9,6 +9,8 @@ import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
+import me.keybarricade.voxeltex.physics.collider.primitive.SphereColliderComponent;
+import me.keybarricade.voxeltex.physics.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
@@ -55,7 +57,9 @@ public class TestEnvironmentScene extends Scene {
         GameObject sphereObject = new GameObject("Sphere");
         sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
         sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
-        sphereObject.getTransform().getPosition().set(-4, 1f, 0);
+        sphereObject.addComponent(new RigidbodyComponent());
+        sphereObject.addComponent(new SphereColliderComponent());
+        sphereObject.getTransform().getPosition().set(-0.9f, 8f, 0);
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
 
@@ -143,7 +147,7 @@ public class TestEnvironmentScene extends Scene {
 
         QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
-        //quad.getTransform().setPosition(new Vector3f(-10, 0, -10));
+        quad.addComponent(new RigidbodyComponent(true));
         addGameObject(quad);
 
         // Add a light
