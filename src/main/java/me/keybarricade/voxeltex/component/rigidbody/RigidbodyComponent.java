@@ -1,6 +1,7 @@
 package me.keybarricade.voxeltex.component.rigidbody;
 
 import com.bulletphysics.collision.dispatch.CollisionFlags;
+import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
@@ -115,7 +116,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         // Create the rigidbody for the game object
         this.physicsRigidbody = new RigidBody(ballConstructionInfo);
         // TODO: Determine what the activation state should be!
-        //this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
+        this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 
         // Set whether the game rigidbody is kinematic or not
         setKinematic(this.initKinematic);
