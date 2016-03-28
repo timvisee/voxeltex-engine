@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.physics.rigidbody;
 
+import com.bulletphysics.collision.dispatch.CollisionFlags;
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
@@ -25,6 +26,25 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
      * The collider component that is used for this rigidbody.
      */
     private AbstractColliderComponent colliderComponent = null;
+
+    /**
+     * Flag which defines whether to initialize the rigidbody in kinematic mode or not.
+     */
+    private boolean initKinematic = false;
+
+    /**
+     * Constructor.
+     */
+    public RigidbodyComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param kinematic True if kinematic, false if not.
+     */
+    public RigidbodyComponent(boolean kinematic) {
+        this.initKinematic = kinematic;
+    }
 
     @Override
     public void create() { }
@@ -93,7 +113,32 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         // TODO: Determine what the activation state should be!
         //this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 
+        // Set whether the game rigidbody is kinematic or not
+        setKinematic(this.initKinematic);
+
         // Add the rigidbody to the physics engine world
         physicsEngine.addRigidbody(this.physicsRigidbody);
+    }
+
+    /**
+     * Check whether this game object rigidbody is kinematic.
+     *
+     * @return True if kinematic, false if not.
+     */
+    public boolean isKinematic() {
+        return this.physicsRigidbody.isKinematicObject();
+    }
+
+    /**
+     * Set whether this game object rigidbody is kinematic.
+     *
+     * @param kinematic True if kinematic, false if not.
+     */
+    public void setKinematic(boolean kinematic) {
+        // Flip the correct bit to set the kinematic mode
+        if(kinematic)
+            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() | CollisionFlags.KINEMATIC_OBJECT);
+        else
+            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() & ~CollisionFlags.KINEMATIC_OBJECT);
     }
 }
