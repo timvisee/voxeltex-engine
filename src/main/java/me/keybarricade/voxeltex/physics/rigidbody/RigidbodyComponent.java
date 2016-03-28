@@ -89,7 +89,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         }
 
         // Get the physics engine
-        ScenePhysicsEngine physicsEngine = getScene().getPhysics();
+        ScenePhysicsEngine physicsEngine = getScene().getPhysicsEngine();
 
         // Get the collision shape
         CollisionShape collisionShape = this.colliderComponent.getBulletShape();

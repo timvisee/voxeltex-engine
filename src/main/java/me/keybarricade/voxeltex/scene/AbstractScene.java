@@ -17,7 +17,12 @@ public abstract class AbstractScene {
     /**
      * Light manager for this scene.
      */
-    private LightManager lightManager = new LightManager();
+    private final LightManager lightManager = new LightManager();
+
+    /**
+     * Physics engine for this scene.
+     */
+    private final ScenePhysicsEngine physicsEngine = new ScenePhysicsEngine(this);
 
     /**
      * Defines whether the scene has started. True if started, false if not.
@@ -51,6 +56,15 @@ public abstract class AbstractScene {
      */
     public LightManager getLightManager() {
         return this.lightManager;
+    }
+
+    /**
+     * Get the physicsEngine engine instance for this scene.
+     *
+     * @return Physics engine.
+     */
+    public ScenePhysicsEngine getPhysicsEngine() {
+        return this.physicsEngine;
     }
 
     /**
@@ -162,19 +176,4 @@ public abstract class AbstractScene {
      * @return The game object that was removed, or null if none was removed.
      */
     public abstract AbstractGameObject removeGameObject(int i);
-
-
-
-
-
-
-
-
-
-
-    private ScenePhysicsEngine physics = new ScenePhysicsEngine(this);
-
-    public ScenePhysicsEngine getPhysics() {
-        return this.physics;
-    }
 }
