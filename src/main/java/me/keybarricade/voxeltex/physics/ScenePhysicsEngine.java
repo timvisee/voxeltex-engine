@@ -5,22 +5,14 @@ import com.bulletphysics.collision.broadphase.DbvtBroadphase;
 import com.bulletphysics.collision.dispatch.CollisionConfiguration;
 import com.bulletphysics.collision.dispatch.CollisionDispatcher;
 import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
-import com.bulletphysics.collision.shapes.CollisionShape;
-import com.bulletphysics.collision.shapes.StaticPlaneShape;
 import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.RigidBody;
-import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.dynamics.constraintsolver.ConstraintSolver;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
-import com.bulletphysics.linearmath.DefaultMotionState;
-import com.bulletphysics.linearmath.MotionState;
-import com.bulletphysics.linearmath.Transform;
 import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.scene.AbstractScene;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 public class ScenePhysicsEngine {
@@ -67,30 +59,6 @@ public class ScenePhysicsEngine {
         // Create and configure the Bullet physics dynamic world
         this.bulletDynamicsWorld = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfig);
         this.bulletDynamicsWorld.setGravity(new Vector3f(0, -9.81f, 0));
-
-        // Create the ground and ball shapes
-        // TODO: Remove this test
-        CollisionShape groundShape = new StaticPlaneShape(new Vector3f(0, 1, 0), 0);
-
-        // Initialize the motion state and rigidbody construction info for the ground
-        MotionState groundMotionState = new DefaultMotionState(new Transform(new Matrix4f(
-                new Quat4f(0, 0, 0, 1),
-                new Vector3f(0, 0, 0),
-                1.0f
-        )));
-        RigidBodyConstructionInfo groundBodyConstructionInfo = new RigidBodyConstructionInfo(
-                0,
-                groundMotionState,
-                groundShape,
-                new Vector3f(0, 0, 0)
-        );
-
-        // Configure the restitution of the ground
-        groundBodyConstructionInfo.restitution = .25f;
-
-        // Instantiate a rigidbody for the ground
-        RigidBody groundRigidbody = new RigidBody(groundBodyConstructionInfo);
-        this.bulletDynamicsWorld.addRigidBody(groundRigidbody);
     }
 
     /**
