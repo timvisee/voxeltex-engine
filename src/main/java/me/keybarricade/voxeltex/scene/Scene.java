@@ -5,7 +5,7 @@ import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scene extends AbstractGameObjectScene {
+public class Scene extends AbstractScene {
 
     /**
      * List of game objects in this scene.
@@ -90,7 +90,10 @@ public class Scene extends AbstractGameObjectScene {
     }
 
     @Override
-    public void load() { }
+    public void load() {
+        // Set up and configure the physics engine for this scene
+        getPhysicsEngine().setUp();
+    }
 
     @Override
     public void update() {
@@ -98,6 +101,10 @@ public class Scene extends AbstractGameObjectScene {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
             this.gameObjects.get(i).update();
+
+        // Update the physics engine and simulate the next physics step
+        // TODO: Should we update physics before the regular game object update?
+        getPhysicsEngine().update();
     }
 
     @Override
