@@ -141,10 +141,19 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
 
     @Override
     public void setKinematic(boolean kinematic) {
-        // Flip the correct bit to set the kinematic mode
-        if(kinematic)
-            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() | CollisionFlags.KINEMATIC_OBJECT);
+        setCollisionFlag(CollisionFlags.KINEMATIC_OBJECT, kinematic);
+    }
+
+    /**
+     * Set whether the given collision flag is set or not.
+     *
+     * @param collisionFlag Collision flag to configure.
+     * @param enabled True to enable the flag, false to disable.
+     */
+    private void setCollisionFlag(int collisionFlag, boolean enabled) {
+        if(enabled)
+            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() | collisionFlag);
         else
-            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() & ~CollisionFlags.KINEMATIC_OBJECT);
+            this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() & ~collisionFlag);
     }
 }
