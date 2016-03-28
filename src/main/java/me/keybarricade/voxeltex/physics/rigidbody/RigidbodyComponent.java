@@ -52,7 +52,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
     @Override
     public void start() {
         // Create the physics object
-        createPhysicsObject();
+        createPhysicsRigidbody();
     }
 
     @Override
@@ -71,7 +71,11 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         }
     }
 
-    private void createPhysicsObject() {
+    /**
+     * Create the actual rigidbody for this component.
+     * This should be called when the scene the game object is in is started.
+     */
+    private void createPhysicsRigidbody() {
         // Make sure a collider component is attached
         if(this.colliderComponent == null) {
             // Find a suitable collider component
@@ -120,20 +124,22 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         physicsEngine.addRigidbody(this.physicsRigidbody);
     }
 
-    /**
-     * Check whether this game object rigidbody is kinematic.
-     *
-     * @return True if kinematic, false if not.
-     */
+    @Override
+    public AbstractColliderComponent getColliderComponent() {
+        return this.colliderComponent;
+    }
+
+    @Override
+    public RigidBody getPhysicsRigidbody() {
+        return this.physicsRigidbody;
+    }
+
+    @Override
     public boolean isKinematic() {
         return this.physicsRigidbody.isKinematicObject();
     }
 
-    /**
-     * Set whether this game object rigidbody is kinematic.
-     *
-     * @param kinematic True if kinematic, false if not.
-     */
+    @Override
     public void setKinematic(boolean kinematic) {
         // Flip the correct bit to set the kinematic mode
         if(kinematic)
