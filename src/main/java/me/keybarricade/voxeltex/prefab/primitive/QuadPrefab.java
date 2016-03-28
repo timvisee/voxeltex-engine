@@ -25,6 +25,7 @@ public class QuadPrefab extends GameObject {
     /**
      * Thickness of the quad collider. Required because a quad doesn't have a thickness by default.
      */
+    // TODO: Objects are still falling through quads with this thickness!
     private static final float COLLIDER_THICKNESS = 0.005f;
 
     /**

@@ -24,12 +24,13 @@ public class QuadColliderComponent extends AbstractColliderComponent {
     /**
      * Thickness of the quad.
      */
+    // TODO: Objects are still falling through quads with this thickness!
     private float thickness = 0.01f;
 
     /**
      * Bullet physics engine shape representation.
      */
-    BoxShape bulletShape = null;
+    private BoxShape bulletShape = null;
 
     /**
      * Constructor.
