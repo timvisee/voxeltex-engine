@@ -1,5 +1,6 @@
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.voxeltex.component.collider.MeshColliderComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -54,17 +55,21 @@ public class TestEnvironmentScene extends Scene {
             suzanneRoot.addChild(suzanneObject);
         }
 
+        // Load the sphere mesh
+        Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
+
+        // Create two spheres
         GameObject sphereObject = new GameObject("Sphere");
-        sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
+        sphereObject.addComponent(new MeshFilterComponent(sphereMesh));
         sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject.addComponent(new RigidbodyComponent());
-        sphereObject.addComponent(new SphereColliderComponent());
-        sphereObject.getTransform().getPosition().set(-0.9f, 8f, 0);
+        sphereObject.addComponent(new MeshColliderComponent(sphereMesh.getRawMesh()));
+        sphereObject.getTransform().getPosition().set(-0.9f, 1f, 0);
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
 
         GameObject sphere2Object = new GameObject("Sphere");
-        sphere2Object.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
+        sphere2Object.addComponent(new MeshFilterComponent(sphereMesh));
         sphere2Object.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphere2Object.addComponent(new RigidbodyComponent());
         sphere2Object.addComponent(new SphereColliderComponent());
