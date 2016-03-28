@@ -63,6 +63,15 @@ public class TestEnvironmentScene extends Scene {
         sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
         addGameObject(sphereObject);
 
+        GameObject sphere2Object = new GameObject("Sphere");
+        sphere2Object.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
+        sphere2Object.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
+        sphere2Object.addComponent(new RigidbodyComponent());
+        sphere2Object.addComponent(new SphereColliderComponent());
+        sphere2Object.getTransform().getPosition().set(-1.5f, 11f, 0);
+        sphere2Object.getTransform().getAngularVelocity().set(0, 1, 0);
+        addGameObject(sphere2Object);
+
         // Light source object
         GameObject lightObject = new GameObject("Light");
         lightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(0, 0, 1), 3));
