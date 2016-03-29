@@ -7,8 +7,7 @@ import org.lwjgl.opengl.GL13;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL12.GL_BGR;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class Texture {
@@ -136,16 +135,19 @@ public class Texture {
      * @return Texture.
      */
     public static Texture fromByteBuffer(ByteBuffer buffer, int width, int height, int components) {
+        // Create a new texture instance
         Texture texture = new Texture();
-        // TODO: Should we bind here?
+
+        // Bind the texture
         texture.bind(GL13.GL_TEXTURE0);
 
+        // Set the texture parameters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
-        // TODO: GL_RGBA, make type dynamic?
+        // Configure the texture and write the buffer to the texture
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, components == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buffer);
 
         // Done using the texture, unbind

@@ -1,6 +1,8 @@
 package me.keybarricade.voxeltex.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class FileUtil {
 
@@ -11,7 +13,6 @@ public class FileUtil {
      *
      * @return File contents as a string.
      */
-    // TODO: Improve this methode!
     public static String read(String path) {
         // Create a string for the file contents along with the file to load
         String content = null;
@@ -26,7 +27,10 @@ public class FileUtil {
             char[] chars = new char[(int) file.length()];
 
             // Read the file into the char array
-            reader.read(chars);
+            if(reader.read(chars) == -1) {
+                System.out.println("Failed to read from file reader.");
+                return null;
+            }
 
             // Convert the char array into a string
             content = new String(chars);
@@ -35,7 +39,6 @@ public class FileUtil {
             reader.close();
 
         } catch(IOException e) {
-            // TODO: Use logger here!
             System.out.println("Failed to load file '" + path + "'.");
         }
 

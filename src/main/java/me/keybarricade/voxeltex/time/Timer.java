@@ -124,7 +124,6 @@ public class Timer {
      * @return Number of seconds.
      */
     public double getElapsedTime() {
-        // TODO: Make sure the precision of this statement is good enough!
         return (double) getElapsedNano() / 1000000000.0;
     }
 }
