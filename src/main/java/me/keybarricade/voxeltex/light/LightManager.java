@@ -14,6 +14,11 @@ import java.util.List;
 public class LightManager {
 
     /**
+     * Maximum number of lights that can be handled by the light shader.
+     */
+    public static final int SHADER_LIGHT_LIMIT = 16;
+
+    /**
      * Light sources available in the current scene.
      */
     private List<Light> lights = new ArrayList<>();
@@ -95,6 +100,11 @@ public class LightManager {
         // Add the light
         this.lights.add(light);
 
+        // Show a warning if there are more lights than can be handled
+        if(this.lights.size() > SHADER_LIGHT_LIMIT)
+            System.out.println("Warning: Some lights might not be rendered because the current number of lights" +
+                    "exceeds the shader light limit of " + this.lights.size() + "/" + SHADER_LIGHT_LIMIT);
+
         // Return the instance
         return light;
     }
@@ -173,7 +183,7 @@ public class LightManager {
         this.lightColorBuffer.clear();
 
         // Add the lights to the buffers
-        for(int i = 0; i < this.bufferedLightCount; i++) {
+        for(int i = 0, size = Math.min(this.bufferedLightCount, SHADER_LIGHT_LIMIT); i < size; i++) {
             this.lightTypeBuffer.put(this.lights.get(i).getType());
 
             this.lightPositionBuffer.put(this.lights.get(i).getPosition().x);
