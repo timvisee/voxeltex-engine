@@ -53,7 +53,7 @@ public class GameScene extends Scene {
             addGameObject(boxObject);
         }
 
-        // Spawn two spheres as collision demo
+        // Spawn two spheres and a cube as collision demo
         GameObject sphereObject1 = new GameObject("Sphere1");
         sphereObject1.addComponent(new MeshFilterComponent(sphereMesh));
         sphereObject1.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
@@ -66,8 +66,13 @@ public class GameScene extends Scene {
         sphereObject2.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject2.addComponent(new RigidbodyComponent());
         sphereObject2.addComponent(new SphereColliderComponent());
-        sphereObject2.getTransform().getPosition().set(-0.9f, 4.5f, -0.9f);
+        sphereObject2.getTransform().getPosition().set(-0.9f, 6.5f, -0.9f);
         addGameObject(sphereObject2);
+        CubePrefab cubeObject = new CubePrefab("Cube");
+        cubeObject.addComponent(new RigidbodyComponent());
+        cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
+        cubeObject.getTransform().getPosition().set(-1f, 4.5f, -1f);
+        addGameObject(cubeObject);
 
         // Create and add the sand surface prefab
         addGameObject(new SandSurfacePrefab());
