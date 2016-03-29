@@ -127,6 +127,28 @@ public class LightManager {
     }
 
     /**
+     * Remove the given light from the manager.
+     *
+     * @param light Light to remove.
+     *
+     * @return True if the light was removed, false if not.
+     */
+    public boolean removeLight(Light light) {
+        return this.lights.remove(light);
+    }
+
+    /**
+     * Remove the light at the given light manager light index.
+     *
+     * @param i Index of the light to remove.
+     *
+     * @return Removed light, or null.
+     */
+    public Light removeLight(int i) {
+        return this.lights.remove(i);
+    }
+
+    /**
      * Buffer all current light data so it can be be send to shaders.
      */
     public void buffer() {
