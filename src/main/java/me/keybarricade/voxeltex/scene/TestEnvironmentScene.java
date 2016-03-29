@@ -59,14 +59,24 @@ public class TestEnvironmentScene extends Scene {
 
         // Spawn some spheres as collision test
         for(int i = 0; i < 16; i++) {
-            GameObject sphereObject = new GameObject("Sphere" + i);
-            sphereObject.addComponent(new MeshFilterComponent(sphereMesh));
-            sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
-            sphereObject.addComponent(new RigidbodyComponent());
-            sphereObject.addComponent(new SphereColliderComponent());
-            sphereObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
-            sphereObject.getTransform().getAngularVelocity().set(0, (float) (Math.random() * 1), 0);
-            addGameObject(sphereObject);
+            if(Math.random() > 0.2) {
+                GameObject sphereObject = new GameObject("Sphere" + i);
+                sphereObject.addComponent(new MeshFilterComponent(sphereMesh));
+                sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
+                sphereObject.addComponent(new RigidbodyComponent());
+                sphereObject.addComponent(new SphereColliderComponent());
+                sphereObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                sphereObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
+                addGameObject(sphereObject);
+
+            } else {
+                CubePrefab cubeObject = new CubePrefab("Cube" + i);
+                cubeObject.addComponent(new RigidbodyComponent());
+                cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
+                cubeObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                cubeObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
+                addGameObject(cubeObject);
+            }
         }
 
         // Light source object
