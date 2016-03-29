@@ -123,4 +123,11 @@ public abstract class AbstractComponent {
      * Called once each frame before drawing.
      */
     public abstract void update();
+
+    /**
+     * Destroy the component.
+     *
+     * Called once before being destroyed.
+     */
+    public abstract void destroy();
 }

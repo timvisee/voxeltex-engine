@@ -21,6 +21,9 @@ public abstract class AbstractColliderComponent extends BaseComponent implements
     @Override
     public void update() { }
 
+    @Override
+    public void destroy() { }
+
     /**
      * Get the collider offset in local space.
      *
