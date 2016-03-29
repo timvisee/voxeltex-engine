@@ -11,7 +11,6 @@ import com.bulletphysics.linearmath.Transform;
 import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.matrix.Matrix4fUtil;
 import me.keybarricade.voxeltex.physics.ScenePhysicsEngine;
-import org.joml.Quaternionf;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
@@ -32,6 +31,33 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
      * Flag which defines whether to initialize the rigidbody in kinematic mode or not.
      */
     private boolean initKinematic = false;
+
+    /**
+     * Shared lock for the temporary shared field usage.
+     * These temporary fields are used to minimize object allocation at runtime,
+     * which minimizes GC and greatly improved performance.
+     * This ensures the temporary fields aren't used in multiple spots at the same time,
+     * because that may cause unwanted behaviour.
+     */
+    private static final Object tempSharedLock = new Object();
+
+    /**
+     * Temporary transform, used for transform representations.
+     * Using and recycling this temporary transform minimizes object allocation, resulting in better performance.
+     */
+    private static final Transform tempTransform = new Transform();
+
+    /**
+     * Temporary VecMath matrix, used for transform calculations.
+     * Using and recycling this temporary matrix minimizes object allocation, resulting in better performance.
+     */
+    private static final Matrix4f tempMatrixVecmath = new Matrix4f();
+
+    /**
+     * Temporary JOML matrix, used for transform calculations.
+     * Using and recycling this temporary matrix minimizes object allocation, resulting in better performance.
+     */
+    private static final org.joml.Matrix4f tempMatrixJoml = new org.joml.Matrix4f();
 
     /**
      * Constructor.
@@ -57,18 +83,22 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         // Update the transform of the game object according to the physics object if available
         if(this.physicsRigidbody != null) {
-            // TODO: Update the game object transform
+            // Ensure we aren't using the temporary transform and matrix in multiple spots at the same time
+            synchronized(tempSharedLock) {
+                // Get the world transform matrix of the physics object
+                this.physicsRigidbody.getWorldTransform(tempTransform);
 
-            // TODO: Use caching!
-            Transform transform = new Transform();
-            this.physicsRigidbody.getWorldTransform(transform);
-            org.joml.Matrix4f matrix = Matrix4fUtil.toJoml(transform.getMatrix(new Matrix4f()), new org.joml.Matrix4f());
-            getTransform().setPosition(matrix.getTranslation(new org.joml.Vector3f()));
-            getTransform().setRotation(matrix.getUnnormalizedRotation(new Quaternionf()));
-            getTransform().setScale(matrix.getScale(new org.joml.Vector3f()));
+                // Convert the transformation matrix to a JOML matrix
+                Matrix4fUtil.toJoml(tempTransform.getMatrix(tempMatrixVecmath), tempMatrixJoml);
+
+                // Update the game object transform
+                tempMatrixJoml.getTranslation(getTransform().getPosition());
+                tempMatrixJoml.getUnnormalizedRotation(getTransform().getRotation());
+                tempMatrixJoml.getScale(getTransform().getScale());
+            }
         }
     }
 
@@ -95,12 +125,17 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         // Get the collision shape
         CollisionShape collisionShape = this.colliderComponent.getBulletShape();
 
-        // Get the transform object for the collision shape
-        // TODO: Use proper caching here!
-        Transform physicsTransform = new Transform(Matrix4fUtil.toVecmath(getTransform().getWorldMatrix(), new Matrix4f()));
+        // Define the motion state variable
+        MotionState motionState;
 
-        // Create the motion state for the game object
-        MotionState motionState = new DefaultMotionState(physicsTransform);
+        // Make sure the temporary fields being used aren't used in multiple spots at the same time
+        synchronized(tempSharedLock) {
+            // Get the transform object for the collision shape
+            tempTransform.set(Matrix4fUtil.toVecmath(getTransform().getWorldMatrix(tempMatrixJoml), tempMatrixVecmath));
+
+            // Create the motion state for the game object
+            motionState = new DefaultMotionState(tempTransform);
+        }
 
         // Calculate and define the inertia
         // TODO: Use proper inertia here!

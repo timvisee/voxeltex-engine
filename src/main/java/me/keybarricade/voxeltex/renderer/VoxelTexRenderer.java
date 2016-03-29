@@ -42,6 +42,11 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
     private GLFWFramebufferSizeCallback fbCallback;
 
     /**
+     * Free memory in MBs last time the update debug loop ran.
+     */
+    private long debugLastFreeMemory = -1L;
+
+    /**
      * Constructor.
      *
      * @param engine Engine instance this renderer was created from.
@@ -237,17 +242,36 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Draw the current scene
             getEngine().getSceneManager().draw();
 
-            // TODO: Move this to a different spot
-            Runtime r = Runtime.getRuntime();
-            String usedMem = ((r.totalMemory() - r.freeMemory()) / 1000000) + " MB";
-            String totalMem = (r.totalMemory() / 1000000) + " MB";
-            this.window.setTitle(VoxelTex.getEngineNameFull() + " - Debug - Memory: " + usedMem + " / " + totalMem);
+            // Update the debug information
+            updateDebug();
 
             // Swap the buffers to render the frame
             this.window.glSwapBuffers();
 
             // Poll all events
             glfwPollEvents();
+        }
+    }
+
+    /**
+     * Update the debug information and status.
+     */
+    public void updateDebug() {
+        // Compare the last free memory count with the current to see whether to update the debug status
+        if((Runtime.getRuntime().freeMemory() / 1000000) != debugLastFreeMemory) {
+            // Get the runtime instance
+            Runtime runtime = Runtime.getRuntime();
+
+            // Get the total, free and used memory
+            final long totalMemory = runtime.totalMemory() / 1000000;
+            final long freeMemory = runtime.freeMemory() / 1000000;
+            final long usedMemory = totalMemory - freeMemory;
+
+            // Set the window title
+            this.window.setTitle(VoxelTex.getEngineNameFull() + " - Debug - Memory: " + (usedMemory) + " MB / " + (totalMemory) + " MB");
+
+            // Update the last free memory
+            this.debugLastFreeMemory = freeMemory;
         }
     }
 }

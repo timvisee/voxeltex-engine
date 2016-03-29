@@ -53,7 +53,7 @@ public class Transform {
      * Temporary matrix, used while performing certain calculations.
      * Using and recycling this temporary matrix minimizes object allocation, resulting in better performance.
      */
-    private final Matrix4f matrixTemp = new Matrix4f();
+    private final Matrix4f tempMatrix = new Matrix4f();
 
     /**
      * Constructor.
@@ -139,8 +139,8 @@ public class Transform {
      */
     public Matrix4f addWorldMatrix(Matrix4f matrix) {
         // Synchronize to ensure we aren't using the matrix cache multiple times at once
-        synchronized(matrixTemp) {
-            return matrix.mul(getWorldMatrix(matrixTemp));
+        synchronized(tempMatrix) {
+            return matrix.mul(getWorldMatrix(tempMatrix));
         }
     }
 
@@ -234,8 +234,8 @@ public class Transform {
      */
     public Vector3f getWorldPosition(Vector3f dest) {
         // Make sure we aren't using the matrix cache more than once at the same time
-        synchronized(matrixTemp) {
-            return getWorldMatrix(matrixTemp).getTranslation(dest);
+        synchronized(tempMatrix) {
+            return getWorldMatrix(tempMatrix).getTranslation(dest);
         }
     }
 
@@ -308,8 +308,8 @@ public class Transform {
      */
     public Quaternionf getWorldRotation(Quaternionf dest) {
         // Make sure we aren't using the matrix cache more than once at the same time
-        synchronized(matrixTemp) {
-            return getWorldMatrix(matrixTemp).getUnnormalizedRotation(dest);
+        synchronized(tempMatrix) {
+            return getWorldMatrix(tempMatrix).getUnnormalizedRotation(dest);
         }
     }
 
@@ -383,8 +383,8 @@ public class Transform {
      */
     public Vector3f getWorldScale(Vector3f dest) {
         // Make sure we aren't using the matrix cache more than once at the same time
-        synchronized(matrixTemp) {
-            return getWorldMatrix(matrixTemp).getScale(dest);
+        synchronized(tempMatrix) {
+            return getWorldMatrix(tempMatrix).getScale(dest);
         }
     }
 
