@@ -12,9 +12,7 @@ public abstract class AbstractCameraComponent extends BaseComponent {
     public synchronized void update() { }
 
     @Override
-    public void destroy() {
-        // TODO: Remove the camera from the MainCamera global if used.
-    }
+    public void destroy() { }
 
     /**
      * Update the camera position.
