@@ -267,7 +267,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             final long freeMemory = runtime.freeMemory() / 1000000;
             final long usedMemory = totalMemory - freeMemory;
 
-            this.window.setTitle(VoxelTex.getEngineNameFull() + " - Debug - Memory: " + (usedMemory) + " MB / " + (totalMemory));
+            // Set the window title
+            this.window.setTitle(VoxelTex.getEngineNameFull() + " - Debug - Memory: " + (usedMemory) + " MB / " + (totalMemory) + " MB");
 
             // Update the last free memory
             this.debugLastFreeMemory = freeMemory;
