@@ -83,7 +83,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         // Update the transform of the game object according to the physics object if available
         if(this.physicsRigidbody != null) {
             // Ensure we aren't using the temporary transform and matrix in multiple spots at the same time
