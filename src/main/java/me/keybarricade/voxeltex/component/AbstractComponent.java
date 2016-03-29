@@ -123,4 +123,25 @@ public abstract class AbstractComponent {
      * Called once each frame before drawing.
      */
     public abstract void update();
+
+    /**
+     * Destroy the component.
+     *
+     * Called once before being destroyed.
+     */
+    public abstract void destroy();
+
+    /**
+     * Get the name of the component type.
+     *
+     * @return Component name.
+     */
+    public String getName() {
+        return getClass().getSimpleName();
+    }
+
+    @Override
+    public String toString() {
+        return "Component(" + getName() + ")";
+    }
 }

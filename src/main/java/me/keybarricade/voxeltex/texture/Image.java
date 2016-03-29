@@ -3,13 +3,11 @@ package me.keybarricade.voxeltex.texture;
 import me.keybarricade.voxeltex.resource.engine.EngineAssetLoader;
 import me.keybarricade.voxeltex.util.BufferUtil;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.stb.STBImage;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
-import static org.lwjgl.stb.STBImage.stbi_image_free;
-import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
 
 public class Image {
 
@@ -69,7 +67,6 @@ public class Image {
      *
      * @return Image.
      */
-    // TODO: This is causing an NPE when using the image in a Texture, fix this!
     public static Image loadFromEngineAssets(String path) {
         // Create a byte buffer for the image to load
         ByteBuffer imageBuffer;
@@ -83,7 +80,7 @@ public class Image {
         IntBuffer c = BufferUtils.createIntBuffer(1);
 
         // Load the image into memory using STB
-        ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
+        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, w, h, c, 0);
 
         // Create the image instance and return it
         return new Image(image, w.get(0), h.get(0), c.get(0));
@@ -102,7 +99,6 @@ public class Image {
 
         // Load the image file into the image buffer
         try {
-            // TODO: Allocate enough memory for the image!
             imageBuffer = BufferUtil.fileToByteBuffer(path);
 
         } catch(IOException e) {
@@ -117,7 +113,7 @@ public class Image {
         IntBuffer c = BufferUtils.createIntBuffer(1);
 
         // Load the image into memory using STB
-        ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
+        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, w, h, c, 0);
 
         // Create the image instance and return it
         return new Image(image, w.get(0), h.get(0), c.get(0));
@@ -164,7 +160,7 @@ public class Image {
      */
     public void dispose() {
         // Free the image memory through STB
-        stbi_image_free(image);
+        STBImage.stbi_image_free(image);
 
         // Remove the image from the image manager
         ImageTracker.untrackImage(this);

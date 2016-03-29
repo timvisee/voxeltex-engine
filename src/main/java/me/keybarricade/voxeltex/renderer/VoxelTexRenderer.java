@@ -174,7 +174,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             ShaderTracker.disposeAll();
 
             // Free all callbacks
-            // TODO: Free/release the input callbacks
             fbCallback.release();
 
         } finally {

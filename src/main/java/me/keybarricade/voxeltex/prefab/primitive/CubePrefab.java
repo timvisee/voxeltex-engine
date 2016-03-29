@@ -62,7 +62,6 @@ public class CubePrefab extends GameObject {
         this.meshFilter = new MeshFilterComponent(new CubeMeshGenerator(size).createMesh());
 
         // Create the mesh renderer component
-        // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 
         // Create and add an appropriate box collider

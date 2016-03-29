@@ -71,7 +71,7 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
     }
 
     @Override
-    public void draw() {
+    public synchronized void draw() {
         // Make sure a mesh filter is attached and that a mesh is set
         if(!hasMeshFilterComponent() || !getMeshFilterComponent().hasMesh())
             return;

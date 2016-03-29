@@ -17,16 +17,20 @@ public class CameraComponent extends AbstractCameraComponent {
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
     @Override
-    public void create() { }
-
-    @Override
     public void start() {
         // Register the camera as main camera
         MainCamera.setCamera(this);
     }
 
     @Override
-    public synchronized void update() { }
+    public void destroy() {
+        // Call the super
+        super.destroy();
+
+        // Reset the MainCamera instance if it was attached to this camera component
+        if(MainCamera.getCamera().equals(this))
+            MainCamera.setCamera(null);
+    }
 
     @Override
     public void updateCamera() { }
@@ -37,7 +41,6 @@ public class CameraComponent extends AbstractCameraComponent {
         Vector3f pos = getTransform().getPosition();
 
         // Apply the camera transformation to the matrix
-        // TODO: Should we do this the other way around?
         return m.rotate(getTransform().getRotation()).translate(-pos.x, -pos.y, -pos.z);
     }
 

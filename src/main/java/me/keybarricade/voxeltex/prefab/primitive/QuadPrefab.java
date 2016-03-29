@@ -25,7 +25,6 @@ public class QuadPrefab extends GameObject {
     /**
      * Thickness of the quad collider. Required because a quad doesn't have a thickness by default.
      */
-    // TODO: Objects are still falling through quads with this thickness!
     private static final float COLLIDER_THICKNESS = 0.005f;
 
     /**
@@ -73,7 +72,6 @@ public class QuadPrefab extends GameObject {
         this.meshFilter = new MeshFilterComponent(new QuadMeshGenerator(DEFAULT_ORIENTATION, size).createMesh());
 
         // Create the mesh renderer component
-        // TODO: Use proper shader here!
         this.meshRenderer = new MeshRendererComponent(new Material(ShaderManager.SHADER_DEFAULT));
 
         // Create and add an appropriate quad collider

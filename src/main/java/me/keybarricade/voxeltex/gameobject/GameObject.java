@@ -5,13 +5,11 @@ import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
 import me.keybarricade.voxeltex.global.MainCamera;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.lwjgl.opengl.GL11.glLoadMatrixf;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
 
 public class GameObject extends AbstractGameObject {
 
@@ -139,9 +137,6 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public AbstractGameObject getChild(int i) {
-        // TODO: Make sure we're in bound?
-
-        // Get the child by it's index
         return this.children.get(i);
     }
 
@@ -198,7 +193,6 @@ public class GameObject extends AbstractGameObject {
         component.setOwner(this);
 
         // Create the component
-        // TODO: Properly check whether the game object is created
         if(getScene() != null)
             component.create();
 
@@ -214,8 +208,6 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public <T extends AbstractComponent> T getComponent(Class<T> componentType) {
-        // TODO: Improve performance of this!
-
         // Loop through all components to find an applicable one
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++) {
@@ -235,6 +227,9 @@ public class GameObject extends AbstractGameObject {
         if(!this.components.remove(component))
             return false;
 
+        // Destroy the component
+        component.destroy();
+
         // Reset the owner
         component.setOwner(null);
 
@@ -250,6 +245,9 @@ public class GameObject extends AbstractGameObject {
         // Remove the component by it's index, and make sure any component was removed
         if((component = this.components.remove(i)) == null)
             return null;
+
+        // Destroy the component
+        component.destroy();
 
         // Reset the owner
         component.setOwner(null);
@@ -301,6 +299,19 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
+    public void destroy() {
+        // Destroy all components
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++)
+            this.components.get(i).destroy();
+
+        // Destroy all children
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).destroy();
+    }
+
+    @Override
     public synchronized void draw() {
         // Define whether we started drawing
         boolean drawing = false;
@@ -308,8 +319,6 @@ public class GameObject extends AbstractGameObject {
         // Draw all drawable components and all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++) {
-            // TODO: Improve the performance of this method!
-
             // Make sure the component is drawable
             if(this.components.get(i) instanceof DrawableComponentInterface) {
                 // Make sure the drawing mode is enabled
@@ -344,7 +353,7 @@ public class GameObject extends AbstractGameObject {
             getTransform().addWorldMatrix(MainCamera.createCameraViewMatrix(viewMatrixCache));
 
             // Load the matrix to the GPU
-            glLoadMatrixf(viewMatrixCache.get(fb));
+            GL11.glLoadMatrixf(viewMatrixCache.get(fb));
         }
     }
 
@@ -353,6 +362,6 @@ public class GameObject extends AbstractGameObject {
      */
     private synchronized void drawEnd() {
         // Pop the OpenGL matrix
-        glPopMatrix();
+        GL11.glPopMatrix();
     }
 }

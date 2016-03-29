@@ -107,13 +107,24 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
     public synchronized void update() {
         // Update the position of the light
         this.light.updatePosition(getOwner());
+    }
 
-        // TODO: Destroy the light object when we're done!
+    @Override
+    public void destroy() {
+        // Call the super
+        super.destroy();
+
+        // Make sure a light instance was created
+        if(this.light == null)
+            return;
+
+        // Remove the light instance from the light manager to ensure it isn't handled anymore
+        getScene().getLightManager().removeLight(this.light);
     }
 
     @Override
     public Light getLight() {
-        return light;
+        return this.light;
     }
 
     @Override

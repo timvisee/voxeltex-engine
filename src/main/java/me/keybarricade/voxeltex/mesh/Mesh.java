@@ -5,19 +5,11 @@ import me.keybarricade.voxeltex.model.RawModel;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GLUtil.getErrorString;
-import static org.lwjgl.opengles.GLES20.GL_TEXTURE_WRAP_T;
-import static org.lwjgl.opengles.GLES20.glEnableVertexAttribArray;
 
 public class Mesh {
 
@@ -229,8 +221,6 @@ public class Mesh {
         // Set the number of vertexes and normals
         this.vertexCount = this.raw.getVertexCount();
         this.normalCount = this.raw.getNormalCount();
-
-        // TODO: We can destroy the buffers here?
     }
 
     /**

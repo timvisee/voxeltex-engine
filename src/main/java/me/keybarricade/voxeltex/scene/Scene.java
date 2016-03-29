@@ -72,6 +72,9 @@ public class Scene extends AbstractScene {
         if(!this.gameObjects.remove(gameObject))
             return false;
 
+        // Destroy the game object
+        gameObject.destroy();
+
         // Return the result
         return true;
     }
@@ -84,6 +87,9 @@ public class Scene extends AbstractScene {
         // Remove the game object by it's index, and make sure any child was removed
         if((gameObject = this.gameObjects.remove(i)) == null)
             return null;
+
+        // Destroy the game object
+        gameObject.destroy();
 
         // Return the game object
         return gameObject;
@@ -103,7 +109,6 @@ public class Scene extends AbstractScene {
             this.gameObjects.get(i).update();
 
         // Update the physics engine and simulate the next physics step
-        // TODO: Should we update physics before the regular game object update?
         getPhysicsEngine().update();
     }
 

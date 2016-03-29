@@ -5,6 +5,15 @@ import org.joml.Matrix4f;
 
 public abstract class AbstractCameraComponent extends BaseComponent {
 
+    @Override
+    public void create() { }
+
+    @Override
+    public synchronized void update() { }
+
+    @Override
+    public void destroy() { }
+
     /**
      * Update the camera position.
      */

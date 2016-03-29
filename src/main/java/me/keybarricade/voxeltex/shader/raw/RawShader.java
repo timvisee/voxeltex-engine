@@ -53,7 +53,6 @@ public class RawShader extends AbstractRawShader {
 
     @Override
     public int compile() {
-        // TODO: Use proper logger here
         // Show a status message
         System.out.print("Compiling shader... ");
 

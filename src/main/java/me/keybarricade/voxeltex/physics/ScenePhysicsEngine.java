@@ -68,8 +68,6 @@ public class ScenePhysicsEngine {
     public void update() {
         // Simulate the next physics step
         bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat);
-
-        // TODO: Apply physics to all game objects?
     }
 
     /**

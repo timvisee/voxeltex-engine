@@ -4,8 +4,6 @@ import me.keybarricade.voxeltex.time.Timer;
 
 public class Time {
 
-    // TODO: Make sure none of these time values has an overflow!
-
     /**
      * Timer instance, used to calculate time.
      */
