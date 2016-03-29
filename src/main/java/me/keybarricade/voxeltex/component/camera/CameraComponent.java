@@ -37,7 +37,6 @@ public class CameraComponent extends AbstractCameraComponent {
         Vector3f pos = getTransform().getPosition();
 
         // Apply the camera transformation to the matrix
-        // TODO: Should we do this the other way around?
         return m.rotate(getTransform().getRotation()).translate(-pos.x, -pos.y, -pos.z);
     }
 

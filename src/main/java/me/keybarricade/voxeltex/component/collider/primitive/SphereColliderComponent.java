@@ -31,8 +31,11 @@ public class SphereColliderComponent extends AbstractColliderComponent {
      * @param radius Sphere radius.
      */
     public void setRadius(float radius) {
-        // TODO: Apply this to the sphere
+        // Set the radius
         this.radius = radius;
+
+        // Reset the current bullet shape instance to generate a new one when the shape is acquired
+        this.bulletShape = null;
     }
 
     @Override
