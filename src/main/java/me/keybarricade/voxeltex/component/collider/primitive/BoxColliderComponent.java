@@ -1,9 +1,9 @@
-package me.keybarricade.voxeltex.physics.collider.primitive;
+package me.keybarricade.voxeltex.component.collider.primitive;
 
 import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.collision.shapes.CollisionShape;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
 import org.joml.Vector3f;
 
 public class BoxColliderComponent extends AbstractColliderComponent {

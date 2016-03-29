@@ -1,12 +1,12 @@
 package me.keybarricade.voxeltex.prefab.primitive;
 
+import me.keybarricade.voxeltex.component.collider.primitive.BoxColliderComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.mesh.generator.CubeMeshGenerator;
-import me.keybarricade.voxeltex.physics.collider.primitive.BoxColliderComponent;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import org.joml.Vector3f;
 

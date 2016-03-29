@@ -1,15 +1,16 @@
-package me.keybarricade.voxeltex.physics.rigidbody;
+package me.keybarricade.voxeltex.component.rigidbody;
 
 import com.bulletphysics.collision.dispatch.CollisionFlags;
+import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.matrix.Matrix4fUtil;
 import me.keybarricade.voxeltex.physics.ScenePhysicsEngine;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
 import org.joml.Quaternionf;
 
 import javax.vecmath.Matrix4f;
@@ -99,23 +100,23 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         Transform physicsTransform = new Transform(Matrix4fUtil.toVecmath(getTransform().getWorldMatrix(), new Matrix4f()));
 
         // Create the motion state for the game object
-        MotionState ballMotionState = new DefaultMotionState(physicsTransform);
+        MotionState motionState = new DefaultMotionState(physicsTransform);
 
         // Calculate and define the inertia
         // TODO: Use proper inertia here!
-        Vector3f ballInertia = new Vector3f(0, 0, 0);
-        collisionShape.calculateLocalInertia(2.5f, ballInertia);
+        Vector3f inertia = new Vector3f(0, 0, 0);
+        collisionShape.calculateLocalInertia(2.5f, inertia);
 
         // Create and configure the rigidbody construction info
-        RigidBodyConstructionInfo ballConstructionInfo = new RigidBodyConstructionInfo(2.5f, ballMotionState, collisionShape, ballInertia);
+        RigidBodyConstructionInfo constructionInfo = new RigidBodyConstructionInfo(2.5f, motionState, collisionShape, inertia);
         // TODO: Use proper restitution and angular damping here!
-        ballConstructionInfo.restitution = 0.5f;
-        ballConstructionInfo.angularDamping = 0.05f;
+        constructionInfo.restitution = 0.5f;
+        constructionInfo.angularDamping = 0.1f;
 
         // Create the rigidbody for the game object
-        this.physicsRigidbody = new RigidBody(ballConstructionInfo);
+        this.physicsRigidbody = new RigidBody(constructionInfo);
         // TODO: Determine what the activation state should be!
-        //this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
+        this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 
         // Set whether the game rigidbody is kinematic or not
         setKinematic(this.initKinematic);

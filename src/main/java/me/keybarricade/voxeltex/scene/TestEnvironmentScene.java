@@ -1,16 +1,16 @@
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
-import me.keybarricade.voxeltex.physics.collider.primitive.SphereColliderComponent;
-import me.keybarricade.voxeltex.physics.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
@@ -54,14 +54,30 @@ public class TestEnvironmentScene extends Scene {
             suzanneRoot.addChild(suzanneObject);
         }
 
-        GameObject sphereObject = new GameObject("Sphere");
-        sphereObject.addComponent(new MeshFilterComponent(new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"))));
-        sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
-        sphereObject.addComponent(new RigidbodyComponent());
-        sphereObject.addComponent(new SphereColliderComponent());
-        sphereObject.getTransform().getPosition().set(-0.9f, 8f, 0);
-        sphereObject.getTransform().getAngularVelocity().set(0, 1, 0);
-        addGameObject(sphereObject);
+        // Load the sphere mesh
+        Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
+
+        // Spawn some spheres as collision test
+        for(int i = 0; i < 16; i++) {
+            if(Math.random() > 0.2) {
+                GameObject sphereObject = new GameObject("Sphere" + i);
+                sphereObject.addComponent(new MeshFilterComponent(sphereMesh));
+                sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
+                sphereObject.addComponent(new RigidbodyComponent());
+                sphereObject.addComponent(new SphereColliderComponent());
+                sphereObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                sphereObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
+                addGameObject(sphereObject);
+
+            } else {
+                CubePrefab cubeObject = new CubePrefab("Cube" + i);
+                cubeObject.addComponent(new RigidbodyComponent());
+                cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
+                cubeObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                cubeObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
+                addGameObject(cubeObject);
+            }
+        }
 
         // Light source object
         GameObject lightObject = new GameObject("Light");

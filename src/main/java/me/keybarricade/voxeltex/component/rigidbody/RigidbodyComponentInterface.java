@@ -1,7 +1,7 @@
-package me.keybarricade.voxeltex.physics.rigidbody;
+package me.keybarricade.voxeltex.component.rigidbody;
 
 import com.bulletphysics.dynamics.RigidBody;
-import me.keybarricade.voxeltex.physics.collider.AbstractColliderComponent;
+import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 
 public interface RigidbodyComponentInterface {
 
