@@ -233,6 +233,9 @@ public class GameObject extends AbstractGameObject {
         if(!this.components.remove(component))
             return false;
 
+        // Destroy the component
+        component.destroy();
+
         // Reset the owner
         component.setOwner(null);
 
@@ -248,6 +251,9 @@ public class GameObject extends AbstractGameObject {
         // Remove the component by it's index, and make sure any component was removed
         if((component = this.components.remove(i)) == null)
             return null;
+
+        // Destroy the component
+        component.destroy();
 
         // Reset the owner
         component.setOwner(null);
@@ -300,8 +306,15 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void destroy() {
-        // TODO: Route the destroy call to child game objects!
-        // TODO: Route the destroy call to components on this game object!
+        // Destroy all components
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++)
+            this.components.get(i).destroy();
+
+        // Destroy all children
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).destroy();
     }
 
     @Override
