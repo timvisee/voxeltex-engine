@@ -100,21 +100,21 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         Transform physicsTransform = new Transform(Matrix4fUtil.toVecmath(getTransform().getWorldMatrix(), new Matrix4f()));
 
         // Create the motion state for the game object
-        MotionState ballMotionState = new DefaultMotionState(physicsTransform);
+        MotionState motionState = new DefaultMotionState(physicsTransform);
 
         // Calculate and define the inertia
         // TODO: Use proper inertia here!
-        Vector3f ballInertia = new Vector3f(0, 0, 0);
-        collisionShape.calculateLocalInertia(2.5f, ballInertia);
+        Vector3f inertia = new Vector3f(0, 0, 0);
+        collisionShape.calculateLocalInertia(2.5f, inertia);
 
         // Create and configure the rigidbody construction info
-        RigidBodyConstructionInfo ballConstructionInfo = new RigidBodyConstructionInfo(2.5f, ballMotionState, collisionShape, ballInertia);
+        RigidBodyConstructionInfo constructionInfo = new RigidBodyConstructionInfo(2.5f, motionState, collisionShape, inertia);
         // TODO: Use proper restitution and angular damping here!
-        ballConstructionInfo.restitution = 0.5f;
-        ballConstructionInfo.angularDamping = 0.05f;
+        constructionInfo.restitution = 0.5f;
+        constructionInfo.angularDamping = 0.1f;
 
         // Create the rigidbody for the game object
-        this.physicsRigidbody = new RigidBody(ballConstructionInfo);
+        this.physicsRigidbody = new RigidBody(constructionInfo);
         // TODO: Determine what the activation state should be!
         this.physicsRigidbody.setActivationState(CollisionObject.DISABLE_DEACTIVATION);
 
