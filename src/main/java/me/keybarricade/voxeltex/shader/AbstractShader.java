@@ -138,7 +138,6 @@ public abstract class AbstractShader implements ShaderInterface {
 
     @Override
     public void setUniformMatrix4f(String name, Matrix4f matrix) {
-        // TODO: Should we clean, rewind or flip the float buffer first?
         // Synchronize so we don't modify the cached float buffer from multiple places at the same time
         synchronized(matrixFloatBufferCache) {
             setUniformMatrix4f(name, matrix, matrixFloatBufferCache);

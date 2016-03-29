@@ -109,7 +109,6 @@ public class Scene extends AbstractScene {
             this.gameObjects.get(i).update();
 
         // Update the physics engine and simulate the next physics step
-        // TODO: Should we update physics before the regular game object update?
         getPhysicsEngine().update();
     }
 

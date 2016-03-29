@@ -162,8 +162,6 @@ public class LightManager {
      * Buffer all current light data so it can be be send to shaders.
      */
     public void buffer() {
-        // TODO: Limit the lights being buffered to match the shader limit!
-
         // Compare the current number of lights to the buffered count, to check whether we should recreate the buffers
         if(getLightCount() != this.bufferedLightCount) {
             // Set the buffered count

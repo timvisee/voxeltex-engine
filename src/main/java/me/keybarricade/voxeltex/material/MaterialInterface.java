@@ -6,8 +6,6 @@ import org.joml.Vector2f;
 
 public interface MaterialInterface {
 
-    // TODO: Make texture optional!
-
     /**
      * Get the material shader.
      *
