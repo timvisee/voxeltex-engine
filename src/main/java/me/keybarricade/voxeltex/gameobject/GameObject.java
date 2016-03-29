@@ -137,9 +137,6 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public AbstractGameObject getChild(int i) {
-        // TODO: Make sure we're in bound?
-
-        // Get the child by it's index
         return this.children.get(i);
     }
 
@@ -196,7 +193,6 @@ public class GameObject extends AbstractGameObject {
         component.setOwner(this);
 
         // Create the component
-        // TODO: Properly check whether the game object is created
         if(getScene() != null)
             component.create();
 
@@ -212,8 +208,6 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public <T extends AbstractComponent> T getComponent(Class<T> componentType) {
-        // TODO: Improve performance of this!
-
         // Loop through all components to find an applicable one
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++) {
@@ -325,8 +319,6 @@ public class GameObject extends AbstractGameObject {
         // Draw all drawable components and all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++) {
-            // TODO: Improve the performance of this method!
-
             // Make sure the component is drawable
             if(this.components.get(i) instanceof DrawableComponentInterface) {
                 // Make sure the drawing mode is enabled

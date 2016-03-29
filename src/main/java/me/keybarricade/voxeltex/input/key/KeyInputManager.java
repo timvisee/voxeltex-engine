@@ -53,7 +53,6 @@ public class KeyInputManager implements KeyInputInterface {
         keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
-                // TODO: Move this to a different class?
                 // Schedule a renderer window close when the escape key is pressed
                 if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE)
                     GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
