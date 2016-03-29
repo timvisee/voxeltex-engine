@@ -1,10 +1,28 @@
 package me.keybarricade.voxeltex.component.drawable.line;
 
 import me.keybarricade.voxeltex.component.drawable.AbstractDrawableComponent;
-
-import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL11;
 
 public class AxisDrawComponent extends AbstractDrawableComponent {
+
+    /**
+     * Width of the axis lines.
+     */
+    private float lineWidth = 5.0f;
+
+    /**
+     * Constructor.
+     */
+    public AxisDrawComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param lineWidth Line width.
+     */
+    public AxisDrawComponent(float lineWidth) {
+        this.lineWidth = lineWidth;
+    }
 
     @Override
     public void create() { }
@@ -16,30 +34,50 @@ public class AxisDrawComponent extends AbstractDrawableComponent {
     public synchronized void update() { }
 
     @Override
-    public void draw() {
+    public void destroy() { }
+
+    @Override
+    public synchronized void draw() {
         // Set the thickness of the axis drawn
-        // TODO: Make this configurable
-        glLineWidth(5.0f);
+        GL11.glLineWidth(this.lineWidth);
 
         // Enable line drawing mode
-        glBegin(GL_LINES);
+        GL11.glBegin(GL11.GL_LINES);
 
         // Green for X
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(1.0f, 0.0f, 0.0f);
+        GL11.glColor3f(1.0f, 0.0f, 0.0f);
+        GL11.glVertex3f(0.0f, 0.0f, 0.0f);
+        GL11.glVertex3f(1.0f, 0.0f, 0.0f);
 
         // Green for Y
-        glColor3f(0.0f, 1.0f, 0.0f);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f, 1.0f, 0.0f);
+        GL11.glColor3f(0.0f, 1.0f, 0.0f);
+        GL11.glVertex3f(0.0f, 0.0f, 0.0f);
+        GL11.glVertex3f(0.0f, 1.0f, 0.0f);
 
         // Green for Z
-        glColor3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f, 0.0f, 1.0f);
+        GL11.glColor3f(0.0f, 0.0f, 1.0f);
+        GL11.glVertex3f(0.0f, 0.0f, 0.0f);
+        GL11.glVertex3f(0.0f, 0.0f, 1.0f);
 
         // Finish drawing
-        glEnd();
+        GL11.glEnd();
+    }
+
+    /**
+     * Get the line width of the axis lines.
+     *
+     * @return Line width.
+     */
+    public float getLineWidth() {
+        return this.lineWidth;
+    }
+
+    /**
+     * Set the line width of the axis lines.
+     *
+     * @param lineWidth Line width.
+     */
+    public void setLineWidth(float lineWidth) {
+        this.lineWidth = lineWidth;
     }
 }

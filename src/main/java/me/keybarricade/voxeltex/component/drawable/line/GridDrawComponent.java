@@ -5,6 +5,25 @@ import org.lwjgl.opengl.GL11;
 
 public class GridDrawComponent extends AbstractDrawableComponent {
 
+    /**
+     * Width of the grid lines.
+     */
+    private float lineWidth = 1.0f;
+
+    /**
+     * Constructor.
+     */
+    public GridDrawComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param lineWidth Line width.
+     */
+    public GridDrawComponent(float lineWidth) {
+        this.lineWidth = lineWidth;
+    }
+
     @Override
     public void create() { }
 
@@ -15,10 +34,12 @@ public class GridDrawComponent extends AbstractDrawableComponent {
     public synchronized void update() { }
 
     @Override
-    public void draw() {
+    public void destroy() { }
+
+    @Override
+    public synchronized void draw() {
         // Set the thickness of the axis drawn
-        // TODO: Make this configurable
-        GL11.glLineWidth(1.0f);
+        GL11.glLineWidth(this.lineWidth);
 
         // Enable line drawing mode
         GL11.glBegin(GL11.GL_LINES);
@@ -36,5 +57,23 @@ public class GridDrawComponent extends AbstractDrawableComponent {
 
         // Finish drawing
         GL11.glEnd();
+    }
+
+    /**
+     * Get the line width of the grid lines.
+     *
+     * @return Line width.
+     */
+    public float getLineWidth() {
+        return this.lineWidth;
+    }
+
+    /**
+     * Set the line width of the grid lines.
+     *
+     * @param lineWidth Line width.
+     */
+    public void setLineWidth(float lineWidth) {
+        this.lineWidth = lineWidth;
     }
 }
