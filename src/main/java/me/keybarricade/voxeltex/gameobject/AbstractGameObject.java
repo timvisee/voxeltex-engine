@@ -253,6 +253,12 @@ public abstract class AbstractGameObject {
     public abstract void update();
 
     /**
+     * Destroy the game object.
+     * This will be called before the game object is destroyed.
+     */
+    public abstract void destroy();
+
+    /**
      * Draw the game object.
      * This will be called once each frame after updating the game object.
      */

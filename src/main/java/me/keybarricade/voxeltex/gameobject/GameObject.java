@@ -5,13 +5,11 @@ import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
 import me.keybarricade.voxeltex.global.MainCamera;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.lwjgl.opengl.GL11.glLoadMatrixf;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
 
 public class GameObject extends AbstractGameObject {
 
@@ -301,6 +299,12 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
+    public void destroy() {
+        // TODO: Route the destroy call to child game objects!
+        // TODO: Route the destroy call to components on this game object!
+    }
+
+    @Override
     public synchronized void draw() {
         // Define whether we started drawing
         boolean drawing = false;
@@ -344,7 +348,7 @@ public class GameObject extends AbstractGameObject {
             getTransform().addWorldMatrix(MainCamera.createCameraViewMatrix(viewMatrixCache));
 
             // Load the matrix to the GPU
-            glLoadMatrixf(viewMatrixCache.get(fb));
+            GL11.glLoadMatrixf(viewMatrixCache.get(fb));
         }
     }
 
@@ -353,6 +357,6 @@ public class GameObject extends AbstractGameObject {
      */
     private synchronized void drawEnd() {
         // Pop the OpenGL matrix
-        glPopMatrix();
+        GL11.glPopMatrix();
     }
 }
