@@ -266,6 +266,6 @@ public abstract class AbstractGameObject {
 
     @Override
     public String toString() {
-        return getName();
+        return "GameObject(" + getName() + ")";
     }
 }

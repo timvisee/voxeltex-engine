@@ -117,7 +117,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
 
             // Show a warning if no collision component was found
             if(this.colliderComponent == null) {
-                System.out.println("Game object '" + getOwner().getName() + "' doesn't have a suitable collider component to use with the rigidbody");
+                System.out.println(getOwner() + " doesn't have a suitable collider component to use with the rigidbody");
                 return;
             }
         }
