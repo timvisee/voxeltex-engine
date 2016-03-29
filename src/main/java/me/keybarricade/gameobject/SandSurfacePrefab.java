@@ -1,5 +1,6 @@
 package me.keybarricade.gameobject;
 
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.voxeltex.texture.Image;
@@ -24,5 +25,8 @@ public class SandSurfacePrefab extends QuadPrefab {
 
         // Set the quad material to sand
         setMaterial(sandMaterial);
+
+        // Add a kinematic rigidbody for collision
+        addComponent(new RigidbodyComponent(true));
     }
 }
