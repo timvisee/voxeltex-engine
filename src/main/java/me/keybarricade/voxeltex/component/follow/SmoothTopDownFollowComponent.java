@@ -43,7 +43,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
     /**
      * Positional damping.
      */
-    private float positionDamping = 2f;
+    private float positionDamping = 4.5f;
 
     /**
      * Rotational damping.
