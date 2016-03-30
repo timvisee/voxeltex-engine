@@ -87,7 +87,7 @@ public class TestEnvironmentScene extends Scene {
                 sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
                 sphereObject.addComponent(new RigidbodyComponent());
                 sphereObject.addComponent(new SphereColliderComponent());
-                sphereObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                sphereObject.getTransform().getPosition().set(-8.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
                 sphereObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
                 addGameObject(sphereObject);
 
@@ -95,7 +95,7 @@ public class TestEnvironmentScene extends Scene {
                 CubePrefab cubeObject = new CubePrefab("Cube" + i);
                 cubeObject.addComponent(new RigidbodyComponent());
                 cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
-                cubeObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                cubeObject.getTransform().getPosition().set(-8.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
                 cubeObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
                 addGameObject(cubeObject);
             }
