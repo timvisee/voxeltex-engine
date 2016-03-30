@@ -181,6 +181,9 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         // Set whether the game rigidbody is kinematic or not
         setKinematic(this.initKinematic);
 
+        // Set the user pointer to the game object
+        this.physicsRigidbody.setUserPointer(getOwner());
+
         // Add the rigidbody to the physics engine world
         physicsEngine.addRigidbody(this.physicsRigidbody);
     }
