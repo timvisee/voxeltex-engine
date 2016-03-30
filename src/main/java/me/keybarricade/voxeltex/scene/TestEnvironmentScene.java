@@ -24,18 +24,16 @@ package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
-import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.movement.WasdMovementComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
-import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
+import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
@@ -199,22 +197,9 @@ public class TestEnvironmentScene extends Scene {
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
 
-        // Player test object
-        CubePrefab playerTest = new CubePrefab();
-        playerTest.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        playerTest.setMaterial(new Material(Texture.fromColor(Color.BLUE, 1, 1)));
-        playerTest.addComponent(new WasdMovementComponent());
-        addGameObject(playerTest);
-
-//        // Create the main camera object
-//        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-//        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-//        addGameObject(fpsCameraPrefab);
-
-        // Create a camera and follow the player
-        MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
-        cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerTest));
-        addGameObject(cameraPrefab);
+        // Create the main camera object
+        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        addGameObject(fpsCameraPrefab);
     }
 }

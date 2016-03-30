@@ -3,15 +3,17 @@ package me.keybarricade;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
+import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import me.keybarricade.voxeltex.component.movement.WasdMovementComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
-import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
+import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
@@ -26,11 +28,6 @@ public class GameScene extends Scene {
     public void load() {
         // Load the super
         super.load();
-
-        // Create the main camera object
-        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        addGameObject(fpsCameraPrefab);
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
@@ -59,19 +56,19 @@ public class GameScene extends Scene {
         sphereObject1.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject1.addComponent(new RigidbodyComponent());
         sphereObject1.addComponent(new SphereColliderComponent());
-        sphereObject1.getTransform().getPosition().set(-1.1f, 2.5f, -1.1f);
+        sphereObject1.getTransform().getPosition().set(-4.1f, 2.5f, -1.1f);
         addGameObject(sphereObject1);
         GameObject sphereObject2 = new GameObject("Sphere2");
         sphereObject2.addComponent(new MeshFilterComponent(sphereMesh));
         sphereObject2.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
         sphereObject2.addComponent(new RigidbodyComponent());
         sphereObject2.addComponent(new SphereColliderComponent());
-        sphereObject2.getTransform().getPosition().set(-0.9f, 6.5f, -0.9f);
+        sphereObject2.getTransform().getPosition().set(-3.9f, 6.5f, -0.9f);
         addGameObject(sphereObject2);
         CubePrefab cubeObject = new CubePrefab("Cube");
         cubeObject.addComponent(new RigidbodyComponent());
         cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
-        cubeObject.getTransform().getPosition().set(-1f, 4.5f, -1f);
+        cubeObject.getTransform().getPosition().set(-4f, 4.5f, -1f);
         addGameObject(cubeObject);
 
         // Create and add the sand surface prefab
@@ -82,5 +79,18 @@ public class GameScene extends Scene {
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
+
+        // Player test object
+        CubePrefab playerObject = new CubePrefab();
+        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
+        playerObject.setMaterial(new Material(Texture.fromColor(Color.BLUE, 1, 1)));
+        playerObject.addComponent(new WasdMovementComponent());
+        addGameObject(playerObject);
+
+        // Create a camera and follow the player
+        MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
+        cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
+        addGameObject(cameraPrefab);
     }
 }
