@@ -165,10 +165,10 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         // Calculate and define the inertia
         // TODO: Use proper inertia here!
         Vector3f inertia = new Vector3f(0, 0, 0);
-        collisionShape.calculateLocalInertia(2.5f, inertia);
+        collisionShape.calculateLocalInertia(1f, inertia);
 
         // Create and configure the rigidbody construction info
-        RigidBodyConstructionInfo constructionInfo = new RigidBodyConstructionInfo(2.5f, motionState, collisionShape, inertia);
+        RigidBodyConstructionInfo constructionInfo = new RigidBodyConstructionInfo(1f, motionState, collisionShape, inertia);
         // TODO: Use proper restitution and angular damping here!
         constructionInfo.restitution = 0.5f;
         constructionInfo.angularDamping = 0.1f;

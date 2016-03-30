@@ -154,8 +154,9 @@ public class TestEnvironmentScene extends Scene {
             for(int i = 0; i < 15; i++) {
                 // Load the texture shader
                 CubePrefab matrixBox = new CubePrefab();
-                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 1, 7 - 1.5f * i));
                 matrixBox.setMaterial(boxMaterial);
+                matrixBox.addComponent(new RigidbodyComponent());
                 addGameObject(matrixBox);
             }
         }
