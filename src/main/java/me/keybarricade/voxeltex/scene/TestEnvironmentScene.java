@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.voxeltex.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -201,5 +202,14 @@ public class TestEnvironmentScene extends Scene {
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
+
+        // Player test object
+        CubePrefab playerTest = new CubePrefab();
+        playerTest.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
+        playerTest.setMaterial(new Material(Texture.fromColor(Color.BLUE, 1, 1)));
+        addGameObject(playerTest);
+
+        // Let the camera follow the player test object
+        fpsCameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerTest));
     }
 }
