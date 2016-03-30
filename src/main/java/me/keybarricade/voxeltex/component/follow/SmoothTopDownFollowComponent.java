@@ -64,6 +64,63 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
         this.target = target;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param target Target.
+     */
+    public SmoothTopDownFollowComponent(GameObject target, float height) {
+        this.target = target;
+        this.height = height;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param target Target.
+     */
+    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping) {
+        this.target = target;
+        this.height = height;
+        this.positionDamping = positionDamping;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param target Target.
+     */
+    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping, float rotationDamping) {
+        this.target = target;
+        this.height = height;
+        this.positionDamping = positionDamping;
+        this.rotationDamping = rotationDamping;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param target Target.
+     */
+    public SmoothTopDownFollowComponent(GameObject target, float height, Quaternionf targetRotation) {
+        this.target = target;
+        this.height = height;
+        this.targetRotation = targetRotation;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param target Target.
+     */
+    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping, float rotationDamping, Quaternionf targetRotation) {
+        this.target = target;
+        this.height = height;
+        this.positionDamping = positionDamping;
+        this.rotationDamping = rotationDamping;
+        this.targetRotation = targetRotation;
+    }
+
     @Override
     public void create() {
         targetRotation = new Quaternionf(-1, 0, 0);
