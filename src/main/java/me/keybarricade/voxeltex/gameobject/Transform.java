@@ -301,6 +301,17 @@ public class Transform {
     }
 
     /**
+     * Set the position of the game object in local space.
+     *
+     * @param x X coordinate.
+     * @param y Y coordinate.
+     * @param z Z coordinate.
+     */
+    public void setPosition(float x, float y, float z) {
+        this.position.set(x, y, z);
+    }
+
+    /**
      * Get the rotation of the game object in local space.
      *
      * @return Game object local rotation.
@@ -447,6 +458,17 @@ public class Transform {
      */
     public void setScale(Vector3f scale) {
         this.scale.set(scale);
+    }
+
+    /**
+     * Set the scale of the game object in local space.
+     *
+     * @param x Scale on the X axis.
+     * @param y Scale on the Y axis.
+     * @param z Scale on the Z axis.
+     */
+    public void setScale(float x, float y, float z) {
+        this.scale.set(x, y, z);
     }
 
     /**
