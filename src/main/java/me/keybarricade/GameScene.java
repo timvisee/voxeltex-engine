@@ -1,5 +1,6 @@
 package me.keybarricade;
 
+import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
@@ -75,7 +76,7 @@ public class GameScene extends Scene {
         addGameObject(new SandSurfacePrefab());
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDB813).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
@@ -92,5 +93,10 @@ public class GameScene extends Scene {
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
         addGameObject(cameraPrefab);
+
+        // Add a key prefab
+        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        keyObject.getTransform().getPosition().set(-1.5f, 0, 0);
+        addGameObject(keyObject);
     }
 }

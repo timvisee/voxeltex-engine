@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -187,12 +188,12 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(quad);
 
         // Add a light
-        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDB813).toVector3f(), 25);
+        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDDC5C).toVector3f(), 25);
         pointLight.getTransform().getPosition().set(0, 15, 0);
         addGameObject(pointLight);
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDB813).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
@@ -201,5 +202,10 @@ public class TestEnvironmentScene extends Scene {
         FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
         fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         addGameObject(fpsCameraPrefab);
+
+        // Add a key prefab
+        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        keyObject.getTransform().getPosition().set(-1, 0, 0);
+        addGameObject(keyObject);
     }
 }
