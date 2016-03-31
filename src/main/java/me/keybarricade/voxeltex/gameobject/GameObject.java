@@ -150,7 +150,8 @@ public class GameObject extends AbstractGameObject {
         this.children.add(gameObject);
 
         // Create the game object
-        gameObject.create();
+        if(getScene() != null)
+            gameObject.create();
 
         // Start the game object if the scene has started
         if(isSceneStarted())
