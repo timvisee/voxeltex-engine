@@ -4,10 +4,14 @@ import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
+import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
+import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdMovementComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.mesh.Mesh;
+import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
@@ -42,6 +46,9 @@ public class GameScene extends Scene {
         // Load the box texture and material
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
         Material boxMaterial = new Material(boxTexture);
+
+        // Load the sphere mesh
+        Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
 
         // Create walls
         for(int x = 0; x < 12; x++) {
@@ -83,10 +90,12 @@ public class GameScene extends Scene {
         keyObject.getTransform().getPosition().set(-2, 0, -1);
         addGameObject(keyObject);
 
-        // Player test object
-        CubePrefab playerObject = new CubePrefab();
+        // Player
+        GameObject playerObject = new GameObject("Player");
+        playerObject.addComponent(new MeshFilterComponent(sphereMesh));
+        playerObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.BLUE, 1, 1))));
         playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        playerObject.setMaterial(new Material(Texture.fromColor(Color.BLUE, 1, 1)));
+        playerObject.getTransform().setScale(0.5f, 0.5f, 0.5f);
         playerObject.addComponent(new WasdMovementComponent());
         addGameObject(playerObject);
 
