@@ -23,6 +23,7 @@
 package me.keybarricade.voxeltex.component.light;
 
 import me.keybarricade.voxeltex.light.Light;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector3f;
 
 public class LightSourceComponent extends AbstractLightSourceComponent {
@@ -77,6 +78,15 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
      */
     public LightSourceComponent(Vector3f lightColor) {
         this.lightColorBuffer = lightColor;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param lightColor Light color and intensity.
+     */
+    public LightSourceComponent(Color lightColor) {
+        this.lightColorBuffer = lightColor.toVector3f();
     }
 
     /**
