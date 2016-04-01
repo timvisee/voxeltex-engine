@@ -115,6 +115,15 @@ public class Color {
     }
 
     /**
+     * Create a randomized color.
+     *
+     * @return Color.
+     */
+    public static final Color random() {
+        return new Color((float) Math.random(), (float) Math.random(), (float) Math.random());
+    }
+
+    /**
      * Set the color.
      *
      * @param red Red channel intensity, from 0 to 1.

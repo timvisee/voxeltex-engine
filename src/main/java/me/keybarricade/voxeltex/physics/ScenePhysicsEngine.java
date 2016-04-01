@@ -67,6 +67,9 @@ public class ScenePhysicsEngine {
         return this.scene;
     }
 
+    /**
+     * Set up the physics engine for the scene.
+     */
     public void setUp() {
         // Create a DBVT broadphase to broadly check collisions using the AABB technique which ensures good performance
         BroadphaseInterface broadphase = new DbvtBroadphase();
@@ -89,6 +92,7 @@ public class ScenePhysicsEngine {
      */
     public void update() {
         // Simulate the next physics step
+        //bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat, 1, 1f / 60f);
         bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat);
     }
 

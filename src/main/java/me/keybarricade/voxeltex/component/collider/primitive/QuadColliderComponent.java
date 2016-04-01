@@ -24,6 +24,7 @@ package me.keybarricade.voxeltex.component.collider.primitive;
 
 import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.collision.shapes.CollisionShape;
+import com.bulletphysics.collision.shapes.StaticPlaneShape;
 import me.keybarricade.voxeltex.component.collider.AbstractColliderComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.mesh.generator.QuadMeshGenerator;
@@ -51,7 +52,7 @@ public class QuadColliderComponent extends AbstractColliderComponent {
     /**
      * Bullet physics engine shape representation.
      */
-    private BoxShape bulletShape = null;
+    private CollisionShape bulletShape = null;
 
     /**
      * Constructor.
@@ -151,6 +152,9 @@ public class QuadColliderComponent extends AbstractColliderComponent {
 
             // Construct the shape
             this.bulletShape = new BoxShape(shapeSize);
+
+            // FIXME: Temporarily using a static plane, for better results!
+            this.bulletShape = new StaticPlaneShape(new Vector3f(0, 1, 0), 0.1f);
         }
 
         // Return the shape

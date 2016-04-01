@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -56,11 +57,6 @@ public class TestEnvironmentScene extends Scene {
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
         Material boxMaterial = new Material(boxTexture);
 
-        // Create the main camera object
-        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        addGameObject(fpsCameraPrefab);
-
         GameObject suzanneRoot = new GameObject("SuzanneRoot");
         suzanneRoot.getTransform().getAngularVelocity().set(0, 0.5f, 0);
         addGameObject(suzanneRoot);
@@ -87,7 +83,7 @@ public class TestEnvironmentScene extends Scene {
                 sphereObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.ORANGE, 1, 1))));
                 sphereObject.addComponent(new RigidbodyComponent());
                 sphereObject.addComponent(new SphereColliderComponent());
-                sphereObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                sphereObject.getTransform().getPosition().set(-8.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
                 sphereObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
                 addGameObject(sphereObject);
 
@@ -95,7 +91,7 @@ public class TestEnvironmentScene extends Scene {
                 CubePrefab cubeObject = new CubePrefab("Cube" + i);
                 cubeObject.addComponent(new RigidbodyComponent());
                 cubeObject.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
-                cubeObject.getTransform().getPosition().set(-0.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
+                cubeObject.getTransform().getPosition().set(-8.5f + (float) (Math.random() * 1.0f), 3f + (i * 2.1f), -0.5f + (float) (Math.random() * 1.0f));
                 cubeObject.getTransform().getAngularVelocity().set(0, -0.5f + (float) (Math.random() * 1), 0);
                 addGameObject(cubeObject);
             }
@@ -154,8 +150,9 @@ public class TestEnvironmentScene extends Scene {
             for(int i = 0; i < 15; i++) {
                 // Load the texture shader
                 CubePrefab matrixBox = new CubePrefab();
-                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 0.5f, 7 - 1.5f * i));
+                matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 1, 7 - 1.5f * i));
                 matrixBox.setMaterial(boxMaterial);
+                matrixBox.addComponent(new RigidbodyComponent());
                 addGameObject(matrixBox);
             }
         }
@@ -191,14 +188,24 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(quad);
 
         // Add a light
-        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDB813).toVector3f(), 25);
+        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDDC5C).toVector3f(), 25);
         pointLight.getTransform().getPosition().set(0, 15, 0);
         addGameObject(pointLight);
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDB813).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
+
+        // Create the main camera object
+        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        addGameObject(fpsCameraPrefab);
+
+        // Add a key prefab
+        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        keyObject.getTransform().getPosition().set(-1, 0, 0);
+        addGameObject(keyObject);
     }
 }

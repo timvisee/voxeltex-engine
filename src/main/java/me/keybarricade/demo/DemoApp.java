@@ -1,8 +1,9 @@
-package me.keybarricade;
+package me.keybarricade.demo;
 
+import me.keybarricade.KeyBarricade;
 import me.keybarricade.voxeltex.VoxelTexEngine;
 
-public class App {
+public class DemoApp {
 
     /**
      * VoxelTex engine instance.
@@ -12,7 +13,7 @@ public class App {
     /**
      * Constructor.
      */
-    public App() { }
+    public DemoApp() { }
 
     /**
      * Initialize.
@@ -47,7 +48,7 @@ public class App {
      */
     public void startEngine() {
         // Load the default scene
-        this.engine.getSceneManager().loadScene(new GameScene());
+        this.engine.getSceneManager().loadScene(new DemoScene());
 
         // Start the engine
         this.engine.start();
