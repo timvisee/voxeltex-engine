@@ -40,7 +40,7 @@ public class DemoScene extends Scene {
         camera.getTransform().setPosition(0, 2, 3);
         addGameObject(camera);
 
-        for(int i = 0; i < 16; i++) {
+        for (int i = 0; i < 15; i++) {
             CubePrefab box = new CubePrefab();
             box.getTransform().setPosition(i, 0.5f, 0);
             box.setMaterial(boxMaterial);
