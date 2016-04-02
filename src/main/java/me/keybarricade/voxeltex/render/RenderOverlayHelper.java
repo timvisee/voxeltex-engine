@@ -28,6 +28,15 @@ import org.lwjgl.opengl.GL11;
 public class RenderOverlayHelper {
 
     /**
+     * Set the width of lines being rendered.
+     *
+     * @param lineWidth Line width.
+     */
+    public static void lineWidth(float lineWidth) {
+        GL11.glLineWidth(lineWidth);
+    }
+
+    /**
      * Render a rectangle at the given position.
      *
      * @param position Rectangle position.

@@ -26,7 +26,6 @@ import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import org.joml.Vector2f;
-import org.lwjgl.opengl.GL11;
 
 public class LineOverlayComponent extends AbstractOverlayComponent {
 
@@ -74,7 +73,7 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
     @Override
     public void drawOverlay() {
         // Set the thickness of the line drawn
-        GL11.glLineWidth(this.lineWidth);
+        RenderOverlayHelper.lineWidth(this.lineWidth);
 
         // Render the line
         RenderOverlayHelper.renderLine(this.position, this.size);
