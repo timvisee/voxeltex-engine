@@ -28,6 +28,7 @@ import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
@@ -207,5 +208,11 @@ public class TestEnvironmentScene extends Scene {
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
         keyObject.getTransform().getPosition().set(-1, 0, 0);
         addGameObject(keyObject);
+
+        // Overlay test
+        GameObject overlayTest = new GameObject("OverlayTest");
+        overlayTest.addComponent(new RectangleOverlayComponent(0.475f, 0.475f, 0.05f, 0.05f));
+//        overlayTest.addComponent(new LineOverlayComponent(0.35f, 0.35f, 0.1f, 0.1f));
+        addGameObject(overlayTest);
     }
 }

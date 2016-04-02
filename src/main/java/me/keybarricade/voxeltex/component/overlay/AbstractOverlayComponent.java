@@ -24,4 +24,17 @@ package me.keybarricade.voxeltex.component.overlay;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 
-public abstract class AbstractOverlayComponent extends BaseComponent implements OverlayComponentInterface { }
+public abstract class AbstractOverlayComponent extends BaseComponent implements OverlayComponentInterface {
+
+    @Override
+    public void create() { }
+
+    @Override
+    public void start() { }
+
+    @Override
+    public synchronized void update() { }
+
+    @Override
+    public void destroy() { }
+}
