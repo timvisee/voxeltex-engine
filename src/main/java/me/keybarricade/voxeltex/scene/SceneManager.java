@@ -109,11 +109,20 @@ public class SceneManager {
     }
 
     /**
-     * Draw the scene that is currently loaded.
+     * Draw the 3D scene that is currently loaded.
      */
     public void draw() {
-        // Make sure a scene is loaded, then update it
+        // Make sure a scene is loaded, then draw it
         if(isSceneLoaded())
             this.scene.draw();
+    }
+
+    /**
+     * Draw the overlay scene that is currently loaded.
+     */
+    public void drawOverlay() {
+        // Make sure a scene is loaded, then draw it
+        if(isSceneLoaded())
+            this.scene.drawOverlay();
     }
 }

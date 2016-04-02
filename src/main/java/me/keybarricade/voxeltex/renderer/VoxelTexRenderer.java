@@ -247,16 +247,18 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Enable 3D drawing
             enableDraw3d(matrixFrameBuffer);
 
-            // Draw the current scene
+            // Draw the current 3D scene
             getEngine().getSceneManager().draw();
 
-
-
-
-            // FIXME: Implement GUI and remove this code!
-
-            // Enable HUD drawing
+            // Enable overlay drawing
             enableDrawOverlay(matrixFrameBuffer);
+
+            // Draw the current overlay scene
+            getEngine().getSceneManager().drawOverlay();
+
+
+
+
 
             // Enable line drawing mode
             GL11.glBegin(GL11.GL_QUADS);
