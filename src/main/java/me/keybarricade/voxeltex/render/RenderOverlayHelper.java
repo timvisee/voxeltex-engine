@@ -20,95 +20,78 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.component.overlay.shape;
+package me.keybarricade.voxeltex.render;
 
-import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
-import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
-import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
 
-public class LineOverlayComponent extends AbstractOverlayComponent {
+public class RenderOverlayHelper {
 
     /**
-     * Line position.
+     * Render a rectangle at the given position.
+     *
+     * @param position Rectangle position.
+     * @param size Rectangle size.
      */
-    // TODO: Use a 2D transform object.
-    private Vector2f position = Vector2fFactory.identity();
+    public static void renderRectangle(Vector2f position, Vector2f size) {
+        renderRectangle(position.x, position.y, size.x, size.y);
+    }
 
     /**
-     * Line size.
+     * Render a rectangle at the given position.
+     *
+     * @param x Rectangle X position.
+     * @param y Rectangle Y position.
+     * @param w Rectangle width.
+     * @param h Rectangle height.
      */
-    // TODO: Use a 2D transform object.
-    private Vector2f size = Vector2fFactory.identity();
+    public static void renderRectangle(float x, float y, float w, float h) {
+        // Enable line drawing mode
+        GL11.glBegin(GL11.GL_QUADS);
+
+        // Set the grid color
+        GL11.glColor4f(1, 0, 0, 0.5f);
+
+        // Draw the grid
+        GL11.glVertex3f(x, y, 0f);
+        GL11.glVertex3f(x + w, y, 0f);
+        GL11.glVertex3f(x + w, y + h, 0f);
+        GL11.glVertex3f(x, y + h, 0f);
+
+        // Finish drawing
+        GL11.glEnd();
+    }
 
     /**
-     * Constructor.
+     * Render a line at the given position.
+     *
+     * @param position Line position.
+     * @param size Line size.
+     */
+    public static void renderLine(Vector2f position, Vector2f size) {
+        renderLine(position.x, position.y, size.x, size.y);
+    }
+
+    /**
+     * Render a line at the given position.
      *
      * @param x Line X position.
      * @param y Line Y position.
      * @param w Line width.
      * @param h Line height.
      */
-    public LineOverlayComponent(float x, float y, float w, float h) {
-        this.position.set(x, y);
-        this.size.set(w, h);
-    }
+    public static void renderLine(float x, float y, float w, float h) {
+        // Enable line drawing mode
+        GL11.glBegin(GL11.GL_LINES);
 
-    /**
-     * Constructor.
-     *
-     * @param position Line position.
-     * @param size Line size.
-     */
-    public LineOverlayComponent(Vector2f position, Vector2f size) {
-        this.position.set(position);
-        this.size.set(size);
-    }
+        // Set the grid color
+        GL11.glColor4f(1, 0, 0, 0.5f);
 
-    @Override
-    public void drawOverlay() {
-        // Line width
-        // TODO: Make line width configurable!
-        GL11.glLineWidth(2.0f);
+        // Draw the grid
+        GL11.glVertex3f(x, y, 0f);
+        GL11.glVertex3f(x + w, y + h, 0f);
 
-        // Render the line
-        RenderOverlayHelper.renderLine(this.position, this.size);
-    }
-
-    /**
-     * Get the position of the line.
-     *
-     * @return Position.
-     */
-    public Vector2f getPosition() {
-        return this.position;
-    }
-
-    /**
-     * Set the position of the line.
-     *
-     * @param position Position.
-     */
-    public void setPosition(Vector2f position) {
-        this.position = position;
-    }
-
-    /**
-     * Get the size of the line.
-     *
-     * @return Size.
-     */
-    public Vector2f getSize() {
-        return this.size;
-    }
-
-    /**
-     * Set the size of the line.
-     *
-     * @param size Size.
-     */
-    public void setSize(Vector2f size) {
-        this.size = size;
+        // Finish drawing
+        GL11.glEnd();
     }
 }

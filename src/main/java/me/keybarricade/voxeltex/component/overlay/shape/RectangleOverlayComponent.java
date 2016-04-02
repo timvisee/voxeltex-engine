@@ -24,8 +24,8 @@ package me.keybarricade.voxeltex.component.overlay.shape;
 
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
+import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import org.joml.Vector2f;
-import org.lwjgl.opengl.GL11;
 
 public class RectangleOverlayComponent extends AbstractOverlayComponent {
 
@@ -67,21 +67,8 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
 
     @Override
     public void drawOverlay() {
-        // Enable line drawing mode
-        GL11.glBegin(GL11.GL_QUADS);
-
-        // Set the grid color
-        //GL11.glColor3f(1, 0, 0);
-        GL11.glColor4f(1, 0, 0, 0.5f);
-
-        // Draw the grid
-        GL11.glVertex3f(this.position.x, this.position.y, 0f);
-        GL11.glVertex3f(this.position.x + this.size.x, this.position.y, 0f);
-        GL11.glVertex3f(this.position.x + this.size.x, this.position.y + this.size.y, 0f);
-        GL11.glVertex3f(this.position.x, this.position.y + this.size.y, 0f);
-
-        // Finish drawing
-        GL11.glEnd();
+        // Render the rectangle
+        RenderOverlayHelper.renderRectangle(this.position, this.size);
     }
 
     /**
