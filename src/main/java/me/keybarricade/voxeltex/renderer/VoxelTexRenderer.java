@@ -244,6 +244,10 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             this.window.glViewportDefault();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            // Enable alpha channel usages
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
             // Enable 3D drawing
             enableDraw3d(matrixFrameBuffer);
 
@@ -255,29 +259,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
 
             // Draw the current overlay scene
             getEngine().getSceneManager().drawOverlay();
-
-
-
-
-
-            // Enable line drawing mode
-            GL11.glBegin(GL11.GL_QUADS);
-
-            // Set the grid color
-            GL11.glColor3f(1, 0, 0);
-
-            // Draw the grid
-            GL11.glVertex3f(0, 0, 0);
-            GL11.glVertex3f(0.1f, 0, 0);
-            GL11.glVertex3f(0.1f, 0.1f, 0);
-            GL11.glVertex3f(0, 0.1f, 0);
-
-            // Finish drawing
-            GL11.glEnd();
-
-
-
-
 
             // Update the debug information
             updateDebug();
