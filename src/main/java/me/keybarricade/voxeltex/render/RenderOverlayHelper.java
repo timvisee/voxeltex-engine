@@ -63,9 +63,9 @@ public class RenderOverlayHelper {
 
         // Draw the grid
         GL11.glVertex3f(x, y, 0f);
-        GL11.glVertex3f(x + w, y, 0f);
-        GL11.glVertex3f(x + w, y + h, 0f);
         GL11.glVertex3f(x, y + h, 0f);
+        GL11.glVertex3f(x + w, y + h, 0f);
+        GL11.glVertex3f(x + w, y, 0f);
 
         // Finish drawing
         GL11.glEnd();

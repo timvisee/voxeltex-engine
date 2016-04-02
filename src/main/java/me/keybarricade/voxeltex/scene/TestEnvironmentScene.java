@@ -184,7 +184,7 @@ public class TestEnvironmentScene extends Scene {
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
         sandMaterial.getTiling().set(3.0f);
 
-        QuadPrefab quad = new QuadPrefab("Quad", new Vector2f(20.0f, 20.0f));
+        QuadPrefab quad = new QuadPrefab("SandSurface", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
         quad.addComponent(new RigidbodyComponent(true));
         addGameObject(quad);
