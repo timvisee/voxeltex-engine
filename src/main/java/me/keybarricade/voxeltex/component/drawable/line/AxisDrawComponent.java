@@ -47,18 +47,6 @@ public class AxisDrawComponent extends AbstractDrawableComponent {
     }
 
     @Override
-    public void create() { }
-
-    @Override
-    public void start() { }
-
-    @Override
-    public synchronized void update() { }
-
-    @Override
-    public void destroy() { }
-
-    @Override
     public synchronized void draw() {
         // Set the thickness of the axis drawn
         GL11.glLineWidth(this.lineWidth);
