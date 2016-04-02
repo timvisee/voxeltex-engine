@@ -152,7 +152,7 @@ public class TestEnvironmentScene extends Scene {
                 CubePrefab matrixBox = new CubePrefab();
                 matrixBox.getTransform().setPosition(new Vector3f(2 + 1.5f * j, 1, 7 - 1.5f * i));
                 matrixBox.setMaterial(boxMaterial);
-                matrixBox.addComponent(new RigidbodyComponent());
+//                matrixBox.addComponent(new RigidbodyComponent());
                 addGameObject(matrixBox);
             }
         }
