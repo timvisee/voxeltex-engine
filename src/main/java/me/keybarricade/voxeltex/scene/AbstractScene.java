@@ -138,6 +138,13 @@ public abstract class AbstractScene {
     public abstract void draw();
 
     /**
+     * Draw the scene overlay.
+     *
+     * This is called once each frame after updating the scene.
+     */
+    public abstract void drawOverlay();
+
+    /**
      * Get all game objects in this scene.
      *
      * @return Game objects.

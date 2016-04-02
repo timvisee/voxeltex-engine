@@ -141,4 +141,12 @@ public class Scene extends AbstractScene {
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
             this.gameObjects.get(i).draw();
     }
+
+    @Override
+    public void drawOverlay() {
+        // Draw the overlay of all game objects
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjects.size(); i < size; i++)
+            this.gameObjects.get(i).drawOverlay();
+    }
 }

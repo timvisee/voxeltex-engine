@@ -24,6 +24,7 @@ package me.keybarricade.voxeltex.gameobject;
 
 import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.component.drawable.DrawableComponentInterface;
+import me.keybarricade.voxeltex.component.overlay.OverlayComponentInterface;
 import me.keybarricade.voxeltex.global.MainCamera;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -364,6 +365,38 @@ public class GameObject extends AbstractGameObject {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
             this.children.get(i).draw();
+    }
+
+    @Override
+    public synchronized void drawOverlay() {
+        // Define whether we started drawing
+        boolean drawing = false;
+
+        // Draw all overlay components and all children
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.components.size(); i < size; i++) {
+            // Make sure the component is drawable
+            if(this.components.get(i) instanceof OverlayComponentInterface) {
+//                // Make sure the drawing mode is enabled
+//                if(!drawing) {
+//                    // Start the drawing process and set the flag
+//                    drawStart();
+//                    drawing = true;
+//                }
+
+                // Draw the component overlay
+                ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
+            }
+        }
+
+//        // End the drawing process if it was enabled
+//        if(drawing)
+//            drawEnd();
+
+        // Draw all children
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.children.size(); i < size; i++)
+            this.children.get(i).drawOverlay();
     }
 
     /**

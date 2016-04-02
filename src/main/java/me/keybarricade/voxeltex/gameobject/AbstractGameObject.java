@@ -286,6 +286,12 @@ public abstract class AbstractGameObject {
      */
     public abstract void draw();
 
+    /**
+     * Draw the game object overlay.
+     * This will be called once each frame after updating the game object.
+     */
+    public abstract void drawOverlay();
+
     @Override
     public String toString() {
         return "GameObject(" + getName() + ")";

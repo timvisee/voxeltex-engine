@@ -244,38 +244,21 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             this.window.glViewportDefault();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            // Enable alpha channel usages
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
             // Enable 3D drawing
             enableDraw3d(matrixFrameBuffer);
 
-            // Draw the current scene
+            // Draw the current 3D scene
             getEngine().getSceneManager().draw();
 
+            // Enable overlay drawing
+            enableDrawOverlay(matrixFrameBuffer);
 
-
-
-            // FIXME: Implement GUI and remove this code!
-
-            // Enable HUD drawing
-            enableDrawHud();
-
-            // Enable line drawing mode
-            GL11.glBegin(GL11.GL_QUADS);
-
-            // Set the grid color
-            GL11.glColor3f(1, 0, 0);
-
-            // Draw the grid
-            GL11.glVertex3f(0, 0, 0);
-            GL11.glVertex3f(0.1f, 0, 0);
-            GL11.glVertex3f(0.1f, 0.1f, 0);
-            GL11.glVertex3f(0, 0.1f, 0);
-
-            // Finish drawing
-            GL11.glEnd();
-
-
-
-
+            // Draw the current overlay scene
+            getEngine().getSceneManager().drawOverlay();
 
             // Update the debug information
             updateDebug();
@@ -288,6 +271,11 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         }
     }
 
+    /**
+     * Enable 3D drawing.
+     *
+     * @param matrixFrameBuffer Matrix frame buffer.
+     */
     private void enableDraw3d(FloatBuffer matrixFrameBuffer) {
         // Get the window width and height
         final int windowWidth = this.window.getWidth();
@@ -304,33 +292,29 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
                         .get(matrixFrameBuffer)
         );
         glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
 
         glEnable(GL11.GL_DEPTH_TEST);
         //glEnable(GL11.GL_LIGHTING);
     }
 
-    private void enableDrawHud() {
-        // Get the window width and height
-        final int windowWidth = this.window.getWidth();
-        final int windowHeight = this.window.getHeight();
-
+    /**
+     * Enable overlay drawing.
+     *
+     * @param matrixFrameBuffer Matrix frame buffer.
+     */
+    private void enableDrawOverlay(FloatBuffer matrixFrameBuffer) {
         // Disable lighting and depth testing because they aren't required in 2D mode
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
 
         // Enable the projection mode to configure the camera, and revert back to model view mode
         glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-//        glOrtho(0, windowWidth, 0, windowHeight, -1, 1);
-        glOrtho(0, 1, 0, 1, -1, 1);
-//        glLoadMatrixf(
-//                MainCamera.getProjectionMatrix()
-//                        .setPerspective(
-//                                (float) Math.toRadians(45),
-//                                (float) windowWidth / windowHeight,
-//                                0.01f, 100.0f)
-//                        .get(matrixFrameBuffer)
-//        );
+        glLoadMatrixf(
+                MainCamera.getProjectionMatrix()
+                        .setOrtho2D(0, 1, 1, 0)
+                        .get(matrixFrameBuffer)
+        );
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
     }
