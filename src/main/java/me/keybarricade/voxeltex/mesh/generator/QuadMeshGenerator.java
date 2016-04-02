@@ -181,7 +181,6 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
         // Generate the vertexes for the quad based on the specified orientation and return them
         switch (orientation) {
             case ORIENTATION_X_POSITIVE:
-            case ORIENTATION_X_NEGATIVE:
                 return new float[]{
                         // Left-bottom triangle
                         offset.x, offset.y - halfSize.x, offset.z + halfSize.y,
@@ -194,7 +193,32 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x, offset.y - halfSize.x, offset.z + halfSize.y
                 };
 
+            case ORIENTATION_X_NEGATIVE:
+                return new float[]{
+                        // Left-bottom triangle
+                        offset.x, offset.y + halfSize.x, offset.z - halfSize.y,
+                        offset.x, offset.y - halfSize.x, offset.z - halfSize.y,
+                        offset.x, offset.y - halfSize.x, offset.z + halfSize.y,
+
+                        // Right-top triangle
+                        offset.x, offset.y - halfSize.x, offset.z + halfSize.y,
+                        offset.x, offset.y + halfSize.x, offset.z + halfSize.y,
+                        offset.x, offset.y + halfSize.x, offset.z - halfSize.y
+                };
+
             case ORIENTATION_Y_POSITIVE:
+                return new float[]{
+                        // Left-bottom triangle
+                        offset.x + halfSize.x, offset.y, offset.z - halfSize.y,
+                        offset.x - halfSize.x, offset.y, offset.z - halfSize.y,
+                        offset.x - halfSize.x, offset.y, offset.z + halfSize.y,
+
+                        // Right-top triangle
+                        offset.x - halfSize.x, offset.y, offset.z + halfSize.y,
+                        offset.x + halfSize.x, offset.y, offset.z + halfSize.y,
+                        offset.x + halfSize.x, offset.y, offset.z - halfSize.y
+                };
+
             case ORIENTATION_Y_NEGATIVE:
                 return new float[]{
                         // Left-bottom triangle
@@ -209,7 +233,6 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                 };
 
             case ORIENTATION_Z_POSITIVE:
-            case ORIENTATION_Z_NEGATIVE:
                 return new float[]{
                         // Left-bottom triangle
                         offset.x - halfSize.x, offset.y + halfSize.y, offset.z,
@@ -220,6 +243,19 @@ public class QuadMeshGenerator extends AbstractMeshGenerator {
                         offset.x + halfSize.x, offset.y - halfSize.y, offset.z,
                         offset.x + halfSize.x, offset.y + halfSize.y, offset.z,
                         offset.x - halfSize.x, offset.y + halfSize.y, offset.z
+                };
+
+            case ORIENTATION_Z_NEGATIVE:
+                return new float[]{
+                        // Left-bottom triangle
+                        offset.x + halfSize.x, offset.y - halfSize.y, offset.z,
+                        offset.x - halfSize.x, offset.y - halfSize.y, offset.z,
+                        offset.x - halfSize.x, offset.y + halfSize.y, offset.z,
+
+                        // Right-top triangle
+                        offset.x - halfSize.x, offset.y + halfSize.y, offset.z,
+                        offset.x + halfSize.x, offset.y + halfSize.y, offset.z,
+                        offset.x + halfSize.x, offset.y - halfSize.y, offset.z
                 };
         }
 
