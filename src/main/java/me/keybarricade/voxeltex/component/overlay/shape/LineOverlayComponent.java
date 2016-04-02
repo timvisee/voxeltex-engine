@@ -31,6 +31,11 @@ import org.lwjgl.opengl.GL11;
 public class LineOverlayComponent extends AbstractOverlayComponent {
 
     /**
+     * Width of the line.
+     */
+    private float lineWidth = 1.0f;
+
+    /**
      * Line position.
      */
     // TODO: Use a 2D transform object.
@@ -68,12 +73,29 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
 
     @Override
     public void drawOverlay() {
-        // Line width
-        // TODO: Make line width configurable!
-        GL11.glLineWidth(2.0f);
+        // Set the thickness of the line drawn
+        GL11.glLineWidth(this.lineWidth);
 
         // Render the line
         RenderOverlayHelper.renderLine(this.position, this.size);
+    }
+
+    /**
+     * Get the line width.
+     *
+     * @return Line width.
+     */
+    public float getLineWidth() {
+        return this.lineWidth;
+    }
+
+    /**
+     * Set the line width.
+     *
+     * @param lineWidth Line width.
+     */
+    public void setLineWidth(float lineWidth) {
+        this.lineWidth = lineWidth;
     }
 
     /**
