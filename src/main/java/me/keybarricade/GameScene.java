@@ -95,7 +95,7 @@ public class GameScene extends Scene {
         playerObject.addComponent(new MeshFilterComponent(sphereMesh));
         playerObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.BLUE, 1, 1))));
         playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        playerObject.getTransform().setScale(0.5f, 0.5f, 0.5f);
+        playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
         playerObject.addComponent(new WasdMovementComponent());
         addGameObject(playerObject);
 
