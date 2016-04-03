@@ -164,6 +164,6 @@ public abstract class AbstractComponent {
 
     @Override
     public String toString() {
-        return "Component(" + getName() + ")";
+        return "Component[" + getName() + "]";
     }
 }
