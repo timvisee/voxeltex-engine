@@ -74,8 +74,13 @@ public class BitmapFont {
      */
     public Material getMaterial() {
         // Make sure a texture material has been created
-        if(this.material == null)
+        if(this.material == null) {
+            // Show a status message
+            System.out.println("Creating bitmap material for '" + getName() + "' font...");
+
+            // Create the actual material
             this.material = new Material(this.texture);
+        }
 
         // TODO: Load the proper shader!
 
