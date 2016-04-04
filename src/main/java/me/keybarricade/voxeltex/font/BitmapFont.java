@@ -22,9 +22,15 @@
 
 package me.keybarricade.voxeltex.font;
 
+import me.keybarricade.voxeltex.ini.IniConfig;
 import me.keybarricade.voxeltex.texture.Texture;
 
 public class BitmapFont {
+
+    /**
+     * Bitmap font tile size.
+     */
+    public static final int BITMAP_FONT_TILE_SIZE = 16;
 
     /**
      * The texture name.
@@ -35,6 +41,11 @@ public class BitmapFont {
      * The texture texture.
      */
     private Texture texture;
+
+    /**
+     * Font widths.
+     */
+    private BitmapFontWidths widths;
 
     /**
      * Font material.
@@ -48,8 +59,25 @@ public class BitmapFont {
      * @param fontTexture Font texture.
      */
     public BitmapFont(String name, Texture fontTexture) {
+        this(name, fontTexture, null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param name Font name.
+     * @param fontTexture Font texture.
+     */
+    public BitmapFont(String name, Texture fontTexture, IniConfig fontWidthsConfig) {
+        // Set the name and texture fields
         this.name = name;
         this.texture = fontTexture;
+
+        // Create and load the font widths configuration
+        if(fontWidthsConfig != null)
+            this.widths = new BitmapFontWidths(fontTexture, fontWidthsConfig);
+        else
+            this.widths = new BitmapFontWidths(fontTexture);
     }
 
     /**
@@ -103,9 +131,18 @@ public class BitmapFont {
             this.material = new BitmapFontMaterial(this.texture);
         }
 
-        // TODO: Load the proper shader!
+        // TODO: Load the proper shader?
 
         // Return the material
         return this.material;
+    }
+
+    /**
+     * Get the font widths manager.
+     *
+     * @return Font widths.
+     */
+    public BitmapFontWidths getFontWidths() {
+        return this.widths;
     }
 }

@@ -22,8 +22,16 @@
 
 package me.keybarricade.voxeltex.font;
 
+import me.keybarricade.voxeltex.ini.IniConfig;
+import me.keybarricade.voxeltex.ini.IniParser;
+import me.keybarricade.voxeltex.resource.engine.EngineAssetLoader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class BitmapFontLoader {
 
@@ -41,7 +49,22 @@ public class BitmapFontLoader {
         // Create a bitmap font texture
         Texture fontTexture = Texture.fromImage(fontImage);
 
-        // Create and return the bitmap font
-        return new BitmapFont(fontName, fontTexture);
+        // Load the font widths configuration
+        InputStream iniStream = EngineAssetLoader.getInstance().loadResourceStream("font/bitmap/" + fontName + ".ini");
+
+        try {
+            // Load and parse the ini configuration
+            System.out.println("Loading font character widths...");
+            IniConfig iniConfig = IniParser.parse(new BufferedReader(new InputStreamReader(iniStream)));
+
+            // Create and return the bitmap font
+            return new BitmapFont(fontName, fontTexture, iniConfig);
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        // Failed, throw a runtime exception
+        throw new RuntimeException("Failed to load font.");
     }
 }

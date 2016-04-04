@@ -73,6 +73,16 @@ public class BitmapFontMaterial extends Material {
      * @param c Character.
      */
     public void bind(char c) {
+        bind(c, 1.0f);
+    }
+
+    /**
+     * Character to draw with this material.
+     *
+     * @param c Character.
+     * @param characterWidthFactor Character width factor.
+     */
+    public void bind(char c, float characterWidthFactor) {
         // Bind the parent
         super.bind();
 
@@ -81,5 +91,8 @@ public class BitmapFontMaterial extends Material {
 
         // Send the tile position to the font shader
         getShader().setUniform4f("color", this.color.toVector4f());
+
+        // Send the character width factor
+        getShader().setUniform1f("charWidth", characterWidthFactor);
     }
 }

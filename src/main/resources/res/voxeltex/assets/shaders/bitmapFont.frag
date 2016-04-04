@@ -28,15 +28,19 @@ uniform vec2 tiling = vec2(1.0, 1.0);
 uniform vec2 tileSize = vec2(16.0, 16.0);
 uniform vec2 tilePosition = vec2(1.0, 4.0);
 uniform vec4 color = vec4(1);
+uniform float charWidth = 1f;
 
 // Fragment position data
 varying vec4 position;
 
 void main(void) {
-    // Calculate the proper tile position
-    vec2 tilePosMapped = vec2(tilePosition / tileSize);
+    // Calculate the character offset and it's centered offset
+    vec2 charOffset = vec2(tilePosition / tileSize);
+    vec2 charOffsetSized = charOffset + vec2(1.0 / tileSize.x * (1.0 - charWidth) / 2.0, 0);
+
+    // Create the character width factor vector
+    vec2 charSizeFactor = vec2(charWidth, 1.0);
 
     // Determine and set the fragment color
-    // TODO: Make font color configurable!
-    gl_FragColor = texture2D(texture, gl_TexCoord[0].st * tiling / tileSize + tilePosMapped) * color;
+    gl_FragColor = texture2D(texture, gl_TexCoord[0].st * tiling / tileSize * charSizeFactor + charOffsetSized) * color;
 }

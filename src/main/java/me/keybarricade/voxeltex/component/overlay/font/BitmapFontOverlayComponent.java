@@ -69,6 +69,7 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
         this.text = text;
         this.font = BitmapFontManager.getDefault();
 
+        // TODO: Configure the position and size!
         this.position.set(0.1f);
         this.size.set(0.4f, 0.4f);
     }
@@ -111,12 +112,15 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
         Vector2f size = new Vector2f(0.04f, 0.05f);
 
         // Apply the font color to the material
-        font.getMaterial().setColor(this.color);
+        this.font.getMaterial().setColor(this.color);
 
         // Bind and render each character separately
         for(int i = 0; i < text.length(); i++) {
-            // Bind the font material with the current character
-            font.getMaterial().bind(text.charAt(i));
+            // Get the current character
+            char c = text.charAt(i);
+
+            // Bind the font material with the current character and the proper character width
+            this.font.getMaterial().bind(c, this.font.getFontWidths().getCharacterWidthFactor(c));
 
             // Render the rectangle
             RenderOverlayHelper.renderRectangle(position.x + size.x * i, position.y, size.x, size.y);

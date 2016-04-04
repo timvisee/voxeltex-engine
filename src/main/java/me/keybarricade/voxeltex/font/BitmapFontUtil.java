@@ -22,7 +22,6 @@
 
 package me.keybarricade.voxeltex.font;
 
-import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
 import org.joml.Vector2f;
 
 public class BitmapFontUtil {
@@ -50,8 +49,8 @@ public class BitmapFontUtil {
 
         // Determine the character position on the bitmap
         return new Vector2f(
-                charIndex % BitmapFontShader.BITMAP_FONT_TILE_SIZE,
-                charIndex / BitmapFontShader.BITMAP_FONT_TILE_SIZE
+                charIndex % BitmapFont.BITMAP_FONT_TILE_SIZE,
+                charIndex / BitmapFont.BITMAP_FONT_TILE_SIZE
         );
     }
 }
