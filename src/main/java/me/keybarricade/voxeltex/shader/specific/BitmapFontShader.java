@@ -70,9 +70,6 @@ public class BitmapFontShader extends Shader {
         // Call the parent
         super.update(scene, material);
 
-        // Send the lighting data to the shader
-        scene.getLightManager().sendToShader(this);
-
         // Send texture tiling data to the shader
         if(material != null)
             setUniform2f("tiling", material.getTiling());
