@@ -20,35 +20,61 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.shader;
+package me.keybarricade.voxeltex.shader.specific;
 
-import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
-import me.keybarricade.voxeltex.shader.specific.DefaultShader;
-import me.keybarricade.voxeltex.shader.specific.TexturedShader;
+import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.scene.AbstractScene;
+import me.keybarricade.voxeltex.shader.Shader;
+import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
+import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
 
-public class ShaderManager {
-
-    /**
-     * Default shader.
-     */
-    public static Shader SHADER_DEFAULT;
+public class BitmapFontShader extends Shader {
 
     /**
-     * Default textured shader.
+     * The engine asset path of the vertex shader.
      */
-    public static Shader SHADER_DEFAULT_TEXTURED;
+    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/bitmapFont.vert";
 
     /**
-     * Default bitmap font shader.
+     * The engine asset path of the fragment shader.
      */
-    public static Shader SHADER_DEFAULT_BITMAP_FONT;
+    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/bitmapFont.frag";
 
     /**
-     * Load the engine shaders.
+     * Constructor.
      */
-    public static void load() {
-        SHADER_DEFAULT = new DefaultShader();
-        SHADER_DEFAULT_TEXTURED = new TexturedShader();
-        SHADER_DEFAULT_BITMAP_FONT = new BitmapFontShader();
+    public BitmapFontShader() {
+        this(new EngineAssetsRawShader(SHADER_VERTEX_ASSET_PATH, SHADER_FRAGMENT_ASSET_PATH));
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param programId OpenGL shader program ID.
+     */
+    public BitmapFontShader(int programId) {
+        super(programId);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param rawShader Raw shader.
+     */
+    public BitmapFontShader(AbstractRawShader rawShader) {
+        super(rawShader);
+    }
+
+    @Override
+    public void update(AbstractScene scene, Material material) {
+        // Call the parent
+        super.update(scene, material);
+
+        // Send the lighting data to the shader
+        scene.getLightManager().sendToShader(this);
+
+        // Send texture tiling data to the shader
+        if(material != null)
+            setUniform2f("tiling", material.getTiling());
     }
 }
