@@ -69,7 +69,6 @@ public class TestEnvironmentScene extends Scene {
             suzanneObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.RED, 1, 1))));
             suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
             suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
-            suzanneObject.getTransform().getScale().set(2, 1, 1);
             suzanneRoot.addChild(suzanneObject);
         }
 
@@ -211,7 +210,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Overlay test
         GameObject overlayTest = new GameObject("OverlayTest");
-        overlayTest.addComponent(new BitmapFontOverlayComponent("A GPU string! :D YAY"));
+        overlayTest.addComponent(new BitmapFontOverlayComponent("A GPU string! :D YAY", Color.RED));
         addGameObject(overlayTest);
     }
 }

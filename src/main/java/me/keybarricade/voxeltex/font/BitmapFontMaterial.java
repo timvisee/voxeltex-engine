@@ -30,6 +30,11 @@ import me.keybarricade.voxeltex.util.Color;
 public class BitmapFontMaterial extends Material {
 
     /**
+     * Font color.
+     */
+    private Color color = Color.WHITE;
+
+    /**
      * Constructor.
      *
      * @param fontTexture Font texture.
@@ -37,6 +42,24 @@ public class BitmapFontMaterial extends Material {
     public BitmapFontMaterial(Texture fontTexture) {
         // Construct the super
         super(ShaderManager.SHADER_DEFAULT_BITMAP_FONT, fontTexture);
+    }
+
+    /**
+     * Get the current font rendering color.
+     *
+     * @return Font color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Font color.
+     *
+     * @param color Font color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
@@ -57,6 +80,6 @@ public class BitmapFontMaterial extends Material {
         getShader().setUniform2f("tilePosition", BitmapFontUtil.getCharCoords(c));
 
         // Send the tile position to the font shader
-        getShader().setUniform4f("color", Color.random().toVector4f());
+        getShader().setUniform4f("color", this.color.toVector4f());
     }
 }

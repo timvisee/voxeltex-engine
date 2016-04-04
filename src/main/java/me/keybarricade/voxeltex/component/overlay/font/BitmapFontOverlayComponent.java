@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.font.BitmapFont;
 import me.keybarricade.voxeltex.font.BitmapFontManager;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 
 public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
@@ -41,6 +42,11 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
      * Text to render.
      */
     private String text = "";
+
+    /**
+     * Font color.
+     */
+    private Color color = Color.WHITE;
 
     /**
      * Rectangle position.
@@ -62,6 +68,7 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     public BitmapFontOverlayComponent(String text) {
         this.text = text;
         this.font = BitmapFontManager.getDefault();
+
         this.position.set(0.1f);
         this.size.set(0.4f, 0.4f);
     }
@@ -69,30 +76,42 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     /**
      * Constructor.
      *
-     * @param x Rectangle X position.
-     * @param y Rectangle Y position.
-     * @param w Rectangle width.
-     * @param h Rectangle height.
+     * @param text Text to render.
+     * @param color Font color.
      */
-    public BitmapFontOverlayComponent(float x, float y, float w, float h) {
-        this.position.set(x, y);
-        this.size.set(w, h);
+    public BitmapFontOverlayComponent(String text, Color color) {
+        this.text = text;
+        this.font = BitmapFontManager.getDefault();
+        this.color = color;
+
+        this.position.set(0.1f);
+        this.size.set(0.4f, 0.4f);
     }
 
     /**
-     * Constructor.
+     * Get the font color.
      *
-     * @param position Rectangle position.
-     * @param size Rectangle size.
+     * @return Font color.
      */
-    public BitmapFontOverlayComponent(Vector2f position, Vector2f size) {
-        this.position.set(position);
-        this.size.set(size);
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the font color.
+     *
+     * @param color Font color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
     public void drawOverlay() {
         Vector2f size = new Vector2f(0.04f, 0.05f);
+
+        // Apply the font color to the material
+        font.getMaterial().setColor(this.color);
 
         // Bind and render each character separately
         for(int i = 0; i < text.length(); i++) {
