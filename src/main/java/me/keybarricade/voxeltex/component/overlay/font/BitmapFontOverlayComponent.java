@@ -117,13 +117,19 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
         // Bind and render each character separately
         for(int i = 0; i < text.length(); i++) {
             // Get the current character
-            char c = text.charAt(i);
+            final char c = text.charAt(i);
+
+            // Calculate the width factor of the current character
+            final float widthFactor = this.font.getFontWidths().getCharacterWidthFactor(c);
 
             // Bind the font material with the current character and the proper character width
-            this.font.getMaterial().bind(c, this.font.getFontWidths().getCharacterWidthFactor(c));
+            this.font.getMaterial().bind(c, widthFactor);
+
+            // Calculate the character width offset
+            final float characterWidthOffset = size.x * this.font.getFontWidths().getStringWidthFactor(text.substring(0, i));
 
             // Render the rectangle
-            RenderOverlayHelper.renderRectangle(position.x + size.x * i, position.y, size.x, size.y);
+            RenderOverlayHelper.renderRectangle(position.x + characterWidthOffset, position.y, size.x * widthFactor, size.y);
         }
     }
 

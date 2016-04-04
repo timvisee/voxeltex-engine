@@ -40,7 +40,7 @@ public class BitmapFontWidths {
     /**
      * Default font width.
      */
-    private int maxCharacterWidth;
+    private int maxCharacterWidth = 64;
 
     /**
      * Font widths.
@@ -110,7 +110,7 @@ public class BitmapFontWidths {
      *
      * @param c Character.
      *
-     * @return Character width.
+     * @return Character width factor.
      */
     public float getCharacterWidthFactor(char c) {
         return getCharacterWidthFactor(BitmapFontUtil.getCharIndex(c));
@@ -121,7 +121,7 @@ public class BitmapFontWidths {
      *
      * @param c Character index.
      *
-     * @return Character width.
+     * @return Character width factor.
      */
     public float getCharacterWidthFactor(int c) {
         // Return the default width if the width hasn't been configured for this character
@@ -130,5 +130,28 @@ public class BitmapFontWidths {
 
         // Return the character width
         return (float) this.widths[c] / (float) this.maxCharacterWidth;
+    }
+
+    /**
+     * Get the string width factor for the given string.
+     *
+     * @param str String.
+     *
+     * @return String width factor.
+     */
+    public float getStringWidthFactor(String str) {
+        // Return zero if the string is empty
+        if(str.length() == 0)
+            return 0.0f;
+
+        // Define a variable to accumulate the string with in
+        float stringWidthFactor = 0.0f;
+
+        // Loop through the string
+        for(int i = 0; i < str.length(); i++)
+            stringWidthFactor += getCharacterWidthFactor(str.charAt(i));
+
+        // Return the string width factor
+        return stringWidthFactor;
     }
 }
