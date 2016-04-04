@@ -292,7 +292,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
                         .setPerspective(
                                 (float) Math.toRadians(45),
                                 (float) windowWidth / windowHeight,
-                                0.01f, 100.0f)
+                                0.01f, 1000.0f)
                         .get(matrixFrameBuffer)
         );
         glMatrixMode(GL_MODELVIEW);
