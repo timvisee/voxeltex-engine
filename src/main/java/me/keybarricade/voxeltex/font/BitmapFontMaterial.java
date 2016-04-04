@@ -23,7 +23,9 @@
 package me.keybarricade.voxeltex.font;
 
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 
 public class BitmapFontMaterial extends Material {
 
@@ -34,8 +36,27 @@ public class BitmapFontMaterial extends Material {
      */
     public BitmapFontMaterial(Texture fontTexture) {
         // Construct the super
-        super(fontTexture);
+        super(ShaderManager.SHADER_DEFAULT_BITMAP_FONT, fontTexture);
+    }
 
-        // TODO: Load the proper font shader!
+    @Override
+    public void bind() {
+        this.bind('?');
+    }
+
+    /**
+     * Character to draw with this material.
+     *
+     * @param c Character.
+     */
+    public void bind(char c) {
+        // Bind the parent
+        super.bind();
+
+        // Send the tile position to the font shader
+        getShader().setUniform2f("tilePosition", BitmapFontUtil.getCharCoords(c));
+
+        // Send the tile position to the font shader
+        getShader().setUniform4f("color", Color.random().toVector4f());
     }
 }

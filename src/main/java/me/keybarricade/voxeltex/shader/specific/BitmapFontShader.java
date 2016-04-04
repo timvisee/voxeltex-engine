@@ -31,6 +31,11 @@ import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
 public class BitmapFontShader extends Shader {
 
     /**
+     * Bitmap font tile size.
+     */
+    public static final int BITMAP_FONT_TILE_SIZE = 16;
+
+    /**
      * The engine asset path of the vertex shader.
      */
     private static final String SHADER_VERTEX_ASSET_PATH = "shaders/bitmapFont.vert";

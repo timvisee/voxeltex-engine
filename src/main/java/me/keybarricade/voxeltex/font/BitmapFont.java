@@ -22,7 +22,6 @@
 
 package me.keybarricade.voxeltex.font;
 
-import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.texture.Texture;
 
 public class BitmapFont {
@@ -40,7 +39,7 @@ public class BitmapFont {
     /**
      * Font material.
      */
-    private Material material;
+    private BitmapFontMaterial material = null;
 
     /**
      * Constructor.
@@ -94,14 +93,14 @@ public class BitmapFont {
      *
      * @return Bitmap texture material.
      */
-    public Material getMaterial() {
+    public BitmapFontMaterial getMaterial() {
         // Make sure a texture material has been created
         if(this.material == null) {
             // Show a status message
             System.out.println("Creating bitmap material for '" + getName() + "' font...");
 
             // Create the actual material
-            this.material = new Material(this.texture);
+            this.material = new BitmapFontMaterial(this.texture);
         }
 
         // TODO: Load the proper shader!

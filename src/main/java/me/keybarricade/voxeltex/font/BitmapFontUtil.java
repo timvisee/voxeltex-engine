@@ -22,54 +22,36 @@
 
 package me.keybarricade.voxeltex.font;
 
-import java.util.ArrayList;
-import java.util.List;
+import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
+import org.joml.Vector2f;
 
-public class BitmapFontManager {
-
+public class BitmapFontUtil {
     /**
-     * Name of the default font.
+     * Get the index of the given character.
+     *
+     * @param c Character.
+     *
+     * @return Character index.
      */
-    public static final String DEFAULT_FONT = "Arial";
-
-    /**
-     * List of loaded bitmap fonts.
-     */
-    private static List<BitmapFont> fonts = new ArrayList<>();
-
-    static {
-        // Load the default font on start
-        loadFont(DEFAULT_FONT);
+    public static int getCharIndex(char c) {
+        return (int) c;
     }
 
     /**
-     * Get the main bitmap font.
+     * Get the bitmap tile position of the given character.
      *
-     * @return Main bitmap font.
-     */
-    public static BitmapFont getDefault() {
-        return fonts.get(0);
-    }
-
-    /**
-     * Add a bitmap font to the manager.
+     * @param c Character.
      *
-     * @param font Bitmap font.
+     * @return Bitmap tile position.
      */
-    public static void addFont(BitmapFont font) {
-        fonts.add(font);
-    }
+    public static Vector2f getCharCoords(char c) {
+        // Calculate the character index
+        final int charIndex = getCharIndex(c);
 
-    /**
-     * Load a bitmap font with the given name.
-     *
-     * @param fontName Bitmap font name.
-     */
-    public static void loadFont(String fontName) {
-        // Show a status message
-        System.out.println("Loading bitmap font '" + fontName + "'...");
-
-        // Load and add the font
-        addFont(BitmapFontLoader.loadFont(fontName));
+        // Determine the character position on the bitmap
+        return new Vector2f(
+                charIndex % BitmapFontShader.BITMAP_FONT_TILE_SIZE,
+                charIndex / BitmapFontShader.BITMAP_FONT_TILE_SIZE
+        );
     }
 }

@@ -28,8 +28,7 @@ import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
+import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
@@ -212,8 +211,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Overlay test
         GameObject overlayTest = new GameObject("OverlayTest");
-        overlayTest.addComponent(new RectangleOverlayComponent(0.475f, 0.475f, 0.05f, 0.05f));
-        overlayTest.addComponent(new LineOverlayComponent(0.475f, 0.475f, 0.05f, 0.05f));
+        overlayTest.addComponent(new BitmapFontOverlayComponent("A GPU string! :D YAY"));
         addGameObject(overlayTest);
     }
 }
