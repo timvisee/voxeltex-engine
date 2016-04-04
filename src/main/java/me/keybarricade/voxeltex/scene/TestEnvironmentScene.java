@@ -210,7 +210,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Overlay test
         GameObject overlayTest = new GameObject("OverlayTest");
-        overlayTest.addComponent(new BitmapFontOverlayComponent("GPU string rendering", Color.RED));
+        overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.1f, 0.1f), 0.04f, "GPU string rendering", Color.RED));
         addGameObject(overlayTest);
     }
 }

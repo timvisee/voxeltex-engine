@@ -58,20 +58,18 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
      * Rectangle size.
      */
     // TODO: Use a 2D transform object.
-    private Vector2f size = Vector2fFactory.identity();
+    private float size;
 
     /**
      * Constructor.
      *
      * @param text Text to render.
      */
-    public BitmapFontOverlayComponent(String text) {
+    public BitmapFontOverlayComponent(Vector2f position, float size, String text) {
+        this.position.set(position);
+        this.size = size;
         this.text = text;
         this.font = BitmapFontManager.getDefault();
-
-        // TODO: Configure the position and size!
-        this.position.set(0.1f);
-        this.size.set(0.4f, 0.4f);
     }
 
     /**
@@ -80,13 +78,12 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
      * @param text Text to render.
      * @param color Font color.
      */
-    public BitmapFontOverlayComponent(String text, Color color) {
+    public BitmapFontOverlayComponent(Vector2f position, float size, String text, Color color) {
+        this.position.set(position);
+        this.size = size;
         this.text = text;
         this.font = BitmapFontManager.getDefault();
         this.color = color;
-
-        this.position.set(0.1f);
-        this.size.set(0.4f, 0.4f);
     }
 
     /**
@@ -109,8 +106,6 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
 
     @Override
     public void drawOverlay() {
-        Vector2f size = new Vector2f(0.04f, 0.05f);
-
         // Apply the font color to the material
         this.font.getMaterial().setColor(this.color);
 
@@ -126,10 +121,10 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
             this.font.getMaterial().bind(c, widthFactor);
 
             // Calculate the character width offset
-            final float characterWidthOffset = size.x * this.font.getFontWidths().getStringWidthFactor(text.substring(0, i));
+            final float characterWidthOffset = this.size * this.font.getFontWidths().getStringWidthFactor(text.substring(0, i));
 
             // Render the rectangle
-            RenderOverlayHelper.renderRectangle(position.x + characterWidthOffset, position.y, size.x * widthFactor, size.y);
+            RenderOverlayHelper.renderRectangle(position.x + characterWidthOffset, position.y, this.size * widthFactor, this.size);
         }
     }
 
@@ -188,20 +183,20 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     }
 
     /**
-     * Get the size of the rectangle.
+     * Get the size of the font.
      *
      * @return Size.
      */
-    public Vector2f getSize() {
+    public float getSize() {
         return this.size;
     }
 
     /**
-     * Set the size of the rectangle.
+     * Set the size of the font.
      *
      * @param size Size.
      */
-    public void setSize(Vector2f size) {
+    public void setSize(float size) {
         this.size = size;
     }
 }
