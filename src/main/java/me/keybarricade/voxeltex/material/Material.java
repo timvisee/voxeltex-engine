@@ -23,6 +23,7 @@
 package me.keybarricade.voxeltex.material;
 
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
+import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.texture.Texture;
@@ -162,5 +163,10 @@ public class Material implements MaterialInterface {
 
         // Unbind the shader
         this.shader.unbind();
+    }
+
+    @Override
+    public void update(AbstractScene scene) {
+        this.shader.update(scene, this);
     }
 }

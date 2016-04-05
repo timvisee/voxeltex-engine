@@ -41,6 +41,11 @@ public class GuiTextureShader extends Shader {
     private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/guiTexture.frag";
 
     /**
+     * Alpha channel intensity.
+     */
+    private float alpha = 1.0f;
+
+    /**
      * Constructor.
      */
     public GuiTextureShader() {
@@ -73,5 +78,26 @@ public class GuiTextureShader extends Shader {
         // Send texture tiling data to the shader
         if(material != null)
             setUniform2f("tiling", material.getTiling());
+
+        // Send the alpha channel intensity
+        setUniform1f("alpha", this.alpha);
+    }
+
+    /**
+     * Get the alpha channel intensity.
+     *
+     * @return Alpha channel intensity.
+     */
+    public float getAlpha() {
+        return this.alpha;
+    }
+
+    /**
+     * Set the alpha channel intensity.
+     *
+     * @param alpha Alpha channel intensity.
+     */
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 }

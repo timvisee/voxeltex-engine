@@ -47,6 +47,7 @@ public class GuiPanelComponent extends AbstractGuiComponent {
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
             // Get the transform
+            // TODO: Buffer this
             getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
 
             // Render the rectangle

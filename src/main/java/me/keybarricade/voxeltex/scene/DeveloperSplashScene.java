@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.SplashAnimationComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
@@ -48,6 +49,7 @@ public class DeveloperSplashScene extends Scene {
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
         avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
+        avatarImage.addComponent(new SplashAnimationComponent());
         addGameObject(avatarImage);
     }
 }

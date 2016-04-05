@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.shader.ShaderManager;
+import me.keybarricade.voxeltex.shader.specific.GuiTextureShader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 
@@ -36,6 +37,11 @@ public class GuiImageComponent extends AbstractGuiComponent {
      * GUI image material.
      */
     private Material material = new Material(ShaderManager.SHADER_DEFAULT_GUI_TEXTURE);
+
+    /**
+     * Alpha channel intensity.
+     */
+    private float alpha = 1f;
 
     /**
      * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
@@ -80,9 +86,19 @@ public class GuiImageComponent extends AbstractGuiComponent {
         if(this.material != null)
             this.material.bind();
 
+        // Set the alpha level if this is an GUI texture shader
+        if(this.material != null && this.material.getShader() instanceof GuiTextureShader) {
+            // Set the alpha intensity
+            ((GuiTextureShader) this.material.getShader()).setAlpha(this.alpha);
+
+            // Update the shader
+            this.material.update(getScene());
+        }
+
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
             // Get the transform
+            // TODO: Buffer this
             getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
 
             // Render the rectangle
@@ -136,5 +152,23 @@ public class GuiImageComponent extends AbstractGuiComponent {
      */
     public void setImage(Image image) {
         setTexture(Texture.fromImage(image));
+    }
+
+    /**
+     * Get the alpha channel intensity.
+     *
+     * @return Alpha channel intensity.
+     */
+    public float getAlpha() {
+        return this.alpha;
+    }
+
+    /**
+     * Set the alpha channel intensity.
+     *
+     * @param alpha Alpha channel intensity.
+     */
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 }

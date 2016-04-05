@@ -24,12 +24,13 @@
 
 // Texture and tiling data
 uniform sampler2D texture;
-uniform vec2 tiling = vec2(1.0, 1.0);
+uniform vec2 tiling = vec2(1f, 1f);
+uniform float alpha = 1f;
 
 // Fragment position data
 varying vec4 position;
 
 void main(void) {
     // Determine and set the fragment color
-    gl_FragColor = texture2D(texture, gl_TexCoord[0].st * tiling);
+    gl_FragColor = texture2D(texture, gl_TexCoord[0].st * tiling) * vec4(1f, 1f, 1f, alpha);
 }
