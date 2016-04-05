@@ -24,6 +24,7 @@ package me.keybarricade.voxeltex.component.transform;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
+import me.keybarricade.voxeltex.render.OverlayUtil;
 import org.joml.Vector2f;
 
 public class RectangleTransform extends BaseComponent {
@@ -187,12 +188,30 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
+     * Get the position X field in overlay space.
+     *
+     * @return Position X in overlay space.
+     */
+    public float getPositionXOverlay() {
+        return OverlayUtil.pixelToOverlayHorizontal(this.position.x);
+    }
+
+    /**
      * Get the position left field.
      *
      * @return Position left.
      */
     public float getPositionLeft() {
         return this.position.x;
+    }
+
+    /**
+     * Get the position left field in overlay space.
+     *
+     * @return Position left in overlay space.
+     */
+    public float getPositionLeftOverlay() {
+        return OverlayUtil.pixelToOverlayHorizontal(this.position.x);
     }
 
     /**
@@ -205,12 +224,30 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
+     * Get the position Y field in overlay space.
+     *
+     * @return Position Y in overlay space.
+     */
+    public float getPositionYOverlay() {
+        return OverlayUtil.pixelToOverlayVertical(this.position.y);
+    }
+
+    /**
      * Get the position top field.
      *
      * @return Position top.
      */
     public float getPositionTop() {
         return this.position.y;
+    }
+
+    /**
+     * Get the position top field in overlay space.
+     *
+     * @return Position top in overlay space.
+     */
+    public float getPositionTopOverlay() {
+        return OverlayUtil.pixelToOverlayVertical(this.position.y);
     }
 
     /**
@@ -277,12 +314,30 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
+     * Get the size width field in overlay space.
+     *
+     * @return Size width in overlay space.
+     */
+    public float getSizeWidthOverlay() {
+        return OverlayUtil.pixelToOverlayHorizontal(this.size.x);
+    }
+
+    /**
      * Get the size right field.
      *
      * @return Size right.
      */
     public float getSizeRight() {
         return this.size.x;
+    }
+
+    /**
+     * Get the size right field in overlay space.
+     *
+     * @return Size right in overlay space.
+     */
+    public float getSizeRightOverlay() {
+        return OverlayUtil.pixelToOverlayHorizontal(this.size.x);
     }
 
     /**
@@ -295,12 +350,30 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
+     * Get the size height field in overlay space.
+     *
+     * @return Size height in overlay space.
+     */
+    public float getSizeHeightOverlay() {
+        return OverlayUtil.pixelToOverlayVertical(this.size.y);
+    }
+
+    /**
      * Get the size bottom field.
      *
      * @return Size bottom.
      */
     public float getSizeBottom() {
         return this.size.y;
+    }
+
+    /**
+     * Get the size bottom field in overlay space.
+     *
+     * @return Size bottom in overlay space.
+     */
+    public float getSizeBottomOverlay() {
+        return OverlayUtil.pixelToOverlayVertical(this.size.y);
     }
 
     /**
@@ -444,5 +517,117 @@ public class RectangleTransform extends BaseComponent {
             // Get the child's rectangle transform component if available, then update
             if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
                 childTransform.setParentTransform(null);
+    }
+
+
+    /**
+     * Get the overlay rectangle of this rectangle transform.
+     * The parent transform is taken in consideration if available.
+     *
+     * This method allocates a new vector and should thus be used with caution,
+     * use the allocation free variant when possible.
+     *
+     * @return Overlay rectangle.
+     */
+    public Rectangle getOverlayRectangle() {
+        return getOverlayRectangle(new Rectangle());
+    }
+
+    /**
+     * Get the overlay rectangle of this rectangle transform.
+     * The parent transform is taken in consideration if available.
+     *
+     * @param dest Destination rectangle. (allocation free)
+     *
+     * @return Overlay rectangle.
+     */
+    public Rectangle getOverlayRectangle(Rectangle dest) {
+        // Get the parent overlay rectangle
+        // TODO: Use temp!
+        Rectangle parentRectangle = getParentOverlayRectangle(new Rectangle());
+
+        // Define the X, Y, width and height variables
+        float x, y, w, h;
+
+        // Calculate the horizontal positioning
+        switch(getHorizontalAnchorPreset()) {
+            case LEFT:
+                x = parentRectangle.getX() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
+                w = getSizeWidthOverlay();
+                break;
+
+            case RIGHT:
+                x = parentRectangle.getX() + parentRectangle.getWidth() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
+                w = getSizeWidthOverlay();
+                break;
+
+            case CENTER:
+                x = parentRectangle.getX() + parentRectangle.getWidth() / 2.0f + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
+                w = getSizeWidthOverlay();
+                break;
+
+            default:
+            case STRETCH:
+                x = parentRectangle.getX() + getPositionLeftOverlay();
+                w = parentRectangle.getWidth() - getPositionLeftOverlay() - getSizeRightOverlay();
+                break;
+        }
+
+        // Calculate the vertical positioning
+        switch(getVerticalAnchorPreset()) {
+            case BOTTOM:
+                y = parentRectangle.getY() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+                h = getSizeHeightOverlay();
+                break;
+
+            case MIDDLE:
+                y = parentRectangle.getY() + parentRectangle.getHeight() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+                h = getSizeHeightOverlay();
+                break;
+
+            case TOP:
+                y = parentRectangle.getY() + parentRectangle.getHeight() / 2.0f + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+                h = getSizeHeightOverlay();
+                break;
+
+            default:
+            case STRETCH:
+                y = parentRectangle.getY() + getSizeBottomOverlay();
+                h = parentRectangle.getHeight() - getSizeBottomOverlay() - getPositionTopOverlay();
+                break;
+        }
+
+        // Set and return the rectangle
+        return dest.set(x, y, w, h);
+    }
+
+    /**
+     * Get the overlay rectangle of the parent transform if available.
+     * if this rectangle transform doesn't have a parent, the default will be returned (filling the whole overlay).
+     *
+     * This method allocates a new vector and should thus be used with caution,
+     * use the allocation free variant when possible.
+     *
+     * @return Overlay rectangle of the parent.
+     */
+    public Rectangle getParentOverlayRectangle() {
+        return getParentOverlayRectangle(new Rectangle());
+    }
+
+    /**
+     * Get the overlay rectangle of the parent transform if available.
+     * If this rectangle transform doesn't have a parent, the default will be returned (filling the whole overlay).
+     *
+     * @param dest Destination rectangle. (allocation free)
+     *
+     * @return Overlay rectangle of the parent.
+     */
+    public Rectangle getParentOverlayRectangle(Rectangle dest) {
+        // Set the default if this rectangle transform doesn't have a parent
+        if(!hasParentTransform())
+            return dest.set(0, 0, 1, 1);
+
+        // Get and use the parent overlay rectangle
+        return getParentTransform().getOverlayRectangle(dest);
     }
 }
