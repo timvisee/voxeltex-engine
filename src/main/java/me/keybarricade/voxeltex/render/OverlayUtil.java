@@ -68,10 +68,24 @@ public class OverlayUtil {
         return (float) window.getWidth() / (float) window.getHeight();
     }
 
+    /**
+     * Calculate the horizontal overlay position based on the given position in pixels.
+     *
+     * @param px Pixels.
+     *
+     * @return Overlay position.
+     */
     public static float pixelToOverlayHorizontal(float px) {
         return px / (float) window.getWidth();
     }
 
+    /**
+     * Calculate the vertical overlay position based on the given position in pixels.
+     *
+     * @param px Pixels.
+     *
+     * @return Overlay position.
+     */
     public static float pixelToOverlayVertical(float px) {
         return px / (float) window.getHeight();
     }
