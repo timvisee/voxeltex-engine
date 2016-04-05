@@ -485,41 +485,6 @@ public class RectangleTransform extends BaseComponent {
         this.anchor.setAnchorPreset(horizontal, vertical);
     }
 
-    @Override
-    public void create() {
-        // Define the rectangle transform variable for the children
-        RectangleTransform childTransform;
-
-        // Loop through all children, update their rectangle transforms if available
-        for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
-            // Get the child's rectangle transform component if available, then update
-            if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
-                childTransform.setParentTransform(this);
-    }
-
-    @Override
-    public void start() {
-        // Update the parent transform
-        // TODO: Is this still necessary?
-        updateParentTransform();
-    }
-
-    @Override
-    public void update() { }
-
-    @Override
-    public void destroy() {
-        // Define the rectangle transform variable for the children
-        RectangleTransform childTransform;
-
-        // Loop through all children, update their rectangle transforms if available
-        for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
-            // Get the child's rectangle transform component if available, then update
-            if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
-                childTransform.setParentTransform(null);
-    }
-
-
     /**
      * Get the overlay rectangle of this rectangle transform.
      * The parent transform is taken in consideration if available.
@@ -630,5 +595,39 @@ public class RectangleTransform extends BaseComponent {
 
         // Get and use the parent overlay rectangle
         return getParentTransform().getOverlayRectangle(dest);
+    }
+
+    @Override
+    public void create() {
+        // Define the rectangle transform variable for the children
+        RectangleTransform childTransform;
+
+        // Loop through all children, update their rectangle transforms if available
+        for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
+            // Get the child's rectangle transform component if available, then update
+            if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
+                childTransform.setParentTransform(this);
+    }
+
+    @Override
+    public void start() {
+        // Update the parent transform
+        // TODO: Is this still necessary?
+        updateParentTransform();
+    }
+
+    @Override
+    public void update() { }
+
+    @Override
+    public void destroy() {
+        // Define the rectangle transform variable for the children
+        RectangleTransform childTransform;
+
+        // Loop through all children, update their rectangle transforms if available
+        for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
+            // Get the child's rectangle transform component if available, then update
+            if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
+                childTransform.setParentTransform(null);
     }
 }
