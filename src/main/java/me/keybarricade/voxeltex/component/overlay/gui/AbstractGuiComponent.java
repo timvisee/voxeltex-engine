@@ -22,38 +22,6 @@
 
 package me.keybarricade.voxeltex.component.overlay.gui;
 
-import me.keybarricade.voxeltex.component.transform.Rectangle;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.render.RenderOverlayHelper;
+import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 
-public class GuiPanelComponent extends AbstractGuiComponent {
-
-    /**
-     * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
-     */
-    private final Rectangle tempRectangle = new Rectangle();
-
-    /**
-     * Constructor.
-     */
-    public GuiPanelComponent() { }
-
-    @Override
-    public void drawOverlay() {
-        // Set the drawing color
-        // TODO: Make this color configurable!
-        RenderOverlayHelper.color(0, 0, 0, .75f);
-
-        // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
-        synchronized(this.tempRectangle) {
-            // Get the transform
-            getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
-
-            // Render the rectangle
-            RenderOverlayHelper.renderRectangle(
-                    this.tempRectangle.getX(), this.tempRectangle.getY(),
-                    this.tempRectangle.getWidth(), this.tempRectangle.getHeight()
-            );
-        }
-    }
-}
+public abstract class AbstractGuiComponent extends AbstractOverlayComponent { }
