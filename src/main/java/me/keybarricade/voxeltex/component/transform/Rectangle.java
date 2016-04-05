@@ -70,8 +70,12 @@ public class Rectangle {
      *
      * @param position Rectangle position.
      */
-    public void setPosition(Vector2f position) {
+    public Rectangle setPosition(Vector2f position) {
+        // Set the position and size
         this.position.set(position);
+
+        // Return this
+        return this;
     }
 
     /**
@@ -80,8 +84,12 @@ public class Rectangle {
      * @param x Rectangle X position.
      * @param y Rectangle Y position.
      */
-    public void setPosition(float x, float y) {
+    public Rectangle setPosition(float x, float y) {
+        // Set the position and size
         this.position.set(x, y);
+
+        // Return this
+        return this;
     }
 
     /**
@@ -98,8 +106,12 @@ public class Rectangle {
      *
      * @param size Rectangle size.
      */
-    public void setSize(Vector2f size) {
+    public Rectangle setSize(Vector2f size) {
+        // Set the position and size
         this.size.set(size);
+
+        // Return this
+        return this;
     }
 
     /**
@@ -108,8 +120,12 @@ public class Rectangle {
      * @param w Rectangle width.
      * @param h Rectangle height.
      */
-    public void setSize(float w, float h) {
+    public Rectangle setSize(float w, float h) {
+        // Set the position and size
         this.size.set(w, h);
+
+        // Return this
+        return this;
     }
 
     /**
@@ -117,8 +133,12 @@ public class Rectangle {
      *
      * @param rectangle Other rectangle.
      */
-    public void set(Rectangle rectangle) {
+    public Rectangle set(Rectangle rectangle) {
+        // Set the position and size
         set(rectangle.getPosition(), rectangle.getSize());
+
+        // Return this
+        return this;
     }
 
     /**
@@ -127,9 +147,13 @@ public class Rectangle {
      * @param position Rectangle position.
      * @param size Rectangle size.
      */
-    public void set(Vector2f position, Vector2f size) {
+    public Rectangle set(Vector2f position, Vector2f size) {
+        // Set the position and size
         setPosition(position);
         setSize(size);
+
+        // Return this
+        return this;
     }
 
     /**
@@ -140,8 +164,12 @@ public class Rectangle {
      * @param w Rectangle width.
      * @param h Rectangle height.
      */
-    public void set(float x, float y, float w, float h) {
+    public Rectangle set(float x, float y, float w, float h) {
+        // Set the position and size
         setPosition(x, y);
         setSize(w, h);
+
+        // Return this
+        return this;
     }
 }
