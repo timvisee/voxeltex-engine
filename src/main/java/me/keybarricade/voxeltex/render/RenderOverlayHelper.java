@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.render;
 
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
 
@@ -34,6 +35,38 @@ public class RenderOverlayHelper {
      */
     public static void lineWidth(float lineWidth) {
         GL11.glLineWidth(lineWidth);
+    }
+
+    /**
+     * Set the drawing color.
+     *
+     * @param color Drawing color.
+     */
+    public static void color(Color color) {
+        color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    }
+
+    /**
+     * Set the drawing color.
+     *
+     * @param r Red channel intensity.
+     * @param g Green channel intensity.
+     * @param b Blue channel intensity.
+     */
+    public static void color(float r, float g, float b) {
+        GL11.glColor3f(r, g, b);
+    }
+
+    /**
+     * Set the drawing color.
+     *
+     * @param r Red channel intensity.
+     * @param g Green channel intensity.
+     * @param b Blue channel intensity.
+     * @param a Alpha channel intensity.
+     */
+    public static void color(float r, float g, float b, float a) {
+        GL11.glColor4f(r, g, b, a);
     }
 
     /**
@@ -57,9 +90,6 @@ public class RenderOverlayHelper {
     public static void renderRectangle(float x, float y, float w, float h) {
         // Enable line drawing mode
         GL11.glBegin(GL11.GL_QUADS);
-
-        // Set the grid color
-        GL11.glColor4f(1, 0, 0, 0.5f);
 
         // FIXME: These texture coordinates are configured for fonts, is this configuration correct?
 
@@ -98,9 +128,6 @@ public class RenderOverlayHelper {
     public static void renderLine(float x, float y, float w, float h) {
         // Enable line drawing mode
         GL11.glBegin(GL11.GL_LINES);
-
-        // Set the grid color
-        GL11.glColor4f(1, 0, 0, 0.5f);
 
         // Draw the grid
         GL11.glVertex3f(x, y, 0f);

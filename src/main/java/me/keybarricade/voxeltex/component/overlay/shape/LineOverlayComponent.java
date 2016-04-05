@@ -25,6 +25,7 @@ package me.keybarricade.voxeltex.component.overlay.shape;
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 
 public class LineOverlayComponent extends AbstractOverlayComponent {
@@ -74,6 +75,9 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
     public void drawOverlay() {
         // Set the thickness of the line drawn
         RenderOverlayHelper.lineWidth(this.lineWidth);
+
+        // Set the drawing color
+        RenderOverlayHelper.color(Color.RED);
 
         // Render the line
         RenderOverlayHelper.renderLine(this.position, this.size);

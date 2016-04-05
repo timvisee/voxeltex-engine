@@ -20,15 +20,14 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.component.overlay.shape;
+package me.keybarricade.voxeltex.component.overlay.gui;
 
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
-import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 
-public class RectangleOverlayComponent extends AbstractOverlayComponent {
+public class GuiPanelComponent extends AbstractOverlayComponent {
 
     /**
      * Rectangle position.
@@ -42,6 +41,8 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
     // TODO: Use a 2D transform object.
     private Vector2f size = Vector2fFactory.identity();
 
+    private Vector2f align = Vector2fFactory.identity();
+
     /**
      * Constructor.
      *
@@ -50,7 +51,7 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
      * @param w Rectangle width.
      * @param h Rectangle height.
      */
-    public RectangleOverlayComponent(float x, float y, float w, float h) {
+    public GuiPanelComponent(float x, float y, float w, float h) {
         this.position.set(x, y);
         this.size.set(w, h);
     }
@@ -61,7 +62,7 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
      * @param position Rectangle position.
      * @param size Rectangle size.
      */
-    public RectangleOverlayComponent(Vector2f position, Vector2f size) {
+    public GuiPanelComponent(Vector2f position, Vector2f size) {
         this.position.set(position);
         this.size.set(size);
     }
@@ -69,10 +70,14 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
     @Override
     public void drawOverlay() {
         // Set the drawing color
-        RenderOverlayHelper.color(Color.RED);
+        RenderOverlayHelper.color(0, 0, 0, .9f);
+
+        this.align.set(0.5f, 0.5f);
 
         // Render the rectangle
-        RenderOverlayHelper.renderRectangle(this.position, this.size);
+        RenderOverlayHelper.renderRectangle(
+                this.position.x - this.size.x * align.x, this.position.y - this.size.y * align.y,
+                this.size.x, this.size.y);
     }
 
     /**

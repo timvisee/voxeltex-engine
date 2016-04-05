@@ -67,4 +67,12 @@ public class OverlayUtil {
     public static float getWindowRatioFactor() {
         return (float) window.getWidth() / (float) window.getHeight();
     }
+
+    public static float pixelToOverlayHorizontal(float px) {
+        return px / (float) window.getWidth();
+    }
+
+    public static float pixelToOverlayVertical(float px) {
+        return px / (float) window.getHeight();
+    }
 }
