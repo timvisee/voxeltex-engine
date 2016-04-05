@@ -39,8 +39,27 @@ public class RectangleTransformAnchor {
     /**
      * Constructor.
      */
-    public RectangleTransformAnchor() {
-        setAnchorPreset(HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE);
+    public RectangleTransformAnchor() { }
+
+    /**
+     * Constructor.
+     *
+     * @param anchor Anchor.
+     */
+    public RectangleTransformAnchor(Vector4f anchor) {
+        setAnchor(anchor);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param minX Anchor minimum X position.
+     * @param minY Anchor minimum Y position.
+     * @param maxX Anchor maximum X position.
+     * @param maxY Anchor maximum Y position.
+     */
+    public RectangleTransformAnchor(float minX, float minY, float maxX, float maxY) {
+        setAnchor(minX, minY, maxX, maxY);
     }
 
     /**
@@ -90,9 +109,25 @@ public class RectangleTransformAnchor {
      * @return This.
      */
     public RectangleTransformAnchor setAnchor(Vector4f anchor) {
+        return setAnchor(anchor.x, anchor.y, anchor.z, anchor.w);
+    }
+
+    /**
+     *
+     * Set the anchor's minimum and maximum position.
+     *
+     * @param minX Anchor minimum X position.
+     * @param minY Anchor minimum Y position.
+     * @param maxX Anchor maximum X position.
+     * @param maxY Anchor maximum Y position.
+     * @return
+     */
+    public RectangleTransformAnchor setAnchor(float minX, float minY, float maxX, float maxY) {
         // Set the anchor
-        // TODO: Make sure the value is in-bound, and make sure the minimum and maximum are ordered correctly!
-        this.anchor.set(anchor);
+        setMinX(minX);
+        setMinY(minY);
+        setMaxX(maxX);
+        setMaxY(maxY);
 
         // Return this instance for method chaining
         return this;
