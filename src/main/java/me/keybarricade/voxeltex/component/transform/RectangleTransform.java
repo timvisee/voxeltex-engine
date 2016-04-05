@@ -55,6 +55,20 @@ public class RectangleTransform extends BaseComponent {
 
     /**
      * Constructor.
+     */
+    public RectangleTransform() { }
+
+    /**
+     * Constructor.
+     *
+     * @param size Rectangle size.
+     */
+    public RectangleTransform(Vector2f size) {
+        setSize(size);
+    }
+
+    /**
+     * Constructor.
      *
      * @param size Rectangle size.
      * @param horizontalAnchor Horizontal anchor preset.
