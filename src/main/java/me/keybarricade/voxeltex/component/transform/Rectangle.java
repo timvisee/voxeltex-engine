@@ -75,6 +75,16 @@ public class Rectangle {
     }
 
     /**
+     * Set the rectangle position.
+     *
+     * @param x Rectangle X position.
+     * @param y Rectangle Y position.
+     */
+    public void setPosition(float x, float y) {
+        this.position.set(x, y);
+    }
+
+    /**
      * Get the rectangle size.
      *
      * @return Rectangle size.
@@ -90,6 +100,16 @@ public class Rectangle {
      */
     public void setSize(Vector2f size) {
         this.size.set(size);
+    }
+
+    /**
+     * Set the rectangle size.
+     *
+     * @param w Rectangle width.
+     * @param h Rectangle height.
+     */
+    public void setSize(float w, float h) {
+        this.size.set(w, h);
     }
 
     /**
@@ -110,5 +130,18 @@ public class Rectangle {
     public void set(Vector2f position, Vector2f size) {
         setPosition(position);
         setSize(size);
+    }
+
+    /**
+     * Set the position and size of the rectangle.
+     *
+     * @param x Rectangle X position.
+     * @param y Rectangle Y position.
+     * @param w Rectangle width.
+     * @param h Rectangle height.
+     */
+    public void set(float x, float y, float w, float h) {
+        setPosition(x, y);
+        setSize(w, h);
     }
 }
