@@ -29,6 +29,7 @@ import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
@@ -235,5 +236,15 @@ public class TestEnvironmentScene extends Scene {
         ));
         overlayTest2.addComponent(new GuiPanelComponent());
         overlayTest.addChild(overlayTest2);
+
+        Image developerSplashImage = Image.loadFromEngineAssets("images/developerSplash.png");
+        GameObject avatarImage = new GameObject("Avatar");
+        avatarImage.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(128, 128),
+                HorizontalTransformAnchorType.RIGHT, VerticalTransformAnchorType.MIDDLE
+        ));
+        avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
+        addGameObject(avatarImage);
     }
 }

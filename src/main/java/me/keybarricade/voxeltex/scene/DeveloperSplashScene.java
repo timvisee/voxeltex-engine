@@ -20,58 +20,34 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex;
+package me.keybarricade.voxeltex.scene;
 
-import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
+import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
+import me.keybarricade.voxeltex.component.transform.RectangleTransform;
+import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
+import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.texture.Image;
+import org.joml.Vector2f;
 
-public class VoxelTex {
+public class DeveloperSplashScene extends Scene {
 
-    /**
-     * Engine name.
-     */
-    public static final String ENGINE_NAME = "VoxelTex";
+    @Override
+    public void load() {
+        // Load the super
+        super.load();
 
-    /**
-     * Engine version name.
-     */
-    public static final String ENGINE_VERSION_NAME = "0.1";
+        // Load the developer splash image
+        Image developerSplashImage = Image.loadFromEngineAssets("images/developerSplash.png");
 
-    /**
-     * Engine version code.
-     */
-    public static final int ENGINE_VERSION_CODE = 1;
-
-    /**
-     * Get the full engine name string, including the version number.
-     *
-     * @return Engine name string.
-     */
-    public static String getEngineNameFull() {
-        return ENGINE_NAME + " v" + ENGINE_VERSION_NAME;
-    }
-
-    /**
-     * Run the VoxelTex engine with the test environment.
-     *
-     * @param args Startup arguments.
-     */
-    public static void main(String[] args) {
-        // Define the engine variable
-        VoxelTexEngine engine;
-
-        // Create a VoxelTex engine instance
-        engine = new VoxelTexEngine();
-
-        // Set the title
-        engine.setTitle(ENGINE_NAME + " v" + ENGINE_VERSION_NAME + " - Test Environment");
-
-        // Initialize the engine
-        engine.init();
-
-        // Load the test environment scene
-        engine.getSceneManager().loadScene(new DeveloperSplashScene());
-
-        // Start the engine
-        engine.start();
+        // Create an game object with the splash as GUI image
+        GameObject avatarImage = new GameObject("Avatar");
+        avatarImage.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(256, 256),
+                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
+        ));
+        avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
+        addGameObject(avatarImage);
     }
 }
