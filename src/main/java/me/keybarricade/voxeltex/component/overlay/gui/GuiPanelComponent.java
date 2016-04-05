@@ -25,101 +25,36 @@ package me.keybarricade.voxeltex.component.overlay.gui;
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
-import org.joml.Vector2f;
 
 public class GuiPanelComponent extends AbstractOverlayComponent {
 
     /**
-     * Rectangle position.
+     * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
      */
-    // TODO: Use a 2D transform object.
-    private Vector2f position = Vector2fFactory.identity();
-
-    /**
-     * Rectangle size.
-     */
-    // TODO: Use a 2D transform object.
-    private Vector2f size = Vector2fFactory.identity();
-
-    private Vector2f align = Vector2fFactory.identity();
+    private final Rectangle tempRectangle = new Rectangle();
 
     /**
      * Constructor.
-     *
-     * @param x Rectangle X position.
-     * @param y Rectangle Y position.
-     * @param w Rectangle width.
-     * @param h Rectangle height.
      */
-    public GuiPanelComponent(float x, float y, float w, float h) {
-        this.position.set(x, y);
-        this.size.set(w, h);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param position Rectangle position.
-     * @param size Rectangle size.
-     */
-    public GuiPanelComponent(Vector2f position, Vector2f size) {
-        this.position.set(position);
-        this.size.set(size);
-    }
+    public GuiPanelComponent() { }
 
     @Override
     public void drawOverlay() {
         // Set the drawing color
+        // TODO: Make this color configurable!
         RenderOverlayHelper.color(0, 0, 0, .75f);
 
-        //this.align.set(0.5f, 0.5f);
+        // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
+        synchronized(this.tempRectangle) {
+            // Get the transform
+            getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
 
-        // Get the transform
-        RectangleTransform rectangle = getComponent(RectangleTransform.class);
-        Rectangle r = rectangle.getOverlayRectangle();
-
-        // Render the rectangle
-//        RenderOverlayHelper.renderRectangle(
-//                this.position.x - this.size.x * align.x, this.position.y - this.size.y * align.y,
-//                this.size.x, this.size.y);
-        RenderOverlayHelper.renderRectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
-    }
-
-    /**
-     * Get the position of the rectangle.
-     *
-     * @return Position.
-     */
-    public Vector2f getPosition() {
-        return this.position;
-    }
-
-    /**
-     * Set the position of the rectangle.
-     *
-     * @param position Position.
-     */
-    public void setPosition(Vector2f position) {
-        this.position = position;
-    }
-
-    /**
-     * Get the size of the rectangle.
-     *
-     * @return Size.
-     */
-    public Vector2f getSize() {
-        return this.size;
-    }
-
-    /**
-     * Set the size of the rectangle.
-     *
-     * @param size Size.
-     */
-    public void setSize(Vector2f size) {
-        this.size = size;
+            // Render the rectangle
+            RenderOverlayHelper.renderRectangle(
+                    this.tempRectangle.getX(), this.tempRectangle.getY(),
+                    this.tempRectangle.getWidth(), this.tempRectangle.getHeight()
+            );
+        }
     }
 }

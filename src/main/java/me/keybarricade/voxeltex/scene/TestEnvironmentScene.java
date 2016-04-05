@@ -221,7 +221,7 @@ public class TestEnvironmentScene extends Scene {
                 new Vector2f(150, 150),
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
-        overlayTest.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
+        overlayTest.addComponent(new GuiPanelComponent());
         overlayTest.addComponent(new RectangleOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
         overlayTest.addComponent(new LineOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
         overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.05f, 0.05f), 0.04f, "GPU string rendering", Color.RED));
@@ -233,7 +233,7 @@ public class TestEnvironmentScene extends Scene {
                 new Vector2f(50, 50),
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
-        overlayTest2.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
+        overlayTest2.addComponent(new GuiPanelComponent());
         overlayTest.addChild(overlayTest2);
     }
 }
