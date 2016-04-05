@@ -440,30 +440,12 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
-     * Get the horizontal anchor preset.
-     *
-     * @return Horizontal anchor preset.
-     */
-    public HorizontalTransformAnchorType getHorizontalAnchorPreset() {
-        return this.anchor.getHorizontalAnchorPreset();
-    }
-
-    /**
      * Set the horizontal anchor preset.
      *
      * @param horizontal Horizontal anchor preset.
      */
     public void setHorizontalAnchorPreset(HorizontalTransformAnchorType horizontal) {
         this.anchor.setHorizontalAnchorPreset(horizontal);
-    }
-
-    /**
-     * Get the vertical anchor preset.
-     *
-     * @return Vertical anchor preset.
-     */
-    public VerticalTransformAnchorType getVerticalAnchorPreset() {
-        return this.anchor.getVerticalAnchorPreset();
     }
 
     /**
