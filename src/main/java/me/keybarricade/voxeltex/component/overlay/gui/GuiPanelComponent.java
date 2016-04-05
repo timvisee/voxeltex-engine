@@ -23,6 +23,8 @@
 package me.keybarricade.voxeltex.component.overlay.gui;
 
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
+import me.keybarricade.voxeltex.component.transform.Rectangle;
+import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import org.joml.Vector2f;
@@ -70,14 +72,19 @@ public class GuiPanelComponent extends AbstractOverlayComponent {
     @Override
     public void drawOverlay() {
         // Set the drawing color
-        RenderOverlayHelper.color(0, 0, 0, .9f);
+        RenderOverlayHelper.color(0, 0, 0, .75f);
 
-        this.align.set(0.5f, 0.5f);
+        //this.align.set(0.5f, 0.5f);
+
+        // Get the transform
+        RectangleTransform rectangle = getComponent(RectangleTransform.class);
+        Rectangle r = rectangle.getOverlayRectangle();
 
         // Render the rectangle
-        RenderOverlayHelper.renderRectangle(
-                this.position.x - this.size.x * align.x, this.position.y - this.size.y * align.y,
-                this.size.x, this.size.y);
+//        RenderOverlayHelper.renderRectangle(
+//                this.position.x - this.size.x * align.x, this.position.y - this.size.y * align.y,
+//                this.size.x, this.size.y);
+        RenderOverlayHelper.renderRectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
     /**

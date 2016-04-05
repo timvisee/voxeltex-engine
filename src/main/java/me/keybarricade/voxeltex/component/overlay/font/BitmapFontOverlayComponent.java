@@ -130,7 +130,8 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
             // Render the rectangle, and compensate with the window ratio factor
             RenderOverlayHelper.renderRectangle(
                     position.x + characterWidthOffset / windowRatio, position.y,
-                    this.size * widthFactor / windowRatio, this.size);
+                    this.size * widthFactor / windowRatio, this.size
+            );
 
             // Unbind the material
             this.font.getMaterial().unbind();

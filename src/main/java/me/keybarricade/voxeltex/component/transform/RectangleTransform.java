@@ -541,6 +541,7 @@ public class RectangleTransform extends BaseComponent {
      *
      * @return Overlay rectangle.
      */
+    // TODO: Confirm this works!
     public Rectangle getOverlayRectangle(Rectangle dest) {
         // Get the parent overlay rectangle
         // TODO: Use temp!
@@ -580,13 +581,13 @@ public class RectangleTransform extends BaseComponent {
                 h = getSizeHeightOverlay();
                 break;
 
-            case MIDDLE:
-                y = parentRectangle.getY() + parentRectangle.getHeight() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+            case MIDDLE: // TODO: Rotate with TOP?
+                y = parentRectangle.getY() + parentRectangle.getHeight() / 2.0f + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
                 h = getSizeHeightOverlay();
                 break;
 
-            case TOP:
-                y = parentRectangle.getY() + parentRectangle.getHeight() / 2.0f + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+            case TOP: // TODO: Rotate with MIDDLE?
+                y = parentRectangle.getY() + parentRectangle.getHeight() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
                 h = getSizeHeightOverlay();
                 break;
 

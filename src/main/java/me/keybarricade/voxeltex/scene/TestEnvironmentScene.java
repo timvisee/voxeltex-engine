@@ -30,8 +30,12 @@ import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
+import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
+import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
+import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
+import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
@@ -212,9 +216,24 @@ public class TestEnvironmentScene extends Scene {
 
         // Overlay test
         GameObject overlayTest = new GameObject("OverlayTest");
-        overlayTest.addComponent(new RectangleTransform());
+        overlayTest.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(50, 50),
+                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
+        ));
         overlayTest.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
-        overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.1f, 0.1f), 0.04f, "GPU string rendering", Color.RED));
+        overlayTest.addComponent(new RectangleOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
+        overlayTest.addComponent(new LineOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
+        overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.05f, 0.05f), 0.04f, "GPU string rendering", Color.RED));
         addGameObject(overlayTest);
+
+        GameObject overlayTest2 = new GameObject("OverlayTest2");
+        overlayTest2.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(100, 100),
+                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
+        ));
+        overlayTest2.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
+        overlayTest.addChild(overlayTest2);
     }
 }
