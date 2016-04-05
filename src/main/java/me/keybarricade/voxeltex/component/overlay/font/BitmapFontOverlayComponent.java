@@ -131,6 +131,9 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
             RenderOverlayHelper.renderRectangle(
                     position.x + characterWidthOffset / windowRatio, position.y,
                     this.size * widthFactor / windowRatio, this.size);
+
+            // Unbind the material
+            this.font.getMaterial().unbind();
         }
     }
 

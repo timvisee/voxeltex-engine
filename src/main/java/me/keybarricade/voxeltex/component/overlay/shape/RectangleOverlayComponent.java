@@ -25,7 +25,6 @@ package me.keybarricade.voxeltex.component.overlay.shape;
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
-import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 
 public class RectangleOverlayComponent extends AbstractOverlayComponent {
@@ -69,7 +68,7 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
     @Override
     public void drawOverlay() {
         // Set the drawing color
-        RenderOverlayHelper.color(Color.RED);
+        RenderOverlayHelper.color(1, 0, 0, 0.5f);
 
         // Render the rectangle
         RenderOverlayHelper.renderRectangle(this.position, this.size);
