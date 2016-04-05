@@ -66,6 +66,24 @@ public class Rectangle {
     }
 
     /**
+     * Get the X position.
+     *
+     * @return X position.
+     */
+    public float getX() {
+        return this.position.x;
+    }
+
+    /**
+     * Get the Y position.
+     *
+     * @return Y position.
+     */
+    public float getY() {
+        return this.position.y;
+    }
+
+    /**
      * Set the rectangle position.
      *
      * @param position Rectangle position.
@@ -93,12 +111,58 @@ public class Rectangle {
     }
 
     /**
+     * Set the X position.
+     *
+     * @param x X position.
+     *
+     * @return this
+     */
+    public Rectangle setX(float x) {
+        this.position.x = x;
+
+        // Return this
+        return this;
+    }
+
+    /**
+     * Set the Y position.
+     *
+     * @param y Y position.
+     *
+     * @return this
+     */
+    public Rectangle setY(float y) {
+        this.position.y = y;
+
+        // Return this
+        return this;
+    }
+
+    /**
      * Get the rectangle size.
      *
      * @return Rectangle size.
      */
     public Vector2f getSize() {
         return this.size;
+    }
+
+    /**
+     * Get the rectangle width.
+     *
+     * @return Rectangle width.
+     */
+    public float getWidth() {
+        return this.size.x;
+    }
+
+    /**
+     * Get the rectangle height.
+     *
+     * @return Rectangle height.
+     */
+    public float getHeight() {
+        return this.size.y;
     }
 
     /**
@@ -123,6 +187,34 @@ public class Rectangle {
     public Rectangle setSize(float w, float h) {
         // Set the position and size
         this.size.set(w, h);
+
+        // Return this
+        return this;
+    }
+
+    /**
+     * Set the rectangle width.
+     *
+     * @param width Rectangle width.
+     *
+     * @return this
+     */
+    public Rectangle setWidth(float width) {
+        this.size.x = width;
+
+        // Return this
+        return this;
+    }
+
+    /**
+     * Set the rectangle height.
+     *
+     * @param height Rectangle height.
+     *
+     * @return this
+     */
+    public Rectangle setHeight(float height) {
+        this.size.y = height;
 
         // Return this
         return this;
