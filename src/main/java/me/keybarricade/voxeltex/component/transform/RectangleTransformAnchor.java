@@ -150,7 +150,10 @@ public class RectangleTransformAnchor {
      * @return This.
      */
     public RectangleTransformAnchor setMinX(float minX) {
-        // TODO: Make sure the value is in-bound, and make sure the minimum and maximum are ordered correctly!
+        // Force the coordinate to be in-bound
+        minX = Math.max(Math.min(minX, 1), 0);
+
+        // Set the coordinate
         this.anchor.x = minX;
 
         // Return this instance for method chaining
@@ -174,7 +177,10 @@ public class RectangleTransformAnchor {
      * @return This.
      */
     public RectangleTransformAnchor setMinY(float minY) {
-        // TODO: Make sure the value is in-bound, and make sure the minimum and maximum are ordered correctly!
+        // Force the coordinate to be in-bound
+        minY = Math.max(Math.min(minY, 1), 0);
+
+        // Set the coordinate
         this.anchor.y = minY;
 
         // Return this instance for method chaining
@@ -198,7 +204,10 @@ public class RectangleTransformAnchor {
      * @return This.
      */
     public RectangleTransformAnchor setMaxX(float maxX) {
-        // TODO: Make sure the value is in-bound, and make sure the minimum and maximum are ordered correctly!
+        // Force the coordinate to be in-bound
+        maxX = Math.max(Math.min(maxX, 1), 0);
+
+        // Set the coordinate
         this.anchor.z = maxX;
 
         // Return this instance for method chaining
@@ -222,7 +231,10 @@ public class RectangleTransformAnchor {
      * @return This.
      */
     public RectangleTransformAnchor setMaxY(float maxY) {
-        // TODO: Make sure the value is in-bound, and make sure the minimum and maximum are ordered correctly!
+        // Force the coordinate to be in-bound
+        maxY = Math.max(Math.min(maxY, 1), 0);
+
+        // Set the coordinate
         this.anchor.w = maxY;
 
         // Return this instance for method chaining
