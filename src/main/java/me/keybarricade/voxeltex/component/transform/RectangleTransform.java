@@ -142,12 +142,21 @@ public class RectangleTransform extends BaseComponent {
     }
 
     /**
+     * Set the parent transform.
+     *
+     * @param parentTransform Parent transform, or null.
+     */
+    private void setParentTransform(RectangleTransform parentTransform) {
+        this.parent = parentTransform;
+    }
+
+    /**
      * Update/refresh the parent transform.
      */
     private void updateParentTransform() {
         // Get the parent transform if available
         if(getOwner().hasParent())
-            this.parent = getOwner().getParent().getComponent(RectangleTransform.class);
+            setParentTransform(getOwner().getParent().getComponent(RectangleTransform.class));
     }
 
     /**
@@ -412,7 +421,7 @@ public class RectangleTransform extends BaseComponent {
         for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
             // Get the child's rectangle transform component if available, then update
             if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
-                childTransform.updateParentTransform();
+                childTransform.setParentTransform(this);
     }
 
     @Override
@@ -426,5 +435,14 @@ public class RectangleTransform extends BaseComponent {
     public void update() { }
 
     @Override
-    public void destroy() { }
+    public void destroy() {
+        // Define the rectangle transform variable for the children
+        RectangleTransform childTransform;
+
+        // Loop through all children, update their rectangle transforms if available
+        for(int i = 0, size = getOwner().getChildCount(false); i < size; i++)
+            // Get the child's rectangle transform component if available, then update
+            if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
+                childTransform.setParentTransform(null);
+    }
 }
