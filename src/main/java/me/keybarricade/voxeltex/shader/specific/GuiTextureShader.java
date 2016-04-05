@@ -20,42 +20,58 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.shader;
+package me.keybarricade.voxeltex.shader.specific;
 
-import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
-import me.keybarricade.voxeltex.shader.specific.DefaultShader;
-import me.keybarricade.voxeltex.shader.specific.GuiTextureShader;
-import me.keybarricade.voxeltex.shader.specific.TexturedShader;
+import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.scene.AbstractScene;
+import me.keybarricade.voxeltex.shader.Shader;
+import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
+import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
 
-public class ShaderManager {
-
-    /**
-     * Default shader.
-     */
-    public static Shader SHADER_DEFAULT;
+public class GuiTextureShader extends Shader {
 
     /**
-     * Default textured shader.
+     * The engine asset path of the vertex shader.
      */
-    public static Shader SHADER_DEFAULT_TEXTURED;
+    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/guiTexture.vert";
 
     /**
-     * Default bitmap font shader.
+     * The engine asset path of the fragment shader.
      */
-    public static Shader SHADER_DEFAULT_BITMAP_FONT;
+    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/guiTexture.frag";
 
     /**
-     * Default GUI texture shader.
+     * Constructor.
      */
-    public static Shader SHADER_DEFAULT_GUI_TEXTURE;
+    public GuiTextureShader() {
+        this(new EngineAssetsRawShader(SHADER_VERTEX_ASSET_PATH, SHADER_FRAGMENT_ASSET_PATH));
+    }
 
     /**
-     * Load the engine shaders.
+     * Constructor.
+     *
+     * @param programId OpenGL shader program ID.
      */
-    public static void load() {
-        SHADER_DEFAULT = new DefaultShader();
-        SHADER_DEFAULT_TEXTURED = new TexturedShader();
-        SHADER_DEFAULT_BITMAP_FONT = new BitmapFontShader();
-        SHADER_DEFAULT_GUI_TEXTURE = new GuiTextureShader();
+    public GuiTextureShader(int programId) {
+        super(programId);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param rawShader Raw shader.
+     */
+    public GuiTextureShader(AbstractRawShader rawShader) {
+        super(rawShader);
+    }
+
+    @Override
+    public void update(AbstractScene scene, Material material) {
+        // Call the parent
+        super.update(scene, material);
+
+        // Send texture tiling data to the shader
+        if(material != null)
+            setUniform2f("tiling", material.getTiling());
     }
 }

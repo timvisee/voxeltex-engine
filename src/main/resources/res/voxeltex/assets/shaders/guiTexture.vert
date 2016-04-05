@@ -20,42 +20,23 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.shader;
+#version 120
 
-import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
-import me.keybarricade.voxeltex.shader.specific.DefaultShader;
-import me.keybarricade.voxeltex.shader.specific.GuiTextureShader;
-import me.keybarricade.voxeltex.shader.specific.TexturedShader;
+// Matrix data
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix = mat4(1.0);
+uniform mat4 modelMatrix = mat4(1.0);
 
-public class ShaderManager {
+// Surface normal and vertex position
+varying vec4 position;
 
-    /**
-     * Default shader.
-     */
-    public static Shader SHADER_DEFAULT;
+void main() {
+    // Determine the position
+    position = modelMatrix * gl_Vertex;
 
-    /**
-     * Default textured shader.
-     */
-    public static Shader SHADER_DEFAULT_TEXTURED;
+    // Pass the texture coordinates to the fragment shader
+	gl_TexCoord[0] = gl_MultiTexCoord0;
 
-    /**
-     * Default bitmap font shader.
-     */
-    public static Shader SHADER_DEFAULT_BITMAP_FONT;
-
-    /**
-     * Default GUI texture shader.
-     */
-    public static Shader SHADER_DEFAULT_GUI_TEXTURE;
-
-    /**
-     * Load the engine shaders.
-     */
-    public static void load() {
-        SHADER_DEFAULT = new DefaultShader();
-        SHADER_DEFAULT_TEXTURED = new TexturedShader();
-        SHADER_DEFAULT_BITMAP_FONT = new BitmapFontShader();
-        SHADER_DEFAULT_GUI_TEXTURE = new GuiTextureShader();
-    }
+    // Set the vertex point position
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }
