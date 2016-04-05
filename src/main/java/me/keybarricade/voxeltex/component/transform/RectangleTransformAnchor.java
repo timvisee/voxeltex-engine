@@ -342,8 +342,7 @@ public class RectangleTransformAnchor {
      * @param anchor Anchor.
      */
     public void setAnchor(RectangleTransformAnchor anchor) {
-        // FIXME: Update the current anchor!
-        setAnchorPreset( );
+        setAnchor(anchor.getAnchor());
     }
 
     /**
