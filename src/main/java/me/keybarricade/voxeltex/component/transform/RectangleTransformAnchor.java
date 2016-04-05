@@ -27,14 +27,14 @@ import org.joml.Vector4f;
 public class RectangleTransformAnchor {
 
     /**
-     * Horizontal anchor preset.
+     * Anchor position and size.
+     *
+     * x = Minimum X.
+     * y = Minimum Y.
+     * z = Maximum X.
+     * w = Maximum Y.
      */
-    private HorizontalTransformAnchorType horizontal;
-
-    /**
-     * Vertical anchor preset.
-     */
-    private VerticalTransformAnchorType vertical;
+    private final Vector4f anchor = new Vector4f(0.5f);
 
     /**
      * Constructor.
@@ -72,16 +72,6 @@ public class RectangleTransformAnchor {
     public RectangleTransformAnchor(HorizontalTransformAnchorType horizontal, VerticalTransformAnchorType vertical) {
         setAnchorPreset(horizontal, vertical);
     }
-
-    /**
-     * Anchor position and size.
-     *
-     * x = Minimum X.
-     * y = Minimum Y.
-     * z = Maximum X.
-     * w = Maximum Y.
-     */
-    private final Vector4f anchor = new Vector4f(0.5f);
 
     /**
      * Get the anchor's minimum and maximum position.
@@ -241,12 +231,25 @@ public class RectangleTransformAnchor {
     }
 
     /**
-     * Get the horizontal anchor preset.
+     * Get the closest horizontal anchor preset.
+     * This is calculated based on the current anchor configuration.
      *
-     * @return Horizontal anchor preset.
+     * @return Closest horizontal anchor preset.
      */
-    public HorizontalTransformAnchorType getHorizontalAnchorPreset() {
-        return this.horizontal;
+    public HorizontalTransformAnchorType getClosestHorizontalAnchorPreset() {
+        // Return the stretched anchor if this anchor has any width
+        if(hasWidth())
+            return HorizontalTransformAnchorType.STRETCH;
+
+        // Determine the closest anchor preset
+        if(getMinX() < 0.25f)
+            return HorizontalTransformAnchorType.LEFT;
+
+        else if(getMinX() > 0.75f)
+            return HorizontalTransformAnchorType.RIGHT;
+
+        else
+            return HorizontalTransformAnchorType.CENTER;
     }
 
     /**
@@ -255,9 +258,6 @@ public class RectangleTransformAnchor {
      * @param horizontal Horizontal anchor preset.
      */
     public void setHorizontalAnchorPreset(HorizontalTransformAnchorType horizontal) {
-        // Set the horizontal anchor preset
-        this.horizontal = horizontal;
-
         // Update the anchor position
         switch(horizontal) {
             case LEFT:
@@ -284,12 +284,25 @@ public class RectangleTransformAnchor {
     }
 
     /**
-     * Get the vertical anchor preset.
+     * Get the closest vertical anchor preset.
+     * This is calculated based on the current anchor configuration.
      *
-     * @return Vertical anchor preset.
+     * @return Closest vertical anchor preset.
      */
-    public VerticalTransformAnchorType getVerticalAnchorPreset() {
-        return this.vertical;
+    public VerticalTransformAnchorType getClosestVerticalAnchorPreset() {
+        // Return the stretched anchor if this anchor has any height
+        if(hasHeight())
+            return VerticalTransformAnchorType.STRETCH;
+
+        // Determine the closest anchor preset
+        if(getMinY() < 0.25f)
+            return VerticalTransformAnchorType.BOTTOM;
+
+        else if(getMinY() > 0.75f)
+            return VerticalTransformAnchorType.TOP;
+
+        else
+            return VerticalTransformAnchorType.MIDDLE;
     }
 
     /**
@@ -298,9 +311,6 @@ public class RectangleTransformAnchor {
      * @param vertical Vertical anchor preset.
      */
     public void setVerticalAnchorPreset(VerticalTransformAnchorType vertical) {
-        // Set the vertical anchor preset
-        this.vertical = vertical;
-
         // Update the anchor position
         switch(vertical) {
             case BOTTOM:
@@ -332,7 +342,8 @@ public class RectangleTransformAnchor {
      * @param anchor Anchor.
      */
     public void setAnchor(RectangleTransformAnchor anchor) {
-        setAnchorPreset(anchor.getHorizontalAnchorPreset(), anchor.getVerticalAnchorPreset());
+        // FIXME: Update the current anchor!
+        setAnchorPreset( );
     }
 
     /**
