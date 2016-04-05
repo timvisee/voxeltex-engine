@@ -91,17 +91,15 @@ public class RenderOverlayHelper {
         // Enable line drawing mode
         GL11.glBegin(GL11.GL_QUADS);
 
-        // FIXME: These texture coordinates are configured for fonts, is this configuration correct?
-
         // Draw the grid
         GL11.glVertex3f(x, y, 0f);
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex3f(x, y + h, 0f);
         GL11.glTexCoord2f(1, 1);
-        GL11.glVertex3f(x + w, y + h, 0f);
-        GL11.glTexCoord2f(1, 0);
         GL11.glVertex3f(x + w, y, 0f);
+        GL11.glTexCoord2f(1, 0);
+        GL11.glVertex3f(x + w, y + h, 0f);
         GL11.glTexCoord2f(0, 0);
+        GL11.glVertex3f(x, y + h, 0f);
+        GL11.glTexCoord2f(0, 1);
 
         // Finish drawing
         GL11.glEnd();

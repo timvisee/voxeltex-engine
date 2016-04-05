@@ -320,7 +320,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         glMatrixMode(GL_PROJECTION);
         glLoadMatrixf(
                 MainCamera.getProjectionMatrix()
-                        .setOrtho2D(0, 1, 1, 0)
+                        .setOrtho2D(0, 1, 0, 1)
                         .get(matrixFrameBuffer)
         );
         glMatrixMode(GL_MODELVIEW);
