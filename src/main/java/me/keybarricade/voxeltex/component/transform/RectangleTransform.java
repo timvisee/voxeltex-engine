@@ -515,52 +515,24 @@ public class RectangleTransform extends BaseComponent {
         // Define the X, Y, width and height variables
         float x, y, w, h;
 
-        // Calculate the horizontal positioning
-        switch(getHorizontalAnchorPreset()) {
-            case LEFT:
-                x = parentRectangle.getX() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
-                w = getSizeWidthOverlay();
-                break;
+        // Calculate the horizontal positioning and sizing
+        if(this.anchor.hasWidth()) {
+            x = parentRectangle.getX() + parentRectangle.getWidth() * this.anchor.getMinX() + getPositionLeftOverlay();
+            w = parentRectangle.getWidth() * this.anchor.getWidth() - getPositionLeftOverlay() - getSizeRightOverlay();
 
-            case RIGHT:
-                x = parentRectangle.getX() + parentRectangle.getWidth() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
-                w = getSizeWidthOverlay();
-                break;
-
-            case CENTER:
-                x = parentRectangle.getX() + parentRectangle.getWidth() / 2.0f + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
-                w = getSizeWidthOverlay();
-                break;
-
-            default:
-            case STRETCH:
-                x = parentRectangle.getX() + getPositionLeftOverlay();
-                w = parentRectangle.getWidth() - getPositionLeftOverlay() - getSizeRightOverlay();
-                break;
+        } else {
+            x = parentRectangle.getX() + parentRectangle.getWidth() * this.anchor.getMinX() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
+            w = getSizeWidthOverlay();
         }
 
-        // Calculate the vertical positioning
-        switch(getVerticalAnchorPreset()) {
-            case BOTTOM:
-                y = parentRectangle.getY() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
-                h = getSizeHeightOverlay();
-                break;
+        // Calculate the vertical positioning and sizing
+        if(this.anchor.hasHeight()) {
+            y = parentRectangle.getY() + parentRectangle.getHeight() * this.anchor.getMinY() + getPositionTopOverlay();
+            h = parentRectangle.getHeight() * this.anchor.getHeight() - getPositionTopOverlay() - getSizeBottomOverlay();
 
-            case MIDDLE: // TODO: Rotate with TOP?
-                y = parentRectangle.getY() + parentRectangle.getHeight() / 2.0f + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
-                h = getSizeHeightOverlay();
-                break;
-
-            case TOP: // TODO: Rotate with MIDDLE?
-                y = parentRectangle.getY() + parentRectangle.getHeight() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
-                h = getSizeHeightOverlay();
-                break;
-
-            default:
-            case STRETCH:
-                y = parentRectangle.getY() + getSizeBottomOverlay();
-                h = parentRectangle.getHeight() - getSizeBottomOverlay() - getPositionTopOverlay();
-                break;
+        } else {
+            y = parentRectangle.getY() + parentRectangle.getHeight() * this.anchor.getMinY() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+            h = getSizeHeightOverlay();
         }
 
         // Set and return the rectangle

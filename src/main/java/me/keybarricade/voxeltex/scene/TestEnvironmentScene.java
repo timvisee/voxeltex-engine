@@ -218,7 +218,7 @@ public class TestEnvironmentScene extends Scene {
         GameObject overlayTest = new GameObject("OverlayTest");
         overlayTest.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
-                new Vector2f(50, 50),
+                new Vector2f(150, 150),
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
         overlayTest.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
@@ -230,7 +230,7 @@ public class TestEnvironmentScene extends Scene {
         GameObject overlayTest2 = new GameObject("OverlayTest2");
         overlayTest2.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
-                new Vector2f(100, 100),
+                new Vector2f(50, 50),
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
         overlayTest2.addComponent(new GuiPanelComponent(0.5f, 0.5f, 0.25f, 0.4f));
