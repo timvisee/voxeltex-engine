@@ -26,6 +26,7 @@ import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.font.BitmapFont;
 import me.keybarricade.voxeltex.font.BitmapFontManager;
 import me.keybarricade.voxeltex.math.vector.Vector2fFactory;
+import me.keybarricade.voxeltex.render.OverlayUtil;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
@@ -123,8 +124,13 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
             // Calculate the character width offset
             final float characterWidthOffset = this.size * this.font.getFontWidths().getStringWidthFactor(text.substring(0, i));
 
-            // Render the rectangle
-            RenderOverlayHelper.renderRectangle(position.x + characterWidthOffset, position.y, this.size * widthFactor, this.size);
+            // Get the window ratio factor
+            final float windowRatio = OverlayUtil.getWindowRatioFactor();
+
+            // Render the rectangle, and compensate with the window ratio factor
+            RenderOverlayHelper.renderRectangle(
+                    position.x + characterWidthOffset / windowRatio, position.y,
+                    this.size * widthFactor / windowRatio, this.size);
         }
     }
 

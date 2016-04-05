@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.global.Input;
 import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.global.Time;
+import me.keybarricade.voxeltex.render.OverlayUtil;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.shader.ShaderTracker;
 import me.keybarricade.voxeltex.texture.ImageTracker;
@@ -227,6 +228,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         while(!this.window.glWindowShouldCloseBoolean()) {
             // Update time Time object
             Time.update();
+
+            // Update the overlay utils class
+            OverlayUtil.setWindow(getEngine());
 
             // Update the input
             Input.update();
