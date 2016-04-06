@@ -7,18 +7,26 @@ import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdMovementComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
+import me.keybarricade.voxeltex.component.transform.RectangleTransform;
+import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
+import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
+import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
+import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class GameScene extends Scene {
@@ -27,6 +35,9 @@ public class GameScene extends Scene {
     public void load() {
         // Load the super
         super.load();
+
+        // Create the menu
+        createMenu();
 
         // Create an object to render the center axis and grid
         GameObject gridObject = new GameObject("AxisGridRenderer");
@@ -104,5 +115,44 @@ public class GameScene extends Scene {
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
         addGameObject(cameraPrefab);
+    }
+
+    /**
+     * Create the toggeable menu and add it to the scene
+     */
+    private void createMenu() {
+        // Create the base menu panel
+        GameObject menuPanel = new GameObject("OverlayTest");
+        menuPanel.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(350, 165),
+                new RectangleTransformAnchor(0.5f, 0.6f, 0.5f, 0.6f)
+        ));
+        menuPanel.addComponent(new GuiPanelComponent());
+        addGameObject(menuPanel);
+
+        // Create the menu title
+        GuiLabelPrefab menuTitle = new GuiLabelPrefab("Button", "Menu");
+        menuTitle.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        menuTitle.getRectangleTransform().setPositionTop(-(20 + 16)); // TODO: Invert this when stretched?
+        menuTitle.setColor(Color.WHITE);
+        menuPanel.addChild(menuTitle);
+
+        // Create a new game button
+        GuiButtonPrefab button = new GuiButtonPrefab("Button", "New Game");
+        button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
+        menuPanel.addChild(button);
+
+        // Create an exit button
+        GuiButtonPrefab button2 = new GuiButtonPrefab("Button", "Exit");
+        button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
+        menuPanel.addChild(button2);
+
+        // Create a toggleable menu controller
+        GameObject menuController = new GameObject("MenuController");
+        menuController.addComponent(new ToggleableMenuComponent(menuPanel));
+        addGameObject(menuController);
     }
 }
