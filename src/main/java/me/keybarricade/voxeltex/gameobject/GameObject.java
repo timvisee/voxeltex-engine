@@ -62,6 +62,11 @@ public class GameObject extends AbstractGameObject {
     private List<AbstractComponent> components = new ArrayList<>();
 
     /**
+     * List of components queued to be destroyed.
+     */
+    private List<AbstractComponent> componentsDestroyQueue = new ArrayList<>();
+
+    /**
      * Float buffer for the rendering matrix.
      */
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
@@ -246,37 +251,17 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public boolean removeComponent(AbstractComponent component) {
-        // Remove any component
-        if(!this.components.remove(component))
-            return false;
-
-        // Destroy the component
-        component.destroy();
-
-        // Reset the owner
-        component.setOwner(null);
-
-        // Return the result
-        return true;
+    public boolean destroyComponent(AbstractComponent component) {
+        return this.componentsDestroyQueue.add(component);
     }
 
     @Override
-    public AbstractComponent removeComponent(int i) {
+    public AbstractComponent destroyComponent(int i) {
         // Get the component that will be removed
-        AbstractComponent component;
+        AbstractComponent component = this.components.get(i);
 
-        // Remove the component by it's index, and make sure any component was removed
-        if((component = this.components.remove(i)) == null)
-            return null;
-
-        // Destroy the component
-        component.destroy();
-
-        // Reset the owner
-        component.setOwner(null);
-
-        // Return the component
+        // Destroy the component, and return
+        destroyComponent(component);
         return component;
     }
 
@@ -322,6 +307,22 @@ public class GameObject extends AbstractGameObject {
         for(int i = 0, size = this.children.size(); i < size; i++)
             if(this.children.get(i).isEnabled())
                 this.children.get(i).update();
+
+        // Destroy all queued components
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.componentsDestroyQueue.size(); i < size; i++) {
+            // Get the components
+            AbstractComponent component = this.componentsDestroyQueue.get(i);
+
+            // Remove the components from the scene
+            this.components.remove(component);
+
+            // Reset the owner
+            component.setOwner(null);
+
+            // Destroy the component
+            component.destroy();
+        }
     }
 
     @Override
