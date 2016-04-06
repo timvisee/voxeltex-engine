@@ -29,13 +29,13 @@ import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
+import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
@@ -54,12 +54,18 @@ import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import static org.lwjgl.opengl.GL11.glClearColor;
+
 public class TestEnvironmentScene extends Scene {
 
     @Override
     public void load() {
         // Load the super
         super.load();
+
+        // Set the skybox color
+        // TODO: Move this to a better spot!
+        glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
@@ -220,12 +226,12 @@ public class TestEnvironmentScene extends Scene {
         overlayTest.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
                 new Vector2f(150, 150),
-                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
+                new RectangleTransformAnchor(0.5f, 0.75f, 0.5f, 0.75f)
         ));
         overlayTest.addComponent(new GuiPanelComponent());
         overlayTest.addComponent(new RectangleOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
         overlayTest.addComponent(new LineOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
-        overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.05f, 0.05f), 0.04f, "GPU string rendering", Color.RED));
+        overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.1f, 0.1f), 0.075f, "GPU string rendering", Color.RED));
         addGameObject(overlayTest);
 
         GameObject overlayTest2 = new GameObject("OverlayTest2");
@@ -236,15 +242,5 @@ public class TestEnvironmentScene extends Scene {
         ));
         overlayTest2.addComponent(new GuiPanelComponent());
         overlayTest.addChild(overlayTest2);
-
-        Image developerSplashImage = Image.loadFromEngineAssets("images/developerSplash.png");
-        GameObject avatarImage = new GameObject("Avatar");
-        avatarImage.addComponent(new RectangleTransform(
-                new Vector2f(0, 0),
-                new Vector2f(128, 128),
-                HorizontalTransformAnchorType.RIGHT, VerticalTransformAnchorType.MIDDLE
-        ));
-        avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
-        addGameObject(avatarImage);
     }
 }
