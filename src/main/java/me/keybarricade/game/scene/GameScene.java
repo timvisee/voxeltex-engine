@@ -129,7 +129,17 @@ public class GameScene extends Scene {
         menuPanel.addChild(menuLabel);
 
         // Create a restart button
-        GuiButtonPrefab restartButton = new GuiButtonPrefab("RestartButton", "Restart");
+        // TODO: Properly implement this restart feature!
+        GuiButtonPrefab restartButton = new GuiButtonPrefab("RestartButton", "Restart") {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Load the main menu
+                getEngine().getSceneManager().loadScene(new GameScene());
+            }
+        };
         restartButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         restartButton.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
         menuPanel.addChild(restartButton);
