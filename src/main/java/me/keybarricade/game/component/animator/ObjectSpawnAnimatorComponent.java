@@ -6,6 +6,7 @@ import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectSpawnAnimatorComponent extends BaseComponent {
@@ -39,6 +40,18 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
      * Constructor.
      */
     public ObjectSpawnAnimatorComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param delay Time in seconds to wait before starting the animation.
+     * @param delayedComponent Component that will be added after the animation has finished, or null.
+     */
+    public ObjectSpawnAnimatorComponent(float delay, final AbstractComponent delayedComponent) {
+        this(delay, delayedComponent == null ? null : new ArrayList<AbstractComponent>() {{
+            add(delayedComponent);
+        }});
+    }
 
     /**
      * Constructor.
