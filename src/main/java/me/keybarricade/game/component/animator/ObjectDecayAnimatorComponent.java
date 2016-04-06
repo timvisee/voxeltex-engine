@@ -5,15 +5,15 @@ import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
-public class BoxDecayAnimatorComponent extends BaseComponent {
+public class ObjectDecayAnimatorComponent extends BaseComponent {
 
     /**
-     * Time to decay the box at.
+     * Time to decay the object at.
      */
     private float decayAt;
 
     /**
-     * Mesh renderer component.
+     * Attached mesh renderer component if available.
      */
     private MeshRendererComponent meshRenderer;
 
@@ -27,13 +27,13 @@ public class BoxDecayAnimatorComponent extends BaseComponent {
      *
      * @param delay Decay delay.
      */
-    public BoxDecayAnimatorComponent(float delay) {
+    public ObjectDecayAnimatorComponent(float delay) {
         this.decayAt = Time.timeFloat + delay;
     }
 
     @Override
     public void create() {
-        // Get the mesh renderer component
+        // Get the attached mesh renderer component if available
         this.meshRenderer = getComponent(MeshRendererComponent.class);
     }
 
@@ -42,7 +42,7 @@ public class BoxDecayAnimatorComponent extends BaseComponent {
 
     @Override
     public void update() {
-        // Decay the cube
+        // Decay the object
         if(this.meshRenderer != null && Time.timeFloat >= this.decayAt) {
             // Store the initial scale if it hasn't been stored yet
             if(this.initialScale == null)

@@ -1,12 +1,14 @@
 package me.keybarricade.game.component.animator;
 
+import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
-public class BoxSpawnAnimatorComponent extends BaseComponent {
+import java.util.List;
+
+public class ObjectSpawnAnimatorComponent extends BaseComponent {
 
     /**
      * The time offset used for animations.
@@ -14,7 +16,7 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
     private float timeOffset;
 
     /**
-     * Target position of the cube.
+     * Target position of the object.
      */
     private Vector3f targetPosition;
 
@@ -23,26 +25,30 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
      */
     private MeshRendererComponent meshRenderer;
 
+    /**
+     * Wait until the given time before starting the animation.
+     */
     private float waitUntil = Time.timeFloat;
 
     /**
-     * True to add a kinematic rigidbody after the spawn animation.
+     * Components to add after the spawn animation has finished.
      */
-    private boolean applyPhysics = false;
+    private List<AbstractComponent> delayedComponents;
 
     /**
      * Constructor.
      */
-    public BoxSpawnAnimatorComponent() { }
+    public ObjectSpawnAnimatorComponent() { }
 
     /**
      * Constructor.
      *
-     * @param applyPhysics True to add a kinematic rigidbody after the spawn animation, false if not.
+     * @param delay Time in seconds to wait before starting the animation.
+     * @param delayedComponents List of components that will be added after the animation has finished, or null.
      */
-    public BoxSpawnAnimatorComponent(float delay, boolean applyPhysics) {
+    public ObjectSpawnAnimatorComponent(float delay, List<AbstractComponent> delayedComponents) {
         this.waitUntil += delay;
-        this.applyPhysics = applyPhysics;
+        this.delayedComponents = delayedComponents;
     }
 
     @Override
@@ -56,10 +62,10 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
         // Set the time offset
         this.timeOffset = this.waitUntil;
 
-        // Store the cube's targetPosition position
+        // Store the object's targetPosition position
         targetPosition = new Vector3f(getTransform().getPosition());
 
-        // Place the cube in the air
+        // Place the object in the air
         getTransform().getPosition().y = 6f;
     }
 
@@ -82,7 +88,7 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
         // Lerp the position
         getTransform().getPosition().lerp(this.targetPosition, (Time.timeFloat - timeOffset) / 4.0f);
 
-        // Set the alpha intensity of the cube based on it's spawn time
+        // Set the alpha intensity of the object based on it's spawn time
         if(this.meshRenderer != null)
             this.meshRenderer.getColor().setAlpha(Math.min((Time.timeFloat - timeOffset) / 0.25f, 1));
 
@@ -94,9 +100,10 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
             // Destroy the component
             getOwner().destroyComponent(this);
 
-            // Add a rigidbody if specified
-            if(this.applyPhysics)
-                getOwner().addComponent(new RigidbodyComponent(true));
+            // Check if any delayed components are given, if so, add them
+            if(this.delayedComponents != null)
+                for(int i = 0, size = this.delayedComponents.size(); i < size; i++)
+                    getOwner().addComponent(this.delayedComponents.get(i));
         }
     }
 
