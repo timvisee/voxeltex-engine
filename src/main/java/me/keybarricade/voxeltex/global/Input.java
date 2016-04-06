@@ -105,6 +105,17 @@ public class Input {
     }
 
     /**
+     * Check whether a key is pressed once.
+     *
+     * @param keyCode Key code, for example {@link GLFW#GLFW_KEY_W} or {@link GLFW#GLFW_KEY_ENTER}.
+     *
+     * @return True if the key is pressed once, false if not.
+     */
+    public static boolean isKeyDownOnce(int keyCode) {
+        return keyInputManager.isKeyDownOnce(keyCode);
+    }
+
+    /**
      * Get the mouse cursor position of this tick/frame on the X axis.
      *
      * @return X position.

@@ -34,4 +34,13 @@ public interface KeyInputInterface {
      * @return True if the key is down, false if not.
      */
     boolean isKeyDown(int keyCode);
+
+    /**
+     * Check whether a key is pressed once.
+     *
+     * @param keyCode Key code, for example {@link GLFW#GLFW_KEY_W} or {@link GLFW#GLFW_KEY_ENTER}.
+     *
+     * @return True if the key is pressed once, false if not.
+     */
+    boolean isKeyDownOnce(int keyCode);
 }
