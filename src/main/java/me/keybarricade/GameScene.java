@@ -2,6 +2,7 @@ package me.keybarricade;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.gameobject.SandSurfacePrefab;
+import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -9,6 +10,7 @@ import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdMovementComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
@@ -17,6 +19,7 @@ import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
+import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -71,6 +74,7 @@ public class GameScene extends Scene {
                 CubePrefab boxObject = new CubePrefab("Box");
                 boxObject.getTransform().setPosition(new Vector3f(-5 + x, 0.5f, -5 + z));
                 boxObject.setMaterial(boxMaterial);
+                boxObject.addComponent(new RigidbodyComponent(true));
                 addGameObject(boxObject);
             }
         }
@@ -108,6 +112,8 @@ public class GameScene extends Scene {
         playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
         playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
         playerObject.addComponent(new WasdMovementComponent());
+        playerObject.addComponent(new SphereColliderComponent(0.3f));
+        playerObject.addComponent(new RigidbodyComponent(true));
         addGameObject(playerObject);
 
         // Create a camera and follow the player
@@ -115,6 +121,8 @@ public class GameScene extends Scene {
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
         addGameObject(cameraPrefab);
+//        FpsCameraPrefab camera = new FpsCameraPrefab();
+//        addGameObject(camera);
     }
 
     /**
