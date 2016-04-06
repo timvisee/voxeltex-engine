@@ -4,6 +4,7 @@ import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.global.Time;
+import me.keybarricade.voxeltex.scene.TestEnvironmentScene;
 
 import static org.lwjgl.opengl.GL11.glClearColor;
 
@@ -38,12 +39,15 @@ public class SplashAnimationComponent extends BaseComponent {
         else if(Time.time < 3.5)
             alpha = Math.pow((x - 2.25) * 1.35, 2.0) * -1.0 + 1.0;
 
-
         // Send the values to the target components
         // TODO: Buffer the components to maximize performance
         getComponent(RectangleTransform.class).setSizeX((float) size);
         getComponent(RectangleTransform.class).setSizeY((float) size);
         getComponent(GuiImageComponent.class).setAlpha((float) alpha);
+
+        // Load the test environment scene after  the splash screen is done
+        if(Time.time > 3.5)
+            getEngine().getSceneManager().loadScene(new TestEnvironmentScene());
     }
 
     @Override
