@@ -3,6 +3,7 @@ package me.keybarricade.game.component.animator;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.global.Time;
+import org.joml.Vector3f;
 
 public class BoxDecayAnimatorComponent extends BaseComponent {
 
@@ -16,6 +17,16 @@ public class BoxDecayAnimatorComponent extends BaseComponent {
      */
     private MeshRendererComponent meshRenderer;
 
+    /**
+     * Initial scale. Used as reference for the scaling animation.
+     */
+    private Vector3f initialScale;
+
+    /**
+     * Constructor.
+     *
+     * @param delay Decay delay.
+     */
     public BoxDecayAnimatorComponent(float delay) {
         this.decayAt = Time.timeFloat + delay;
     }
@@ -32,11 +43,27 @@ public class BoxDecayAnimatorComponent extends BaseComponent {
     @Override
     public void update() {
         // Decay the cube
-        if(this.meshRenderer != null && Time.timeFloat >= this.decayAt)
-            this.meshRenderer.getColor().setAlpha((2.0f - (Time.timeFloat - this.decayAt)) / 2.0f);
+        if(this.meshRenderer != null && Time.timeFloat >= this.decayAt) {
+            // Store the initial scale if it hasn't been stored yet
+            if(this.initialScale == null)
+                this.initialScale = new Vector3f(getTransform().getScale());
 
-        // Destroy the game object after it's decated
-        if(Time.timeFloat >= this.decayAt + 2f)
+            // Calculate the animation factor
+            float factor = (1.0f - (Time.timeFloat - this.decayAt)) / 1.0f;
+
+            // Animate the alpha channel
+            this.meshRenderer.getColor().setAlpha(factor);
+
+            // Animate the scale
+            getTransform().getScale().set(
+                    this.initialScale.x * factor,
+                    this.initialScale.y * factor,
+                    this.initialScale.z * factor
+            );
+        }
+
+        // Destroy the game object after it's decayed
+        if(Time.timeFloat >= this.decayAt + 1f)
             getScene().destroyGameObject(getOwner());
     }
 
