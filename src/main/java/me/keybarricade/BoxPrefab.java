@@ -30,6 +30,6 @@ public class BoxPrefab extends CubePrefab {
 
         // Add a rigidbody if this isn't a dummy box
         if(!dummy)
-            addComponent(new RigidbodyComponent(false));
+            addComponent(new RigidbodyComponent(true));
     }
 }
