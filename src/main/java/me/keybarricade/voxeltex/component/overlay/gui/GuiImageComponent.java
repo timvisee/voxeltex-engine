@@ -107,6 +107,10 @@ public class GuiImageComponent extends AbstractGuiComponent {
                     this.tempRectangle.getWidth(), this.tempRectangle.getHeight()
             );
         }
+
+        // Unbind the material if available
+        if(this.material != null)
+            this.material.unbind();
     }
 
     /**
