@@ -24,10 +24,10 @@ public class KeyBarricade {
      * @param args Start up arguments.
      */
     public static void main(String[] args) {
-        // Load the app
-        App app = new App();
+        // Load the game
+        Game game = new Game();
 
-        // Initialize the app
-        app.init();
+        // Initialize the game
+        game.init();
     }
 }
