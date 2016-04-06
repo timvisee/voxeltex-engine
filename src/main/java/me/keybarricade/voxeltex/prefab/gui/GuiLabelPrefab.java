@@ -22,7 +22,7 @@
 
 package me.keybarricade.voxeltex.prefab.gui;
 
-import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponentA;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
@@ -50,7 +50,7 @@ public class GuiLabelPrefab extends GameObject {
     /**
      * The GUI label component.
      */
-    private GuiLabelComponent label;
+    private GuiLabelComponentA label;
 
     /**
      * Constructor.
@@ -80,7 +80,7 @@ public class GuiLabelPrefab extends GameObject {
         );
 
         // Create the label component
-        this.label = new GuiLabelComponent(this.text, Color.BLACK);
+        this.label = new GuiLabelComponentA(this.text, Color.BLACK);
 
         // Add the transform and label component to the game object
         addComponent(this.transform);
@@ -119,7 +119,7 @@ public class GuiLabelPrefab extends GameObject {
      *
      * @return Label component.
      */
-    public GuiLabelComponent getLabel() {
+    public GuiLabelComponentA getLabel() {
         return this.label;
     }
 

@@ -30,7 +30,7 @@ import me.keybarricade.voxeltex.font.BitmapFontManager;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
 
-public class GuiLabelComponent extends AbstractOverlayComponent {
+public class GuiLabelComponentA extends AbstractOverlayComponent {
 
     /**
      * Bitmap font that is used.
@@ -58,7 +58,7 @@ public class GuiLabelComponent extends AbstractOverlayComponent {
      *
      * @param text Text to render.
      */
-    public GuiLabelComponent(String text) {
+    public GuiLabelComponentA(String text) {
         this.text = text;
         this.font = BitmapFontManager.getDefault();
     }
@@ -69,7 +69,7 @@ public class GuiLabelComponent extends AbstractOverlayComponent {
      * @param text Text to render.
      * @param color Font color.
      */
-    public GuiLabelComponent(String text, Color color) {
+    public GuiLabelComponentA(String text, Color color) {
         this.text = text;
         this.font = BitmapFontManager.getDefault();
         this.color = color;
