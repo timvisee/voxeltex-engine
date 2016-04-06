@@ -23,6 +23,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
+import me.keybarricade.test.MenuControllerComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -223,6 +224,8 @@ public class TestEnvironmentScene extends Scene {
         keyObject.getTransform().getPosition().set(-1, 0, 0);
         addGameObject(keyObject);
 
+
+
         // Overlay test
         GameObject menuPanel = new GameObject("OverlayTest");
         menuPanel.addComponent(new RectangleTransform(
@@ -248,5 +251,10 @@ public class TestEnvironmentScene extends Scene {
         button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
         menuPanel.addChild(button2);
+
+        // Create a menu controller
+        GameObject menuController = new GameObject("MenuController");
+        menuController.addComponent(new MenuControllerComponent(menuPanel));
+        addGameObject(menuController);
     }
 }
