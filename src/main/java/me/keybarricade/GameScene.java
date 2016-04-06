@@ -113,7 +113,7 @@ public class GameScene extends Scene {
         playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
         playerObject.addComponent(new WasdMovementComponent());
         playerObject.addComponent(new SphereColliderComponent(0.3f));
-        playerObject.addComponent(new RigidbodyComponent(true));
+        playerObject.addComponent(new RigidbodyComponent(false));
         addGameObject(playerObject);
 
         // Create a camera and follow the player

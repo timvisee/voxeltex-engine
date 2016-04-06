@@ -22,7 +22,9 @@
 
 package me.keybarricade.voxeltex.component.movement;
 
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.math.vector.Vector3fUtil;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -47,6 +49,8 @@ public class WasdMovementComponent extends AbstractMovementComponent {
                 0.0f,
                 (Input.isKeyDown(GLFW_KEY_W) ? -movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_S) ? movementSpeed : 0)
         );
+
+        getComponent(RigidbodyComponent.class).getPhysicsRigidbody().applyCentralForce(Vector3fUtil.toVecmath(target, new javax.vecmath.Vector3f()));
     }
 
     /**
