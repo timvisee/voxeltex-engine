@@ -1,6 +1,7 @@
 package me.keybarricade;
 
 import me.keybarricade.voxeltex.VoxelTexEngine;
+import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
 
 public class Game {
 
@@ -47,7 +48,7 @@ public class Game {
      */
     public void startEngine() {
         // Load the default scene
-        this.engine.getSceneManager().loadScene(new MainMenuScene());
+        this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
         // Start the engine
         this.engine.start();

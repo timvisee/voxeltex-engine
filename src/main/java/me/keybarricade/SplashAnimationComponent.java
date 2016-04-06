@@ -47,7 +47,7 @@ public class SplashAnimationComponent extends BaseComponent {
 
         // Load the test environment scene after  the splash screen is done
         if(Time.time > 3.5)
-            getEngine().getSceneManager().loadScene(new TestEnvironmentScene());
+            getEngine().getSceneManager().loadScene(new MainMenuScene());
     }
 
     @Override
