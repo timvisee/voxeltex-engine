@@ -30,7 +30,7 @@ public class BoxSpawnerComponent extends BaseComponent {
     @Override
     public void update() {
         // Spawn cubes randomly
-        if(Math.random() < (Time.timeFloat / 150.0f)) {
+        if(Math.random() < (Time.timeFloat / 1500.0f)) {
             // Determine the position
             float x = (int) (-25f + (float) Math.random() * 50);
             float z = (int) (-25f + (float) Math.random() * 50);
