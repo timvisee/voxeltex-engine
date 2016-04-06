@@ -102,13 +102,32 @@ public class MainMenuScene extends Scene {
         menuPanel.addChild(menuLabel);
 
         // Create a new game button
-        GuiButtonPrefab button = new GuiButtonPrefab("NewGameButton", "New Game");
+        GuiButtonPrefab button = new GuiButtonPrefab("NewGameButton", "New Game") {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Load the main level
+                getEngine().getSceneManager().loadScene(new GameScene());
+            }
+        };
         button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
         menuPanel.addChild(button);
 
         // Create an exit button
-        GuiButtonPrefab button2 = new GuiButtonPrefab("ExitButton", "Exit");
+        GuiButtonPrefab button2 = new GuiButtonPrefab("ExitButton", "Exit") {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Exit
+                System.out.println("Exit button pressed.");
+                System.exit(0);
+            }
+        };
         button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
         menuPanel.addChild(button2);
