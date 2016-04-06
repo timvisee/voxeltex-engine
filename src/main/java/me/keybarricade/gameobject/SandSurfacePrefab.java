@@ -13,15 +13,33 @@ public class SandSurfacePrefab extends QuadPrefab {
      * Constructor.
      */
     public SandSurfacePrefab() {
+        this(50.0f);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param size Sand surface size.
+     */
+    public SandSurfacePrefab(float size) {
+        this(new Vector2f(size));
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param size Sand surface size.
+     */
+    public SandSurfacePrefab(Vector2f size) {
         // Construct the parent with the proper size
-        super("SandSurface", new Vector2f(50.0f, 50.0f));
+        super("SandSurface", size);
 
         // Load the sand texture
         Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
 
         // Create a sand surface material
         Material sandMaterial = new Material(sandTexture);
-        sandMaterial.getTiling().set(5.0f);
+        sandMaterial.getTiling().set(size.x / 5.0f);
 
         // Set the quad material to sand
         setMaterial(sandMaterial);
