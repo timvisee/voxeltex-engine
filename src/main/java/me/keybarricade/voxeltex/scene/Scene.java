@@ -23,6 +23,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
+import me.keybarricade.voxeltex.gameobject.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,11 @@ public class Scene extends AbstractScene {
      * List of game objects in this scene.
      */
     private List<AbstractGameObject> gameObjects = new ArrayList<>();
+
+    /**
+     * List of game objects queued to be destroyed.
+     */
+    private List<AbstractGameObject> gameObjectsDestroyQueue = new ArrayList<>();
 
     @Override
     public List<AbstractGameObject> getGameObjects() {
@@ -89,29 +95,18 @@ public class Scene extends AbstractScene {
     }
 
     @Override
-    public boolean removeGameObject(AbstractGameObject gameObject) {
-        // Remove any game object
-        if(!this.gameObjects.remove(gameObject))
-            return false;
-
-        // Destroy the game object
-        gameObject.destroy();
-
-        // Return the result
-        return true;
+    public boolean destroyGameObject(AbstractGameObject gameObject) {
+        // Add the game object to the destroy queue
+        return this.gameObjectsDestroyQueue.add(gameObject);
     }
 
     @Override
-    public AbstractGameObject removeGameObject(int i) {
-        // Get the game object that will be removed
-        AbstractGameObject gameObject;
+    public AbstractGameObject destroyGameObject(int i) {
+        // Get the game object
+        AbstractGameObject gameObject = getGameObject(i);
 
-        // Remove the game object by it's index, and make sure any child was removed
-        if((gameObject = this.gameObjects.remove(i)) == null)
-            return null;
-
-        // Destroy the game object
-        gameObject.destroy();
+        // Destroy the object
+        destroyGameObject(gameObject);
 
         // Return the game object
         return gameObject;
@@ -133,6 +128,19 @@ public class Scene extends AbstractScene {
 
         // Update the physics engine and simulate the next physics step
         getPhysicsEngine().update();
+
+        // Destroy all queued objects
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjectsDestroyQueue.size(); i < size; i++) {
+            // Get the game object
+            AbstractGameObject gameObject = this.gameObjectsDestroyQueue.get(i);
+
+            // Remove the game object from the scene
+            this.gameObjects.remove(gameObject);
+
+            // Destroy the game object
+            gameObject.destroy();
+        }
     }
 
     @Override
