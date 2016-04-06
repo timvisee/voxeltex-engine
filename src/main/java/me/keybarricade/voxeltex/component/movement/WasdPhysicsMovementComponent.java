@@ -38,8 +38,23 @@ public class WasdPhysicsMovementComponent extends AbstractMovementComponent {
      */
     private float movementIntensity = 6.0f;
 
+    /**
+     * Attached rigidbody component.
+     */
+    private RigidbodyComponent rigidbody;
+
     @Override
     public void update() {
+        // Make sure the rigidbody is available
+        if(this.rigidbody == null) {
+            // Get the rigidbody component if available
+            this.rigidbody = getComponent(RigidbodyComponent.class);
+
+            // Stop the update if it hasn't been found yet
+            if(this.rigidbody == null)
+                return;
+        }
+
         // Get the linear velocity of the object, and set it back to it's identity
         Vector3f target = Vector3fFactory.identity();
 
@@ -53,8 +68,9 @@ public class WasdPhysicsMovementComponent extends AbstractMovementComponent {
         );
 
         // Get the rigidbody
-        RigidBody rigidbody = getComponent(RigidbodyComponent.class).getPhysicsRigidbody();
+        RigidBody rigidbody = this.rigidbody.getPhysicsRigidbody();
 
+        // Clear the current forces
         rigidbody.clearForces();
 
         // TODO: Use buffering!
