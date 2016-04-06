@@ -1,4 +1,4 @@
-package me.keybarricade;
+package me.keybarricade.game.component.animator;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;

@@ -1,5 +1,7 @@
-package me.keybarricade;
+package me.keybarricade.game.prefab;
 
+import me.keybarricade.game.component.animator.BoxDecayAnimatorComponent;
+import me.keybarricade.game.component.animator.BoxSpawnAnimatorComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;

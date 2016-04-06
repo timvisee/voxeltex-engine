@@ -1,7 +1,8 @@
-package me.keybarricade;
+package me.keybarricade.game.scene;
 
-import me.keybarricade.gameobject.KeyPickupPrefab;
-import me.keybarricade.gameobject.SandSurfacePrefab;
+import me.keybarricade.game.prefab.BoxPrefab;
+import me.keybarricade.game.prefab.KeyPickupPrefab;
+import me.keybarricade.game.prefab.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;

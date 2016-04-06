@@ -1,6 +1,6 @@
 package me.keybarricade.demo;
 
-import me.keybarricade.gameobject.SandSurfacePrefab;
+import me.keybarricade.game.prefab.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;

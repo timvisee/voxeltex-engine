@@ -22,8 +22,8 @@
 
 package me.keybarricade.voxeltex.scene;
 
-import me.keybarricade.SplashAnimationComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
+import me.keybarricade.voxeltex.component.splash.SplashAnimationComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;

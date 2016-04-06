@@ -1,5 +1,6 @@
-package me.keybarricade;
+package me.keybarricade.game.component;
 
+import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.material.Material;
