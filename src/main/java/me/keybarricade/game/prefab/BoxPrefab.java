@@ -1,7 +1,8 @@
 package me.keybarricade.game.prefab;
 
-import me.keybarricade.game.component.animator.BoxDecayAnimatorComponent;
-import me.keybarricade.game.component.animator.BoxSpawnAnimatorComponent;
+import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
@@ -23,10 +24,10 @@ public class BoxPrefab extends CubePrefab {
         getTransform().setPosition(position);
 
         // Add the animator components
-        addComponent(new BoxSpawnAnimatorComponent(spawnDelay, !dummy));
+        addComponent(new ObjectSpawnAnimatorComponent(spawnDelay, !dummy ? new RigidbodyComponent(true) : null));
 
         // Add a decay animation
         if(decayDelay >= 0.0f)
-            addComponent(new BoxDecayAnimatorComponent(decayDelay));
+            addComponent(new ObjectDecayAnimatorComponent(decayDelay));
     }
 }

@@ -1,5 +1,6 @@
 package me.keybarricade.game.scene;
 
+import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.game.prefab.KeyPickupPrefab;
 import me.keybarricade.game.prefab.SandSurfacePrefab;
@@ -83,6 +84,7 @@ public class GameScene extends Scene {
         // Add a key
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
         keyObject.getTransform().getPosition().set(-2, 0, -1);
+        keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         addGameObject(keyObject);
 
         // Player
@@ -93,7 +95,7 @@ public class GameScene extends Scene {
         playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
         playerObject.addComponent(new WasdPhysicsMovementComponent());
         playerObject.addComponent(new SphereColliderComponent(0.3f));
-        playerObject.addComponent(new RigidbodyComponent(false));
+        playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
         addGameObject(playerObject);
 
         // Create a camera and follow the player
