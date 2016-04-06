@@ -48,6 +48,20 @@ public class GuiButtonComponent extends AbstractGuiComponent {
      */
     private String text = "Button";
 
+    /**
+     * Constructor.
+     */
+    public GuiButtonComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param text Button text.
+     */
+    public GuiButtonComponent(String text) {
+        this.text = text;
+    }
+
     @Override
     public void create() {
         // Create a label prefab as child to use for button text rendering
@@ -61,11 +75,6 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         // Add the text renderer component to this object as child
         getOwner().addChild(this.label);
     }
-
-    /**
-     * Constructor.
-     */
-    public GuiButtonComponent() { }
 
     @Override
     public void drawOverlay() {

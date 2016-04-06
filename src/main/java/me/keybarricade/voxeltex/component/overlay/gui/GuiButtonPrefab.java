@@ -78,7 +78,7 @@ public class GuiButtonPrefab extends GameObject {
         );
 
         // Create the button component
-        this.button = new GuiButtonComponent();
+        this.button = new GuiButtonComponent(this.text);
 
         // Add the transform and button component to the game object
         addComponent(this.transform);

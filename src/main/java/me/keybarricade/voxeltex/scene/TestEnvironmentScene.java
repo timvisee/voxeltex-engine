@@ -29,12 +29,9 @@ import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
@@ -234,9 +231,6 @@ public class TestEnvironmentScene extends Scene {
                 new RectangleTransformAnchor(0.5f, 0.6f, 0.5f, 0.6f)
         ));
         menuPanel.addComponent(new GuiPanelComponent());
-        menuPanel.addComponent(new RectangleOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
-        menuPanel.addComponent(new LineOverlayComponent(0.05f, 0.05f, 0.05f, 0.05f));
-        menuPanel.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.1f, 0.1f), 0.075f, "GPU string rendering", Color.RED));
         addGameObject(menuPanel);
 
         GuiLabelPrefab menuTitle = new GuiLabelPrefab("Button", "Menu");
@@ -245,12 +239,12 @@ public class TestEnvironmentScene extends Scene {
         menuTitle.setColor(Color.WHITE);
         menuPanel.addChild(menuTitle);
 
-        GuiButtonPrefab button = new GuiButtonPrefab("Button", "Button to awesomeness");
+        GuiButtonPrefab button = new GuiButtonPrefab("Button", "New Game");
         button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
         menuPanel.addChild(button);
 
-        GuiButtonPrefab button2 = new GuiButtonPrefab("Button", "Button 2 to awesomeness");
+        GuiButtonPrefab button2 = new GuiButtonPrefab("Button", "Exit");
         button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
         menuPanel.addChild(button2);
