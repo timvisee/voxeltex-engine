@@ -35,6 +35,7 @@ public class BoxDecayAnimatorComponent extends BaseComponent {
         if(this.meshRenderer != null && Time.timeFloat >= this.decayAt)
             this.meshRenderer.getColor().setAlpha((2.0f - (Time.timeFloat - this.decayAt)) / 2.0f);
 
+        // Destroy the game object after it's decated
         if(Time.timeFloat >= this.decayAt + 2f)
             getScene().destroyGameObject(getOwner());
     }

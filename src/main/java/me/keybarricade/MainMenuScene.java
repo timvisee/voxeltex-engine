@@ -3,6 +3,7 @@ package me.keybarricade;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
+import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
@@ -86,9 +87,10 @@ public class MainMenuScene extends Scene {
         // Create the base menu panel
         GameObject menuPanel = new GameObject("MenuPanel");
         menuPanel.addComponent(new RectangleTransform(
-                new Vector2f(350 / 2 + 48, -(165 / 2 + 48)),
+                new Vector2f(350 / 2 + 64, 165 / 2 + 64),
                 new Vector2f(350, 165),
-                new RectangleTransformAnchor(0f, 1f, 0f, 1f)
+                HorizontalTransformAnchorType.LEFT,
+                VerticalTransformAnchorType.BOTTOM
         ));
         menuPanel.addComponent(new GuiPanelComponent());
         addGameObject(menuPanel);
@@ -115,9 +117,10 @@ public class MainMenuScene extends Scene {
         // Create the base version panel
         GameObject versionPanel = new GameObject("VersionPanel");
         versionPanel.addComponent(new RectangleTransform(
-                new Vector2f(-(120 / 2 + 48), 24 / 2 + 48),
+                new Vector2f(-(120 / 2 + 6), -(24 / 2 + 12)),
                 new Vector2f(120, 24),
-                new RectangleTransformAnchor(1f, 0f, 1f, 0f)
+                HorizontalTransformAnchorType.RIGHT,
+                VerticalTransformAnchorType.TOP
         ));
         addGameObject(versionPanel);
 
