@@ -110,6 +110,8 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
         // Apply the font color to the material
         this.font.getMaterial().setColor(this.color);
 
+        // TODO: Use the font rendering code available in the RenderOverlayHelper class!
+
         // Bind and render each character separately
         for(int i = 0; i < text.length(); i++) {
             // Get the current character

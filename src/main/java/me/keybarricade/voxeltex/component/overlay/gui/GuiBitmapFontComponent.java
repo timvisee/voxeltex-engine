@@ -27,10 +27,8 @@ import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.font.BitmapFont;
 import me.keybarricade.voxeltex.font.BitmapFontManager;
-import me.keybarricade.voxeltex.render.OverlayUtil;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
-import org.joml.Vector2f;
 
 public class GuiBitmapFontComponent extends AbstractOverlayComponent {
 
@@ -113,48 +111,8 @@ public class GuiBitmapFontComponent extends AbstractOverlayComponent {
             // TODO: Buffer this
             getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
 
-            // Get the window ratio factor
-            final float windowRatio = OverlayUtil.getWindowRatioFactor();
-
-            // Determine the size, to fit the button
-            this.size = this.tempRectangle.getHeight();
-
-            // Calculate the total width of the string
-            float fontWidthX = this.font.getFontWidths().getStringWidthFactor(text) / windowRatio * this.size;
-
-            // Make sure the string will fit, if not decrease the size and update the width accordingly
-            if(fontWidthX > this.tempRectangle.getWidth()) {
-                this.size *= this.tempRectangle.getWidth() / fontWidthX;
-                fontWidthX *= this.tempRectangle.getWidth() / fontWidthX;
-            }
-
-            // Determine the X and Y offset of the string
-            float fontOffsetX = (this.tempRectangle.getWidth() - fontWidthX) / 2.0f;
-            float fontOffsetY = (this.tempRectangle.getHeight() - size) / 2.0f;
-
-            // Bind and render each character separately
-            for(int i = 0; i < text.length(); i++) {
-                // Get the current character
-                final char c = text.charAt(i);
-
-                // Calculate the width factor of the current character
-                final float widthFactor = this.font.getFontWidths().getCharacterWidthFactor(c);
-
-                // Bind the font material with the current character and the proper character width
-                this.font.getMaterial().bind(c, widthFactor);
-
-                // Calculate the character width offset
-                final float characterWidthOffset = this.size * this.font.getFontWidths().getStringWidthFactor(text.substring(0, i));
-
-                // Render the rectangle, and compensate with the window ratio factor
-                RenderOverlayHelper.renderRectangle(
-                        this.tempRectangle.getX() + characterWidthOffset / windowRatio + fontOffsetX, this.tempRectangle.getY() + fontOffsetY,
-                        this.size * widthFactor / windowRatio, this.size
-                );
-
-                // Unbind the material
-                this.font.getMaterial().unbind();
-            }
+            // Draw the font
+            RenderOverlayHelper.renderFont(this.tempRectangle, this.font, text);
         }
     }
 
@@ -201,7 +159,7 @@ public class GuiBitmapFontComponent extends AbstractOverlayComponent {
      * @return Size.
      */
     public float getSize() {
-        return this.size;
+        return size;
     }
 
     /**

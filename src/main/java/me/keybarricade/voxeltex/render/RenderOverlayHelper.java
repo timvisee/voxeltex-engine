@@ -22,6 +22,8 @@
 
 package me.keybarricade.voxeltex.render;
 
+import me.keybarricade.voxeltex.component.transform.Rectangle;
+import me.keybarricade.voxeltex.font.BitmapFont;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
@@ -133,5 +135,58 @@ public class RenderOverlayHelper {
 
         // Finish drawing
         GL11.glEnd();
+    }
+
+    /**
+     * Render a font inside the given rectangle with the given text.
+     * The size of the font will be adjusted automatically to fit the rectangle.
+     *
+     * @param rectangle Rectangle to draw in, in overlay space.
+     * @param font The font to draw.
+     * @param text The text to draw.
+     */
+    public static void renderFont(Rectangle rectangle, BitmapFont font, String text) {
+        // Get the window ratio factor
+        final float windowRatio = OverlayUtil.getWindowRatioFactor();
+
+        // Determine the size, to fit the button
+        float size = rectangle.getHeight();
+
+        // Calculate the total width of the string
+        float fontWidthX = font.getFontWidths().getStringWidthFactor(text) / windowRatio * size;
+
+        // Make sure the string will fit, if not decrease the size and update the width accordingly
+        if(fontWidthX > rectangle.getWidth()) {
+            size *= rectangle.getWidth() / fontWidthX;
+            fontWidthX *= rectangle.getWidth() / fontWidthX;
+        }
+
+        // Determine the X and Y offset of the string
+        float fontOffsetX = (rectangle.getWidth() - fontWidthX) / 2.0f;
+        float fontOffsetY = (rectangle.getHeight() - size) / 2.0f;
+
+        // Bind and render each character separately
+        for(int i = 0; i < text.length(); i++) {
+            // Get the current character
+            final char c = text.charAt(i);
+
+            // Calculate the width factor of the current character
+            final float widthFactor = font.getFontWidths().getCharacterWidthFactor(c);
+
+            // Bind the font material with the current character and the proper character width
+            font.getMaterial().bind(c, widthFactor);
+
+            // Calculate the character width offset
+            final float characterWidthOffset = size * font.getFontWidths().getStringWidthFactor(text.substring(0, i));
+
+            // Render the rectangle, and compensate with the window ratio factor
+            renderRectangle(
+                    rectangle.getX() + characterWidthOffset / windowRatio + fontOffsetX, rectangle.getY() + fontOffsetY,
+                    size * widthFactor / windowRatio, size
+            );
+
+            // Unbind the material
+            font.getMaterial().unbind();
+        }
     }
 }
