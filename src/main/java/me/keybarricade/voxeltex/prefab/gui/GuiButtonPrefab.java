@@ -78,8 +78,20 @@ public class GuiButtonPrefab extends GameObject {
                 VerticalTransformAnchorType.MIDDLE
         );
 
+        // Store the current instance
+        final GuiButtonPrefab instance = this;
+
         // Create the button component
-        this.button = new GuiButtonComponent(this.text);
+        this.button = new GuiButtonComponent(this.text) {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Route the click
+                instance.onClick();
+            }
+        };
 
         // Add the transform and button component to the game object
         addComponent(this.transform);
@@ -121,4 +133,9 @@ public class GuiButtonPrefab extends GameObject {
     public void setText(String text) {
         this.text = text;
     }
+
+    /**
+     * Called when a button is clicked.
+     */
+    public void onClick() { }
 }

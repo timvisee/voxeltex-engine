@@ -77,11 +77,15 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         getOwner().addChild(this.label);
     }
 
+    private boolean lastDown = false;
+    private boolean lastPressed = false;
+
     @Override
     public void drawOverlay() {
         // Define variables to store whether the button is hovered and/or pressed
         boolean hover = false;
-        boolean pressed = false;
+        boolean down = Input.isMouseButtonDown(0);
+        boolean pressed = this.lastPressed;
 
         // Get the X and Y coordinate of the cursor in overlay space
         float mouseX = Input.getMouseXOverlay();
@@ -97,8 +101,20 @@ public class GuiButtonComponent extends AbstractGuiComponent {
             if(mouseX >= this.tempRectangle.getX() && mouseX <= this.tempRectangle.getX() + this.tempRectangle.getWidth() &&
                     mouseY >= this.tempRectangle.getY() && mouseY <= this.tempRectangle.getY() + this.tempRectangle.getHeight()) {
                 hover = true;
-                pressed = Input.isMouseButtonDown(0);
             }
+
+            // Check whether the button is pressed
+            if(!lastDown && hover)
+                pressed = down;
+            else if(pressed)
+                pressed = Input.isMouseButtonDown(0);
+
+            // Handle button clicks
+            if(!pressed && this.lastPressed && hover)
+                onClick();
+
+            this.lastDown = down;
+            this.lastPressed = pressed;
 
             // Update the button visuals
             if(pressed) {
@@ -141,4 +157,9 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         // Set the button text on the font component
         this.label.setText(text);
     }
+
+    /**
+     * Called when a button is clicked.
+     */
+    public void onClick() { }
 }
