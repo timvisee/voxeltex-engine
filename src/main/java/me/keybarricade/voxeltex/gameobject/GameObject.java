@@ -373,30 +373,14 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public synchronized void drawOverlay() {
-        // Define whether we started drawing
-        boolean drawing = false;
-
         // Draw all overlay components and all children
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.components.size(); i < size; i++) {
+        for(int i = 0, size = this.components.size(); i < size; i++)
             // Make sure the component is drawable
-            if(this.components.get(i) instanceof OverlayComponentInterface) {
-//                // Make sure the drawing mode is enabled
-//                if(!drawing) {
-//                    // Start the drawing process and set the flag
-//                    drawStart();
-//                    drawing = true;
-//                }
-
+            if(this.components.get(i) instanceof OverlayComponentInterface)
                 // Draw the component overlay
                 if(this.components.get(i).isEnabled())
                     ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
-            }
-        }
-
-//        // End the drawing process if it was enabled
-//        if(drawing)
-//            drawEnd();
 
         // Draw all children
         //noinspection ForLoopReplaceableByForEach
