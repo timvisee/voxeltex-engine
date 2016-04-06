@@ -42,7 +42,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
     /**
      * Button font component.
      */
-    private GuiBitmapFontComponent font;
+    private GuiLabelComponent font;
 
     /**
      * Button text.
@@ -63,7 +63,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         ));
 
         // Create and add a font component
-        this.font = new GuiBitmapFontComponent(0.03f, this.text);
+        this.font = new GuiLabelComponent(this.text);
         textRenderer.addComponent(font);
 
         // Add the text renderer component to this object as child
@@ -123,7 +123,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
      *
      * @return Bitmap font component.
      */
-    public GuiBitmapFontComponent getBitmapFontComponent() {
+    public GuiLabelComponent getBitmapFontComponent() {
         return this.font;
     }
 
