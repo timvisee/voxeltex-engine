@@ -23,7 +23,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
-import me.keybarricade.test.MenuControllerComponent;
+import me.keybarricade.test.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -254,7 +254,7 @@ public class TestEnvironmentScene extends Scene {
 
         // Create a menu controller
         GameObject menuController = new GameObject("MenuController");
-        menuController.addComponent(new MenuControllerComponent(menuPanel));
+        menuController.addComponent(new ToggleableMenuComponent(menuPanel));
         addGameObject(menuController);
     }
 }
