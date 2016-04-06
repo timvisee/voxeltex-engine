@@ -46,7 +46,7 @@ public class BoxSpawnAnimatorComponent extends BaseComponent {
         getTransform().getPosition().lerp(this.targetPosition, (Time.timeFloat - timeOffset) / 4.0f);
 
         // Set the alpha intensity of the cube based on it's spawn time
-        this.meshRenderer.getColor().setAlpha(Math.min((Time.timeFloat - timeOffset) / 0.75f, 1));
+        this.meshRenderer.getColor().setAlpha(Math.min((Time.timeFloat - timeOffset) / 0.5f, 1));
 
         // Destroy the spawn animator after a second
         if(Time.timeFloat - timeOffset > 1f) {
