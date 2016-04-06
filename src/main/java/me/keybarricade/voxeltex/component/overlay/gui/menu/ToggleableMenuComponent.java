@@ -76,9 +76,6 @@ public class ToggleableMenuComponent extends BaseComponent {
             this.menuObject.setEnabled(this.showMenu);
     }
 
-    @Override
-    public void destroy() { }
-
     /**
      * Get the menu toggle key.
      *

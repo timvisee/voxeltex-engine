@@ -64,9 +64,6 @@ public class ObjectDecayAnimatorComponent extends BaseComponent {
 
         // Destroy the game object after it's decayed
         if(Time.timeFloat >= this.decayAt + 1f)
-            getScene().destroyGameObject(getOwner());
+            getOwner().destroy();
     }
-
-    @Override
-    public void destroy() { }
 }

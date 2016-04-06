@@ -40,9 +40,6 @@ public abstract class AbstractMeshRendererComponent extends BaseComponent implem
     public synchronized void update() { }
 
     @Override
-    public void destroy() { }
-
-    @Override
     public boolean hasMeshFilterComponent() {
         return getMeshFilterComponent() != null;
     }

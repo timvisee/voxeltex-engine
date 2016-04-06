@@ -37,7 +37,7 @@ public class Scene extends AbstractScene {
     /**
      * List of game objects queued to be destroyed.
      */
-    private List<AbstractGameObject> gameObjectsDestroyQueue = new ArrayList<>();
+    private List<AbstractGameObject> gameObjectsRemoveQueue = new ArrayList<>();
 
     @Override
     public List<AbstractGameObject> getGameObjects() {
@@ -94,20 +94,17 @@ public class Scene extends AbstractScene {
     }
 
     @Override
-    public boolean destroyGameObject(AbstractGameObject gameObject) {
-        // Add the game object to the destroy queue
-        return this.gameObjectsDestroyQueue.add(gameObject);
+    public boolean removeGameObject(AbstractGameObject gameObject) {
+        return this.gameObjectsRemoveQueue.add(gameObject);
     }
 
     @Override
-    public AbstractGameObject destroyGameObject(int i) {
+    public AbstractGameObject removeGameObject(int i) {
         // Get the game object
         AbstractGameObject gameObject = getGameObject(i);
 
-        // Destroy the object
-        destroyGameObject(gameObject);
-
-        // Return the game object
+        // Remove the game object and return it
+        removeGameObject(gameObject);
         return gameObject;
     }
 
@@ -128,21 +125,14 @@ public class Scene extends AbstractScene {
         // Update the physics engine and simulate the next physics step
         getPhysicsEngine().update();
 
-        // Destroy all queued objects
+        // Remove all game objects that were queued to be removed
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.gameObjectsDestroyQueue.size(); i < size; i++) {
-            // Get the game object
-            AbstractGameObject gameObject = this.gameObjectsDestroyQueue.get(i);
+        for(int i = 0, size = this.gameObjectsRemoveQueue.size(); i < size; i++)
+            // Remove the game object
+            this.gameObjects.remove(this.gameObjectsRemoveQueue.get(i));
 
-            // Remove the game object from the scene
-            this.gameObjects.remove(gameObject);
-
-            // Destroy the game object
-            gameObject.destroy();
-        }
-
-        // Clear the list of queued destroyed objects
-        this.gameObjectsDestroyQueue.clear();
+        // Clear the list of game objects queued to be removed
+        this.gameObjectsRemoveQueue.clear();
     }
 
     @Override

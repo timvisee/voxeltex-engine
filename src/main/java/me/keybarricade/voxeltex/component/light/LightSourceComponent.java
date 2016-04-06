@@ -143,15 +143,15 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
 
     @Override
     public void destroy() {
-        // Call the super
-        super.destroy();
-
         // Make sure a light instance was created
         if(this.light == null)
             return;
 
         // Remove the light instance from the light manager to ensure it isn't handled anymore
         getScene().getLightManager().removeLight(this.light);
+
+        // Call the super
+        super.destroy();
     }
 
     @Override

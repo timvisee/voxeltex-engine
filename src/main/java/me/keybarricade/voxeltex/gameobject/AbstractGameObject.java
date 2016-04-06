@@ -269,7 +269,7 @@ public abstract class AbstractGameObject {
      *
      * @return True if any component was removed, false if not.
      */
-    public abstract boolean destroyComponent(AbstractComponent component);
+    public abstract boolean removeComponent(AbstractComponent component);
 
     /**
      * Remove a component at the given index.
@@ -278,7 +278,7 @@ public abstract class AbstractGameObject {
      *
      * @return The component that was removed, or null.
      */
-    public abstract AbstractComponent destroyComponent(int i);
+    public abstract AbstractComponent removeComponent(int i);
 
     /**
      * Create the game object.

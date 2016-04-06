@@ -120,7 +120,7 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
             getTransform().setPosition(this.targetPosition);
 
             // Destroy the component
-            getOwner().destroyComponent(this);
+            getOwner().removeComponent(this);
 
             // Check if any delayed components are given, if so, add them
             if(this.delayedComponents != null)
@@ -128,7 +128,4 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
                     getOwner().addComponent(this.delayedComponents.get(i));
         }
     }
-
-    @Override
-    public void destroy() { }
 }

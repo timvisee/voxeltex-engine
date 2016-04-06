@@ -195,7 +195,7 @@ public abstract class AbstractScene {
      *
      * @return True if any game object was removed, false if not.
      */
-    public abstract boolean destroyGameObject(AbstractGameObject gameObject);
+    public abstract boolean removeGameObject(AbstractGameObject gameObject);
 
     /**
      * Remove the game object at the given index.
@@ -204,5 +204,5 @@ public abstract class AbstractScene {
      *
      * @return The game object that was removed, or null if none was removed.
      */
-    public abstract AbstractGameObject destroyGameObject(int i);
+    public abstract AbstractGameObject removeGameObject(int i);
 }

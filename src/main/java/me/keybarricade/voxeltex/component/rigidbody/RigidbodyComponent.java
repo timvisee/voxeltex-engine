@@ -124,9 +124,6 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         }
     }
 
-    @Override
-    public void destroy() { }
-
     /**
      * Create the actual rigidbody for this component.
      * This should be called when the scene the game object is in is started.

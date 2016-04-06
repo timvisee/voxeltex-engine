@@ -71,7 +71,4 @@ public class SplashAnimationComponent extends BaseComponent {
         if(Time.time > 3.5)
             getEngine().getSceneManager().loadScene(new MainMenuScene());
     }
-
-    @Override
-    public void destroy() { }
 }

@@ -40,7 +40,4 @@ public class BoxSpawnerComponent extends BaseComponent {
             getScene().addGameObject(new BoxPrefab(new Vector3f(x, 0.5f, z), true, 0.0f, 10.0f, boxMaterial));
         }
     }
-
-    @Override
-    public void destroy() { }
 }

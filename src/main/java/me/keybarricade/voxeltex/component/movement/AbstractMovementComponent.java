@@ -31,7 +31,4 @@ public abstract class AbstractMovementComponent extends BaseComponent {
 
     @Override
     public void start() { }
-
-    @Override
-    public void destroy() { }
 }

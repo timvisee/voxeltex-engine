@@ -34,7 +34,4 @@ public abstract class AbstractDrawableComponent extends BaseComponent implements
 
     @Override
     public synchronized void update() { }
-
-    @Override
-    public void destroy() { }
 }

@@ -46,12 +46,12 @@ public class CameraComponent extends AbstractCameraComponent {
 
     @Override
     public void destroy() {
-        // Call the super
-        super.destroy();
-
         // Reset the MainCamera instance if it was attached to this camera component
         if(MainCamera.getCamera().equals(this))
             MainCamera.setCamera(null);
+
+        // Call the super
+        super.destroy();
     }
 
     @Override
