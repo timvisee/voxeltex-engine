@@ -26,6 +26,7 @@ import me.keybarricade.voxeltex.component.mesh.filter.AbstractMeshFilterComponen
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponentInterface;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.shader.Shader;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -44,10 +45,15 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
     private List<Material> materials = new ArrayList<>();
 
     /**
+     * Mesh color.
+     */
+    private Color color = new Color(1, 1, 1, 1);
+
+    /**
      * Cached model matrix that is used for rendering from time to time.
      * Caching and recycling the instance adds a huge performance benefit.
      */
-    private final Matrix4f modelMatrixCache = new Matrix4f();
+    private final Matrix4f tempModelMatrix = new Matrix4f();
 
     /**
      * Constructor.
@@ -113,14 +119,18 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
             shader.update(getScene(), material);
 
             // Get the model matrix and send it to the shader
-            synchronized(this.modelMatrixCache) {
-                shader.setUniformMatrix4f("modelMatrix", getTransform().getWorldMatrix(this.modelMatrixCache));
+            synchronized(this.tempModelMatrix) {
+                shader.setUniformMatrix4f("modelMatrix", getTransform().getWorldMatrix(this.tempModelMatrix));
             }
 
             // Bind the texture if available
             // TODO: Also bind the normal!
             if(material.hasTexture())
                 shader.setUniform1f("texture", material.getTexture().getId());
+
+            // Send the color
+            // TODO: Use buffering!
+            shader.setUniform4f("color", this.color.toVector4f());
 
             // Draw the mesh attached to the mesh filter
             this.meshFilter.getMesh().draw(material);
@@ -173,5 +183,23 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
     @Override
     public Material removeMaterial(int i) {
         return this.materials.remove(i);
+    }
+
+    /**
+     * Get the color.
+     *
+     * @return Color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the color.
+     *
+     * @param color Color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

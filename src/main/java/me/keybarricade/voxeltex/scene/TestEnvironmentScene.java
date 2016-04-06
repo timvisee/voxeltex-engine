@@ -227,7 +227,7 @@ public class TestEnvironmentScene extends Scene {
 
 
         // Overlay test
-        GameObject menuPanel = new GameObject("OverlayTest");
+        GameObject menuPanel = new GameObject("MenuPanel");
         menuPanel.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
                 new Vector2f(350, 165),
@@ -236,18 +236,18 @@ public class TestEnvironmentScene extends Scene {
         menuPanel.addComponent(new GuiPanelComponent());
         addGameObject(menuPanel);
 
-        GuiLabelPrefab menuTitle = new GuiLabelPrefab("Button", "Menu");
+        GuiLabelPrefab menuTitle = new GuiLabelPrefab("MenuLabel", "Menu");
         menuTitle.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         menuTitle.getRectangleTransform().setPositionTop(-(20 + 16)); // TODO: Invert this when stretched?
         menuTitle.setColor(Color.WHITE);
         menuPanel.addChild(menuTitle);
 
-        GuiButtonPrefab button = new GuiButtonPrefab("Button", "New Game");
+        GuiButtonPrefab button = new GuiButtonPrefab("NewGameButton", "New Game");
         button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
         menuPanel.addChild(button);
 
-        GuiButtonPrefab button2 = new GuiButtonPrefab("Button", "Exit");
+        GuiButtonPrefab button2 = new GuiButtonPrefab("ExitButton", "Exit");
         button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
         menuPanel.addChild(button2);
