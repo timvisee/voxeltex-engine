@@ -23,7 +23,7 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
-import me.keybarricade.test.ToggleableMenuComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;

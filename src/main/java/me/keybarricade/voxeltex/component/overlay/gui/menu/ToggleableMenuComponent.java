@@ -1,4 +1,4 @@
-package me.keybarricade.test;
+package me.keybarricade.voxeltex.component.overlay.gui.menu;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
