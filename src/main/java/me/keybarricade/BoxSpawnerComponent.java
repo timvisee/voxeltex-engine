@@ -36,7 +36,7 @@ public class BoxSpawnerComponent extends BaseComponent {
             float z = (int) (-25f + (float) Math.random() * 50);
 
             // Spawn a box
-            getScene().addGameObject(new BoxPrefab(new Vector3f(x, 0.5f, z), boxMaterial));
+            getScene().addGameObject(new BoxPrefab(new Vector3f(x, 0.5f, z), true, 10.0f, boxMaterial));
         }
     }
 

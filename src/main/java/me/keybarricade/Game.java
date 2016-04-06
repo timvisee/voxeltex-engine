@@ -48,7 +48,7 @@ public class Game {
      */
     public void startEngine() {
         // Load the default scene
-        this.engine.getSceneManager().loadScene(new GameScene());
+        this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
         // Start the engine
         this.engine.start();

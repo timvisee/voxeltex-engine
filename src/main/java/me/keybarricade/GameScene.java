@@ -3,7 +3,6 @@ package me.keybarricade;
 import me.keybarricade.gameobject.KeyPickupPrefab;
 import me.keybarricade.gameobject.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
-import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -23,7 +22,6 @@ import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
-import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
@@ -40,12 +38,6 @@ public class GameScene extends Scene {
 
         // Create the menu
         createMenu();
-
-        // Create an object to render the center axis and grid
-        GameObject gridObject = new GameObject("AxisGridRenderer");
-        //gridObject.addComponent(new GridDrawComponent());
-        gridObject.addComponent(new AxisDrawComponent());
-        addGameObject(gridObject);
 
         // Create and add the sand surface prefab
         addGameObject(new SandSurfacePrefab());
@@ -70,34 +62,17 @@ public class GameScene extends Scene {
                 if(x != 0 && z != 0 && x != 11 && z != 11)
                     continue;
 
-                CubePrefab boxObject = new CubePrefab("Box");
-                boxObject.getTransform().setPosition(new Vector3f(-5 + x, 0.5f, -5 + z));
-                boxObject.setMaterial(boxMaterial);
-                boxObject.addComponent(new RigidbodyComponent(true));
-                addGameObject(boxObject);
+                // Spawn a box
+                BoxPrefab box = new BoxPrefab(new Vector3f(-5 + x, 0.5f, -5 + z), false, -1f, boxMaterial);
+                addGameObject(box);
             }
         }
 
         // Spawn some boxes
-        CubePrefab obj = new CubePrefab("Box");
-        obj.getTransform().setPosition(new Vector3f(3, 0.5f, 2));
-        obj.setMaterial(boxMaterial);
-        addGameObject(obj);
-
-        obj = new CubePrefab("Box");
-        obj.getTransform().setPosition(new Vector3f(1, 0.5f, -4));
-        obj.setMaterial(boxMaterial);
-        addGameObject(obj);
-
-        obj = new CubePrefab("Box");
-        obj.getTransform().setPosition(new Vector3f(2, 0.5f, 0));
-        obj.setMaterial(boxMaterial);
-        addGameObject(obj);
-
-        obj = new CubePrefab("Box");
-        obj.getTransform().setPosition(new Vector3f(-2, 0.5f, 3));
-        obj.setMaterial(boxMaterial);
-        addGameObject(obj);
+        addGameObject(new BoxPrefab(new Vector3f(3, 0.5f, 2), false, -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(1, 0.5f, -4), false, -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(2, 0.5f, 0), false, -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, -1f, boxMaterial));
 
         // Add a key
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
