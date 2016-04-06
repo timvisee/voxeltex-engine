@@ -60,6 +60,10 @@ public class MouseLookCameraComponent extends CameraComponent {
         // Update the super camera
         super.updateCamera();
 
+        // Only update the mouse look direction if the cursor mode is correct
+        if(Input.getMouseCursorMode() != MouseInputManager.CURSOR_MODE_CAPTURED)
+            return;
+
         // Determine the mouse movement
         float yRot = Input.getMouseDeltaX() * this.mouseSensitivityX / getScene().getEngine().getRenderer().getWindow().getWidth();
         float xRot = Input.getMouseDeltaY() * this.mouseSensitivityY / getScene().getEngine().getRenderer().getWindow().getHeight();
