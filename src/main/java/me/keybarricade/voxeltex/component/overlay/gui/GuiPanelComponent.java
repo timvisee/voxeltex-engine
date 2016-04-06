@@ -42,7 +42,7 @@ public class GuiPanelComponent extends AbstractGuiComponent {
     public void drawOverlay() {
         // Set the drawing color
         // TODO: Make this color configurable!
-        RenderOverlayHelper.color(0, 0, 0, .7f);
+        RenderOverlayHelper.color(0, 0, 0, .75f);
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {

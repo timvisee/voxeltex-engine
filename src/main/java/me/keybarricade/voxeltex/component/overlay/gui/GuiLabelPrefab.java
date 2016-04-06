@@ -69,19 +69,13 @@ public class GuiLabelPrefab extends GameObject {
 
         // Set the button text
         this.text = text;
-    }
-
-    @Override
-    public void create() {
-        // Create the super
-        super.create();
 
         // Create and configure the rectangle transform component
         this.transform = new RectangleTransform(
-                new Vector2f(8, 8),
-                new Vector2f(8, 8),
+                new Vector2f(16, 0),
+                new Vector2f(16, 24),
                 HorizontalTransformAnchorType.STRETCH,
-                VerticalTransformAnchorType.STRETCH
+                VerticalTransformAnchorType.MIDDLE
         );
 
         // Create the label component
