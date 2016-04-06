@@ -34,6 +34,11 @@ public class Scene extends AbstractScene {
      */
     private List<AbstractGameObject> gameObjects = new ArrayList<>();
 
+    /**
+     * List of game objects queued to be destroyed.
+     */
+    private List<AbstractGameObject> gameObjectsDestroyQueue = new ArrayList<>();
+
     @Override
     public List<AbstractGameObject> getGameObjects() {
         return this.gameObjects;
@@ -89,29 +94,18 @@ public class Scene extends AbstractScene {
     }
 
     @Override
-    public boolean removeGameObject(AbstractGameObject gameObject) {
-        // Remove any game object
-        if(!this.gameObjects.remove(gameObject))
-            return false;
-
-        // Destroy the game object
-        gameObject.destroy();
-
-        // Return the result
-        return true;
+    public boolean destroyGameObject(AbstractGameObject gameObject) {
+        // Add the game object to the destroy queue
+        return this.gameObjectsDestroyQueue.add(gameObject);
     }
 
     @Override
-    public AbstractGameObject removeGameObject(int i) {
-        // Get the game object that will be removed
-        AbstractGameObject gameObject;
+    public AbstractGameObject destroyGameObject(int i) {
+        // Get the game object
+        AbstractGameObject gameObject = getGameObject(i);
 
-        // Remove the game object by it's index, and make sure any child was removed
-        if((gameObject = this.gameObjects.remove(i)) == null)
-            return null;
-
-        // Destroy the game object
-        gameObject.destroy();
+        // Destroy the object
+        destroyGameObject(gameObject);
 
         // Return the game object
         return gameObject;
@@ -128,25 +122,44 @@ public class Scene extends AbstractScene {
         // Update all game objects
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).update();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).update();
 
         // Update the physics engine and simulate the next physics step
         getPhysicsEngine().update();
+
+        // Destroy all queued objects
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjectsDestroyQueue.size(); i < size; i++) {
+            // Get the game object
+            AbstractGameObject gameObject = this.gameObjectsDestroyQueue.get(i);
+
+            // Remove the game object from the scene
+            this.gameObjects.remove(gameObject);
+
+            // Destroy the game object
+            gameObject.destroy();
+        }
+
+        // Clear the list of queued destroyed objects
+        this.gameObjectsDestroyQueue.clear();
     }
 
     @Override
     public void draw() {
-        // Draw all game objects
+        // Draw all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).draw();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).draw();
     }
 
     @Override
     public void drawOverlay() {
-        // Draw the overlay of all game objects
+        // Draw the overlay of all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).drawOverlay();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).drawOverlay();
     }
 }

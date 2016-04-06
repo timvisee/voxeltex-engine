@@ -32,6 +32,30 @@ import java.util.List;
 public abstract class AbstractComponent {
 
     /**
+     * True if the component is enabled, false if not.
+     * If the component is disabled, the draw and update loops won't be notified.
+     */
+    private boolean enabled = true;
+
+    /**
+     * Check whether this component is enabled.
+     *
+     * @return True if enabled, false if not.
+     */
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * Set whether this component is enabled.
+     *
+     * @param enabled True if enabled, false if not.
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
      * Get the game object owner/parent of this component.
      *
      * @return Owner.
@@ -164,6 +188,6 @@ public abstract class AbstractComponent {
 
     @Override
     public String toString() {
-        return "Component(" + getName() + ")";
+        return "Component[" + getName() + "]";
     }
 }

@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.material;
 
+import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector2f;
@@ -107,4 +108,11 @@ public interface MaterialInterface {
      * Unbind the material from OpenGL after rendering.
      */
     void unbind();
+
+    /**
+     * Update the material and it's shader.
+     *
+     * @param scene Scene to update the material and shader for.
+     */
+    void update(AbstractScene scene);
 }

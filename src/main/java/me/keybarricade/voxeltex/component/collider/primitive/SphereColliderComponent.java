@@ -39,6 +39,20 @@ public class SphereColliderComponent extends AbstractColliderComponent {
     private SphereShape bulletShape = null;
 
     /**
+     * Constructor.
+     */
+    public SphereColliderComponent() { }
+
+    /**
+     * Constructor.
+     *
+     * @param radius Sphere radius.
+     */
+    public SphereColliderComponent(float radius) {
+        this.radius = radius;
+    }
+
+    /**
      * Get the radius of the sphere collider.
      *
      * @return Sphere radius.

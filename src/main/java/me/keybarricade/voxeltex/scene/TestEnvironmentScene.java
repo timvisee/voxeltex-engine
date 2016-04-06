@@ -23,14 +23,19 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
+import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
-import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
+import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
+import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
+import me.keybarricade.voxeltex.component.transform.RectangleTransform;
+import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
+import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
@@ -48,12 +53,18 @@ import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import static org.lwjgl.opengl.GL11.glClearColor;
+
 public class TestEnvironmentScene extends Scene {
 
     @Override
     public void load() {
         // Load the super
         super.load();
+
+        // Set the skybox color
+        // TODO: Move this to a better spot!
+        glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
@@ -70,7 +81,6 @@ public class TestEnvironmentScene extends Scene {
             suzanneObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.RED, 1, 1))));
             suzanneObject.getTransform().getPosition().set(0, 1f, -2.0f + -6f * (i + 1));
             suzanneObject.getTransform().getAngularVelocity().set(0, -0.5f, 0);
-            suzanneObject.getTransform().getScale().set(2, 1, 1);
             suzanneRoot.addChild(suzanneObject);
         }
 
@@ -204,16 +214,47 @@ public class TestEnvironmentScene extends Scene {
         FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
         fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         addGameObject(fpsCameraPrefab);
+//        GameObject cameraObject = new GameObject("Camera");
+//        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+//        cameraObject.addComponent(new CameraComponent());
+//        addGameObject(cameraObject);
 
         // Add a key prefab
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
         keyObject.getTransform().getPosition().set(-1, 0, 0);
         addGameObject(keyObject);
 
+
+
         // Overlay test
-        GameObject overlayTest = new GameObject("OverlayTest");
-        overlayTest.addComponent(new RectangleOverlayComponent(0.475f, 0.475f, 0.05f, 0.05f));
-        overlayTest.addComponent(new LineOverlayComponent(0.475f, 0.475f, 0.05f, 0.05f));
-        addGameObject(overlayTest);
+        GameObject menuPanel = new GameObject("MenuPanel");
+        menuPanel.addComponent(new RectangleTransform(
+                new Vector2f(0, 0),
+                new Vector2f(350, 165),
+                new RectangleTransformAnchor(0.5f, 0.6f, 0.5f, 0.6f)
+        ));
+        menuPanel.addComponent(new GuiPanelComponent());
+        addGameObject(menuPanel);
+
+        GuiLabelPrefab menuTitle = new GuiLabelPrefab("MenuLabel", "Menu");
+        menuTitle.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        menuTitle.getRectangleTransform().setPositionTop(-(20 + 16)); // TODO: Invert this when stretched?
+        menuTitle.setColor(Color.WHITE);
+        menuPanel.addChild(menuTitle);
+
+        GuiButtonPrefab button = new GuiButtonPrefab("NewGameButton", "New Game");
+        button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
+        menuPanel.addChild(button);
+
+        GuiButtonPrefab button2 = new GuiButtonPrefab("ExitButton", "Exit");
+        button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
+        menuPanel.addChild(button2);
+
+        // Create a menu controller
+        GameObject menuController = new GameObject("MenuController");
+        menuController.addComponent(new ToggleableMenuComponent(menuPanel));
+        addGameObject(menuController);
     }
 }

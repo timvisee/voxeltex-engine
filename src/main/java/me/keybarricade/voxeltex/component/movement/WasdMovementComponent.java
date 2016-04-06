@@ -39,6 +39,8 @@ public class WasdMovementComponent extends AbstractMovementComponent {
         // Get the linear velocity of the object, and set it back to it's identity
         Vector3f target = getTransform().getLinearVelocity().zero();
 
+        // TODO: Make sure moving sideways has the same speed!
+
         // Determine the linear velocity based on user input
         target.add(
                 (Input.isKeyDown(GLFW_KEY_D) ? movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_A) ? -movementSpeed : 0),

@@ -233,6 +233,10 @@ public class LightManager {
      * @param shader The shader to send the light data to.
      */
     public void sendToShader(Shader shader) {
+        // Buffer the lights if they haven't been buffered yet
+        if(this.lightTypeBuffer == null)
+            buffer();
+
         // Send the number of lights
         shader.setUniform1i("lightCount", this.bufferedLightCount);
 

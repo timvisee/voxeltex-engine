@@ -26,6 +26,7 @@
 uniform sampler2D texture;
 uniform vec2 tiling = vec2(1.0, 1.0);
 uniform float ambientBrightness = 0.05;
+uniform vec4 color = vec4(1, 1, 1, 1);
 
 // Fragment position data
 varying vec4 position;
@@ -99,5 +100,5 @@ void main(void) {
     diffuse += vec3(ambientBrightness);
 
     // Determine and set the fragment color
-    gl_FragColor = vec4(diffuse, 1.0) * texture2D(texture, gl_TexCoord[0].st * tiling);
+    gl_FragColor = vec4(diffuse, 1.0) * texture2D(texture, gl_TexCoord[0].st * tiling) * color;
 }

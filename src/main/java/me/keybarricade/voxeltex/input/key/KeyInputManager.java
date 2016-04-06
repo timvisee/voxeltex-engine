@@ -45,6 +45,11 @@ public class KeyInputManager implements KeyInputInterface {
     private boolean[] keysDown = new boolean[GLFW.GLFW_KEY_LAST];
 
     /**
+     * List of pressed once keys.
+     */
+    private boolean[] keysDownOnce = new boolean[GLFW.GLFW_KEY_LAST];
+
+    /**
      * Constructor.
      *
      * @param window Window this key input manager is for.
@@ -87,6 +92,7 @@ public class KeyInputManager implements KeyInputInterface {
 
                 // Set whether the key is pressed
                 keysDown[key] = action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT;
+                keysDownOnce[key] = action == GLFW.GLFW_PRESS;
             }
         };
 
@@ -115,5 +121,15 @@ public class KeyInputManager implements KeyInputInterface {
     @Override
     public boolean isKeyDown(int keyCode) {
         return this.keysDown[keyCode];
+    }
+
+    @Override
+    public boolean isKeyDownOnce(int keyCode) {
+        // Check whether the key is down
+        boolean down = this.keysDownOnce[keyCode];
+
+        // Reset the flag, and return the result
+        this.keysDownOnce[keyCode] = false;
+        return down;
     }
 }

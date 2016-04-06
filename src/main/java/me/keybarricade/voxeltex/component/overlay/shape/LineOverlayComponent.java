@@ -75,6 +75,9 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
         // Set the thickness of the line drawn
         RenderOverlayHelper.lineWidth(this.lineWidth);
 
+        // Set the drawing color
+        RenderOverlayHelper.color(1, 0, 0, 0.5f);
+
         // Render the line
         RenderOverlayHelper.renderLine(this.position, this.size);
     }

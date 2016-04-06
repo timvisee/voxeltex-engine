@@ -1,8 +1,9 @@
 package me.keybarricade;
 
 import me.keybarricade.voxeltex.VoxelTexEngine;
+import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
 
-public class App {
+public class Game {
 
     /**
      * VoxelTex engine instance.
@@ -12,7 +13,7 @@ public class App {
     /**
      * Constructor.
      */
-    public App() { }
+    public Game() { }
 
     /**
      * Initialize.
@@ -47,7 +48,7 @@ public class App {
      */
     public void startEngine() {
         // Load the default scene
-        this.engine.getSceneManager().loadScene(new GameScene());
+        this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
         // Start the engine
         this.engine.start();

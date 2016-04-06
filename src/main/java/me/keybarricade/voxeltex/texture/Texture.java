@@ -100,14 +100,12 @@ public class Texture {
     public static Texture fromColor(Color color, int width, int height) {
         ByteBuffer buffer = BufferUtil.createByteBuffer(width * height * 4);
 
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+        for(int x = 0; x < width; x++)
+            for(int y = 0; y < height; y++)
                 buffer.put((byte) (color.getRed() * 255.0f))
                         .put((byte) (color.getGreen() * 255.0f))
                         .put((byte) (color.getBlue() * 255.0f))
                         .put((byte) (color.getAlpha() * 255.0f));
-            }
-        }
 
         // Flip the buffer so we can read
         buffer.flip();
@@ -175,6 +173,10 @@ public class Texture {
         // Done using the texture, unbind
         Texture.unbind();
 
+        // Set the width and height
+        texture.width = width;
+        texture.height = height;
+
         // Return the created texture
         return texture;
     }
@@ -185,7 +187,7 @@ public class Texture {
      * @return Texture ID.
      */
     public int getId() {
-        return id;
+        return this.id;
     }
 
     /**
@@ -194,7 +196,7 @@ public class Texture {
      * @return Texture width.
      */
     public float getWidth() {
-        return width;
+        return this.width;
     }
 
     /**
@@ -203,7 +205,7 @@ public class Texture {
      * @return Texture height.
      */
     public float getHeight() {
-        return height;
+        return this.height;
     }
 
     /**
@@ -216,7 +218,7 @@ public class Texture {
      * @return Texture filter.
      */
     public static int getFilter() {
-        return filter;
+        return Texture.filter;
     }
 
     /**
@@ -229,7 +231,7 @@ public class Texture {
      * @return Texture wrap.
      */
     public static int getWrap() {
-        return wrap;
+        return Texture.wrap;
     }
 
     /**

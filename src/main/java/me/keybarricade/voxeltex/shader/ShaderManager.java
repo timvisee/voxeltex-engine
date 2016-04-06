@@ -22,7 +22,9 @@
 
 package me.keybarricade.voxeltex.shader;
 
+import me.keybarricade.voxeltex.shader.specific.BitmapFontShader;
 import me.keybarricade.voxeltex.shader.specific.DefaultShader;
+import me.keybarricade.voxeltex.shader.specific.GuiTextureShader;
 import me.keybarricade.voxeltex.shader.specific.TexturedShader;
 
 public class ShaderManager {
@@ -38,10 +40,22 @@ public class ShaderManager {
     public static Shader SHADER_DEFAULT_TEXTURED;
 
     /**
+     * Default bitmap font shader.
+     */
+    public static Shader SHADER_DEFAULT_BITMAP_FONT;
+
+    /**
+     * Default GUI texture shader.
+     */
+    public static Shader SHADER_DEFAULT_GUI_TEXTURE;
+
+    /**
      * Load the engine shaders.
      */
     public static void load() {
         SHADER_DEFAULT = new DefaultShader();
         SHADER_DEFAULT_TEXTURED = new TexturedShader();
+        SHADER_DEFAULT_BITMAP_FONT = new BitmapFontShader();
+        SHADER_DEFAULT_GUI_TEXTURE = new GuiTextureShader();
     }
 }

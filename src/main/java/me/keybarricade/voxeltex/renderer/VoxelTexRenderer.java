@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.global.Input;
 import me.keybarricade.voxeltex.global.MainCamera;
 import me.keybarricade.voxeltex.global.Time;
+import me.keybarricade.voxeltex.render.OverlayUtil;
 import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.shader.ShaderTracker;
 import me.keybarricade.voxeltex.texture.ImageTracker;
@@ -228,6 +229,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update time Time object
             Time.update();
 
+            // Update the overlay utils class
+            OverlayUtil.setWindow(getEngine());
+
             // Update the input
             Input.update();
 
@@ -292,7 +296,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
                         .setPerspective(
                                 (float) Math.toRadians(45),
                                 (float) windowWidth / windowHeight,
-                                0.01f, 100.0f)
+                                0.01f, 1000.0f)
                         .get(matrixFrameBuffer)
         );
         glMatrixMode(GL_MODELVIEW);
@@ -316,7 +320,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         glMatrixMode(GL_PROJECTION);
         glLoadMatrixf(
                 MainCamera.getProjectionMatrix()
-                        .setOrtho2D(0, 1, 1, 0)
+                        .setOrtho2D(0, 1, 0, 1)
                         .get(matrixFrameBuffer)
         );
         glMatrixMode(GL_MODELVIEW);

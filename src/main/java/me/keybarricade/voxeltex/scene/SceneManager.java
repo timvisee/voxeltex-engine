@@ -78,6 +78,11 @@ public class SceneManager {
      * @param scene Scene to load
      */
     public void loadScene(Scene scene) {
+        // Immediately start the scene if the current scene was loaded
+        boolean start = false;
+        if(this.scene != null)
+            start = this.scene.isStarted();
+
         // Set the loaded scene
         this.scene = scene;
 
@@ -88,6 +93,10 @@ public class SceneManager {
         System.out.println("Loading scene...");
         scene.load();
         System.out.println("Scene loaded");
+
+        // Start the scene
+        if(start)
+            scene.start();
     }
 
     /**

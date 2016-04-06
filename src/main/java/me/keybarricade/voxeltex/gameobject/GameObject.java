@@ -62,6 +62,11 @@ public class GameObject extends AbstractGameObject {
     private List<AbstractComponent> components = new ArrayList<>();
 
     /**
+     * List of components queued to be destroyed.
+     */
+    private List<AbstractComponent> componentsDestroyQueue = new ArrayList<>();
+
+    /**
      * Float buffer for the rendering matrix.
      */
     private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
@@ -246,37 +251,17 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public boolean removeComponent(AbstractComponent component) {
-        // Remove any component
-        if(!this.components.remove(component))
-            return false;
-
-        // Destroy the component
-        component.destroy();
-
-        // Reset the owner
-        component.setOwner(null);
-
-        // Return the result
-        return true;
+    public boolean destroyComponent(AbstractComponent component) {
+        return this.componentsDestroyQueue.add(component);
     }
 
     @Override
-    public AbstractComponent removeComponent(int i) {
+    public AbstractComponent destroyComponent(int i) {
         // Get the component that will be removed
-        AbstractComponent component;
+        AbstractComponent component = this.components.get(i);
 
-        // Remove the component by it's index, and make sure any component was removed
-        if((component = this.components.remove(i)) == null)
-            return null;
-
-        // Destroy the component
-        component.destroy();
-
-        // Reset the owner
-        component.setOwner(null);
-
-        // Return the component
+        // Destroy the component, and return
+        destroyComponent(component);
         return component;
     }
 
@@ -314,12 +299,33 @@ public class GameObject extends AbstractGameObject {
         // Update all components
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
-            this.components.get(i).update();
+            if(this.components.get(i).isEnabled())
+                this.components.get(i).update();
 
         // Update all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).update();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).update();
+
+        // Destroy all queued components
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.componentsDestroyQueue.size(); i < size; i++) {
+            // Get the components
+            AbstractComponent component = this.componentsDestroyQueue.get(i);
+
+            // Remove the components from the scene
+            this.components.remove(component);
+
+            // Reset the owner
+            component.setOwner(null);
+
+            // Destroy the component
+            component.destroy();
+        }
+
+        // Clear the list of queued destroyed components
+        this.componentsDestroyQueue.clear();
     }
 
     @Override
@@ -352,8 +358,9 @@ public class GameObject extends AbstractGameObject {
                     drawing = true;
                 }
 
-                // Draw the component
-                ((DrawableComponentInterface) this.components.get(i)).draw();
+                // Draw the component if enabled
+                if(this.components.get(i).isEnabled())
+                    ((DrawableComponentInterface) this.components.get(i)).draw();
             }
         }
 
@@ -361,42 +368,29 @@ public class GameObject extends AbstractGameObject {
         if(drawing)
             drawEnd();
 
-        // Draw all children
+        // Draw all children if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).draw();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).draw();
     }
 
     @Override
     public synchronized void drawOverlay() {
-        // Define whether we started drawing
-        boolean drawing = false;
-
         // Draw all overlay components and all children
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.components.size(); i < size; i++) {
+        for(int i = 0, size = this.components.size(); i < size; i++)
             // Make sure the component is drawable
-            if(this.components.get(i) instanceof OverlayComponentInterface) {
-//                // Make sure the drawing mode is enabled
-//                if(!drawing) {
-//                    // Start the drawing process and set the flag
-//                    drawStart();
-//                    drawing = true;
-//                }
-
+            if(this.components.get(i) instanceof OverlayComponentInterface)
                 // Draw the component overlay
-                ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
-            }
-        }
-
-//        // End the drawing process if it was enabled
-//        if(drawing)
-//            drawEnd();
+                if(this.components.get(i).isEnabled())
+                    ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
 
         // Draw all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).drawOverlay();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).drawOverlay();
     }
 
     /**

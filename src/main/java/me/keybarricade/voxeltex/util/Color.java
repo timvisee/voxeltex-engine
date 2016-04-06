@@ -30,22 +30,22 @@ public class Color {
     /**
      * Red color intensity, from 0 to 1.
      */
-    private float red;
+    private float red = 0f;
 
     /**
      * Green color intensity, from 0 to 1.
      */
-    private float green;
+    private float green = 0f;
 
     /**
      * Blue color intensity, from 0 to 1.
      */
-    private float blue;
+    private float blue = 0f;
 
     /**
      * Alpha channel intensity, from 0 to 1.
      */
-    private float alpha;
+    private float alpha = 1f;
 
     /**
      * White color default.

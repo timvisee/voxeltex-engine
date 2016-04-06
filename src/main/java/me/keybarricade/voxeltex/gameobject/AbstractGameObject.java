@@ -31,6 +31,12 @@ import java.util.List;
 public abstract class AbstractGameObject {
 
     /**
+     * True if the game object is enabled, false if not.
+     * If the game object is disabled, it won't be called by the drawing and update loops.
+     */
+    private boolean enabled = true;
+
+    /**
      * The scene this game object is in.
      */
     private AbstractScene scene;
@@ -42,6 +48,24 @@ public abstract class AbstractGameObject {
      */
     public AbstractGameObject(String name) {
         setName(name);
+    }
+
+    /**
+     * Check whether the game object is enabled or not.
+     *
+     * @return True if this game object is enabled.
+     */
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * Set whether this game object is enabled or not.
+     *
+     * @param enabled True if enabled, false if not.
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**
@@ -245,7 +269,7 @@ public abstract class AbstractGameObject {
      *
      * @return True if any component was removed, false if not.
      */
-    public abstract boolean removeComponent(AbstractComponent component);
+    public abstract boolean destroyComponent(AbstractComponent component);
 
     /**
      * Remove a component at the given index.
@@ -254,7 +278,7 @@ public abstract class AbstractGameObject {
      *
      * @return The component that was removed, or null.
      */
-    public abstract AbstractComponent removeComponent(int i);
+    public abstract AbstractComponent destroyComponent(int i);
 
     /**
      * Create the game object.
@@ -294,6 +318,6 @@ public abstract class AbstractGameObject {
 
     @Override
     public String toString() {
-        return "GameObject(" + getName() + ")";
+        return "GameObject[" + getName() + "]";
     }
 }

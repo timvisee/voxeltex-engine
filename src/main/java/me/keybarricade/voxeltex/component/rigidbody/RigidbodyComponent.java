@@ -119,7 +119,7 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
                 // Update the game object transform
                 tempMatrixJoml.getTranslation(getTransform().getPosition());
                 tempMatrixJoml.getUnnormalizedRotation(getTransform().getRotation());
-                tempMatrixJoml.getScale(getTransform().getScale());
+                //tempMatrixJoml.getScale(getTransform().getScale()); // TODO: Implement this!
             }
         }
     }
