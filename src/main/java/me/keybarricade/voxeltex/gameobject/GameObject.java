@@ -339,6 +339,14 @@ public class GameObject extends AbstractGameObject {
         // Reset the parent of this game object
         // TODO: Reset the parent, without errors!
         //setParent(null);
+
+        // Force the component to finalize
+        try {
+            //noinspection FinalizeCalledExplicitly
+            finalize();
+        } catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Override

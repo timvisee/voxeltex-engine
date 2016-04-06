@@ -46,6 +46,14 @@ public abstract class BaseComponent extends AbstractComponent {
         // Reset the owner
         // TODO: Reset the owner, without errors!
         //setOwner(null);
+
+        // Force the component to finalize
+        try {
+            //noinspection FinalizeCalledExplicitly
+            finalize();
+        } catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Override
