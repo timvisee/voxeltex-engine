@@ -20,8 +20,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package me.keybarricade.voxeltex.component.overlay.gui;
+package me.keybarricade.voxeltex.prefab.gui;
 
+import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;

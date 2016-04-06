@@ -23,14 +23,13 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
-import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiButtonPrefab;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelPrefab;
+import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
+import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
@@ -41,6 +40,7 @@ import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
+import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
@@ -210,13 +210,13 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(sunLight);
 
         // Create the main camera object
-//        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-//        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-//        addGameObject(fpsCameraPrefab);
-        GameObject cameraObject = new GameObject("Camera");
-        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        cameraObject.addComponent(new CameraComponent());
-        addGameObject(cameraObject);
+        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        addGameObject(fpsCameraPrefab);
+//        GameObject cameraObject = new GameObject("Camera");
+//        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+//        cameraObject.addComponent(new CameraComponent());
+//        addGameObject(cameraObject);
 
         // Add a key prefab
         KeyPickupPrefab keyObject = new KeyPickupPrefab();

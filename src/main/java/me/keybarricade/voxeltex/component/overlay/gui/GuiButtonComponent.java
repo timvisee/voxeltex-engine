@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
