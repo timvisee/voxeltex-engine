@@ -132,30 +132,55 @@ public class GameScene extends Scene {
         GameObject menuPanel = new GameObject("OverlayTest");
         menuPanel.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
-                new Vector2f(350, 165),
+                new Vector2f(350, 215),
                 new RectangleTransformAnchor(0.5f, 0.6f, 0.5f, 0.6f)
         ));
         menuPanel.addComponent(new GuiPanelComponent());
         addGameObject(menuPanel);
 
-        // Create the menu title
-        GuiLabelPrefab menuTitle = new GuiLabelPrefab("Button", "Menu");
-        menuTitle.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
-        menuTitle.getRectangleTransform().setPositionTop(-(20 + 16)); // TODO: Invert this when stretched?
-        menuTitle.setColor(Color.WHITE);
-        menuPanel.addChild(menuTitle);
+        // Create the menu label
+        GuiLabelPrefab menuLabel = new GuiLabelPrefab("Button", "Menu");
+        menuLabel.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        menuLabel.getRectangleTransform().setPositionTop(-(20 + 16)); // TODO: Invert this when stretched?
+        menuLabel.setColor(Color.WHITE);
+        menuPanel.addChild(menuLabel);
 
-        // Create a new game button
-        GuiButtonPrefab button = new GuiButtonPrefab("Button", "New Game");
-        button.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
-        button.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
-        menuPanel.addChild(button);
+        // Create a restart button
+        GuiButtonPrefab restartButton = new GuiButtonPrefab("RestartButton", "Restart");
+        restartButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        restartButton.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8))); // TODO: Invert this when stretched?
+        menuPanel.addChild(restartButton);
+
+        // Create a main menu button
+        GuiButtonPrefab mainMenuButton = new GuiButtonPrefab("MainMenuButton", "Main Menu") {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Load the main menu
+                getEngine().getSceneManager().loadScene(new MainMenuScene());
+            }
+        };
+        mainMenuButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        mainMenuButton.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
+        menuPanel.addChild(mainMenuButton);
 
         // Create an exit button
-        GuiButtonPrefab button2 = new GuiButtonPrefab("Button", "Exit");
-        button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
-        button2.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 2)); // TODO: Invert this when stretched?
-        menuPanel.addChild(button2);
+        GuiButtonPrefab exitButton = new GuiButtonPrefab("ExitButton", "Exit") {
+            @Override
+            public void onClick() {
+                // Call the super
+                super.onClick();
+
+                // Exit
+                System.out.println("Exit button pressed.");
+                System.exit(0);
+            }
+        };
+        exitButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
+        exitButton.getRectangleTransform().setPositionTop(-(20 + 16 + (40 + 8) * 3)); // TODO: Invert this when stretched?
+        menuPanel.addChild(exitButton);
 
         // Create a toggleable menu controller
         GameObject menuController = new GameObject("MenuController");
