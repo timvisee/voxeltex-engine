@@ -40,6 +40,11 @@ public class Input {
     private static MouseInputManager mouseInputManager;
 
     /**
+     * The VoxelTex window instance this input manager is for.
+     */
+    private static VoxelTexWindow window;
+
+    /**
      * Initialize the input manager for the given window.
      *
      * @param window Window to initialize the input manager for.
@@ -48,6 +53,9 @@ public class Input {
         // Set up and initialize the input managers
         keyInputManager = new KeyInputManager(window, true);
         mouseInputManager = new MouseInputManager(window, true);
+
+        // Set the window instance
+        Input.window = window;
     }
 
     /**
@@ -106,12 +114,30 @@ public class Input {
     }
 
     /**
+     * Get the mouse cursor position of this tick/frame on the X axis in overlay space.
+     *
+     * @return X position.
+     */
+    public static float getMouseXOverlay() {
+        return Input.getMouseX() / Input.window.getWidth();
+    }
+
+    /**
      * Get the mouse cursor position of this tick/frame on the Y axis.
      *
      * @return Y position.
      */
     public static float getMouseY() {
         return mouseInputManager.getMouseY();
+    }
+
+    /**
+     * Get the mouse cursor position of this tick/frame on the Y axis in overlay space.
+     *
+     * @return Y position.
+     */
+    public static float getMouseYOverlay() {
+        return 1.0f - Input.getMouseY() / Input.window.getHeight();
     }
 
     /**

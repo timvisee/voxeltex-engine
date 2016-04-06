@@ -23,12 +23,14 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.gameobject.KeyPickupPrefab;
+import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.overlay.font.BitmapFontOverlayComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.LineOverlayComponent;
 import me.keybarricade.voxeltex.component.overlay.shape.RectangleOverlayComponent;
@@ -212,9 +214,13 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(sunLight);
 
         // Create the main camera object
-        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
-        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        addGameObject(fpsCameraPrefab);
+//        FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
+//        fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+//        addGameObject(fpsCameraPrefab);
+        GameObject cameraObject = new GameObject("Camera");
+        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        cameraObject.addComponent(new CameraComponent());
+        addGameObject(cameraObject);
 
         // Add a key prefab
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
@@ -225,7 +231,7 @@ public class TestEnvironmentScene extends Scene {
         GameObject overlayTest = new GameObject("OverlayTest");
         overlayTest.addComponent(new RectangleTransform(
                 new Vector2f(0, 0),
-                new Vector2f(150, 150),
+                new Vector2f(400, 150),
                 new RectangleTransformAnchor(0.5f, 0.75f, 0.5f, 0.75f)
         ));
         overlayTest.addComponent(new GuiPanelComponent());
@@ -234,13 +240,16 @@ public class TestEnvironmentScene extends Scene {
         overlayTest.addComponent(new BitmapFontOverlayComponent(new Vector2f(0.1f, 0.1f), 0.075f, "GPU string rendering", Color.RED));
         addGameObject(overlayTest);
 
-        GameObject overlayTest2 = new GameObject("OverlayTest2");
-        overlayTest2.addComponent(new RectangleTransform(
-                new Vector2f(0, 0),
-                new Vector2f(50, 50),
-                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
-        ));
-        overlayTest2.addComponent(new GuiPanelComponent());
-        overlayTest.addChild(overlayTest2);
+//        GameObject overlayTest2 = new GameObject("OverlayTest2");
+//        overlayTest2.addComponent(new RectangleTransform(
+//                new Vector2f(0, 0),
+//                new Vector2f(50, 50),
+//                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
+//        ));
+//        overlayTest2.addComponent(new GuiPanelComponent());
+//        overlayTest.addChild(overlayTest2);
+
+        GuiButtonPrefab button = new GuiButtonPrefab("Button", "Button to awesomeness");
+        overlayTest.addChild(button);
     }
 }
