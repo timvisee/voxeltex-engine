@@ -56,6 +56,9 @@ public class GameScene extends Scene {
         // Load the sphere mesh
         Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
 
+        // Create a variable to calculate the spawn delays
+        float delay = 0.5f;
+
         // Create walls
         for(int x = 0; x < 12; x++) {
             for(int z = 0; z < 12; z++) {
@@ -64,16 +67,18 @@ public class GameScene extends Scene {
                     continue;
 
                 // Spawn a box
-                BoxPrefab box = new BoxPrefab(new Vector3f(-5 + x, 0.5f, -5 + z), false, -1f, boxMaterial);
+                BoxPrefab box = new BoxPrefab(new Vector3f(-5 + x, 0.5f, -5 + z), false, delay, -1f, boxMaterial);
                 addGameObject(box);
+
+                delay += 0.02f;
             }
         }
 
         // Spawn some boxes
-        addGameObject(new BoxPrefab(new Vector3f(3, 0.5f, 2), false, -1f, boxMaterial));
-        addGameObject(new BoxPrefab(new Vector3f(1, 0.5f, -4), false, -1f, boxMaterial));
-        addGameObject(new BoxPrefab(new Vector3f(2, 0.5f, 0), false, -1f, boxMaterial));
-        addGameObject(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(3, 0.5f, 2), false, (delay += 0.02f), -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(1, 0.5f, -4), false, (delay += 0.02f), -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(2, 0.5f, 0), false, (delay += 0.02f), -1f, boxMaterial));
+        addGameObject(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, (delay += 0.02f), -1f, boxMaterial));
 
         // Add a key
         KeyPickupPrefab keyObject = new KeyPickupPrefab();
