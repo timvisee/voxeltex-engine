@@ -45,6 +45,15 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
      * Constructor.
      *
      * @param delay Time in seconds to wait before starting the animation.
+     */
+    public ObjectSpawnAnimatorComponent(float delay) {
+        this.waitUntil += delay;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param delay Time in seconds to wait before starting the animation.
      * @param delayedComponent Component that will be added after the animation has finished, or null.
      */
     public ObjectSpawnAnimatorComponent(float delay, final AbstractComponent delayedComponent) {
