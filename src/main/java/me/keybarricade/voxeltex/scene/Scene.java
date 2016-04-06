@@ -128,7 +128,8 @@ public class Scene extends AbstractScene {
         // Update all game objects
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).update();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).update();
 
         // Update the physics engine and simulate the next physics step
         getPhysicsEngine().update();
@@ -136,17 +137,19 @@ public class Scene extends AbstractScene {
 
     @Override
     public void draw() {
-        // Draw all game objects
+        // Draw all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).draw();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).draw();
     }
 
     @Override
     public void drawOverlay() {
-        // Draw the overlay of all game objects
+        // Draw the overlay of all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
-            this.gameObjects.get(i).drawOverlay();
+            if(this.gameObjects.get(i).isEnabled())
+                this.gameObjects.get(i).drawOverlay();
     }
 }

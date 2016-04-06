@@ -314,12 +314,14 @@ public class GameObject extends AbstractGameObject {
         // Update all components
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
-            this.components.get(i).update();
+            if(this.components.get(i).isEnabled())
+                this.components.get(i).update();
 
         // Update all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).update();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).update();
     }
 
     @Override
@@ -352,8 +354,9 @@ public class GameObject extends AbstractGameObject {
                     drawing = true;
                 }
 
-                // Draw the component
-                ((DrawableComponentInterface) this.components.get(i)).draw();
+                // Draw the component if enabled
+                if(this.components.get(i).isEnabled())
+                    ((DrawableComponentInterface) this.components.get(i)).draw();
             }
         }
 
@@ -361,10 +364,11 @@ public class GameObject extends AbstractGameObject {
         if(drawing)
             drawEnd();
 
-        // Draw all children
+        // Draw all children if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).draw();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).draw();
     }
 
     @Override
@@ -385,7 +389,8 @@ public class GameObject extends AbstractGameObject {
 //                }
 
                 // Draw the component overlay
-                ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
+                if(this.components.get(i).isEnabled())
+                    ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
             }
         }
 
@@ -396,7 +401,8 @@ public class GameObject extends AbstractGameObject {
         // Draw all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
-            this.children.get(i).drawOverlay();
+            if(this.children.get(i).isEnabled())
+                this.children.get(i).drawOverlay();
     }
 
     /**
