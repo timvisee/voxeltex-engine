@@ -323,6 +323,9 @@ public class GameObject extends AbstractGameObject {
             // Destroy the component
             component.destroy();
         }
+
+        // Clear the list of queued destroyed components
+        this.componentsDestroyQueue.clear();
     }
 
     @Override

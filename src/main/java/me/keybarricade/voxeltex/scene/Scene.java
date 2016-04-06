@@ -23,7 +23,6 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.voxeltex.gameobject.AbstractGameObject;
-import me.keybarricade.voxeltex.gameobject.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +140,9 @@ public class Scene extends AbstractScene {
             // Destroy the game object
             gameObject.destroy();
         }
+
+        // Clear the list of queued destroyed objects
+        this.gameObjectsDestroyQueue.clear();
     }
 
     @Override
