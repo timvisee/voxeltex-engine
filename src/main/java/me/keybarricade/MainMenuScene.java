@@ -128,7 +128,7 @@ public class MainMenuScene extends Scene {
         GuiLabelPrefab versionLabel = new GuiLabelPrefab("VersionLabel", "Version " + KeyBarricade.APP_VERSION_NAME);
         versionLabel.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
         versionLabel.getRectangleTransform().setPositionTop(-(24 / 2)); // TODO: Invert this when stretched?
-        versionLabel.setColor(new Color(1, 1, 1, 0.25f));
+        versionLabel.setColor(new Color(1, 1, 1, 0.35f));
         versionPanel.addChild(versionLabel);
     }
 }

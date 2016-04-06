@@ -108,7 +108,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
                 RenderOverlayHelper.color(.6f, .6f, .6f, .7f);
                 this.label.setColor(Color.BLACK);
             } else {
-                RenderOverlayHelper.color(0.9f, 0.9f, 0.9f, .7f);
+                RenderOverlayHelper.color(0.8f, 0.8f, 0.8f, .7f);
                 this.label.setColor(Color.BLACK);
             }
 
