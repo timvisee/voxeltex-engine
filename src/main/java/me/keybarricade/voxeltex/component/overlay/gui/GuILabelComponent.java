@@ -22,13 +22,31 @@
 
 package me.keybarricade.voxeltex.component.overlay.gui;
 
+import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.font.BitmapFont;
+import me.keybarricade.voxeltex.font.BitmapFontManager;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
 
-public class GuiButtonComponent extends AbstractGuiComponent {
+public class GuiLabelComponent extends AbstractOverlayComponent {
+
+    /**
+     * Bitmap font that is used.
+     */
+    // TODO: Make configurable in constructor!
+    private BitmapFont font = BitmapFontManager.getDefault();
+
+    /**
+     * Text to render.
+     */
+    private String text = "";
+
+    /**
+     * Font color.
+     */
+    private Color color = Color.BLACK;
 
     /**
      * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
@@ -36,38 +54,49 @@ public class GuiButtonComponent extends AbstractGuiComponent {
     private final Rectangle tempRectangle = new Rectangle();
 
     /**
-     * The GUI label prefab used to render the button text.
+     * Constructor.
+     *
+     * @param text Text to render.
      */
-    private GuiLabelPrefab label;
-
-    /**
-     * Button text.
-     */
-    private String text = "Button";
-
-    @Override
-    public void create() {
-        // Create a label prefab as child to use for button text rendering
-        this.label = new GuiLabelPrefab(getName() + "Label", this.text);
-
-        // Add the text renderer component to this object as child
-        getOwner().addChild(this.label);
+    public GuiLabelComponent(String text) {
+        this.text = text;
+        this.font = BitmapFontManager.getDefault();
     }
 
     /**
      * Constructor.
+     *
+     * @param text Text to render.
+     * @param color Font color.
      */
-    public GuiButtonComponent() { }
+    public GuiLabelComponent(String text, Color color) {
+        this.text = text;
+        this.font = BitmapFontManager.getDefault();
+        this.color = color;
+    }
+
+    /**
+     * Get the font color.
+     *
+     * @return Font color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the font color.
+     *
+     * @param color Font color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     @Override
     public void drawOverlay() {
-        // Define variables to store whether the button is hovered and/or pressed
-        boolean hover = false;
-        boolean pressed = false;
-
-        // Get the X and Y coordinate of the cursor in overlay space
-        float mouseX = Input.getMouseXOverlay();
-        float mouseY = Input.getMouseYOverlay();
+        // Apply the font color to the material
+        this.font.getMaterial().setColor(this.color);
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
@@ -75,52 +104,44 @@ public class GuiButtonComponent extends AbstractGuiComponent {
             // TODO: Buffer this
             getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
 
-            // Check whether the button is hovered or pressed
-            if(mouseX >= this.tempRectangle.getX() && mouseX <= this.tempRectangle.getX() + this.tempRectangle.getWidth() &&
-                    mouseY >= this.tempRectangle.getY() && mouseY <= this.tempRectangle.getY() + this.tempRectangle.getHeight()) {
-                hover = true;
-                pressed = Input.isMouseButtonDown(0);
-            }
-
-            // Update the button visuals
-            if(pressed) {
-                RenderOverlayHelper.color(0.2f, 0.2f, 0.2f, .9f);
-                this.label.setColor(Color.WHITE);
-            } else if(hover) {
-                RenderOverlayHelper.color(.6f, .6f, .6f, .7f);
-                this.label.setColor(Color.BLACK);
-            } else {
-                RenderOverlayHelper.color(0.9f, 0.9f, 0.9f, .7f);
-                this.label.setColor(Color.BLACK);
-            }
-
-            // Render the rectangle
-            RenderOverlayHelper.renderRectangle(
-                    this.tempRectangle.getX(), this.tempRectangle.getY(),
-                    this.tempRectangle.getWidth(), this.tempRectangle.getHeight()
-            );
+            // Draw the font
+            RenderOverlayHelper.renderFont(this.tempRectangle, this.font, text);
         }
     }
 
     /**
-     * Get the text on the button.
+     * Get the text to render.
      *
-     * @return Button text.
+     * @return Text.
      */
     public String getText() {
         return this.text;
     }
 
     /**
-     * Set the text on the button
+     * Set the text to render.
      *
-     * @param text Button text.
+     * @param text Text.
      */
     public void setText(String text) {
-        // Set the button text
         this.text = text;
+    }
 
-        // Set the button text on the font component
-        this.label.setText(text);
+    /**
+     * Get the bitmap font used.
+     *
+     * @return Bitmap font.
+     */
+    public BitmapFont getFont() {
+        return this.font;
+    }
+
+    /**
+     * Set the bitmap font used.
+     *
+     * @param font Bitmap font.
+     */
+    public void setFont(BitmapFont font) {
+        this.font = font;
     }
 }
