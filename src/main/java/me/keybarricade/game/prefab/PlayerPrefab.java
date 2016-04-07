@@ -64,11 +64,30 @@ public class PlayerPrefab extends GameObject {
      * @param gameObject The game object that is triggering.
      */
     public void onTrigger(GameObject gameObject) {
+        // Process keys
+        if(gameObject instanceof KeyPickupPrefab) {
+            // Get the key prefab
+            KeyPickupPrefab key = (KeyPickupPrefab) gameObject;
 
+            // Set the currently picked up lock type
+            setPickupLockType(key.getLockType());
 
+            // Decay the key object
+            key.addComponent(new ObjectDecayAnimatorComponent(0f));
+        }
+
+        // Process padlocks
         if(gameObject instanceof PadlockPrefab) {
-            gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
-            //gameObject.destroy();
+            // Get the padlock prefab
+            PadlockPrefab padlock = (PadlockPrefab) gameObject;
+
+            // Make sure we've the correct key type
+            if(padlock.getLockType().equals(getPickupLockType())) {
+                // Decay the padlock
+                gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
+
+                // TODO: Ensure this is enough!
+            }
         }
     }
 
