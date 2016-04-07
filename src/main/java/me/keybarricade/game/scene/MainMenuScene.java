@@ -1,6 +1,7 @@
 package me.keybarricade.game.scene;
 
 import me.keybarricade.KeyBarricade;
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.BoxSpawnerComponent;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.prefab.SandSurfacePrefab;
@@ -11,14 +12,11 @@ import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
@@ -30,10 +28,6 @@ public class MainMenuScene extends Scene {
     public void load() {
         // Load the super
         super.load();
-
-        // Load the box texture and material
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(boxTexture);
 
         // Create the menu
         createMenu();
@@ -70,7 +64,7 @@ public class MainMenuScene extends Scene {
                 // TODO: Use box prefab!
                 CubePrefab boxObject = new CubePrefab("Box");
                 boxObject.getTransform().setPosition(new Vector3f(-25 + x, 0.5f, -25 + z));
-                boxObject.setMaterial(boxMaterial);
+                boxObject.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX);
                 boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
                 addGameObject(boxObject);
             }
@@ -78,12 +72,12 @@ public class MainMenuScene extends Scene {
 
         // Create a cube spawner
         GameObject cubeSpawner = new GameObject("CubeSpawner");
-        cubeSpawner.addComponent(new BoxSpawnerComponent(boxMaterial));
+        cubeSpawner.addComponent(new BoxSpawnerComponent());
         addGameObject(cubeSpawner);
     }
 
     /**
-     * Create the toggeable menu and add it to the scene
+     * Create the toggleable menu and add it to the scene
      */
     private void createMenu() {
         // Create the base menu panel

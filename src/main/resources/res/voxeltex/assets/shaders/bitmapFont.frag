@@ -28,7 +28,7 @@ uniform vec2 tiling = vec2(1.0, 1.0);
 uniform vec2 tileSize = vec2(16.0, 16.0);
 uniform vec2 tilePosition = vec2(1.0, 4.0);
 uniform vec4 color = vec4(1);
-uniform float charWidth = 1f;
+uniform float charWidth = 1.0;
 
 // Fragment position data
 varying vec4 position;

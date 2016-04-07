@@ -1,15 +1,13 @@
 package me.keybarricade.demo;
 
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.prefab.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
 
 public class DemoScene extends Scene {
@@ -18,10 +16,6 @@ public class DemoScene extends Scene {
     public void load() {
         // Load the super
         super.load();
-
-        // Load box textures
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(boxTexture);
 
         // Add a light simulating the sun
         LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
@@ -43,7 +37,7 @@ public class DemoScene extends Scene {
         for (int i = 0; i < 15; i++) {
             CubePrefab box = new CubePrefab();
             box.getTransform().setPosition(i, 0.5f, 0);
-            box.setMaterial(boxMaterial);
+            box.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX);
             box.addComponent(new LightSourceComponent(Color.random()));
             addGameObject(box);
         }

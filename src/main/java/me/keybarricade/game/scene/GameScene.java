@@ -1,27 +1,22 @@
 package me.keybarricade.game.scene;
 
-import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
+import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
-import me.keybarricade.game.prefab.*;
+import me.keybarricade.game.prefab.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -163,62 +158,14 @@ public class GameScene extends Scene {
      * Load the level.
      */
     private void loadLevel() {
-        // Load the box texture and material
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(boxTexture);
+        // Create a level builder to build the level with
+        LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(0), this.levelBase);
 
-        // Player
-        PlayerPrefab playerObject = new PlayerPrefab();
-        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        this.levelBase.addChild(playerObject);
-
-        // Create a variable to calculate the spawn delays
-        float delay = 0.5f;
-
-        // Create walls
-        for(int x = 0; x < 12; x++) {
-            for(int z = 0; z < 12; z++) {
-                // Only create walls on the edges
-                if(x != 0 && z != 0 && x != 11 && z != 11)
-                    continue;
-
-                // Spawn a box
-                BoxPrefab box = new BoxPrefab(new Vector3f(-5 + x, 0.5f, -5 + z), false, delay, -1f, boxMaterial);
-                this.levelBase.addChild(box);
-
-                delay += 0.02f;
-            }
-        }
-
-        // Spawn some boxes
-        this.levelBase.addChild(new BoxPrefab(new Vector3f(3, 0.5f, 2), false, (delay += 0.02f), -1f, boxMaterial));
-        this.levelBase.addChild(new BoxPrefab(new Vector3f(1, 0.5f, -4), false, (delay += 0.02f), -1f, boxMaterial));
-        this.levelBase.addChild(new BoxPrefab(new Vector3f(2, 0.5f, 0), false, (delay += 0.02f), -1f, boxMaterial));
-        this.levelBase.addChild(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, (delay += 0.02f), -1f, boxMaterial));
-
-        // Add a key
-        KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", playerObject, LockType.YELLOW);
-        keyObject.getTransform().getPosition().set(-2, 0, -1);
-        keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
-        this.levelBase.addChild(keyObject);
-
-        // Add a padlock
-        PadlockPrefab padlockObject = new PadlockPrefab(playerObject, LockType.YELLOW);
-        padlockObject.getTransform().getPosition().set(-3, 0, -2);
-        padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
-        this.levelBase.addChild(padlockObject);
-
-        // Add a finish
-        FinishPrefab finish = new FinishPrefab(playerObject);
-        finish.getTransform().getPosition().set(3, 0.1f, -2);
-        finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
-        this.levelBase.addChild(finish);
-
-        // Animate the players spawn as last
-        playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
+        // Build the level
+        builder.build(0.5f);
 
         // Set the camera target to the player
-        this.smoothCameraFollow.setTarget(playerObject);
+        this.smoothCameraFollow.setTarget(builder.getPlayer());
     }
 
     /**

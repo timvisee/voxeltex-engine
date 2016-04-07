@@ -1,9 +1,7 @@
 package me.keybarricade.game.prefab;
 
-import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 
 public class FinishPrefab extends QuadPrefab {
 
@@ -51,12 +49,8 @@ public class FinishPrefab extends QuadPrefab {
         // Set the player instance
         this.player = player;
 
-        // Load the finish material
-        Texture finishTexture = Texture.fromImage(Image.loadFromEngineAssets("images/finish.png"));
-        Material finishMaterial = new Material(finishTexture);
-
         // Set the finish material
-        setMaterial(finishMaterial);
+        setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
     }
 
     @Override
