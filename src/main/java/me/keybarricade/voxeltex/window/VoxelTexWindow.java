@@ -177,7 +177,7 @@ public class VoxelTexWindow {
      */
     public void glCreateWindow() {
         // Create the window and store it's ID
-        this.window = glfwCreateWindow(this.width, this.height, this.title, glfwGetPrimaryMonitor(), NULL);
+        this.window = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
 
         // Make sure the window was successfully created
         if (window == NULL)

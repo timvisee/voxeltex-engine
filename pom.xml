@@ -160,6 +160,7 @@
                     <executable>java</executable>
                     <arguments>
                         <argument>-XstartOnFirstThread</argument>
+                        <argument>-Djava.awt.headless=true</argument>
                         <argument>-classpath</argument>
                         <classpath/>
                         <argument>me.keybarricade.KeyBarricade</argument>
