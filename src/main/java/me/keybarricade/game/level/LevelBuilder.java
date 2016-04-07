@@ -74,6 +74,9 @@ public class LevelBuilder {
         if(this.level == null)
             throw new RuntimeException("Unable to build level, level instance invalid");
 
+        // Show a status message
+        System.out.println("Building runtime level...");
+
         // Get the tiles section
         ConfigurationSection objectsConfig = this.level.getConfig().getConfigurationSection("objects");
 
@@ -111,7 +114,7 @@ public class LevelBuilder {
             //noinspection StatementWithEmptyBody
             for(int positionIndex = 0, positionIndexSize = positionSections.size(); positionIndex < positionIndexSize; positionIndex++) {
                 // Get the configuration section
-                ConfigurationSection positionConfig = positionSections.get(i);
+                ConfigurationSection positionConfig = positionSections.get(positionIndex);
 
                 // Parse the X and Y value
                 String rawPositionX = positionConfig.getString("x", "0");
@@ -146,18 +149,16 @@ public class LevelBuilder {
                     int a = Integer.parseInt(splitted[0]);
                     int b = Integer.parseInt(splitted[1]);
 
-                    // Get the minimum and mayimum part
+                    // Get the minimum and maximum part
                     minY = Math.min(a, b);
                     maxY = Math.max(a, b);
                 } else
                     minY = maxY = Integer.parseInt(rawPositionY);
 
                 // Loop through the positions
-                for(int x = minX; x < maxX; x++) {
-                    for(int y = minY; y < maxY; y++) {
+                for(int x = minX; x <= maxX; x++)
+                    for(int y = minY; y <= maxY; y++)
                         buildObject(rawObjectType, x, y);
-                    }
-                }
             }
         }
     }
