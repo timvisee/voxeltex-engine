@@ -3,13 +3,12 @@ package me.keybarricade.game.scene;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
+import me.keybarricade.game.level.LevelManager;
 import me.keybarricade.game.prefab.*;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
-import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
@@ -44,10 +43,19 @@ public class GameScene extends Scene {
      */
     private SmoothTopDownFollowComponent smoothCameraFollow;
 
+    /**
+     * Level manager.
+     */
+    private LevelManager levelManager;
+
     @Override
     public void load() {
         // Load the super
         super.load();
+
+        // Load the level manager and the level data
+        this.levelManager = new LevelManager();
+        this.levelManager.load();
 
         // Create the menu
         createMenu();
