@@ -62,7 +62,8 @@ public class ProgressDialog extends JDialog {
         // Configure the dialog
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-        //setSize(300, getHeight());
+        setPreferredSize(new Dimension(350, 50));
+        pack();
         setLocationRelativeTo(owner);
         setAlwaysOnTop(true);
     }
@@ -88,7 +89,7 @@ public class ProgressDialog extends JDialog {
     private void buildUI() {
         // Create the base panel
         JPanel container = new JPanel();
-        container.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        container.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 
         // Create the status panel and label
