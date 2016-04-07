@@ -12,8 +12,6 @@ import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.texture.Texture;
-import me.keybarricade.voxeltex.util.Color;
-import org.joml.Vector3f;
 
 public class KeyPickupPrefab extends GameObject {
 

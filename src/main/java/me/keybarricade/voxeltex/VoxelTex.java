@@ -22,7 +22,7 @@
 
 package me.keybarricade.voxeltex;
 
-import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
+import me.keybarricade.voxeltex.scene.TestEnvironmentScene;
 
 public class VoxelTex {
 
@@ -69,7 +69,7 @@ public class VoxelTex {
         engine.init();
 
         // Load the test environment scene
-        engine.getSceneManager().loadScene(new DeveloperSplashScene());
+        engine.getSceneManager().loadScene(new TestEnvironmentScene());
 
         // Start the engine
         engine.start();
