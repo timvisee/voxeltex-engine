@@ -1,5 +1,6 @@
 package me.keybarricade.game.prefab;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.asset.GameAssetLoader;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -32,19 +33,27 @@ public class KeyPickupPrefab extends GameObject {
     private PlayerPrefab player;
 
     /**
-     * Constructor.
+     * Key for the given lock type.
      */
-    public KeyPickupPrefab() {
-        this(GAME_OBJECT_NAME, null);
+    private LockType type;
+
+    /**
+     * Constructor.
+     *
+     * @param type Lock type.
+     */
+    public KeyPickupPrefab(LockType type) {
+        this(GAME_OBJECT_NAME, null, type);
     }
 
     /**
      * Constructor.
      *
      * @param player Player reference.
+     * @param type Lock type.
      */
-    public KeyPickupPrefab(PlayerPrefab player) {
-        this(GAME_OBJECT_NAME, player);
+    public KeyPickupPrefab(PlayerPrefab player, LockType type) {
+        this(GAME_OBJECT_NAME, player, type);
     }
 
     /**
@@ -52,13 +61,15 @@ public class KeyPickupPrefab extends GameObject {
      *
      * @param name Game object name.
      * @param player Player reference.
+     * @param type Lock type.
      */
-    public KeyPickupPrefab(String name, PlayerPrefab player) {
+    public KeyPickupPrefab(String name, PlayerPrefab player, LockType type) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player instance
+        // Set the player and type
         this.player = player;
+        this.type = type;
 
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
@@ -105,5 +116,41 @@ public class KeyPickupPrefab extends GameObject {
             if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
                 this.player.onTrigger(this);
         }
+    }
+
+    /**
+     * Get the attached player.
+     *
+     * @return Attached player.
+     */
+    public PlayerPrefab getPlayer() {
+        return this.player;
+    }
+
+    /**
+     * Set the attached player.
+     *
+     * @param player Player.
+     */
+    public void setPlayer(PlayerPrefab player) {
+        this.player = player;
+    }
+
+    /**
+     * Get the lock type.
+     *
+     * @return Lock type.
+     */
+    public LockType getType() {
+        return this.type;
+    }
+
+    /**
+     * Set the lock type.
+     *
+     * @param type Lock type.
+     */
+    public void setType(LockType type) {
+        this.type = type;
     }
 }

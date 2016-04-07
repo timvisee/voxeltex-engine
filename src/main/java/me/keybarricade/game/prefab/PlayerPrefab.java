@@ -58,7 +58,6 @@ public class PlayerPrefab extends GameObject {
      * @param gameObject The game object that is triggering.
      */
     public void onTrigger(GameObject gameObject) {
-        System.out.println("Triggered by " + gameObject.getName());
 
 
         if(gameObject instanceof PadlockPrefab) {
