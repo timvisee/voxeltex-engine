@@ -117,8 +117,9 @@ public class LevelBuilder {
                     positionSections.add(objectConfig.getConfigurationSection("posSet." + posSets.get(j)));
             }
 
-            // Get the object type
+            // Get the object type and data value if available
             String rawObjectType = objectConfig.getString("type");
+            int dataValue = objectConfig.getInt("dataValue", 0);
 
             // Loop through each position section to parse the position
             //noinspection StatementWithEmptyBody
@@ -165,7 +166,7 @@ public class LevelBuilder {
                 // Loop through the positions
                 for(int x = minX; x <= maxX; x++)
                     for(int y = minY; y <= maxY; y++)
-                        buildObject(rawObjectType, x, y);
+                        buildObject(rawObjectType, dataValue, x, y);
             }
         }
 
@@ -178,18 +179,27 @@ public class LevelBuilder {
      * Build the object with the given type.
      *
      * @param rawType Raw object type.
+     * @param dataValue Data value.
      * @param x X coordinate of the object.
      * @param y Y coordinate of the object.
      */
-    private void buildObject(String rawType, int x, int y) {
+    private void buildObject(String rawType, int dataValue, int x, int y) {
         // Create a wall
-        if(rawType.trim().equalsIgnoreCase("wall"))
+        if(rawType.trim().equalsIgnoreCase("wall")){
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f));
+        }
 
-            // Create a key
+        // Create a key
+        else if(rawType.trim().equals("player")) {
+            PlayerPrefab playerObject = new PlayerPrefab();
+            playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));
+            this.levelRoot.addChild(playerObject);
+            this.player = playerObject;
+        }
+
+        // Create a key
         else if(rawType.trim().equals("key")) {
-            // TODO: Put player instance in here!
-            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.YELLOW);
+            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.fromDataValue(dataValue));
             keyObject.getTransform().getPosition().set(x, 0, y);
             keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(keyObject);
@@ -197,7 +207,7 @@ public class LevelBuilder {
 
         // Create a lock
         else if(rawType.trim().equals("lock")) {
-            PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.YELLOW);
+            PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.fromDataValue(dataValue));
             padlockObject.getTransform().getPosition().set(x, 0, y);
             padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
@@ -209,14 +219,6 @@ public class LevelBuilder {
             finish.getTransform().getPosition().set(x, 0.1f, y);
             finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(finish);
-        }
-
-        // Create a key
-        else if(rawType.trim().equals("player")) {
-            PlayerPrefab playerObject = new PlayerPrefab();
-            playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));
-            this.levelRoot.addChild(playerObject);
-            this.player = playerObject;
         }
     }
 

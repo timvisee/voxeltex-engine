@@ -12,11 +12,6 @@ levels:
         pos:
           x: 7
           y: 7
-      'lock1':
-        type: lock
-        pos:
-          x: 5
-          y: 7
       'outerWalls':
         type: wall
         posSet:
@@ -39,9 +34,16 @@ levels:
           y: "2"
       'keys':
         type: key
+        dataValue: 1
         pos:
           x: "2:9"
           y: "9"
+      'lock1':
+        type: lock
+        dataValue: 1
+        pos:
+          x: 5
+          y: 7
 
 version: "0.1"
 versionCode: 1
