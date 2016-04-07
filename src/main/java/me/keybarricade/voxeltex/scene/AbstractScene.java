@@ -191,18 +191,24 @@ public abstract class AbstractScene {
     public abstract AbstractGameObject getGameObject(int i);
 
     /**
-     * Remove the given game object from the scene.
+     * Remove a game object from the scene before the next update.
+     * To destroy the game object, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @return True if any game object was removed, false if not.
+     * @param gameObject Game object to remove.
+     *
+     * @return True if any game object will be removed, false if not.
      */
     public abstract boolean removeGameObject(AbstractGameObject gameObject);
 
     /**
-     * Remove the game object at the given index.
+     * Remove a game object from the scene before the next update.
+     * To destroy the game object, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @param i Game object index.
+     * @param i Index of the game object to remove.
      *
-     * @return The game object that was removed, or null if none was removed.
+     * @return True if any game object will be removed, false if not.
      */
     public abstract AbstractGameObject removeGameObject(int i);
 }
