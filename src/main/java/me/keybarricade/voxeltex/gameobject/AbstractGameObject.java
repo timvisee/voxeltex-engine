@@ -198,20 +198,24 @@ public abstract class AbstractGameObject {
     public abstract AbstractGameObject getChild(int i);
 
     /**
-     * Remove a child from this game object.
+     * Remove a child game object from this game object before the next update.
+     * To destroy the child, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
      * @param gameObject Game object to remove.
      *
-     * @return True if any game object was removed, false if not.
+     * @return True if any game object will be removed, false if not.
      */
     public abstract boolean removeChild(AbstractGameObject gameObject);
 
     /**
-     * Remove a child from this game object.
+     * Remove a child game object from this game object before the next update.
+     * To destroy the child, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @param i Index of the child to remove.
+     * @param i Index of the child game object to remove.
      *
-     * @return The removed game object or null if no game object was removed.
+     * @return True if any game object will be removed, false if not.
      */
     public abstract AbstractGameObject removeChild(int i);
 
@@ -263,22 +267,26 @@ public abstract class AbstractGameObject {
     public abstract <T extends AbstractComponent> T getComponent(Class<T> componentType);
 
     /**
-     * Remove a component from the game object.
+     * Remove a component from the game object before the next update.
+     * To destroy the component, call {@see AbstractComponent.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
      * @param component Component to remove.
      *
-     * @return True if any component was removed, false if not.
+     * @return True if any component will be removed, false if not.
      */
-    public abstract boolean destroyComponent(AbstractComponent component);
+    public abstract boolean removeComponent(AbstractComponent component);
 
     /**
-     * Remove a component at the given index.
+     * Remove a component from the game object before the next update.
+     * To destroy the component, call {@see AbstractComponent.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @param i Component index.
+     * @param i Index of the component to remove.
      *
-     * @return The component that was removed, or null.
+     * @return True if any component will be removed, false if not.
      */
-    public abstract AbstractComponent destroyComponent(int i);
+    public abstract AbstractComponent removeComponent(int i);
 
     /**
      * Create the game object.
@@ -300,7 +308,10 @@ public abstract class AbstractGameObject {
 
     /**
      * Destroy the game object.
-     * This will be called before the game object is destroyed.
+     * This will remove the game object from the parent game object or scene automatically before the next update.
+     * All references created by the VoxelTex engine to this game object will be cleared.
+     * The game object may not be used anymore after it has been destroyed.
+     * All components inside this scene will be destroyed accordingly.
      */
     public abstract void destroy();
 

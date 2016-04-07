@@ -33,9 +33,6 @@ public abstract class AbstractCameraComponent extends BaseComponent {
     @Override
     public synchronized void update() { }
 
-    @Override
-    public void destroy() { }
-
     /**
      * Update the camera position.
      */

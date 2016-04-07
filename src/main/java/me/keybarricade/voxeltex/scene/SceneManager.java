@@ -80,8 +80,13 @@ public class SceneManager {
     public void loadScene(Scene scene) {
         // Immediately start the scene if the current scene was loaded
         boolean start = false;
-        if(this.scene != null)
+        if(this.scene != null) {
+            // Store the started flag
             start = this.scene.isStarted();
+
+            // Destroy the current scene
+            this.scene.destroy();
+        }
 
         // Set the loaded scene
         this.scene = scene;

@@ -274,6 +274,10 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Swap the buffers to render the frame
             this.window.glSwapBuffers();
 
+            // Close the window if requested
+            if(Input.isKeyDownOnce(GLFW_KEY_ESCAPE))
+                this.window.glSetWindowShouldClose(true);
+
             // Poll all events
             glfwPollEvents();
         }

@@ -583,5 +583,8 @@ public class RectangleTransform extends BaseComponent {
             // Get the child's rectangle transform component if available, then update
             if((childTransform = this.getOwner().getChild(i).getComponent(RectangleTransform.class)) != null)
                 childTransform.setParentTransform(null);
+
+        // Call the super
+        super.destroy();
     }
 }

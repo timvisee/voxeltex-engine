@@ -46,10 +46,8 @@ public class MouseLookCameraComponent extends CameraComponent {
 
     @Override
     public void start() {
+        // Start the super
         super.start();
-
-        // Center the mouse cursor in the window first (Note: Doesn't work on Mac OS X based systems)
-        Input.centerMouseCursor();
 
         // Capture the mouse cursor
         Input.setMouseCursorMode(MouseInputManager.CURSOR_MODE_CAPTURED);

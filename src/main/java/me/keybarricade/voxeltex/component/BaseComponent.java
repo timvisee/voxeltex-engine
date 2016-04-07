@@ -35,6 +35,28 @@ public abstract class BaseComponent extends AbstractComponent {
     private AbstractGameObject owner;
 
     @Override
+    public void destroy() {
+        // Ensure we've an owner assigned
+        if(getOwner() == null)
+            return;
+
+        // Queue the component to be removed from it's owner
+        getOwner().removeComponent(this);
+
+        // Reset the owner
+        // TODO: Reset the owner, without errors!
+        //setOwner(null);
+
+        // Force the component to finalize
+        try {
+            //noinspection FinalizeCalledExplicitly
+            finalize();
+        } catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Override
     public AbstractGameObject getOwner() {
         return this.owner;
     }

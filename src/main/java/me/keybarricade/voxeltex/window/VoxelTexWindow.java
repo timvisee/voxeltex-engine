@@ -24,6 +24,7 @@ package me.keybarricade.voxeltex.window;
 
 import me.keybarricade.voxeltex.VoxelTex;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -220,6 +221,15 @@ public class VoxelTexWindow {
      */
     public void glViewportDefault() {
         glViewport(0, 0, width, height);
+    }
+
+    /**
+     * Set whether the window should close.
+     *
+     * @param close True to close the window.
+     */
+    public void glSetWindowShouldClose(boolean close) {
+        glfwSetWindowShouldClose(this.window, close ? GL11.GL_TRUE : GL11.GL_TRUE);
     }
 
     /**

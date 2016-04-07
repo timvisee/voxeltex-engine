@@ -172,8 +172,10 @@ public abstract class AbstractComponent {
 
     /**
      * Destroy the component.
-     *
-     * Called once before being destroyed.
+     * This will remove the component from the owning game object automatically before the next update.
+     * All references created by the VoxelTex engine to this component will be cleared.
+     * The component may not be used anymore after it has been destroyed.
+     * All game objects inside this scene will be destroyed accordingly.
      */
     public abstract void destroy();
 

@@ -1,6 +1,9 @@
-package me.keybarricade;
+package me.keybarricade.game.scene;
 
-import me.keybarricade.gameobject.SandSurfacePrefab;
+import me.keybarricade.KeyBarricade;
+import me.keybarricade.game.component.BoxSpawnerComponent;
+import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import me.keybarricade.game.prefab.SandSurfacePrefab;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
@@ -68,7 +71,7 @@ public class MainMenuScene extends Scene {
                 CubePrefab boxObject = new CubePrefab("Box");
                 boxObject.getTransform().setPosition(new Vector3f(-25 + x, 0.5f, -25 + z));
                 boxObject.setMaterial(boxMaterial);
-                boxObject.addComponent(new BoxDecayAnimatorComponent((float) (Math.random() * 10.0f)));
+                boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
                 addGameObject(boxObject);
             }
         }

@@ -34,7 +34,4 @@ public abstract class AbstractLightSourceComponent extends BaseComponent impleme
 
     @Override
     public synchronized void update() { }
-
-    @Override
-    public void destroy() { }
 }

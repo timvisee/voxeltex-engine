@@ -1,4 +1,4 @@
-package me.keybarricade;
+package me.keybarricade.game.asset;
 
 import me.keybarricade.voxeltex.resource.ResourceLoader;
 

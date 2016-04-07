@@ -25,7 +25,6 @@ package me.keybarricade.voxeltex.input.key;
 import me.keybarricade.voxeltex.window.VoxelTexWindow;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.opengl.GL11;
 
 public class KeyInputManager implements KeyInputInterface {
 
@@ -80,9 +79,9 @@ public class KeyInputManager implements KeyInputInterface {
         this.keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scanCode, int action, int mods) {
-                // Schedule a renderer window close when the escape key is pressed
-                if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE)
-                    GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
+//                // Schedule a renderer window close when the escape key is pressed
+//                if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE)
+//                    GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
 
                 // Make sure the key code is known
                 if(key < 0) {

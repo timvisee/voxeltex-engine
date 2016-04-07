@@ -1,4 +1,4 @@
-package me.keybarricade.gameobject;
+package me.keybarricade.game.prefab;
 
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.material.Material;

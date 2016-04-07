@@ -138,9 +138,6 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
         smoothUpdate();
     }
 
-    @Override
-    public void destroy() { }
-
     /**
      * Smoothly update the position with the default parameters.
      */

@@ -62,9 +62,14 @@ public class GameObject extends AbstractGameObject {
     private List<AbstractComponent> components = new ArrayList<>();
 
     /**
-     * List of components queued to be destroyed.
+     * List of children that are queued to be removed.
      */
-    private List<AbstractComponent> componentsDestroyQueue = new ArrayList<>();
+    private List<AbstractGameObject> childrenRemoveQueue = new ArrayList<>();
+
+    /**
+     * List of components that are queued to be removed.
+     */
+    private List<AbstractComponent> componentsRemoveQueue = new ArrayList<>();
 
     /**
      * Float buffer for the rendering matrix.
@@ -171,30 +176,16 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public boolean removeChild(AbstractGameObject gameObject) {
-        // Remove any game object
-        if(!this.children.remove(gameObject))
-            return false;
-
-        // Reset the parent
-        gameObject.setParent(null);
-
-        // Return the result
-        return true;
+        return this.childrenRemoveQueue.add(gameObject);
     }
 
     @Override
     public AbstractGameObject removeChild(int i) {
         // Get the child that will be removed
-        AbstractGameObject child;
+        AbstractGameObject child = this.children.get(i);
 
-        // Remove the child by it's index, and make sure any child was removed
-        if((child = this.children.remove(i)) == null)
-            return null;
-
-        // Reset the parent
-        child.setParent(null);
-
-        // Return the child
+        // Remove and return the child
+        removeChild(child);
         return child;
     }
 
@@ -251,17 +242,17 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public boolean destroyComponent(AbstractComponent component) {
-        return this.componentsDestroyQueue.add(component);
+    public boolean removeComponent(AbstractComponent component) {
+        return this.componentsRemoveQueue.add(component);
     }
 
     @Override
-    public AbstractComponent destroyComponent(int i) {
+    public AbstractComponent removeComponent(int i) {
         // Get the component that will be removed
         AbstractComponent component = this.components.get(i);
 
-        // Destroy the component, and return
-        destroyComponent(component);
+        // Remove the component, and return
+        removeComponent(component);
         return component;
     }
 
@@ -308,24 +299,23 @@ public class GameObject extends AbstractGameObject {
             if(this.children.get(i).isEnabled())
                 this.children.get(i).update();
 
-        // Destroy all queued components
+        // Remove all components that were queued to be removed
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.componentsDestroyQueue.size(); i < size; i++) {
-            // Get the components
-            AbstractComponent component = this.componentsDestroyQueue.get(i);
-
-            // Remove the components from the scene
-            this.components.remove(component);
-
-            // Reset the owner
-            component.setOwner(null);
-
-            // Destroy the component
-            component.destroy();
-        }
+        for(int i = 0, size = this.componentsRemoveQueue.size(); i < size; i++)
+            // Remove the component
+            this.components.remove(this.componentsRemoveQueue.get(i));
 
         // Clear the list of queued destroyed components
-        this.componentsDestroyQueue.clear();
+        this.componentsRemoveQueue.clear();
+
+        // Remove all children that were queued to be removed
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.childrenRemoveQueue.size(); i < size; i++)
+            // Remove the child
+            this.children.remove(this.childrenRemoveQueue.get(i));
+
+        // Clear the list of queued destroyed children
+        this.childrenRemoveQueue.clear();
     }
 
     @Override
@@ -339,6 +329,24 @@ public class GameObject extends AbstractGameObject {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
             this.children.get(i).destroy();
+
+        // Remove this game object from it's parent or from the scene if it doesn't have a parent
+        if(hasParent())
+            getParent().removeChild(this);
+        else
+            getScene().removeGameObject(this);
+
+        // Reset the parent of this game object
+        // TODO: Reset the parent, without errors!
+        //setParent(null);
+
+        // Force the game object to finalize
+        try {
+            //noinspection FinalizeCalledExplicitly
+            finalize();
+        } catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Override

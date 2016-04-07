@@ -1,5 +1,6 @@
-package me.keybarricade;
+package me.keybarricade.game.component;
 
+import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.material.Material;
@@ -36,10 +37,7 @@ public class BoxSpawnerComponent extends BaseComponent {
             float z = (int) (-25f + (float) Math.random() * 50);
 
             // Spawn a box
-            getScene().addGameObject(new BoxPrefab(new Vector3f(x, 0.5f, z), true, 10.0f, boxMaterial));
+            getScene().addGameObject(new BoxPrefab(new Vector3f(x, 0.5f, z), true, 0.0f, 10.0f, boxMaterial));
         }
     }
-
-    @Override
-    public void destroy() { }
 }

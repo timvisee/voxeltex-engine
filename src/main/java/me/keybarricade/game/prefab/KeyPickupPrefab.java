@@ -1,6 +1,6 @@
-package me.keybarricade.gameobject;
+package me.keybarricade.game.prefab;
 
-import me.keybarricade.GameAssetLoader;
+import me.keybarricade.game.asset.GameAssetLoader;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;

@@ -104,4 +104,13 @@ public class ScenePhysicsEngine {
     public void addRigidbody(RigidBody rigidbody) {
         this.bulletDynamicsWorld.addRigidBody(rigidbody);
     }
+
+    /**
+     * Remove a rigidbody from the physics world.
+     *
+     * @param rigidbody Rigidbody to remove.
+     */
+    public void removeRigidbody(RigidBody rigidbody) {
+        this.bulletDynamicsWorld.removeRigidBody(rigidbody);
+    }
 }

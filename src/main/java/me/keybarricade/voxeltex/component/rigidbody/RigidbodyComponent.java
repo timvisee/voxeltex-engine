@@ -124,9 +124,6 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
         }
     }
 
-    @Override
-    public void destroy() { }
-
     /**
      * Create the actual rigidbody for this component.
      * This should be called when the scene the game object is in is started.
@@ -219,5 +216,16 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
             this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() | collisionFlag);
         else
             this.physicsRigidbody.setCollisionFlags(this.physicsRigidbody.getCollisionFlags() & ~collisionFlag);
+    }
+
+    @Override
+    public void destroy() {
+        // Remove the rigidbody from the physics engine if created
+        if(this.physicsRigidbody != null)
+            // Get the physics engine and remove the rigidbody from it
+            getScene().getPhysicsEngine().removeRigidbody(this.physicsRigidbody);
+
+        // Destroy the super
+        super.destroy();
     }
 }

@@ -145,6 +145,14 @@ public abstract class AbstractScene {
     public abstract void drawOverlay();
 
     /**
+     * Destroy the scene.
+     * This will remove the scene from the scene manager automatically before the next update.
+     * All references created by the VoxelTex engine to this scene will be cleared.
+     * The scene may not be used anymore after it has been destroyed.
+     */
+    public abstract void destroy();
+
+    /**
      * Get all game objects in this scene.
      *
      * @return Game objects.
@@ -191,18 +199,33 @@ public abstract class AbstractScene {
     public abstract AbstractGameObject getGameObject(int i);
 
     /**
-     * Remove the given game object from the scene.
+     * Remove a game object from the scene before the next update.
+     * To destroy the game object, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @return True if any game object was removed, false if not.
+     * @param gameObject Game object to remove.
+     *
+     * @return True if any game object will be removed, false if not.
      */
-    public abstract boolean destroyGameObject(AbstractGameObject gameObject);
+    public abstract boolean removeGameObject(AbstractGameObject gameObject);
 
     /**
-     * Remove the game object at the given index.
+     * Remove a game object from the scene before the next update.
+     * To destroy the game object, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
      *
-     * @param i Game object index.
+     * @param i Index of the game object to remove.
      *
-     * @return The game object that was removed, or null if none was removed.
+     * @return True if any game object will be removed, false if not.
      */
-    public abstract AbstractGameObject destroyGameObject(int i);
+    public abstract AbstractGameObject removeGameObject(int i);
+
+    /**
+     * Get the name of the scene type.
+     *
+     * @return Scene name.
+     */
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }
