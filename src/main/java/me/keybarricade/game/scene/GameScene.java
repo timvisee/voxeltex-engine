@@ -19,7 +19,6 @@ import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
-import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
