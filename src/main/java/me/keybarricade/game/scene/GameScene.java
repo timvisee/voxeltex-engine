@@ -80,7 +80,7 @@ public class GameScene extends Scene {
         addGameObject(this.cameraPrefab);
 
         // Load the level
-        loadLevel(0.5f);
+        loadLevel();
     }
 
     /**
@@ -97,6 +97,9 @@ public class GameScene extends Scene {
         menuPanel.addComponent(new GuiPanelComponent());
         addGameObject(menuPanel);
 
+        // Create a toggleable menu controller
+        final ToggleableMenuComponent menuController = new ToggleableMenuComponent(menuPanel);
+
         // Create the menu label
         GuiLabelPrefab menuLabel = new GuiLabelPrefab("Button", "Menu");
         menuLabel.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -112,10 +115,12 @@ public class GameScene extends Scene {
                 // Call the super
                 super.onClick();
 
-                // Load the main menu
-                //getEngine().getSceneManager().loadScene(new GameScene());
+                // Unload and reload the current level
                 unloadLevel();
                 loadLevel();
+
+                // Hide the menu
+                menuController.setMenuVisible(false);
             }
         };
         restartButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -154,16 +159,16 @@ public class GameScene extends Scene {
         menuPanel.addChild(exitButton);
 
         // Create a toggleable menu controller
-        GameObject menuController = new GameObject("MenuController");
-        menuController.addComponent(new ToggleableMenuComponent(menuPanel));
-        addGameObject(menuController);
+        GameObject menuControllerObject = new GameObject("MenuController");
+        menuControllerObject.addComponent(menuController);
+        addGameObject(menuControllerObject);
     }
 
     /**
      * Load the level.
      */
     private void loadLevel() {
-        loadLevel(1f);
+        loadLevel(0.5f);
     }
 
     /**
@@ -215,7 +220,7 @@ public class GameScene extends Scene {
 
         // Unload the current level, and load the next one
         unloadLevel();
-        loadLevel();
+        loadLevel(1f);
     }
 
     /**
