@@ -1,0 +1,25 @@
+# Levels configuration
+levels:
+  '0':
+    objects:
+      'outerWalls':
+        type: wall
+        posSet:
+          'top':
+            x: 0:11
+            y: 0
+          'right':
+            x: 11
+            y: 0:11
+          'bottom':
+            x: 0:11
+            y: 11
+          'left':
+            x: 0
+            y: 0:11
+          'left':
+            x: 5
+            y: 0:11
+
+version: "0.1"
+versionCode: 1

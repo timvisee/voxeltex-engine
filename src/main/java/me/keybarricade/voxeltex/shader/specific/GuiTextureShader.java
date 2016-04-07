@@ -27,6 +27,7 @@ import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
+import me.keybarricade.voxeltex.util.Color;
 
 public class GuiTextureShader extends Shader {
 
@@ -41,9 +42,9 @@ public class GuiTextureShader extends Shader {
     private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/guiTexture.frag";
 
     /**
-     * Alpha channel intensity.
+     * Color channel intensity.
      */
-    private float alpha = 1.0f;
+    private Color color = new Color(1, 1, 1, 1);
 
     /**
      * Constructor.
@@ -79,25 +80,35 @@ public class GuiTextureShader extends Shader {
         if(material != null)
             setUniform2f("tiling", material.getTiling());
 
-        // Send the alpha channel intensity
-        setUniform1f("alpha", this.alpha);
+        // Send the color channel intensity
+        // TODO: Use buffering here!
+        setUniform4f("color", this.color.toVector4f());
     }
 
     /**
-     * Get the alpha channel intensity.
+     * Get the color channel intensity.
      *
-     * @return Alpha channel intensity.
+     * @return Color channel intensity.
      */
-    public float getAlpha() {
-        return this.alpha;
+    public Color getColor() {
+        return this.color;
     }
 
     /**
-     * Set the alpha channel intensity.
+     * Set the color channel intensity.
+     *
+     * @return Color channel intensity.
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * Set the color channel intensity.
      *
      * @param alpha Alpha channel intensity.
      */
     public void setAlpha(float alpha) {
-        this.alpha = alpha;
+        this.color.setAlpha(alpha);
     }
 }

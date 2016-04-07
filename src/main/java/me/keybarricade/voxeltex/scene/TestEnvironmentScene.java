@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.prefab.KeyPickupPrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
@@ -214,17 +215,11 @@ public class TestEnvironmentScene extends Scene {
         FpsCameraPrefab fpsCameraPrefab = new FpsCameraPrefab();
         fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         addGameObject(fpsCameraPrefab);
-//        GameObject cameraObject = new GameObject("Camera");
-//        cameraObject.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-//        cameraObject.addComponent(new CameraComponent());
-//        addGameObject(cameraObject);
 
         // Add a key prefab
-        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        KeyPickupPrefab keyObject = new KeyPickupPrefab(LockType.YELLOW);
         keyObject.getTransform().getPosition().set(-1, 0, 0);
         addGameObject(keyObject);
-
-
 
         // Overlay test
         GameObject menuPanel = new GameObject("MenuPanel");

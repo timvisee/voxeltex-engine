@@ -1,15 +1,11 @@
 package me.keybarricade.game.scene;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import me.keybarricade.game.prefab.BoxPrefab;
-import me.keybarricade.game.prefab.KeyPickupPrefab;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
-import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
+import me.keybarricade.game.level.LevelManager;
+import me.keybarricade.game.prefab.*;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
@@ -19,8 +15,6 @@ import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -39,10 +33,29 @@ public class GameScene extends Scene {
      */
     private GameObject levelBase;
 
+    /**
+     * Camera prefab in this scene.
+     */
+    private MouseLookCameraPrefab cameraPrefab;
+
+    /**
+     * Smooth top down follow component used to follow the player.
+     */
+    private SmoothTopDownFollowComponent smoothCameraFollow;
+
+    /**
+     * Level manager.
+     */
+    private LevelManager levelManager;
+
     @Override
     public void load() {
         // Load the super
         super.load();
+
+        // Load the level manager and the level data
+        this.levelManager = new LevelManager();
+        this.levelManager.load();
 
         // Create the menu
         createMenu();
@@ -60,12 +73,18 @@ public class GameScene extends Scene {
         this.levelBase = new GameObject("LevelBase");
         addGameObject(this.levelBase);
 
+        // Create the camera prefab
+        this.cameraPrefab = new MouseLookCameraPrefab();
+        this.cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        this.cameraPrefab.addComponent(this.smoothCameraFollow = new SmoothTopDownFollowComponent());
+        addGameObject(this.cameraPrefab);
+
         // Load the level
         loadLevel();
     }
 
     /**
-     * Create the toggeable menu and add it to the scene
+     * Create the toggleable menu and add it to the scene
      */
     private void createMenu() {
         // Create the base menu panel
@@ -96,7 +115,6 @@ public class GameScene extends Scene {
                 // Load the main menu
                 //getEngine().getSceneManager().loadScene(new GameScene());
                 unloadLevel();
-
                 loadLevel();
             }
         };
@@ -149,8 +167,10 @@ public class GameScene extends Scene {
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
         Material boxMaterial = new Material(boxTexture);
 
-        // Load the sphere mesh
-        Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
+        // Player
+        PlayerPrefab playerObject = new PlayerPrefab();
+        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
+        this.levelBase.addChild(playerObject);
 
         // Create a variable to calculate the spawn delays
         float delay = 0.5f;
@@ -177,28 +197,28 @@ public class GameScene extends Scene {
         this.levelBase.addChild(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, (delay += 0.02f), -1f, boxMaterial));
 
         // Add a key
-        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", playerObject, LockType.YELLOW);
         keyObject.getTransform().getPosition().set(-2, 0, -1);
         keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         this.levelBase.addChild(keyObject);
 
-        // Player
-        GameObject playerObject = new GameObject("Player");
-        playerObject.addComponent(new MeshFilterComponent(sphereMesh));
-        playerObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.BLUE, 1, 1))));
-        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
-        playerObject.addComponent(new WasdPhysicsMovementComponent());
-        playerObject.addComponent(new SphereColliderComponent(0.3f));
-        playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
-        this.levelBase.addChild(playerObject);
+        // Add a padlock
+        PadlockPrefab padlockObject = new PadlockPrefab(playerObject, LockType.YELLOW);
+        padlockObject.getTransform().getPosition().set(-3, 0, -2);
+        padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
+        this.levelBase.addChild(padlockObject);
 
-        // Create a camera and follow the player
-        // TODO: Move this outside the base level scope!
-        MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
-        cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
-        this.levelBase.addChild(cameraPrefab);
+        // Add a finish
+        FinishPrefab finish = new FinishPrefab(playerObject);
+        finish.getTransform().getPosition().set(3, 0.1f, -2);
+        finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+        this.levelBase.addChild(finish);
+
+        // Animate the players spawn as last
+        playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
+
+        // Set the camera target to the player
+        this.smoothCameraFollow.setTarget(playerObject);
     }
 
     /**
@@ -207,6 +227,9 @@ public class GameScene extends Scene {
     private void unloadLevel() {
         // Create a variable to calculate the spawn delays
         float delay = 0.0f;
+
+        // Reset the camera target
+        this.smoothCameraFollow.setTarget(null);
 
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)
