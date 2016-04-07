@@ -21,6 +21,11 @@ public class FinishPrefab extends QuadPrefab {
     private PlayerPrefab player;
 
     /**
+     * Flag to ensure the finish is only triggered once.
+     */
+    private boolean triggered = false;
+
+    /**
      * Constructor.
      */
     public FinishPrefab() {
@@ -58,14 +63,23 @@ public class FinishPrefab extends QuadPrefab {
         // Call the super
         super.update();
 
+        // Make sure the finish hasn't been triggered before
+        if(this.triggered)
+            return;
+
         // Make sure a player reference is given
         if(this.player != null) {
             // Calculate the distance (squared) to the player
             float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
             // Determine whether to pickup the item, trigger the player if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
+                // Set the triggered flag
+                this.triggered = true;
+
+                // Trigger the player
                 this.player.onTrigger(this);
+            }
         }
     }
 }
