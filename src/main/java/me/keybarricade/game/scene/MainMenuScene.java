@@ -11,6 +11,8 @@ import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorTyp
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.input.mouse.MouseInputManager;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -28,6 +30,9 @@ public class MainMenuScene extends Scene {
     public void load() {
         // Load the super
         super.load();
+
+        // Set the mouse cursor mode
+        Input.setMouseCursorMode(MouseInputManager.CURSOR_MODE_NORMAL);
 
         // Create the menu
         createMenu();
