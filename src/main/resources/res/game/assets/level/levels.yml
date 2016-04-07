@@ -2,24 +2,46 @@
 levels:
   '0':
     objects:
+      'player':
+        type: player
+        pos:
+          x: 4
+          y: 4
+      'finish':
+        type: finish
+        pos:
+          x: 7
+          y: 7
+      'lock1':
+        type: lock
+        pos:
+          x: 5
+          y: 7
       'outerWalls':
         type: wall
         posSet:
           'top':
-            x: 0:11
-            y: 0
+            x: "0:11"
+            y: "0"
           'right':
-            x: 11
-            y: 0:11
+            x: "11"
+            y: "0:11"
           'bottom':
-            x: 0:11
-            y: 11
+            x: "0:11"
+            y: "11"
           'left':
-            x: 0
-            y: 0:11
-          'left':
-            x: 5
-            y: 0:11
+            x: "0"
+            y: "0:11"
+      'other':
+        type: wall
+        pos:
+          x: "2:9"
+          y: "2"
+      'keys':
+        type: key
+        pos:
+          x: "2:9"
+          y: "9"
 
 version: "0.1"
 versionCode: 1
