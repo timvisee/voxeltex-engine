@@ -36,4 +36,13 @@ public enum LockType {
     public Color getColor() {
         return this.color;
     }
+
+    /**
+     * Get a copy of the type color.
+     *
+     * @return Type color copy.
+     */
+    public Color getColorCopy() {
+        return new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), this.color.getAlpha());
+    }
 }

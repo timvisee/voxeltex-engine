@@ -30,6 +30,7 @@ import me.keybarricade.voxeltex.shader.ShaderManager;
 import me.keybarricade.voxeltex.shader.specific.GuiTextureShader;
 import me.keybarricade.voxeltex.texture.Image;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 
 public class GuiImageComponent extends AbstractGuiComponent {
 
@@ -39,9 +40,9 @@ public class GuiImageComponent extends AbstractGuiComponent {
     private Material material = new Material(ShaderManager.SHADER_DEFAULT_GUI_TEXTURE);
 
     /**
-     * Alpha channel intensity.
+     * Color channel intensity.
      */
-    private float alpha = 1f;
+    private Color color = new Color(1, 1, 1, 1);
 
     /**
      * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
@@ -86,10 +87,10 @@ public class GuiImageComponent extends AbstractGuiComponent {
         if(this.material != null)
             this.material.bind();
 
-        // Set the alpha level if this is an GUI texture shader
+        // Set the color level if this is an GUI texture shader
         if(this.material != null && this.material.getShader() instanceof GuiTextureShader) {
-            // Set the alpha intensity
-            ((GuiTextureShader) this.material.getShader()).setAlpha(this.alpha);
+            // Set the color intensity
+            ((GuiTextureShader) this.material.getShader()).setColor(this.color);
 
             // Update the shader
             this.material.update(getScene());
@@ -159,20 +160,29 @@ public class GuiImageComponent extends AbstractGuiComponent {
     }
 
     /**
-     * Get the alpha channel intensity.
+     * Get the color channel intensity.
      *
-     * @return Alpha channel intensity.
+     * @return Color channel intensity.
      */
-    public float getAlpha() {
-        return this.alpha;
+    public Color getColor() {
+        return this.color;
     }
 
     /**
-     * Set the alpha channel intensity.
+     * Get the color channel intensity.
+     *
+     * @param color Color channel intensity.
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * Set the color channel intensity.
      *
      * @param alpha Alpha channel intensity.
      */
     public void setAlpha(float alpha) {
-        this.alpha = alpha;
+        this.color.setAlpha(alpha);
     }
 }
