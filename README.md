@@ -1,7 +1,7 @@
 #KeyBarricade
 
 Key Barricade is a simple game made as challenge for college.
-This game brings a custom 3D engine called VoxelTex written from scratch using OpenGL.
+This game brings a custom rendering engine named VoxelTex written from scratch using OpenGL.
 See the paragraph below for information on how to run the project.
 
 ---
