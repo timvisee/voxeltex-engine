@@ -2,6 +2,7 @@ package me.keybarricade.game.component.animator;
 
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
@@ -21,6 +22,11 @@ public class ObjectDecayAnimatorComponent extends BaseComponent {
      * Initial scale. Used as reference for the scaling animation.
      */
     private Vector3f initialScale;
+
+    /**
+     * Flag whether this is the first decay run.
+     */
+    boolean firstDecayRun = true;
 
     /**
      * Constructor.
@@ -44,9 +50,19 @@ public class ObjectDecayAnimatorComponent extends BaseComponent {
     public void update() {
         // Decay the object
         if(this.meshRenderer != null && Time.timeFloat >= this.decayAt) {
-            // Store the initial scale if it hasn't been stored yet
-            if(this.initialScale == null)
+            // Do some stuff on the first decay run
+            if(this.firstDecayRun) {
+                // Store the initial scale
                 this.initialScale = new Vector3f(getTransform().getScale());
+
+                // Get and destroy the rigidbody component if available
+                RigidbodyComponent rigidbodyComponent = getOwner().getComponent(RigidbodyComponent.class);
+                if(rigidbodyComponent != null)
+                    rigidbodyComponent.destroy();
+
+                // Flip the first decay run flag
+                this.firstDecayRun = false;
+            }
 
             // Calculate the animation factor
             float factor = (1.0f - (Time.timeFloat - this.decayAt)) / 1.0f;
