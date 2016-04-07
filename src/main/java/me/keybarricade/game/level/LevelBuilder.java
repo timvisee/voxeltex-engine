@@ -2,7 +2,6 @@ package me.keybarricade.game.level;
 
 import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
@@ -185,7 +184,7 @@ public class LevelBuilder {
     private void buildObject(String rawType, int x, int y) {
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall"))
-            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f, GameResourceBundle.getInstance().MATERIAL_BOX));
+            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f));
 
             // Create a key
         else if(rawType.trim().equals("key")) {

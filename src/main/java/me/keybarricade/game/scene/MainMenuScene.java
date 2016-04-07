@@ -72,12 +72,12 @@ public class MainMenuScene extends Scene {
 
         // Create a cube spawner
         GameObject cubeSpawner = new GameObject("CubeSpawner");
-        cubeSpawner.addComponent(new BoxSpawnerComponent(GameResourceBundle.getInstance().MATERIAL_BOX));
+        cubeSpawner.addComponent(new BoxSpawnerComponent());
         addGameObject(cubeSpawner);
     }
 
     /**
-     * Create the toggeable menu and add it to the scene
+     * Create the toggleable menu and add it to the scene
      */
     private void createMenu() {
         // Create the base menu panel
