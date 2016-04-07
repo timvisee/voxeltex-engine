@@ -210,9 +210,6 @@ public class GameScene extends Scene {
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
         this.levelBase.addChild(cameraPrefab);
-
-        FpsCameraPrefab fps = new FpsCameraPrefab();
-        addGameObject(fps);
     }
 
     /**
