@@ -3,6 +3,7 @@ package me.keybarricade.game.component.animator;
 import me.keybarricade.voxeltex.component.AbstractComponent;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import me.keybarricade.voxeltex.gameobject.Transform;
 import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
@@ -75,14 +76,25 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
 
     @Override
     public void create() {
-        // Get the mesh renderer component
-        this.meshRenderer = getComponent(MeshRendererComponent.class);
+        // Use the mesh renderer of a child object if available
+        for(int i = 0, size = getOwner().getChildren().size(); i < size; i++)
+            if((this.meshRenderer = getOwner().getChild(i).getComponent(MeshRendererComponent.class)) != null)
+                break;
+
+        // Get the attached mesh renderer component if available
+        if(this.meshRenderer == null)
+            this.meshRenderer = getComponent(MeshRendererComponent.class);
     }
 
     @Override
     public void start() {
         // Set the time offset
         this.timeOffset = this.waitUntil;
+
+        // Get the proper transform object
+        Transform transform = getTransform();
+        if(this.meshRenderer != null)
+            transform = this.meshRenderer.getTransform();
 
         // Store the object's targetPosition position
         targetPosition = new Vector3f(getTransform().getPosition());
@@ -93,6 +105,11 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
 
     @Override
     public void update() {
+        // Get the proper transform object
+        Transform transform = getTransform();
+        if(this.meshRenderer != null)
+            transform = this.meshRenderer.getTransform();
+
         // Do not start the animation if we still need to wait
         if(Time.timeFloat < waitUntil) {
             // Disable the mesh renderer, to ensure the blocks aren't visible already in the air

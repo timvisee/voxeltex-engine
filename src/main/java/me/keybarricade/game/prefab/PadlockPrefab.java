@@ -84,7 +84,7 @@ public class PadlockPrefab extends GameObject {
         );
 
         // Add a collider
-        addComponent(new BoxColliderComponent(new Vector3f(0.6f, 0.6f, 2f)));
+        addComponent(new BoxColliderComponent(new Vector3f(0.6f, 0.6f, 4f)));
 
         // Create a child game object that holds the padlock model
         GameObject padlockModelObject = new GameObject("PadlockRenderer");

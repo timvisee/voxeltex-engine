@@ -193,7 +193,7 @@ public class GameScene extends Scene {
         this.levelBase.addChild(keyObject);
 
         // Add a padlock
-        PadlockPrefab padlockObject = new PadlockPrefab(playerObject, LockType.GREEN);
+        PadlockPrefab padlockObject = new PadlockPrefab(playerObject, LockType.YELLOW);
         padlockObject.getTransform().getPosition().set(-3, 0, -2);
         padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
         this.levelBase.addChild(padlockObject);
