@@ -2,9 +2,7 @@ package me.keybarricade.game.scene;
 
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import me.keybarricade.game.prefab.BoxPrefab;
-import me.keybarricade.game.prefab.KeyPickupPrefab;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.*;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -21,6 +19,7 @@ import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
+import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -182,6 +181,18 @@ public class GameScene extends Scene {
         keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         this.levelBase.addChild(keyObject);
 
+        // Add a padlock
+        PadlockPrefab padlockObject = new PadlockPrefab();
+        padlockObject.getTransform().getPosition().set(-3, 0, -2);
+        padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
+        this.levelBase.addChild(padlockObject);
+
+        // Add a finish
+        FinishPrefab finish = new FinishPrefab();
+        finish.getTransform().getPosition().set(3, 0.1f, -2);
+        finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+        this.levelBase.addChild(finish);
+
         // Player
         GameObject playerObject = new GameObject("Player");
         playerObject.addComponent(new MeshFilterComponent(sphereMesh));
@@ -199,6 +210,9 @@ public class GameScene extends Scene {
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
         this.levelBase.addChild(cameraPrefab);
+
+        FpsCameraPrefab fps = new FpsCameraPrefab();
+        addGameObject(fps);
     }
 
     /**
