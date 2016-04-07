@@ -219,4 +219,13 @@ public abstract class AbstractScene {
      * @return True if any game object will be removed, false if not.
      */
     public abstract AbstractGameObject removeGameObject(int i);
+
+    /**
+     * Get the name of the scene type.
+     *
+     * @return Scene name.
+     */
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }
