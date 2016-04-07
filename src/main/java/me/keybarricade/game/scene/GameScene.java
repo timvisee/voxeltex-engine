@@ -12,14 +12,11 @@ import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
 import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -161,10 +158,6 @@ public class GameScene extends Scene {
      * Load the level.
      */
     private void loadLevel() {
-        // Load the box texture and material
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(boxTexture);
-
         // Create a level builder to build the level with
         LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(0), this.levelBase);
 

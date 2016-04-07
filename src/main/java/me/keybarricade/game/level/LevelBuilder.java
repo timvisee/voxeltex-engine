@@ -2,13 +2,11 @@ package me.keybarricade.game.level;
 
 import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import me.keybarricade.game.LockType;
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -185,13 +183,9 @@ public class LevelBuilder {
      * @param y Y coordinate of the object.
      */
     private void buildObject(String rawType, int x, int y) {
-        // Load the box texture and material
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        Material boxMaterial = new Material(boxTexture);
-
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall"))
-            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f, boxMaterial));
+            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f, GameResourceBundle.getInstance().MATERIAL_BOX));
 
             // Create a key
         else if(rawType.trim().equals("key")) {
@@ -228,7 +222,7 @@ public class LevelBuilder {
     }
 
     /**
-     * Get the player instane from the builder.
+     * Get the player instance from the builder.
      *
      * @return Player instance.
      */
