@@ -5,7 +5,6 @@ import me.keybarricade.voxeltex.component.collider.primitive.BoxColliderComponen
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
@@ -23,20 +22,43 @@ public class PadlockPrefab extends GameObject {
     private static final String GAME_OBJECT_NAME = "PadlockPickupPrefab";
 
     /**
+     * Distance trigger.
+     */
+    private static final float PICKUP_TRIGGER_DISTANCE = 0.8f;
+
+    /**
+     * Reference to player prefab. Used to calculate whether to pickup the key or not.
+     */
+    private PlayerPrefab player;
+
+    /**
      * Constructor.
      */
     public PadlockPrefab() {
-        this(GAME_OBJECT_NAME);
+        this(GAME_OBJECT_NAME, null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param player Player reference.
+     */
+    public PadlockPrefab(PlayerPrefab player) {
+        this(GAME_OBJECT_NAME, player);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
+     * @param player Player reference.
      */
-    public PadlockPrefab(String name) {
+    public PadlockPrefab(String name, PlayerPrefab player) {
         // Construct the parent with the proper size
         super(name);
+
+        // Set the player instance
+        this.player = player;
 
         // Load the padlock material
         Material lockMaterial = new Material(Texture.fromColor(new Color(1, 1, 0), 1, 1));
@@ -65,5 +87,21 @@ public class PadlockPrefab extends GameObject {
         padlockLightObject.getTransform().getPosition().y = 1f;
         padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(1, 1, 0), 0.05f));
         addChild(padlockLightObject);
+    }
+
+    @Override
+    public synchronized void update() {
+        // Call the super
+        super.update();
+
+        // Make sure a player reference is given
+        if(this.player != null) {
+            // Calculate the distance (squared) to the player
+            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+
+            // Determine whether to pickup the item, trigger the player if that's the case
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
+                this.player.onTrigger(this);
+        }
     }
 }
