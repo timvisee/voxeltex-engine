@@ -5,7 +5,6 @@ import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
@@ -86,9 +85,6 @@ public class KeyPickupPrefab extends GameObject {
         keyLightObject.getTransform().getPosition().y = 0.65f;
         keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.05f));
         addChild(keyLightObject);
-
-        // Add a kinematic rigidbody for collision
-        addComponent(new RigidbodyComponent(true));
     }
 
     @Override

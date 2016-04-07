@@ -294,4 +294,13 @@ public class VoxelTexWindow {
     public void setHintResizable(boolean resizable) {
         glWindowHintBoolean(GLFW_RESIZABLE, resizable);
     }
+
+    /**
+     * Set the window focused hint.
+     *
+     * @param focused True if focused, false if not.
+     */
+    public void setHintFocussed(boolean focused) {
+        glWindowHintBoolean(GLFW_FOCUSED, focused);
+    }
 }
