@@ -109,12 +109,9 @@ public class PlayerPrefab extends GameObject {
             PadlockPrefab padlock = (PadlockPrefab) gameObject;
 
             // Make sure we've the correct key type
-            if(padlock.getLockType().equals(getPickupLockType())) {
+            if(padlock.getLockType().equals(getPickupLockType()))
                 // Decay the padlock
                 gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
-
-                // TODO: Ensure this is enough!
-            }
         }
     }
 
@@ -143,6 +140,5 @@ public class PlayerPrefab extends GameObject {
         // Set the key image
         this.keyImage.setColor(lockType.getColorCopy());
         this.keyImage.setAlpha(0.5f);
-        // TODO: Set the proper key color!
     }
 }
