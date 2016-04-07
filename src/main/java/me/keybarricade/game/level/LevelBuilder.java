@@ -190,13 +190,13 @@ public class LevelBuilder {
     private void buildObject(String rawType, int dataValue, int x, int y) {
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall")){
-            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f));
+            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, delay += 0.02f, -1f));
         }
 
         // Create a player
         else if(rawType.trim().equals("player")) {
             PlayerPrefab playerObject = new PlayerPrefab(this.gameScene);
-            playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));
+            playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
             this.levelRoot.addChild(playerObject);
             this.player = playerObject;
         }
@@ -204,7 +204,7 @@ public class LevelBuilder {
         // Create a key
         else if(rawType.trim().equals("key")) {
             KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.fromDataValue(dataValue));
-            keyObject.getTransform().getPosition().set(x, 0, y);
+            keyObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(keyObject);
         }
@@ -212,7 +212,7 @@ public class LevelBuilder {
         // Create a lock
         else if(rawType.trim().equals("lock")) {
             PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.fromDataValue(dataValue));
-            padlockObject.getTransform().getPosition().set(x, 0, y);
+            padlockObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
         }
@@ -220,7 +220,7 @@ public class LevelBuilder {
         // Create a finish
         else if(rawType.trim().equals("finish")) {
             FinishPrefab finish = new FinishPrefab(this.player);
-            finish.getTransform().getPosition().set(x, 0.1f, y);
+            finish.getTransform().getPosition().set(x + 0.5f, 0.1f, y + 0.5f);
             finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(finish);
         }

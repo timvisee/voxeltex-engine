@@ -36,7 +36,7 @@ public class SandSurfacePrefab extends QuadPrefab {
         // Create a sand surface material
         System.out.println("Generating surface material...");
         Material sandMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_SAND);
-        sandMaterial.getTiling().set(size.x / 5.0f);
+        sandMaterial.getTiling().set(size.x / 2.0f);
 
         // Set the quad material to sand
         setMaterial(sandMaterial);

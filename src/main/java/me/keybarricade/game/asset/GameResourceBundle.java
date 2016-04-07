@@ -62,7 +62,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.MATERIAL_FINISH = new Material(this.TEXTURE_FINISH);
 
         // Load the sand resources
-        this.TEXTURE_SAND = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        this.TEXTURE_SAND = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
         this.MATERIAL_SAND = new Material(this.TEXTURE_SAND);
     }
 

@@ -41,7 +41,7 @@ public class MainMenuScene extends Scene {
         addGameObject(new SandSurfacePrefab(1000));
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
@@ -68,7 +68,7 @@ public class MainMenuScene extends Scene {
                 // Spawn a box
                 // TODO: Use box prefab!
                 CubePrefab boxObject = new CubePrefab("Box");
-                boxObject.getTransform().setPosition(new Vector3f(-25 + x, 0.5f, -25 + z));
+                boxObject.getTransform().setPosition(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f));
                 boxObject.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX);
                 boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
                 addGameObject(boxObject);
