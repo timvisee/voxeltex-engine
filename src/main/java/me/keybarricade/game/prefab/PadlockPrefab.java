@@ -74,7 +74,7 @@ public class PadlockPrefab extends GameObject {
         this.lockType = lockType;
 
         // Load the padlock material
-        Material lockMaterial = new Material(Texture.fromColor(new Color(1, 1, 0), 1, 1));
+        Material lockMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
 
         // Load the padlock mesh
         Mesh padlockMesh = new Mesh(
@@ -98,7 +98,7 @@ public class PadlockPrefab extends GameObject {
         GameObject padlockLightObject = new GameObject("PadlockLight");
         padlockLightObject.getTransform().getPosition().y = 0.65f;
         padlockLightObject.getTransform().getPosition().y = 1f;
-        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(1, 1, 0), 0.05f));
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.05f));
         addChild(padlockLightObject);
     }
 

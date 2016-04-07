@@ -5,9 +5,14 @@ import me.keybarricade.voxeltex.util.Color;
 public enum LockType {
 
     /**
-     * Red type.
+     * Yellow type.
      */
-    RED(Color.RED);
+    YELLOW(new Color(1, 1, 0)),
+
+    /**
+     * Greem type.
+     */
+    GREEN(new Color(0, 1, 0));
 
     /**
      * Type color.

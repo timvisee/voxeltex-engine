@@ -1,5 +1,6 @@
 package me.keybarricade.game.scene;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
@@ -13,8 +14,6 @@ import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -188,13 +187,13 @@ public class GameScene extends Scene {
         this.levelBase.addChild(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, (delay += 0.02f), -1f, boxMaterial));
 
         // Add a key
-        KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", playerObject);
+        KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", playerObject, LockType.YELLOW);
         keyObject.getTransform().getPosition().set(-2, 0, -1);
         keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         this.levelBase.addChild(keyObject);
 
         // Add a padlock
-        PadlockPrefab padlockObject = new PadlockPrefab(playerObject);
+        PadlockPrefab padlockObject = new PadlockPrefab(playerObject, LockType.GREEN);
         padlockObject.getTransform().getPosition().set(-3, 0, -2);
         padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
         this.levelBase.addChild(padlockObject);

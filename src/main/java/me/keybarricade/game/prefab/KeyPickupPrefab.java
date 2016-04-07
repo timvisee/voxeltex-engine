@@ -75,7 +75,7 @@ public class KeyPickupPrefab extends GameObject {
         getTransform().getAngularVelocity().y = 0.6f;
 
         // Load the key material
-        Material keyMaterial = new Material(Texture.fromColor(new Color(1, 1, 0), 1, 1));
+        Material keyMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
 
         // Load the key mesh
         Mesh keyMesh = new Mesh(
@@ -95,7 +95,7 @@ public class KeyPickupPrefab extends GameObject {
         // Create a child game object that holds the key light
         GameObject keyLightObject = new GameObject("KeyPickupModel");
         keyLightObject.getTransform().getPosition().y = 0.65f;
-        keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, new Vector3f(1, 1, 0), 0.05f));
+        keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.05f));
         addChild(keyLightObject);
 
         // Add a kinematic rigidbody for collision

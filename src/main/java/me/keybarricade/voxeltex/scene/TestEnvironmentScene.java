@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.scene;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.prefab.KeyPickupPrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
@@ -216,7 +217,7 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(fpsCameraPrefab);
 
         // Add a key prefab
-        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        KeyPickupPrefab keyObject = new KeyPickupPrefab(LockType.YELLOW);
         keyObject.getTransform().getPosition().set(-1, 0, 0);
         addGameObject(keyObject);
 
