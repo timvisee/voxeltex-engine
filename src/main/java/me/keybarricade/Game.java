@@ -3,6 +3,7 @@ package me.keybarricade;
 import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
+import me.keybarricade.voxeltex.swing.ProgressDialog;
 
 public class Game {
 
@@ -10,6 +11,11 @@ public class Game {
      * VoxelTex engine instance.
      */
     private VoxelTexEngine engine;
+
+    /**
+     * Progress dialog, used to show status outside of the engine window.
+     */
+    private ProgressDialog progressDialog;
 
     /**
      * Constructor.
@@ -20,6 +26,9 @@ public class Game {
      * Initialize.
      */
     public void init() {
+        this.progressDialog = new ProgressDialog(null, "VoxelTex Engine");
+        this.progressDialog.setVisible(true);
+
         // Show initialization message
         System.out.println("Initializing " + KeyBarricade.APP_NAME + "...");
 
@@ -34,6 +43,9 @@ public class Game {
      * Initialize the VoxelTex engine.
      */
     public void initEngine() {
+        // Show status
+        this.progressDialog.setStatus("Initializing VoxelTex engine...");
+
         // Create a VoxelTex engine instance
         this.engine = new VoxelTexEngine();
 
@@ -49,10 +61,15 @@ public class Game {
      */
     public void startEngine() {
         // Load the resource bundle
+        this.progressDialog.setStatus("Loading game resources...");
         GameResourceBundle.getInstance().load();
 
         // Load the default scene
+        this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
+
+        // Done, dispose the progress dialog before starting the engine
+        this.progressDialog.dispose();
 
         // Start the engine
         this.engine.start();
