@@ -340,7 +340,7 @@ public class GameObject extends AbstractGameObject {
         // TODO: Reset the parent, without errors!
         //setParent(null);
 
-        // Force the component to finalize
+        // Force the game object to finalize
         try {
             //noinspection FinalizeCalledExplicitly
             finalize();

@@ -310,7 +310,8 @@ public abstract class AbstractGameObject {
      * Destroy the game object.
      * This will remove the game object from the parent game object or scene automatically before the next update.
      * All references created by the VoxelTex engine to this game object will be cleared.
-     * The game object shouldn't be used anymore after it has been destroyed.
+     * The game object may not be used anymore after it has been destroyed.
+     * All components inside this scene will be destroyed accordingly.
      */
     public abstract void destroy();
 

@@ -145,6 +145,14 @@ public abstract class AbstractScene {
     public abstract void drawOverlay();
 
     /**
+     * Destroy the scene.
+     * This will remove the scene from the scene manager automatically before the next update.
+     * All references created by the VoxelTex engine to this scene will be cleared.
+     * The scene may not be used anymore after it has been destroyed.
+     */
+    public abstract void destroy();
+
+    /**
      * Get all game objects in this scene.
      *
      * @return Game objects.

@@ -152,4 +152,22 @@ public class Scene extends AbstractScene {
             if(this.gameObjects.get(i).isEnabled())
                 this.gameObjects.get(i).drawOverlay();
     }
+
+    @Override
+    public void destroy() {
+        // Destroy game objects
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.gameObjects.size(); i < size; i++)
+            this.gameObjects.get(i).destroy();
+
+        // FIXME: Remove this scene from the scene manager!
+
+        // Force the scene to finalize
+        try {
+            //noinspection FinalizeCalledExplicitly
+            finalize();
+        } catch(Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
 }
