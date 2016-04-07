@@ -189,7 +189,7 @@ public class LevelBuilder {
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f));
         }
 
-        // Create a key
+        // Create a player
         else if(rawType.trim().equals("player")) {
             PlayerPrefab playerObject = new PlayerPrefab();
             playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));

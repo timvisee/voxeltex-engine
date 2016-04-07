@@ -74,8 +74,8 @@ public class PlayerPrefab extends GameObject {
         // Create the base menu panel
         GameObject keyPanel = new GameObject("KeyPanel");
         keyPanel.addComponent(new RectangleTransform(
-                new Vector2f(-(96f / 2) - 32, +(96f / 2) + 32),
-                new Vector2f(96f, 96f),
+                new Vector2f(-(72f / 2) - 32, +(72f / 2) + 32),
+                new Vector2f(72f, 72f),
                 HorizontalTransformAnchorType.RIGHT,
                 VerticalTransformAnchorType.BOTTOM
         ));

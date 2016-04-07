@@ -124,7 +124,7 @@ public class LightManager {
 
         // Show a warning if there are more lights than can be handled
         if(this.lights.size() > SHADER_LIGHT_LIMIT)
-            System.out.println("Warning: Some lights might not be rendered because the current number of lights" +
+            System.out.println("Warning: Some lights might not be rendered because the current number of lights " +
                     "exceeds the shader light limit of " + this.lights.size() + "/" + SHADER_LIGHT_LIMIT);
 
         // Return the instance
