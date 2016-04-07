@@ -122,8 +122,6 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
         // Create the window
         this.window.glCreateWindow();
 
-        this.window.setHintFocussed(true);
-
         // Initialize the input manager for this window
         Input.init(this.window);
 
