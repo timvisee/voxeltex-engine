@@ -1,0 +1,8 @@
+# Levels configuration
+
+levels:
+  '0':
+    tiles:
+
+version: "0.1"
+versionCode: 1
