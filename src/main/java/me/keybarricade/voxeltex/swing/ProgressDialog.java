@@ -62,7 +62,13 @@ public class ProgressDialog extends JDialog {
         // Configure the dialog
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-        setPreferredSize(new Dimension(350, 50));
+
+
+        Dimension d = getPreferredSize();
+        d.width = 300;
+        setPreferredSize(d);
+
+
         pack();
         setLocationRelativeTo(owner);
         setAlwaysOnTop(true);
