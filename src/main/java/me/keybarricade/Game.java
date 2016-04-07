@@ -31,8 +31,8 @@ public class Game {
         SwingUtils.useNativeLookAndFeel();
 
         // Create and show the progress dialog
-        //this.progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
-        //this.progressDialog.setVisible(true);
+        this.progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
+        this.progressDialog.setVisible(true);
 
         // Show initialization message
         System.out.println("Initializing " + KeyBarricade.APP_NAME + "...");
@@ -49,7 +49,7 @@ public class Game {
      */
     public void initEngine() {
         // Show status
-        //this.progressDialog.setStatus("Initializing VoxelTex engine...");
+        this.progressDialog.setStatus("Initializing VoxelTex engine...");
 
         // Create a VoxelTex engine instance
         this.engine = new VoxelTexEngine();
@@ -66,15 +66,15 @@ public class Game {
      */
     public void startEngine() {
         // Load the resource bundle
-        //this.progressDialog.setStatus("Loading game resources...");
+        this.progressDialog.setStatus("Loading game resources...");
         GameResourceBundle.getInstance().load();
 
         // Load the default scene
-        //this.progressDialog.setStatus("Loading scene...");
+        this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
         // Done, hide the progress dialog before starting the engine
-        //this.progressDialog.setVisible(false);
+        this.progressDialog.setVisible(false);
 
         // Start the engine
         this.engine.start();
