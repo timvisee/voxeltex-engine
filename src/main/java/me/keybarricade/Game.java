@@ -4,6 +4,7 @@ import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.VoxelTexEngine;
 import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
 import me.keybarricade.voxeltex.swing.ProgressDialog;
+import me.keybarricade.voxeltex.swing.SwingUtils;
 
 public class Game {
 
@@ -26,6 +27,10 @@ public class Game {
      * Initialize.
      */
     public void init() {
+        // Use the native look and feel for Swing windows when possible
+        SwingUtils.useNativeLookAndFeel();
+
+        // Create and show the progress dialog
         this.progressDialog = new ProgressDialog(null, "VoxelTex Engine");
         this.progressDialog.setVisible(true);
 
@@ -68,8 +73,8 @@ public class Game {
         this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
-        // Done, dispose the progress dialog before starting the engine
-        this.progressDialog.dispose();
+        // Done, hide the progress dialog before starting the engine
+        //this.progressDialog.dispose();
 
         // Start the engine
         this.engine.start();

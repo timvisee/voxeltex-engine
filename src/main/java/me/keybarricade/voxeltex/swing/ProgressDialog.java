@@ -108,11 +108,11 @@ public class ProgressDialog extends JDialog {
         progressBar.setIndeterminate(true);
         progressBar.setMinimum(0);
         progressBar.setMaximum(1000);
-        //progressBar.setPreferredSize(new Dimension(progressBar.getPreferredSize().width, 20));
         buttonPanel.add(progressBar);
-        //buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-        //cancelButton = new JButton("Cancel");
-        //buttonPanel.add(cancelButton);
+        progressBar.setPreferredSize(new Dimension(progressBar.getPreferredSize().width, 20));
+        buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+        JButton cancelButton = new JButton("Cancel");
+        buttonPanel.add(cancelButton);
         container.add(buttonPanel);
 
         // Add the container to the dialog
