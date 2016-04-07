@@ -80,7 +80,7 @@ public class GameScene extends Scene {
         addGameObject(this.cameraPrefab);
 
         // Load the level
-        loadLevel();
+        loadLevel(0.5f);
     }
 
     /**
@@ -163,11 +163,20 @@ public class GameScene extends Scene {
      * Load the level.
      */
     private void loadLevel() {
+        loadLevel(1f);
+    }
+
+    /**
+     * Load the level.
+     *
+     * @param delay Delay in seconds.
+     */
+    private void loadLevel(float delay) {
         // Create a level builder for the level with the specified level index
         LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(this.currentLevel), this, this.levelBase);
 
         // Build the level with a delay of 0.5 seconds
-        builder.build(0.5f);
+        builder.build(delay);
 
         // Set the camera target to the player
         this.smoothCameraFollow.setTarget(builder.getPlayer());

@@ -45,5 +45,33 @@ levels:
           x: 5
           y: 7
 
+  'end':
+    objects:
+      'player':
+        type: player
+        pos:
+          x: 0
+          y: 0
+      'finish':
+        type: finish
+        pos:
+          x: 2
+          y: 0
+      'outerWalls':
+        type: wall
+        posSet:
+          'top':
+            x: "-1:2"
+            y: "-1"
+          'right':
+            x: "3"
+            y: "-1:0"
+          'bottom':
+            x: "3:-1"
+            y: "1"
+          'left':
+            x: "-1"
+            y: "-1:0"
+
 version: "0.1"
 versionCode: 1
