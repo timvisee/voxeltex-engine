@@ -57,6 +57,11 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
 
     /**
      * Constructor.
+     */
+    public SmoothTopDownFollowComponent() { }
+
+    /**
+     * Constructor.
      *
      * @param target Target.
      */
@@ -152,6 +157,10 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      * @param rotationFactor Rotational lerp factor.
      */
     public void smoothUpdate(float positionFactor, float rotationFactor) {
+        // Make sure the target position was configured
+        if(this.target == null)
+            return;
+
         // Calculate the target position
         Vector3f targetPos = new Vector3f(target.getTransform().getWorldPosition());
         targetPos.add(0, height, 0);
