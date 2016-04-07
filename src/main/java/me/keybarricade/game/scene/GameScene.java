@@ -37,6 +37,16 @@ public class GameScene extends Scene {
      */
     private GameObject levelBase;
 
+    /**
+     * Camera prefab in this scene.
+     */
+    private MouseLookCameraPrefab cameraPrefab;
+
+    /**
+     * Smooth top down follow component used to follow the player.
+     */
+    private SmoothTopDownFollowComponent smoothCameraFollow;
+
     @Override
     public void load() {
         // Load the super
@@ -58,12 +68,18 @@ public class GameScene extends Scene {
         this.levelBase = new GameObject("LevelBase");
         addGameObject(this.levelBase);
 
+        // Create the camera prefab
+        this.cameraPrefab = new MouseLookCameraPrefab();
+        this.cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        this.cameraPrefab.addComponent(this.smoothCameraFollow = new SmoothTopDownFollowComponent());
+        addGameObject(this.cameraPrefab);
+
         // Load the level
         loadLevel();
     }
 
     /**
-     * Create the toggeable menu and add it to the scene
+     * Create the toggleable menu and add it to the scene
      */
     private void createMenu() {
         // Create the base menu panel
@@ -94,7 +110,6 @@ public class GameScene extends Scene {
                 // Load the main menu
                 //getEngine().getSceneManager().loadScene(new GameScene());
                 unloadLevel();
-
                 loadLevel();
             }
         };
@@ -203,12 +218,8 @@ public class GameScene extends Scene {
         playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
         this.levelBase.addChild(playerObject);
 
-        // Create a camera and follow the player
-        // TODO: Move this outside the base level scope!
-        MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
-        cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        cameraPrefab.addComponent(new SmoothTopDownFollowComponent(playerObject));
-        this.levelBase.addChild(cameraPrefab);
+        // Set the camera target to the player
+        this.smoothCameraFollow.setTarget(playerObject);
     }
 
     /**
@@ -217,6 +228,9 @@ public class GameScene extends Scene {
     private void unloadLevel() {
         // Create a variable to calculate the spawn delays
         float delay = 0.0f;
+
+        // Reset the camera target
+        this.smoothCameraFollow.setTarget(null);
 
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)
