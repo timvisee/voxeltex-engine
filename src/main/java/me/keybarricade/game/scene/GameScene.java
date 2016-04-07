@@ -3,11 +3,7 @@ package me.keybarricade.game.scene;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
-import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
@@ -162,8 +158,10 @@ public class GameScene extends Scene {
         Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
         Material boxMaterial = new Material(boxTexture);
 
-        // Load the sphere mesh
-        Mesh sphereMesh = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
+        // Player
+        PlayerPrefab playerObject = new PlayerPrefab();
+        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
+        this.levelBase.addChild(playerObject);
 
         // Create a variable to calculate the spawn delays
         float delay = 0.5f;
@@ -190,33 +188,25 @@ public class GameScene extends Scene {
         this.levelBase.addChild(new BoxPrefab(new Vector3f(-2, 0.5f, 3), false, (delay += 0.02f), -1f, boxMaterial));
 
         // Add a key
-        KeyPickupPrefab keyObject = new KeyPickupPrefab();
+        KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", playerObject);
         keyObject.getTransform().getPosition().set(-2, 0, -1);
         keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         this.levelBase.addChild(keyObject);
 
         // Add a padlock
-        PadlockPrefab padlockObject = new PadlockPrefab();
+        PadlockPrefab padlockObject = new PadlockPrefab(playerObject);
         padlockObject.getTransform().getPosition().set(-3, 0, -2);
         padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
         this.levelBase.addChild(padlockObject);
 
         // Add a finish
-        FinishPrefab finish = new FinishPrefab();
+        FinishPrefab finish = new FinishPrefab(playerObject);
         finish.getTransform().getPosition().set(3, 0.1f, -2);
         finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
         this.levelBase.addChild(finish);
 
-        // Player
-        GameObject playerObject = new GameObject("Player");
-        playerObject.addComponent(new MeshFilterComponent(sphereMesh));
-        playerObject.addComponent(new MeshRendererComponent(new Material(Texture.fromColor(Color.BLUE, 1, 1))));
-        playerObject.getTransform().setPosition(new Vector3f(0, 0.5f, 0));
-        playerObject.getTransform().setScale(0.3f, 0.3f, 0.3f);
-        playerObject.addComponent(new WasdPhysicsMovementComponent());
-        playerObject.addComponent(new SphereColliderComponent(0.3f));
+        // Animate the players spawn as last
         playerObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
-        this.levelBase.addChild(playerObject);
 
         // Set the camera target to the player
         this.smoothCameraFollow.setTarget(playerObject);
