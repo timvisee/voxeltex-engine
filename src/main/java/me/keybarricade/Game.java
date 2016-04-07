@@ -31,7 +31,7 @@ public class Game {
         SwingUtils.useNativeLookAndFeel();
 
         // Create and show the progress dialog
-        this.progressDialog = new ProgressDialog(null, "VoxelTex Engine");
+        this.progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
         this.progressDialog.setVisible(true);
 
         // Show initialization message
@@ -73,8 +73,8 @@ public class Game {
         this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
-        // Done, hide the progress dialog before starting the engine
-        //this.progressDialog.dispose();
+        // Done, dispose the progress dialog before starting the engine
+        this.progressDialog.dispose();
 
         // Start the engine
         this.engine.start();

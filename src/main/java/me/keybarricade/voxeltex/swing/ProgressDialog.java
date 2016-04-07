@@ -43,14 +43,23 @@ public class ProgressDialog extends JDialog {
     private JLabel statusLabel;
 
     /**
+     * True to show the cancel button, false to hide this button.
+     */
+    private boolean showCancelButton = false;
+
+    /**
      * Constructor.
      *
      * @param owner Owner window, or null.
      * @param title Progress dialog title.
+     * @param showCancelButton True to show the cancel button, false if not.
      */
-    public ProgressDialog(Window owner, String title) {
+    public ProgressDialog(Window owner, String title, boolean showCancelButton) {
         // Construct the super class
         super(owner, title);
+
+        // Store the cancel button property
+        this.showCancelButton = showCancelButton;
 
         // Set the modality type if an owner is set
         if(owner != null)
@@ -59,19 +68,23 @@ public class ProgressDialog extends JDialog {
         // Build the dialog
         buildUI();
 
-        // Configure the dialog
+        // Configure the close button behaviour
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        // Make the form non resizable and keep it on top
         setResizable(false);
-
-
-        Dimension d = getPreferredSize();
-        d.width = 300;
-        setPreferredSize(d);
-
-
-        pack();
-        setLocationRelativeTo(owner);
         setAlwaysOnTop(true);
+
+        // Configure the preferred width of the dialog
+        Dimension preferredDialogSize = getPreferredSize();
+        preferredDialogSize.width = this.showCancelButton ? 350 : 300;
+        setPreferredSize(preferredDialogSize);
+
+        // Pack the dialog contents
+        pack();
+
+        // Set the dialog location to the center of the screen
+        setLocationRelativeTo(owner);
     }
 
     /**
@@ -83,7 +96,7 @@ public class ProgressDialog extends JDialog {
      */
     public ProgressDialog(Window owner, String title, String status) {
         // Construct
-        this(owner, title);
+        this(owner, title, false);
 
         // Set the status
         setStatus(status);
@@ -100,7 +113,7 @@ public class ProgressDialog extends JDialog {
 
         // Create the status panel and label
         JPanel statusPanel = new JPanel();
-        statusPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        statusPanel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 0));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.LINE_AXIS));
         statusLabel = new JLabel("Initializing...", SwingConstants.LEADING);
         statusPanel.add(statusLabel);
@@ -110,16 +123,18 @@ public class ProgressDialog extends JDialog {
         // Create the button panel with progress bar and buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 0, 0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(8, 2, 0, 2));
         progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
         progressBar.setMinimum(0);
         progressBar.setMaximum(1000);
         buttonPanel.add(progressBar);
         progressBar.setPreferredSize(new Dimension(progressBar.getPreferredSize().width, 20));
-        buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-        JButton cancelButton = new JButton("Cancel");
-        buttonPanel.add(cancelButton);
+        if(this.showCancelButton) {
+            buttonPanel.add(Box.createRigidArea(new Dimension(10, 0)));
+            JButton cancelButton = new JButton("Cancel");
+            buttonPanel.add(cancelButton);
+        }
         container.add(buttonPanel);
 
         // Add the container to the dialog
