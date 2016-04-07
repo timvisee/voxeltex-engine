@@ -1,7 +1,7 @@
 package me.keybarricade.game.prefab;
 
 import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameAssetLoader;
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -9,8 +9,6 @@ import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
 import me.keybarricade.voxeltex.texture.Texture;
 
 public class KeyPickupPrefab extends GameObject {
@@ -72,19 +70,12 @@ public class KeyPickupPrefab extends GameObject {
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
 
-        // Load the key material
+        // Generate the key material
         Material keyMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
-
-        // Load the key mesh
-        Mesh keyMesh = new Mesh(
-                ObjModelLoader.loadModelFromInputStream(
-                        GameAssetLoader.getInstance().loadResourceStream("models/key.obj")
-                )
-        );
 
         // Create a child game object that holds the key model
         GameObject keyModelObject = new GameObject("KeyPickupModel");
-        keyModelObject.addComponent(new MeshFilterComponent(keyMesh));
+        keyModelObject.addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_KEY));
         keyModelObject.addComponent(new MeshRendererComponent(keyMaterial));
         keyModelObject.getTransform().getPosition().y = 0.2f;
         keyModelObject.getTransform().getAngularVelocity().x = 2f;

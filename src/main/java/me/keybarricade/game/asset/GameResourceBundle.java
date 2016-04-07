@@ -18,6 +18,12 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_BOX;
     public Mesh MESH_SPHERE;
     public Image IMAGE_KEY;
+    public Mesh MESH_KEY;
+    public Mesh MESH_PADLOCK;
+    public Texture TEXTURE_FINISH;
+    public Material MATERIAL_FINISH;
+    public Texture TEXTURE_SAND;
+    public Material MATERIAL_SAND;
 
     /**
      * Get the game resource bundle instance.
@@ -25,7 +31,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
      * @return Game resource bundle instance.
      */
     public static GameResourceBundle getInstance() {
-        return instance;
+        return GameResourceBundle.instance;
     }
 
     @Override
@@ -40,8 +46,24 @@ public class GameResourceBundle implements ResourceBundleInterface {
         // Load the sphere mesh
         this.MESH_SPHERE = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
 
-        // Load the key image
+        // Load the key resources
         this.IMAGE_KEY = Image.loadFromEngineAssets("images/key.png");
+        this.MESH_KEY = new Mesh(ObjModelLoader.loadModelFromInputStream(
+                GameAssetLoader.getInstance().loadResourceStream("models/key.obj")
+        ));
+
+        // Load the padlock resources
+        this.MESH_PADLOCK = new Mesh(ObjModelLoader.loadModelFromInputStream(
+                GameAssetLoader.getInstance().loadResourceStream("models/padlock.obj")
+        ));
+
+        // Load the finish resources
+        this.TEXTURE_FINISH = Texture.fromImage(Image.loadFromEngineAssets("images/finish.png"));
+        this.MATERIAL_FINISH = new Material(this.TEXTURE_FINISH);
+
+        // Load the sand resources
+        this.TEXTURE_SAND = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        this.MATERIAL_SAND = new Material(this.TEXTURE_SAND);
     }
 
     @Override

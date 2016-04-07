@@ -1,10 +1,9 @@
 package me.keybarricade.game.prefab;
 
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 import org.joml.Vector2f;
 
 public class SandSurfacePrefab extends QuadPrefab {
@@ -34,11 +33,9 @@ public class SandSurfacePrefab extends QuadPrefab {
         // Construct the parent with the proper size
         super("SandSurface", size);
 
-        // Load the sand texture
-        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
-
         // Create a sand surface material
-        Material sandMaterial = new Material(sandTexture);
+        System.out.println("Generating surface material...");
+        Material sandMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_SAND);
         sandMaterial.getTiling().set(size.x / 5.0f);
 
         // Set the quad material to sand

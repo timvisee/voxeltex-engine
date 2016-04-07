@@ -82,7 +82,7 @@ public class LevelBuilder {
             throw new RuntimeException("Unable to build level, level instance invalid");
 
         // Show a status message
-        System.out.println("Building runtime level...");
+        System.out.println("Building level environment at runtime...");
 
         // Set the delay
         this.delay = delay;
