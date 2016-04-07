@@ -3,6 +3,7 @@ package me.keybarricade.game.prefab;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import me.keybarricade.game.scene.GameScene;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -25,6 +26,11 @@ public class PlayerPrefab extends GameObject {
     private static final String GAME_OBJECT_NAME = "PlayerPrefab";
 
     /**
+     * Game scene instance.
+     */
+    private final GameScene gameScene;
+
+    /**
      * The type of key the player has currently picked up, null if none.
      */
     private LockType lockType = null;
@@ -41,19 +47,25 @@ public class PlayerPrefab extends GameObject {
 
     /**
      * Constructor.
+     *
+     * @param gameScene Game scene instance.
      */
-    public PlayerPrefab() {
-        this(GAME_OBJECT_NAME);
+    public PlayerPrefab(GameScene gameScene) {
+        this(GAME_OBJECT_NAME, gameScene);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
+     * @param gameScene Game scene instance.
      */
-    public PlayerPrefab(String name) {
+    public PlayerPrefab(String name, GameScene gameScene) {
         // Construct the parent with the proper size
         super(name);
+
+        // Store the game scene instance
+        this.gameScene = gameScene;
 
         // Create the player material
         this.playerMaterial = new Material(Texture.fromColor(Color.BLUE, 1, 1));
@@ -113,6 +125,11 @@ public class PlayerPrefab extends GameObject {
                 // Decay the padlock
                 gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
         }
+
+        // Process finish
+        else if(gameObject instanceof FinishPrefab)
+            // Finish the current level
+            this.gameScene.finishLevel();
     }
 
 

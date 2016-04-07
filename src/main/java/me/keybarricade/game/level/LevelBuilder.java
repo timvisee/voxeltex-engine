@@ -4,6 +4,7 @@ import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
+import me.keybarricade.game.scene.GameScene;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import org.joml.Vector3f;
@@ -17,6 +18,11 @@ public class LevelBuilder {
      * Level to build.
      */
     private final Level level;
+
+    /**
+     * Game scene instance.
+     */
+    private final GameScene gameScene;
 
     /**
      * Level root object.
@@ -37,9 +43,12 @@ public class LevelBuilder {
      * Constructor.
      *
      * @param level Level to build.
+     * @param gameScene Game scene instance.
+     * @param levelRoot Level root object.
      */
-    public LevelBuilder(Level level, GameObject levelRoot) {
+    public LevelBuilder(Level level, GameScene gameScene, GameObject levelRoot) {
         this.level = level;
+        this.gameScene = gameScene;
         this.levelRoot = levelRoot;
     }
 
@@ -186,7 +195,7 @@ public class LevelBuilder {
 
         // Create a player
         else if(rawType.trim().equals("player")) {
-            PlayerPrefab playerObject = new PlayerPrefab();
+            PlayerPrefab playerObject = new PlayerPrefab(this.gameScene);
             playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));
             this.levelRoot.addChild(playerObject);
             this.player = playerObject;

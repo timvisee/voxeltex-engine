@@ -13,7 +13,7 @@ public class FinishPrefab extends QuadPrefab {
     /**
      * Distance trigger.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.7f;
+    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
      * Reference to player prefab. Used to calculate whether to pickup the key or not.

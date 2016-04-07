@@ -43,6 +43,11 @@ public class GameScene extends Scene {
      */
     private LevelManager levelManager;
 
+    /**
+     * Current level index.
+     */
+    private int currentLevel = 0;
+
     @Override
     public void load() {
         // Load the super
@@ -124,8 +129,8 @@ public class GameScene extends Scene {
                 // Call the super
                 super.onClick();
 
-                // Load the main menu
-                getEngine().getSceneManager().loadScene(new MainMenuScene());
+                // Go to the main menu
+                toMainMenu();
             }
         };
         mainMenuButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -158,10 +163,10 @@ public class GameScene extends Scene {
      * Load the level.
      */
     private void loadLevel() {
-        // Create a level builder to build the level with
-        LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(0), this.levelBase);
+        // Create a level builder for the level with the specified level index
+        LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(this.currentLevel), this, this.levelBase);
 
-        // Build the level
+        // Build the level with a delay of 0.5 seconds
         builder.build(0.5f);
 
         // Set the camera target to the player
@@ -181,5 +186,33 @@ public class GameScene extends Scene {
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)
             this.levelBase.getChild(i).addComponent(new ObjectDecayAnimatorComponent(delay += 0.01f));
+    }
+
+    /**
+     * Finish the current level.
+     */
+    public void finishLevel() {
+        // Check whether a new level is available
+        if(this.currentLevel >= this.levelManager.getLevelCount() - 1) {
+            // TODO: Show a finish message!
+
+            // Go to the main menu and return
+            toMainMenu();
+            return;
+        }
+
+        // Increase the current level index
+        this.currentLevel += 1;
+
+        // Unload the current level, and load the next one
+        unloadLevel();
+        loadLevel();
+    }
+
+    /**
+     * Go to the main menu.
+     */
+    public void toMainMenu() {
+        getEngine().getSceneManager().loadScene(new MainMenuScene());
     }
 }
