@@ -132,40 +132,35 @@ public class LevelBuilder {
                 String rawPositionY = positionConfig.getString("y", String.valueOf(positionConfig.getInt("y", 0)));
 
                 // Calculate the minimum and maximum X and Y positions
-                int minX, maxX, minY, maxY;
+                int fromX, toX, fromY, toY;
 
                 // Check whether the X coordinate contains any colon character
                 if(rawPositionX.contains(":")) {
                     // Split the raw position
                     String[] splitted = rawPositionX.trim().split(":");
 
-                    int a = Integer.parseInt(splitted[0]);
-                    int b = Integer.parseInt(splitted[1]);
-
-                    // Get the minimum and maximum part
-                    minX = Math.min(a, b);
-                    maxX = Math.max(a, b);
+                    // Parse the values
+                    fromX = Integer.parseInt(splitted[0]);
+                    toX = Integer.parseInt(splitted[1]);
 
                 } else
-                    minX = maxX = Integer.parseInt(rawPositionX);
+                    fromX = toX = Integer.parseInt(rawPositionX);
 
                 // Check whether the Y coordinate contains any colon character
                 if(rawPositionY.contains(":")) {
                     // Split the raw position
                     String[] splitted = rawPositionY.trim().split(":");
 
-                    int a = Integer.parseInt(splitted[0]);
-                    int b = Integer.parseInt(splitted[1]);
+                    // Parse the values
+                    fromY = Integer.parseInt(splitted[0]);
+                    toY = Integer.parseInt(splitted[1]);
 
-                    // Get the minimum and maximum part
-                    minY = Math.min(a, b);
-                    maxY = Math.max(a, b);
                 } else
-                    minY = maxY = Integer.parseInt(rawPositionY);
+                    fromY = toY = Integer.parseInt(rawPositionY);
 
                 // Loop through the positions
-                for(int x = minX; x <= maxX; x++)
-                    for(int y = minY; y <= maxY; y++)
+                for(int x = fromX; fromX < toX ? x <= toX : x >= toX; x += fromX < toX ? 1 : -1)
+                    for(int y = fromY; fromY < toY ? y <= toY : y >= toY; y += fromY < toY ? 1 : -1)
                         buildObject(rawObjectType, dataValue, x, y);
             }
         }

@@ -22,11 +22,11 @@ levels:
             x: "11"
             y: "0:11"
           'bottom':
-            x: "0:11"
+            x: "11:0"
             y: "11"
           'left':
             x: "0"
-            y: "0:11"
+            y: "11:0"
       'other':
         type: wall
         pos:
