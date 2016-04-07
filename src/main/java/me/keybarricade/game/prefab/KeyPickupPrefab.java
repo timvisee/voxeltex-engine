@@ -33,27 +33,27 @@ public class KeyPickupPrefab extends GameObject {
     private PlayerPrefab player;
 
     /**
-     * Key for the given lock type.
+     * Key for the given lock lockType.
      */
-    private LockType type;
+    private LockType lockType;
 
     /**
      * Constructor.
      *
-     * @param type Lock type.
+     * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(LockType type) {
-        this(GAME_OBJECT_NAME, null, type);
+    public KeyPickupPrefab(LockType lockType) {
+        this(GAME_OBJECT_NAME, null, lockType);
     }
 
     /**
      * Constructor.
      *
      * @param player Player reference.
-     * @param type Lock type.
+     * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(PlayerPrefab player, LockType type) {
-        this(GAME_OBJECT_NAME, player, type);
+    public KeyPickupPrefab(PlayerPrefab player, LockType lockType) {
+        this(GAME_OBJECT_NAME, player, lockType);
     }
 
     /**
@@ -61,15 +61,15 @@ public class KeyPickupPrefab extends GameObject {
      *
      * @param name Game object name.
      * @param player Player reference.
-     * @param type Lock type.
+     * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(String name, PlayerPrefab player, LockType type) {
+    public KeyPickupPrefab(String name, PlayerPrefab player, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player and type
+        // Set the player and lockType
         this.player = player;
-        this.type = type;
+        this.lockType = lockType;
 
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
@@ -137,20 +137,20 @@ public class KeyPickupPrefab extends GameObject {
     }
 
     /**
-     * Get the lock type.
+     * Get the lock lockType.
      *
-     * @return Lock type.
+     * @return Lock lockType.
      */
-    public LockType getType() {
-        return this.type;
+    public LockType getLockType() {
+        return this.lockType;
     }
 
     /**
-     * Set the lock type.
+     * Set the lock lockType.
      *
-     * @param type Lock type.
+     * @param lockType Lock lockType.
      */
-    public void setType(LockType type) {
-        this.type = type;
+    public void setLockType(LockType lockType) {
+        this.lockType = lockType;
     }
 }

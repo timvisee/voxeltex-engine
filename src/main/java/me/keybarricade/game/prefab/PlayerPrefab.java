@@ -1,5 +1,6 @@
 package me.keybarricade.game.prefab;
 
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -18,6 +19,11 @@ public class PlayerPrefab extends GameObject {
      * Game object name.
      */
     private static final String GAME_OBJECT_NAME = "PlayerPrefab";
+
+    /**
+     * The type of key the player has currently picked up, null if none.
+     */
+    private LockType lockType = null;
 
     /**
      * Constructor.
@@ -64,5 +70,24 @@ public class PlayerPrefab extends GameObject {
             gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
             //gameObject.destroy();
         }
+    }
+
+
+    /**
+     * Get the pickup lock type. Null if the player hasn't picked up anything.
+     *
+     * @return Lock type, or null.
+     */
+    public LockType getPickupLockType() {
+        return lockType;
+    }
+
+    /**
+     * Set the pickup lock type. Null if the player hansn't picked up anything.
+     *
+     * @param lockType Lock type, or null.
+     */
+    public void setPickupLockType(LockType lockType) {
+        this.lockType = lockType;
     }
 }
