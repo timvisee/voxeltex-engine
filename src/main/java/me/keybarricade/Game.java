@@ -73,8 +73,8 @@ public class Game {
         this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DeveloperSplashScene());
 
-        // Done, dispose the progress dialog before starting the engine
-        this.progressDialog.dispose();
+        // Done, hide the progress dialog before starting the engine
+        this.progressDialog.setVisible(false);
 
         // Start the engine
         this.engine.start();
