@@ -177,7 +177,7 @@ levels:
           bottom:
             x: "0"
             y: "-3"
-          bottom:
+          top:
             x: "0"
             y: "3"
       lockFinish:
