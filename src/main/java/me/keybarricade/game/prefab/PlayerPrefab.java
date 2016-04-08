@@ -145,6 +145,6 @@ public class PlayerPrefab extends GameObject {
 
         // Set the key image
         this.keyImage.setColor(lockType.getColorCopy());
-        this.keyImage.setAlpha(0.5f);
+        this.keyImage.setAlpha(0.75f);
     }
 }
