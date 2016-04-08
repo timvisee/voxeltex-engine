@@ -30,7 +30,7 @@ public class BitmapFontManager {
     /**
      * Name of the default font.
      */
-    public static final String DEFAULT_FONT = "Arial";
+    public static final String DEFAULT_FONT = "Ubuntu";
 
     /**
      * List of loaded bitmap fonts.

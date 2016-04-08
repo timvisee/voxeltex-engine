@@ -9,10 +9,13 @@ import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
@@ -46,6 +49,21 @@ public class PlayerPrefab extends GameObject {
     private GuiImageComponent keyImage;
 
     /**
+     * Game object the hint is rendered with.
+     */
+    private GameObject hintPanel;
+
+    /**
+     * GUI component to render the hint text.
+     */
+    private GuiLabelComponent hintLabel;
+
+    /**
+     * Time to show the hint at.
+     */
+    private float showHintAt = -1.0f;
+
+    /**
      * Constructor.
      *
      * @param gameScene Game scene instance.
@@ -68,7 +86,7 @@ public class PlayerPrefab extends GameObject {
         this.gameScene = gameScene;
 
         // Create the player material
-        this.playerMaterial = new Material(Texture.fromColor(Color.BLUE, 1, 1));
+        this.playerMaterial = new Material(Texture.fromColor(Color.ORANGE, 1, 1));
 
         // Create the mesh filter and renderer
         addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
@@ -82,6 +100,28 @@ public class PlayerPrefab extends GameObject {
 
         // Create a proper collider
         addComponent(new SphereColliderComponent(0.3f));
+
+        // Hint panel
+        this.hintPanel = new GameObject("HintPanel");
+        this.hintPanel.addComponent(new RectangleTransform(
+                new Vector2f(64, -(64 + (32f / 2f))),
+                new Vector2f(64, 32f),
+                HorizontalTransformAnchorType.STRETCH,
+                VerticalTransformAnchorType.TOP
+        ));
+        GameObject hintLabel = new GameObject("HintLabel");
+        hintLabel.addComponent(new RectangleTransform(
+                new Vector2f(4, 4),
+                new Vector2f(4, 4),
+                HorizontalTransformAnchorType.STRETCH,
+                VerticalTransformAnchorType.STRETCH
+        ));
+        this.hintLabel = new GuiLabelComponent("", Color.WHITE);
+        hintLabel.addComponent(this.hintLabel);
+        hintPanel.addChild(hintLabel);
+        hintPanel.addComponent(new GuiPanelComponent());
+        addChild(hintPanel);
+        this.hintPanel.setEnabled(false);
 
         // Create the base menu panel
         GameObject keyPanel = new GameObject("KeyPanel");
@@ -121,6 +161,20 @@ public class PlayerPrefab extends GameObject {
             this.gameScene.finishLevel();
     }
 
+    @Override
+    public synchronized void update() {
+        // Call the super
+        super.update();
+
+        // Show the hint panel if it's time
+        if(this.showHintAt >= 0.0f && this.showHintAt <= Time.timeFloat) {
+            // Show the hint panel
+            this.hintPanel.setEnabled(true);
+
+            // Disable the timer
+            this.showHintAt = -1f;
+        }
+    }
 
     /**
      * Get the pickup lock type. Null if the player hasn't picked up anything.
@@ -145,6 +199,25 @@ public class PlayerPrefab extends GameObject {
 
         // Set the key image
         this.keyImage.setColor(lockType.getColorCopy());
-        this.keyImage.setAlpha(0.5f);
+        this.keyImage.setAlpha(0.75f);
+    }
+
+    /**
+     * Set the player hint.
+     *
+     * @param hintText Hint.
+     */
+    public void setHint(String hintText) {
+        // Make sure the hint contains any text
+        if(hintText == null || hintText.trim().length() == 0) {
+            this.hintPanel.setEnabled(false);
+            return;
+        }
+
+        // Set the hint text
+        this.hintLabel.setText(hintText);
+
+        // Set the hint timer
+        this.showHintAt = Time.timeFloat + 2f;
     }
 }

@@ -10,9 +10,19 @@ public enum LockType {
     YELLOW(new Color(1, 1, 0)),
 
     /**
-     * Greem type.
+     * Green type.
      */
-    GREEN(new Color(0, 1, 0));
+    GREEN(new Color(0, 1, 0)),
+
+    /**
+     * Red type.
+     */
+    RED(new Color(1, 0, 0)),
+
+    /**
+     * Light blue type.
+     */
+    LIGHT_BLUE(new Color(0, 0.746f, 1));
 
     /**
      * Type color.

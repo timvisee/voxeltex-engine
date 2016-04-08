@@ -1,5 +1,6 @@
 package me.keybarricade.game.scene;
 
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
@@ -11,6 +12,8 @@ import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
@@ -20,6 +23,7 @@ import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.lwjgl.glfw.GLFW;
 
 public class GameScene extends Scene {
 
@@ -48,14 +52,18 @@ public class GameScene extends Scene {
      */
     private int currentLevel = 0;
 
+    /**
+     * Last time the game was restarted.
+     */
+    private float lastRestart = -1.0f;
+
     @Override
     public void load() {
         // Load the super
         super.load();
 
-        // Load the level manager and the level data
-        this.levelManager = new LevelManager();
-        this.levelManager.load();
+        // Set the level manager instance
+        this.levelManager = GameResourceBundle.getInstance().LEVEL_MANAGER;
 
         // Create the menu
         createMenu();
@@ -115,9 +123,8 @@ public class GameScene extends Scene {
                 // Call the super
                 super.onClick();
 
-                // Unload and reload the current level
-                unloadLevel();
-                loadLevel();
+                // Request a level restart
+                requestRestart();
 
                 // Hide the menu
                 menuController.setMenuVisible(false);
@@ -228,5 +235,31 @@ public class GameScene extends Scene {
      */
     public void toMainMenu() {
         getEngine().getSceneManager().loadScene(new MainMenuScene());
+    }
+
+    @Override
+    public void update() {
+        // Call the super
+        super.update();
+
+        // Check whether the restart key is pressed
+        if(Input.isKeyDownOnce(GLFW.GLFW_KEY_R))
+            requestRestart();
+    }
+
+    /**
+     * Request a restart.
+     */
+    public void requestRestart() {
+        // Make sure the player can restart again
+        if(this.lastRestart + 1.5f > Time.timeFloat)
+            return;
+
+        // Update the last restart time
+        this.lastRestart = Time.timeFloat;
+
+        // Unload and reload the current level
+        unloadLevel();
+        loadLevel();
     }
 }

@@ -35,6 +35,11 @@ public class LevelBuilder {
     private PlayerPrefab player;
 
     /**
+     * Hint of the level.
+     */
+    private String levelHint;
+
+    /**
      * Spawn delay.
      */
     private float delay = 0.0f;
@@ -95,6 +100,9 @@ public class LevelBuilder {
 
         // Set the delay
         this.delay = delay;
+
+        // Get the level hint
+        this.levelHint = this.level.getConfig().getString("hint", null);
 
         // Get the tiles section
         ConfigurationSection objectsConfig = this.level.getConfig().getConfigurationSection("objects");
@@ -231,6 +239,9 @@ public class LevelBuilder {
      * @param y Y coordinate of the object.
      */
     private void buildObject(String rawType, int dataValue, int x, int y) {
+        // Invert the y axis
+        y *= -1;
+
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall")){
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, delay += 0.02f, -1f));
@@ -242,6 +253,9 @@ public class LevelBuilder {
             playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
             this.levelRoot.addChild(playerObject);
             this.player = playerObject;
+
+            // Set the level hint
+            this.player.setHint(this.levelHint);
         }
 
         // Create a key
@@ -258,6 +272,14 @@ public class LevelBuilder {
             padlockObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
+        }
+
+        // Create a lamp
+        else if(rawType.trim().equals("lamp")) {
+            LampPrefab lampObject = new LampPrefab(LockType.fromDataValue(dataValue).getColorCopy());
+            lampObject.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
+            lampObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+            this.levelRoot.addChild(lampObject);
         }
 
         // Create a finish

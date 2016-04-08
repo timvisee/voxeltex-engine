@@ -23,7 +23,9 @@
 package me.keybarricade.voxeltex.scene;
 
 import me.keybarricade.game.LockType;
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.prefab.KeyPickupPrefab;
+import me.keybarricade.game.prefab.LampPrefab;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
 import me.keybarricade.voxeltex.component.drawable.line.AxisDrawComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
@@ -62,6 +64,9 @@ public class TestEnvironmentScene extends Scene {
     public void load() {
         // Load the super
         super.load();
+
+        // Load all required resources
+        GameResourceBundle.getInstance().load();
 
         // Set the skybox color
         // TODO: Move this to a better spot!
@@ -251,5 +256,9 @@ public class TestEnvironmentScene extends Scene {
         GameObject menuController = new GameObject("MenuController");
         menuController.addComponent(new ToggleableMenuComponent(menuPanel));
         addGameObject(menuController);
+
+        LampPrefab lamp = new LampPrefab(Color.RED);
+        lamp.getTransform().setPosition(8, 0.01f, 8);
+        addGameObject(lamp);
     }
 }

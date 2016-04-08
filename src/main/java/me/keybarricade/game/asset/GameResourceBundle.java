@@ -1,5 +1,6 @@
 package me.keybarricade.game.asset;
 
+import me.keybarricade.game.level.LevelManager;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
@@ -58,6 +59,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_BOX9_DARK;
     public Texture TEXTURE_BOX10_DARK;
     public Material MATERIAL_BOX10_DARK;
+    public Texture TEXTURE_LAMP;
+    public Material MATERIAL_LAMP;
     public Mesh MESH_SPHERE;
     public Image IMAGE_KEY;
     public Mesh MESH_KEY;
@@ -66,6 +69,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_FINISH;
     public Texture TEXTURE_GROUND;
     public Material MATERIAL_GROUND;
+    public LevelManager LEVEL_MANAGER;
 
     /**
      * Get the game resource bundle instance.
@@ -127,6 +131,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX10_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box10_dark.png"));
         this.MATERIAL_BOX10_DARK = new Material(this.TEXTURE_BOX10_DARK);
 
+        // Load the lamp texture and material
+        this.TEXTURE_LAMP = Texture.fromImage(Image.loadFromEngineAssets("images/lamp.png"));
+        this.MATERIAL_LAMP = new Material(this.TEXTURE_LAMP);
+
         // Load the sphere mesh
         this.MESH_SPHERE = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
 
@@ -148,6 +156,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
         // Load the ground resources
         this.TEXTURE_GROUND = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
         this.MATERIAL_GROUND = new Material(this.TEXTURE_GROUND);
+
+        // Load the level manager and the level data
+        this.LEVEL_MANAGER = new LevelManager();
+        this.LEVEL_MANAGER.load();
     }
 
     @Override
@@ -174,8 +186,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX8_DARK.dispose();
         this.TEXTURE_BOX9_DARK.dispose();
         this.TEXTURE_BOX10_DARK.dispose();
+        this.TEXTURE_LAMP.dispose();
         this.IMAGE_KEY.dispose();
         this.TEXTURE_FINISH.dispose();
         this.TEXTURE_GROUND.dispose();
+        this.LEVEL_MANAGER.clear();
     }
 }
