@@ -35,6 +35,11 @@ public class LevelBuilder {
     private PlayerPrefab player;
 
     /**
+     * Hint of the level.
+     */
+    private String levelHint;
+
+    /**
      * Spawn delay.
      */
     private float delay = 0.0f;
@@ -95,6 +100,9 @@ public class LevelBuilder {
 
         // Set the delay
         this.delay = delay;
+
+        // Get the level hint
+        this.levelHint = this.level.getConfig().getString("hint", null);
 
         // Get the tiles section
         ConfigurationSection objectsConfig = this.level.getConfig().getConfigurationSection("objects");
@@ -245,6 +253,9 @@ public class LevelBuilder {
             playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
             this.levelRoot.addChild(playerObject);
             this.player = playerObject;
+
+            // Set the level hint
+            this.player.setHint(this.levelHint);
         }
 
         // Create a key

@@ -9,6 +9,8 @@ import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponent;
+import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
@@ -44,6 +46,16 @@ public class PlayerPrefab extends GameObject {
      * GUI component to render the key image.
      */
     private GuiImageComponent keyImage;
+
+    /**
+     * Game object the hint is rendered with.
+     */
+    private GameObject hintPanel;
+
+    /**
+     * GUI component to render the hint text.
+     */
+    private GuiLabelComponent hintLabel;
 
     /**
      * Constructor.
@@ -82,6 +94,28 @@ public class PlayerPrefab extends GameObject {
 
         // Create a proper collider
         addComponent(new SphereColliderComponent(0.3f));
+
+        // Hint panel
+        this.hintPanel = new GameObject("HintPanel");
+        this.hintPanel.addComponent(new RectangleTransform(
+                new Vector2f(64, -(64 + (32f / 2f))),
+                new Vector2f(64, 32f),
+                HorizontalTransformAnchorType.STRETCH,
+                VerticalTransformAnchorType.TOP
+        ));
+        GameObject hintLabel = new GameObject("HintLabel");
+        hintLabel.addComponent(new RectangleTransform(
+                new Vector2f(4, 4),
+                new Vector2f(4, 4),
+                HorizontalTransformAnchorType.STRETCH,
+                VerticalTransformAnchorType.STRETCH
+        ));
+        this.hintLabel = new GuiLabelComponent("", Color.WHITE);
+        hintLabel.addComponent(this.hintLabel);
+        hintPanel.addChild(hintLabel);
+        hintPanel.addComponent(new GuiPanelComponent());
+        addChild(hintPanel);
+        this.hintPanel.setEnabled(false);
 
         // Create the base menu panel
         GameObject keyPanel = new GameObject("KeyPanel");
@@ -146,5 +180,24 @@ public class PlayerPrefab extends GameObject {
         // Set the key image
         this.keyImage.setColor(lockType.getColorCopy());
         this.keyImage.setAlpha(0.75f);
+    }
+
+    /**
+     * Set the player hint.
+     *
+     * @param hintText Hint.
+     */
+    public void setHint(String hintText) {
+        // Make sure the hint contains any text
+        if(hintText == null || hintText.trim().length() == 0) {
+            this.hintPanel.setEnabled(false);
+            return;
+        }
+
+        // Set the hint text
+        this.hintLabel.setText(hintText);
+
+        // Enable the hint panel
+        this.hintPanel.setEnabled(true);
     }
 }
