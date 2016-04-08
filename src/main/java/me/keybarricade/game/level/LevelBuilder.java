@@ -220,7 +220,7 @@ public class LevelBuilder {
         // Create a finish
         else if(rawType.trim().equals("finish")) {
             FinishPrefab finish = new FinishPrefab(this.player);
-            finish.getTransform().getPosition().set(x + 0.5f, 0.1f, y + 0.5f);
+            finish.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
             finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(finish);
         }
