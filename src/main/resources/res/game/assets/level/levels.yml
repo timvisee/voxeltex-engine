@@ -2,61 +2,124 @@
 levels:
   '0':
     objects:
-      'player':
+      player:
         type: player
         pos:
-          x: 4
-          y: 4
-      'finish':
-        type: finish
-        pos:
-          x: 7
-          y: 7
-      'outerWalls':
+          x: "-2"
+          y: "-2"
+      outerWalls:
         type: wall
         posSet:
-          'top':
-            x: "0:11"
-            y: "0"
-          'right':
-            x: "11"
-            y: "0:11"
-          'bottom':
-            x: "11:0"
-            y: "11"
-          'left':
-            x: "0"
-            y: "11:0"
-      'other':
+          top:
+            x: "-3:3"
+            y: "3"
+          right:
+            x: "3"
+            y: "2:-2"
+          bottom:
+            x: "-3:3"
+            y: "-3"
+          left:
+            x: "-3"
+            y: "-2:2"
+      midWalls:
         type: wall
+        posSet:
+          topLeft:
+            x: "-1"
+            y: "1"
+          topRight:
+            x: "1"
+            y: "1"
+          bottomLeft:
+            x: "-1"
+            y: "-1"
+          bottomRight:
+            x: "1"
+            y: "-1"
+      cornerWalls:
+        type: wall
+        posSet:
+          topRight:
+            x: "-2"
+            y: "2"
+          bottomLeft:
+            x: "2"
+            y: "-2"
+      finish:
+        type: finish
         pos:
-          x: "2:9"
+          x: "2"
           y: "2"
-      'keys':
+
+  '1':
+    objects:
+      player:
+        type: player
+        pos:
+          x: "0"
+          y: "0"
+      outerWalls:
+        type: wall
+        posSet:
+          top:
+            x: "-7:7"
+            y: "1"
+          right:
+            x: "7"
+            y: "0"
+          bottom:
+            x: "7:-7"
+            y: "-1"
+          left:
+            x: "-7"
+            y: "0"
+      'key1':
+        type: key
+        dataValue: 0
+        pos:
+          x: "-2"
+          y: "0"
+      'key2':
         type: key
         dataValue: 1
         pos:
-          x: "2:9"
-          y: "9"
+          x: "2"
+          y: "0"
       'lock1':
+        type: lock
+        dataValue: 0
+        pos:
+          x: "4"
+          y: "0"
+      'lock2':
         type: lock
         dataValue: 1
         pos:
-          x: 5
-          y: 7
+          x: "-4"
+          y: "0"
+      finish:
+        type: finish
+        posSet:
+          left:
+            x: "-6"
+            y: "0"
+          right:
+            x: "6"
+            y: "0"
 
   'end':
     objects:
       'player':
         type: player
         pos:
-          x: 0
-          y: 0
+          x: "0"
+          y: "0"
       'finish':
         type: finish
         pos:
-          x: 2
-          y: 0
+          x: "2"
+          y: "0"
       'outerWalls':
         type: wall
         posSet:
