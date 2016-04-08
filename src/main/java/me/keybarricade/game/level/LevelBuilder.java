@@ -231,6 +231,9 @@ public class LevelBuilder {
      * @param y Y coordinate of the object.
      */
     private void buildObject(String rawType, int dataValue, int x, int y) {
+        // Invert the y axis
+        y *= -1;
+
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall")){
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, delay += 0.02f, -1f));
