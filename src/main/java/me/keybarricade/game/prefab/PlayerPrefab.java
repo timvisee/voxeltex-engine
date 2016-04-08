@@ -68,7 +68,7 @@ public class PlayerPrefab extends GameObject {
         this.gameScene = gameScene;
 
         // Create the player material
-        this.playerMaterial = new Material(Texture.fromColor(Color.BLUE, 1, 1));
+        this.playerMaterial = new Material(Texture.fromColor(Color.ORANGE, 1, 1));
 
         // Create the mesh filter and renderer
         addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
