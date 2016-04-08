@@ -233,6 +233,73 @@ levels:
           'left':
             x: "-1"
             y: "0"
+  'credits':
+    objects:
+      'player':
+        type: player
+        pos:
+          x: "0"
+          y: "0"
+      outerWalls:
+        type: wall
+        posSet:
+          bottom:
+            x: "-3:3"
+            y: "-3"
+          left:
+            x: "-4"
+            y: "-3:16"
+          right:
+            x: "4"
+            y: "-3:16"
+          top:
+            x: "-3:3"
+            y: "16"
+      lampsA:
+        type: lamp
+        dataValue: 0
+        posSet:
+          left:
+            x: "-2"
+            y: "3"
+          right:
+            x: "2"
+            y: "3"
+      lampsB:
+        type: lamp
+        dataValue: 1
+        posSet:
+          left:
+            x: "-2"
+            y: "6"
+          right:
+            x: "2"
+            y: "6"
+      lampsC:
+        type: lamp
+        dataValue: 2
+        posSet:
+          left:
+            x: "-2"
+            y: "9"
+          right:
+            x: "2"
+            y: "9"
+      lampsD:
+        type: lamp
+        dataValue: 3
+        posSet:
+          left:
+            x: "-2"
+            y: "12"
+          right:
+            x: "2"
+            y: "12"
+      'finish':
+        type: finish
+        pos:
+          x: "-3:3"
+          y: "15"
 
 version: "0.1"
 versionCode: 1
