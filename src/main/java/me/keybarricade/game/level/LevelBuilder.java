@@ -205,8 +205,6 @@ public class LevelBuilder {
         if(this.player != null)
             this.player.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
 
-        System.out.println("Building additional stuff!");
-
         // Spawn some randomized blocks outside the map
         for(int i = 0; i < 4; i++) {
             // Enlarge the outer edges by one
