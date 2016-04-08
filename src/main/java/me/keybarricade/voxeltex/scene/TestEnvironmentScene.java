@@ -68,7 +68,7 @@ public class TestEnvironmentScene extends Scene {
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
+        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box/box.png"));
         Material boxMaterial = new Material(boxTexture);
 
         GameObject suzanneRoot = new GameObject("SuzanneRoot");
@@ -190,10 +190,10 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(scaledBoxA);
 
         // Load the sand texture
-        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/sand.png"));
+        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
         //Texture rockTextureNormal = Texture.fromImage(Image.loadFromEngineAssets("images/rock_normal.png"));
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
-        sandMaterial.getTiling().set(3.0f);
+        sandMaterial.getTiling().set(10.0f);
 
         QuadPrefab quad = new QuadPrefab("SandSurface", new Vector2f(20.0f, 20.0f));
         quad.setMaterial(sandMaterial);
@@ -201,12 +201,12 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(quad);
 
         // Add a light
-        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFDDC5C).toVector3f(), 25);
+        LightPrefab pointLight = new LightPrefab("LightPrefab", Light.LIGHT_TYPE_POINT, new Color(0xFFF4D6).toVector3f(), 25);
         pointLight.getTransform().getPosition().set(0, 15, 0);
         addGameObject(pointLight);
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);

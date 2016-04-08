@@ -2,6 +2,7 @@ package me.keybarricade.game.prefab;
 
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.asset.GameResourceBundle;
+import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.voxeltex.component.collider.primitive.BoxColliderComponent;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -9,7 +10,9 @@ import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.texture.Texture;
+import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector3f;
 
 public class PadlockPrefab extends GameObject {
@@ -22,7 +25,7 @@ public class PadlockPrefab extends GameObject {
     /**
      * Distance trigger.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.8f;
+    private static final float PICKUP_TRIGGER_DISTANCE = 1.1f;
 
     /**
      * Reference to player prefab. Used to calculate whether to pickup the key or not.
@@ -30,9 +33,19 @@ public class PadlockPrefab extends GameObject {
     private PlayerPrefab player;
 
     /**
+     * Force field.
+     */
+    private CubePrefab forceField;
+
+    /**
      * Key for the given lock lockType.
      */
     private LockType lockType;
+
+    /**
+     * True if this lock has been unlocked.
+     */
+    private boolean unlocked = false;
 
     /**
      * Constructor.
@@ -74,7 +87,7 @@ public class PadlockPrefab extends GameObject {
         Material lockMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
 
         // Add a collider
-        addComponent(new BoxColliderComponent(new Vector3f(0.6f, 0.6f, 4f)));
+        addComponent(new BoxColliderComponent(new Vector3f(1f, 1f, 4f)));
 
         // Create a child game object that holds the padlock model
         GameObject padlockModelObject = new GameObject("PadlockRenderer");
@@ -83,6 +96,13 @@ public class PadlockPrefab extends GameObject {
         padlockModelObject.getTransform().getPosition().y = 0.05f;
         padlockModelObject.getTransform().getAngularVelocity().y = 0.6f;
         addChild(padlockModelObject);
+
+        // Create a child game object that holds the force field
+        this.forceField = new CubePrefab("ForceField");
+        forceField.getTransform().getPosition().set(0, 0.5f, 0);
+        forceField.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
+        forceField.getMeshRenderer().setAlpha(0f);
+        addChild(forceField);
 
         // Create a child game object that holds the padlock light
         GameObject padlockLightObject = new GameObject("PadlockLight");
@@ -103,8 +123,27 @@ public class PadlockPrefab extends GameObject {
             float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
             // Determine whether to pickup the item, trigger the player if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE && !this.unlocked) {
+                // Trigger the player
                 this.player.onTrigger(this);
+
+                // Make sure the player has the correct key type
+                if(this.lockType.equals(this.player.getPickupLockType())) {
+                    // Decay the padlock
+                    addComponent(new ObjectDecayAnimatorComponent(0.0f));
+
+                    // Set the unlocked flag
+                    this.unlocked = true;
+                }
+            }
+
+            // Calculate the force field intensity
+            float forceFieldIntensity = 0;
+            if(this.player.getPickupLockType() != this.lockType && !this.unlocked)
+                forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.35f), 0);
+
+            // Update the force field intensity
+            this.forceField.getMeshRenderer().setAlpha(forceFieldIntensity);
         }
     }
 

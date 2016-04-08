@@ -3,7 +3,7 @@ package me.keybarricade.game.scene;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
@@ -43,6 +43,11 @@ public class GameScene extends Scene {
      */
     private LevelManager levelManager;
 
+    /**
+     * Current level index.
+     */
+    private int currentLevel = 0;
+
     @Override
     public void load() {
         // Load the super
@@ -56,10 +61,10 @@ public class GameScene extends Scene {
         createMenu();
 
         // Create and add the sand surface prefab
-        addGameObject(new SandSurfacePrefab());
+        addGameObject(new GroundPrefab());
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.5f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
@@ -92,6 +97,9 @@ public class GameScene extends Scene {
         menuPanel.addComponent(new GuiPanelComponent());
         addGameObject(menuPanel);
 
+        // Create a toggleable menu controller
+        final ToggleableMenuComponent menuController = new ToggleableMenuComponent(menuPanel);
+
         // Create the menu label
         GuiLabelPrefab menuLabel = new GuiLabelPrefab("Button", "Menu");
         menuLabel.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -107,10 +115,12 @@ public class GameScene extends Scene {
                 // Call the super
                 super.onClick();
 
-                // Load the main menu
-                //getEngine().getSceneManager().loadScene(new GameScene());
+                // Unload and reload the current level
                 unloadLevel();
                 loadLevel();
+
+                // Hide the menu
+                menuController.setMenuVisible(false);
             }
         };
         restartButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -124,8 +134,8 @@ public class GameScene extends Scene {
                 // Call the super
                 super.onClick();
 
-                // Load the main menu
-                getEngine().getSceneManager().loadScene(new MainMenuScene());
+                // Go to the main menu
+                toMainMenu();
             }
         };
         mainMenuButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -149,20 +159,29 @@ public class GameScene extends Scene {
         menuPanel.addChild(exitButton);
 
         // Create a toggleable menu controller
-        GameObject menuController = new GameObject("MenuController");
-        menuController.addComponent(new ToggleableMenuComponent(menuPanel));
-        addGameObject(menuController);
+        GameObject menuControllerObject = new GameObject("MenuController");
+        menuControllerObject.addComponent(menuController);
+        addGameObject(menuControllerObject);
     }
 
     /**
      * Load the level.
      */
     private void loadLevel() {
-        // Create a level builder to build the level with
-        LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(0), this.levelBase);
+        loadLevel(0.5f);
+    }
 
-        // Build the level
-        builder.build(0.5f);
+    /**
+     * Load the level.
+     *
+     * @param delay Delay in seconds.
+     */
+    private void loadLevel(float delay) {
+        // Create a level builder for the level with the specified level index
+        LevelBuilder builder = new LevelBuilder(this.levelManager.getLevel(this.currentLevel), this, this.levelBase);
+
+        // Build the level with a delay of 0.5 seconds
+        builder.build(delay);
 
         // Set the camera target to the player
         this.smoothCameraFollow.setTarget(builder.getPlayer());
@@ -181,5 +200,33 @@ public class GameScene extends Scene {
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)
             this.levelBase.getChild(i).addComponent(new ObjectDecayAnimatorComponent(delay += 0.01f));
+    }
+
+    /**
+     * Finish the current level.
+     */
+    public void finishLevel() {
+        // Check whether a new level is available
+        if(this.currentLevel >= this.levelManager.getLevelCount() - 1) {
+            // TODO: Show a finish message!
+
+            // Go to the main menu and return
+            toMainMenu();
+            return;
+        }
+
+        // Increase the current level index
+        this.currentLevel += 1;
+
+        // Unload the current level, and load the next one
+        unloadLevel();
+        loadLevel(1f);
+    }
+
+    /**
+     * Go to the main menu.
+     */
+    public void toMainMenu() {
+        getEngine().getSceneManager().loadScene(new MainMenuScene());
     }
 }

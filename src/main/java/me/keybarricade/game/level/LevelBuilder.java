@@ -4,6 +4,7 @@ import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
+import me.keybarricade.game.scene.GameScene;
 import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import org.joml.Vector3f;
@@ -17,6 +18,11 @@ public class LevelBuilder {
      * Level to build.
      */
     private final Level level;
+
+    /**
+     * Game scene instance.
+     */
+    private final GameScene gameScene;
 
     /**
      * Level root object.
@@ -37,9 +43,12 @@ public class LevelBuilder {
      * Constructor.
      *
      * @param level Level to build.
+     * @param gameScene Game scene instance.
+     * @param levelRoot Level root object.
      */
-    public LevelBuilder(Level level, GameObject levelRoot) {
+    public LevelBuilder(Level level, GameScene gameScene, GameObject levelRoot) {
         this.level = level;
+        this.gameScene = gameScene;
         this.levelRoot = levelRoot;
     }
 
@@ -93,6 +102,10 @@ public class LevelBuilder {
         // Get all object keys
         List<String> objectKeys = objectsConfig.getKeys("");
 
+        // Keep track of the minimum and maximum block positions
+        boolean mapCoordsInit = false;
+        int mapMinX = 0, mapMaxX = 0, mapMinY = 0, mapMaxY = 0;
+
         // Loop through each object
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = objectKeys.size(); i < size; i++) {
@@ -117,8 +130,9 @@ public class LevelBuilder {
                     positionSections.add(objectConfig.getConfigurationSection("posSet." + posSets.get(j)));
             }
 
-            // Get the object type
+            // Get the object type and data value if available
             String rawObjectType = objectConfig.getString("type");
+            int dataValue = objectConfig.getInt("dataValue", 0);
 
             // Loop through each position section to parse the position
             //noinspection StatementWithEmptyBody
@@ -131,74 +145,117 @@ public class LevelBuilder {
                 String rawPositionY = positionConfig.getString("y", String.valueOf(positionConfig.getInt("y", 0)));
 
                 // Calculate the minimum and maximum X and Y positions
-                int minX, maxX, minY, maxY;
+                int fromX, toX, fromY, toY;
 
                 // Check whether the X coordinate contains any colon character
                 if(rawPositionX.contains(":")) {
                     // Split the raw position
                     String[] splitted = rawPositionX.trim().split(":");
 
-                    int a = Integer.parseInt(splitted[0]);
-                    int b = Integer.parseInt(splitted[1]);
-
-                    // Get the minimum and maximum part
-                    minX = Math.min(a, b);
-                    maxX = Math.max(a, b);
+                    // Parse the values
+                    fromX = Integer.parseInt(splitted[0]);
+                    toX = Integer.parseInt(splitted[1]);
 
                 } else
-                    minX = maxX = Integer.parseInt(rawPositionX);
+                    fromX = toX = Integer.parseInt(rawPositionX);
 
                 // Check whether the Y coordinate contains any colon character
                 if(rawPositionY.contains(":")) {
                     // Split the raw position
                     String[] splitted = rawPositionY.trim().split(":");
 
-                    int a = Integer.parseInt(splitted[0]);
-                    int b = Integer.parseInt(splitted[1]);
+                    // Parse the values
+                    fromY = Integer.parseInt(splitted[0]);
+                    toY = Integer.parseInt(splitted[1]);
 
-                    // Get the minimum and maximum part
-                    minY = Math.min(a, b);
-                    maxY = Math.max(a, b);
                 } else
-                    minY = maxY = Integer.parseInt(rawPositionY);
+                    fromY = toY = Integer.parseInt(rawPositionY);
+
+                // Initialize the map's minimum and maximum coordinates for the first position
+                if(!mapCoordsInit) {
+                    mapMinX = fromX;
+                    mapMaxX = fromX;
+                    mapMinY = fromY;
+                    mapMaxY = fromY;
+                    mapCoordsInit = true;
+                }
+
+                // Find the minimum and maximum coordinates for the map with the current position
+                mapMinX = Math.min(Math.min(fromX, toX), mapMinX);
+                mapMaxX = Math.max(Math.max(fromX, toX), mapMaxX);
+                mapMinY = Math.min(Math.min(fromY, toY), mapMinY);
+                mapMaxY = Math.max(Math.max(fromY, toY), mapMaxY);
 
                 // Loop through the positions
-                for(int x = minX; x <= maxX; x++)
-                    for(int y = minY; y <= maxY; y++)
-                        buildObject(rawObjectType, x, y);
+                for(int x = fromX; fromX < toX ? x <= toX : x >= toX; x += fromX < toX ? 1 : -1)
+                    for(int y = fromY; fromY < toY ? y <= toY : y >= toY; y += fromY < toY ? 1 : -1)
+                        buildObject(rawObjectType, dataValue, x, y);
             }
         }
 
         // Spawn the player
         if(this.player != null)
             this.player.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
+
+        System.out.println("Building additional stuff!");
+
+        // Spawn some randomized blocks outside the map
+        for(int i = 0; i < 4; i++) {
+            // Enlarge the outer edges by one
+            mapMinX--;
+            mapMinY--;
+            mapMaxX++;
+            mapMaxY++;
+
+            // Loop through the edges of the map
+            for(int x = mapMinX; x <= mapMaxX; x++) {
+                for(int y = mapMinY; y <= mapMaxY; y++) {
+                    // Only place blocks for walls
+                    if(x != mapMinX && x != mapMaxX && y != mapMinY && y != mapMaxY)
+                        continue;
+
+                    // Determine whether to spawn a dummy block
+                    if(Math.random() < Math.min(0.1f * (3 - i), 0.2f))
+                        buildObject("wall", 0, x, y);
+                }
+            }
+        }
     }
 
     /**
      * Build the object with the given type.
      *
      * @param rawType Raw object type.
+     * @param dataValue Data value.
      * @param x X coordinate of the object.
      * @param y Y coordinate of the object.
      */
-    private void buildObject(String rawType, int x, int y) {
+    private void buildObject(String rawType, int dataValue, int x, int y) {
         // Create a wall
-        if(rawType.trim().equalsIgnoreCase("wall"))
-            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x, 0.5f, y), false, delay += 0.02f, -1f));
+        if(rawType.trim().equalsIgnoreCase("wall")){
+            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, delay += 0.02f, -1f));
+        }
 
-            // Create a key
+        // Create a player
+        else if(rawType.trim().equals("player")) {
+            PlayerPrefab playerObject = new PlayerPrefab(this.gameScene);
+            playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
+            this.levelRoot.addChild(playerObject);
+            this.player = playerObject;
+        }
+
+        // Create a key
         else if(rawType.trim().equals("key")) {
-            // TODO: Put player instance in here!
-            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.YELLOW);
-            keyObject.getTransform().getPosition().set(x, 0, y);
+            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.fromDataValue(dataValue));
+            keyObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(keyObject);
         }
 
         // Create a lock
         else if(rawType.trim().equals("lock")) {
-            PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.YELLOW);
-            padlockObject.getTransform().getPosition().set(x, 0, y);
+            PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.fromDataValue(dataValue));
+            padlockObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
         }
@@ -206,18 +263,14 @@ public class LevelBuilder {
         // Create a finish
         else if(rawType.trim().equals("finish")) {
             FinishPrefab finish = new FinishPrefab(this.player);
-            finish.getTransform().getPosition().set(x, 0.1f, y);
+            finish.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
             finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(finish);
         }
 
-        // Create a key
-        else if(rawType.trim().equals("player")) {
-            PlayerPrefab playerObject = new PlayerPrefab();
-            playerObject.getTransform().setPosition(new Vector3f(x, 0.5f, y));
-            this.levelRoot.addChild(playerObject);
-            this.player = playerObject;
-        }
+        // Show errors
+        else
+            System.out.println("Unknown level object: " + rawType);
     }
 
     /**

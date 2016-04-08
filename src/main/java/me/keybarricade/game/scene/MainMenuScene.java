@@ -1,21 +1,22 @@
 package me.keybarricade.game.scene;
 
 import me.keybarricade.KeyBarricade;
-import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.BoxSpawnerComponent;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.BoxPrefab;
+import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.global.Input;
+import me.keybarricade.voxeltex.input.mouse.MouseInputManager;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
 import me.keybarricade.voxeltex.prefab.light.LightPrefab;
-import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.voxeltex.scene.Scene;
 import me.keybarricade.voxeltex.util.Color;
 import org.joml.Quaternionf;
@@ -29,14 +30,17 @@ public class MainMenuScene extends Scene {
         // Load the super
         super.load();
 
+        // Set the mouse cursor mode
+        Input.setMouseCursorMode(MouseInputManager.CURSOR_MODE_NORMAL);
+
         // Create the menu
         createMenu();
 
         // Create and add the sand surface prefab
-        addGameObject(new SandSurfacePrefab(1000));
+        addGameObject(new GroundPrefab(1000));
 
         // Add a sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.5f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
@@ -62,9 +66,7 @@ public class MainMenuScene extends Scene {
 
                 // Spawn a box
                 // TODO: Use box prefab!
-                CubePrefab boxObject = new CubePrefab("Box");
-                boxObject.getTransform().setPosition(new Vector3f(-25 + x, 0.5f, -25 + z));
-                boxObject.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX);
+                BoxPrefab boxObject = new BoxPrefab(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f), true, -1f, -1f);
                 boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
                 addGameObject(boxObject);
             }

@@ -75,6 +75,7 @@
             </dependencies>
         </profile>
         <profile>
+            <!-- This platform is not officially supported! And thus it's likely to experience undocumented behaviour. -->
             <id>mac</id>
             <activation>
                 <os>

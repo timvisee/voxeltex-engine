@@ -12,11 +12,6 @@ levels:
         pos:
           x: 7
           y: 7
-      'lock1':
-        type: lock
-        pos:
-          x: 5
-          y: 7
       'outerWalls':
         type: wall
         posSet:
@@ -27,11 +22,11 @@ levels:
             x: "11"
             y: "0:11"
           'bottom':
-            x: "0:11"
+            x: "11:0"
             y: "11"
           'left':
             x: "0"
-            y: "0:11"
+            y: "11:0"
       'other':
         type: wall
         pos:
@@ -39,9 +34,44 @@ levels:
           y: "2"
       'keys':
         type: key
+        dataValue: 1
         pos:
           x: "2:9"
           y: "9"
+      'lock1':
+        type: lock
+        dataValue: 1
+        pos:
+          x: 5
+          y: 7
+
+  'end':
+    objects:
+      'player':
+        type: player
+        pos:
+          x: 0
+          y: 0
+      'finish':
+        type: finish
+        pos:
+          x: 2
+          y: 0
+      'outerWalls':
+        type: wall
+        posSet:
+          'top':
+            x: "-1:2"
+            y: "-1"
+          'right':
+            x: "3"
+            y: "-1:0"
+          'bottom':
+            x: "3:-1"
+            y: "1"
+          'left':
+            x: "-1"
+            y: "0"
 
 version: "0.1"
 versionCode: 1

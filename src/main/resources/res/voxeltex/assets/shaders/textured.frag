@@ -25,7 +25,7 @@
 // Texture and tiling data
 uniform sampler2D texture;
 uniform vec2 tiling = vec2(1.0, 1.0);
-uniform float ambientBrightness = 0.05;
+uniform float ambientBrightness = 0.25;
 uniform vec4 color = vec4(1, 1, 1, 1);
 
 // Fragment position data

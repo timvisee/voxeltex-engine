@@ -45,4 +45,15 @@ public enum LockType {
     public Color getColorCopy() {
         return new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), this.color.getAlpha());
     }
+
+    /**
+     * Get the correct lock type based on the given data value.
+     *
+     * @param dataValue Data value.
+     *
+     * @return Lock type.
+     */
+    public static LockType fromDataValue(int dataValue) {
+        return values()[dataValue];
+    }
 }

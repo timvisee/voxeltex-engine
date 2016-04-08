@@ -6,40 +6,40 @@ import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import org.joml.Vector2f;
 
-public class SandSurfacePrefab extends QuadPrefab {
+public class GroundPrefab extends QuadPrefab {
 
     /**
      * Constructor.
      */
-    public SandSurfacePrefab() {
+    public GroundPrefab() {
         this(50.0f);
     }
 
     /**
      * Constructor.
      *
-     * @param size Sand surface size.
+     * @param size Ground size.
      */
-    public SandSurfacePrefab(float size) {
+    public GroundPrefab(float size) {
         this(new Vector2f(size));
     }
 
     /**
      * Constructor.
      *
-     * @param size Sand surface size.
+     * @param size Ground size.
      */
-    public SandSurfacePrefab(Vector2f size) {
+    public GroundPrefab(Vector2f size) {
         // Construct the parent with the proper size
-        super("SandSurface", size);
+        super("GroundPrefab", size);
 
-        // Create a sand surface material
+        // Create a ground surface material
         System.out.println("Generating surface material...");
-        Material sandMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_SAND);
-        sandMaterial.getTiling().set(size.x / 5.0f);
+        Material groundMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_GROUND);
+        groundMaterial.getTiling().set(size.x / 2.0f);
 
-        // Set the quad material to sand
-        setMaterial(sandMaterial);
+        // Set the quad material to the ground
+        setMaterial(groundMaterial);
 
         // Add a kinematic rigidbody for collision
         addComponent(new RigidbodyComponent(true));
