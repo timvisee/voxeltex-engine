@@ -1,5 +1,6 @@
 package me.keybarricade.game.asset;
 
+import me.keybarricade.game.level.LevelManager;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.mesh.Mesh;
 import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
@@ -66,6 +67,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_FINISH;
     public Texture TEXTURE_GROUND;
     public Material MATERIAL_GROUND;
+    public LevelManager LEVEL_MANAGER;
 
     /**
      * Get the game resource bundle instance.
@@ -148,6 +150,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
         // Load the ground resources
         this.TEXTURE_GROUND = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
         this.MATERIAL_GROUND = new Material(this.TEXTURE_GROUND);
+
+        // Load the level manager and the level data
+        this.LEVEL_MANAGER = new LevelManager();
+        this.LEVEL_MANAGER.load();
     }
 
     @Override
@@ -177,5 +183,6 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.IMAGE_KEY.dispose();
         this.TEXTURE_FINISH.dispose();
         this.TEXTURE_GROUND.dispose();
+        this.LEVEL_MANAGER.clear();
     }
 }

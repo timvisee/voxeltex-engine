@@ -1,5 +1,6 @@
 package me.keybarricade.game.scene;
 
+import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
@@ -53,9 +54,8 @@ public class GameScene extends Scene {
         // Load the super
         super.load();
 
-        // Load the level manager and the level data
-        this.levelManager = new LevelManager();
-        this.levelManager.load();
+        // Set the level manager instance
+        this.levelManager = GameResourceBundle.getInstance().LEVEL_MANAGER;
 
         // Create the menu
         createMenu();
