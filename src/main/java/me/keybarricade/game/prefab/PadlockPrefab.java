@@ -107,8 +107,8 @@ public class PadlockPrefab extends GameObject {
         // Create a child game object that holds the padlock light
         GameObject padlockLightObject = new GameObject("PadlockLight");
         padlockLightObject.getTransform().getPosition().y = 0.65f;
-        padlockLightObject.getTransform().getPosition().y = 1f;
-        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.05f));
+        padlockLightObject.getTransform().getPosition().y = .8f;
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.15f));
         addChild(padlockLightObject);
     }
 
