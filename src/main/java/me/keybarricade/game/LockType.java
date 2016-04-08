@@ -22,7 +22,7 @@ public enum LockType {
     /**
      * Light blue type.
      */
-    LIGHT_BLUE(new Color(0, 191, 255));
+    LIGHT_BLUE(new Color(0, 0.746f, 1));
 
     /**
      * Type color.

@@ -52,7 +52,7 @@ public class LampPrefab extends QuadPrefab {
         // Create a child game object that holds the light
         GameObject padlockLightObject = new GameObject("LampLight");
         padlockLightObject.getTransform().getPosition().y = 0.5f;
-        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, getColor().toVector3f(), 0.4f));
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, getColor().toVector3f(), 0.3f));
         addChild(padlockLightObject);
     }
 

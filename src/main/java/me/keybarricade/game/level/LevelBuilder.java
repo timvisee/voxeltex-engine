@@ -263,6 +263,14 @@ public class LevelBuilder {
             this.levelRoot.addChild(padlockObject);
         }
 
+        // Create a lamp
+        else if(rawType.trim().equals("lamp")) {
+            LampPrefab lampObject = new LampPrefab(LockType.fromDataValue(dataValue).getColorCopy());
+            lampObject.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
+            lampObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+            this.levelRoot.addChild(lampObject);
+        }
+
         // Create a finish
         else if(rawType.trim().equals("finish")) {
             FinishPrefab finish = new FinishPrefab(this.player);
