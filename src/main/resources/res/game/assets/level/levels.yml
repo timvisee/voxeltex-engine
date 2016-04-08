@@ -1,6 +1,7 @@
 # Levels configuration
 levels:
   '0':
+    hint: "Roll to the finish using the W, A, S, D keys"
     objects:
       player:
         type: player
@@ -53,6 +54,7 @@ levels:
           y: "-2"
 
   '1':
+    hint: ""
     objects:
       player:
         type: player
@@ -109,6 +111,7 @@ levels:
             y: "0"
 
   '2':
+    hint: "You can reset the level by pressing the R key"
     objects:
       player:
         type: player
@@ -233,7 +236,9 @@ levels:
           'left':
             x: "-1"
             y: "0"
+
   'credits':
+    hint: "Thank you for playing the alpha version of Key Barricade!"
     objects:
       'player':
         type: player
