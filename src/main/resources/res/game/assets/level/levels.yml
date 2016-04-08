@@ -6,7 +6,7 @@ levels:
         type: player
         pos:
           x: "-2"
-          y: "-2"
+          y: "2"
       outerWalls:
         type: wall
         posSet:
@@ -42,15 +42,15 @@ levels:
         posSet:
           topRight:
             x: "-2"
-            y: "2"
+            y: "-2"
           bottomLeft:
             x: "2"
-            y: "-2"
+            y: "2"
       finish:
         type: finish
         pos:
           x: "2"
-          y: "2"
+          y: "-2"
 
   '1':
     objects:
@@ -107,6 +107,104 @@ levels:
           right:
             x: "6"
             y: "0"
+
+  '2':
+    objects:
+      player:
+        type: player
+        pos:
+          x: "1"
+          y: "0"
+      outerWalls:
+        type: wall
+        posSet:
+          top:
+            x: "-5:5"
+            y: "4"
+          right:
+            x: "5"
+            y: "4:-4"
+          bottom:
+            x: "-5:5"
+            y: "-4"
+          left:
+            x: "-5"
+            y: "-4:4"
+      wallFinishProtect:
+        type: wall
+        posSet:
+          topRight:
+            x: "4"
+            y: "0"
+          topLeft:
+            x: "2"
+            y: "0"
+          leftTop:
+            x: "1"
+            y: "-1"
+          leftBottom:
+            x: "1"
+            y: "-3"
+      wallMiddle:
+        type: wall
+        posSet:
+          bottom:
+            x: "-1"
+            y: "-2:-1"
+          middle:
+            x: "-1:-3"
+            y: "0"
+          left:
+            x: "-3"
+            y: "1:2"
+          top:
+            x: "-2:3"
+            y: "2"
+      keyB:
+        type: key
+        dataValue: 1
+        posSet:
+          left:
+            x: "-1"
+            y: "-3"
+          bottom:
+            x: "-2"
+            y: "1"
+      lockB:
+        type: lock
+        dataValue: 1
+        posSet:
+          bottom:
+            x: "0"
+            y: "-3"
+          bottom:
+            x: "0"
+            y: "3"
+      lockFinish:
+        type: lock
+        dataValue: 0
+        posSet:
+          topRight:
+            x: "3"
+            y: "0"
+          topLeft:
+            x: "1"
+            y: "-2"
+      'keyA':
+        type: key
+        dataValue: 0
+        posSet:
+          topLeft:
+            x: "-3"
+            y: "-2"
+          unreachable:
+            x: "4"
+            y: "-3"
+      finish:
+        type: finish
+        pos:
+          x: "3"
+          y: "-2"
 
   'end':
     objects:
