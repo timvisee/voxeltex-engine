@@ -31,7 +31,7 @@ public class MainMenuSpawnerComponent extends BaseComponent {
             float z = (int) (-25f + (float) Math.random() * 50);
 
             // Determine what to spawn
-            if(Math.random() < 0.9f)
+            if(Math.random() < 0.95f)
                 // Spawn a box
                 getScene().addGameObject(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, z + 0.5f), true, 0.0f, 10.0f));
 

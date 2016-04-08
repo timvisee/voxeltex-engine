@@ -67,7 +67,7 @@ public class MainMenuScene extends Scene {
                     continue;
 
                 // Determine whether to spawn a box or lamp
-                if(Math.random() < 0.9f) {
+                if(Math.random() < 0.95f) {
                     // Spawn a box
                     // TODO: Use box prefab!
                     BoxPrefab boxObject = new BoxPrefab(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f), true, -1f, -1f);
