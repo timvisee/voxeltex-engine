@@ -83,7 +83,7 @@ public class KeyPickupPrefab extends GameObject {
         // Create a child game object that holds the key light
         GameObject keyLightObject = new GameObject("KeyPickupModel");
         keyLightObject.getTransform().getPosition().y = 0.65f;
-        keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.05f));
+        keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.1f));
         addChild(keyLightObject);
     }
 

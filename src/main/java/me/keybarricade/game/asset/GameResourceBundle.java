@@ -14,8 +14,28 @@ public class GameResourceBundle implements ResourceBundleInterface {
      */
     private static GameResourceBundle instance = new GameResourceBundle();
 
-    public Texture TEXTURE_BOX;
-    public Material MATERIAL_BOX;
+    public Texture TEXTURE_BOX0;
+    public Material MATERIAL_BOX0;
+    public Texture TEXTURE_BOX1;
+    public Material MATERIAL_BOX1;
+    public Texture TEXTURE_BOX2;
+    public Material MATERIAL_BOX2;
+    public Texture TEXTURE_BOX3;
+    public Material MATERIAL_BOX3;
+    public Texture TEXTURE_BOX4;
+    public Material MATERIAL_BOX4;
+    public Texture TEXTURE_BOX5;
+    public Material MATERIAL_BOX5;
+    public Texture TEXTURE_BOX6;
+    public Material MATERIAL_BOX6;
+    public Texture TEXTURE_BOX7;
+    public Material MATERIAL_BOX7;
+    public Texture TEXTURE_BOX8;
+    public Material MATERIAL_BOX8;
+    public Texture TEXTURE_BOX9;
+    public Material MATERIAL_BOX9;
+    public Texture TEXTURE_BOX10;
+    public Material MATERIAL_BOX10;
     public Mesh MESH_SPHERE;
     public Image IMAGE_KEY;
     public Mesh MESH_KEY;
@@ -40,8 +60,28 @@ public class GameResourceBundle implements ResourceBundleInterface {
         System.out.println("Loading game resources...");
 
         // Load box texture and material
-        this.TEXTURE_BOX = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
-        this.MATERIAL_BOX = new Material(this.TEXTURE_BOX);
+        this.TEXTURE_BOX0 = Texture.fromImage(Image.loadFromEngineAssets("images/box0.png"));
+        this.MATERIAL_BOX0 = new Material(this.TEXTURE_BOX0);
+        this.TEXTURE_BOX1 = Texture.fromImage(Image.loadFromEngineAssets("images/box1.png"));
+        this.MATERIAL_BOX1 = new Material(this.TEXTURE_BOX1);
+        this.TEXTURE_BOX2 = Texture.fromImage(Image.loadFromEngineAssets("images/box2.png"));
+        this.MATERIAL_BOX2 = new Material(this.TEXTURE_BOX2);
+        this.TEXTURE_BOX3 = Texture.fromImage(Image.loadFromEngineAssets("images/box3.png"));
+        this.MATERIAL_BOX3 = new Material(this.TEXTURE_BOX3);
+        this.TEXTURE_BOX4 = Texture.fromImage(Image.loadFromEngineAssets("images/box4.png"));
+        this.MATERIAL_BOX4 = new Material(this.TEXTURE_BOX4);
+        this.TEXTURE_BOX5 = Texture.fromImage(Image.loadFromEngineAssets("images/box5.png"));
+        this.MATERIAL_BOX5 = new Material(this.TEXTURE_BOX5);
+        this.TEXTURE_BOX6 = Texture.fromImage(Image.loadFromEngineAssets("images/box6.png"));
+        this.MATERIAL_BOX6 = new Material(this.TEXTURE_BOX6);
+        this.TEXTURE_BOX7 = Texture.fromImage(Image.loadFromEngineAssets("images/box7.png"));
+        this.MATERIAL_BOX7 = new Material(this.TEXTURE_BOX7);
+        this.TEXTURE_BOX8 = Texture.fromImage(Image.loadFromEngineAssets("images/box8.png"));
+        this.MATERIAL_BOX8 = new Material(this.TEXTURE_BOX8);
+        this.TEXTURE_BOX9 = Texture.fromImage(Image.loadFromEngineAssets("images/box9.png"));
+        this.MATERIAL_BOX9 = new Material(this.TEXTURE_BOX9);
+        this.TEXTURE_BOX10 = Texture.fromImage(Image.loadFromEngineAssets("images/box10.png"));
+        this.MATERIAL_BOX10 = new Material(this.TEXTURE_BOX10);
 
         // Load the sphere mesh
         this.MESH_SPHERE = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
@@ -69,6 +109,6 @@ public class GameResourceBundle implements ResourceBundleInterface {
     @Override
     public void dispose() {
         // Dispose the box texture
-        this.TEXTURE_BOX.dispose();
+        // TODO: Dispose all textures!
     }
 }

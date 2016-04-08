@@ -37,7 +37,7 @@ public class DemoScene extends Scene {
         for (int i = 0; i < 15; i++) {
             CubePrefab box = new CubePrefab();
             box.getTransform().setPosition(i, 0.5f, 0);
-            box.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX);
+            box.setMaterial(GameResourceBundle.getInstance().MATERIAL_BOX0);
             box.addComponent(new LightSourceComponent(Color.random()));
             addGameObject(box);
         }
