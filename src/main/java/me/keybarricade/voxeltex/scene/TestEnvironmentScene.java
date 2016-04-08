@@ -68,7 +68,7 @@ public class TestEnvironmentScene extends Scene {
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box.png"));
+        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box/box.png"));
         Material boxMaterial = new Material(boxTexture);
 
         GameObject suzanneRoot = new GameObject("SuzanneRoot");
