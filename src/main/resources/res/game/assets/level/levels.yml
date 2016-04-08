@@ -182,7 +182,7 @@ levels:
             y: "3"
       lockFinish:
         type: lock
-        dataValue: 0
+        dataValue: 2
         posSet:
           topRight:
             x: "3"
@@ -192,7 +192,7 @@ levels:
             y: "-2"
       'keyA':
         type: key
-        dataValue: 0
+        dataValue: 2
         posSet:
           topLeft:
             x: "-3"
