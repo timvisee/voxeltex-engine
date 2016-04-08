@@ -1,7 +1,7 @@
 package me.keybarricade.game.scene;
 
 import me.keybarricade.KeyBarricade;
-import me.keybarricade.game.component.BoxSpawnerComponent;
+import me.keybarricade.game.component.MainMenuSpawnerComponent;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.game.prefab.GroundPrefab;
@@ -74,7 +74,7 @@ public class MainMenuScene extends Scene {
 
         // Create a cube spawner
         GameObject cubeSpawner = new GameObject("CubeSpawner");
-        cubeSpawner.addComponent(new BoxSpawnerComponent());
+        cubeSpawner.addComponent(new MainMenuSpawnerComponent());
         addGameObject(cubeSpawner);
     }
 
