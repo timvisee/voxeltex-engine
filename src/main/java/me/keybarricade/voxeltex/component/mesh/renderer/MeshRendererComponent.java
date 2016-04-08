@@ -202,4 +202,22 @@ public class MeshRendererComponent extends AbstractMeshRendererComponent {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    /**
+     * Get the alpha channel intensity.
+     *
+     * @return Alpha channel intensity.
+     */
+    public float setAlpha() {
+        return this.color.getAlpha();
+    }
+
+    /**
+     * Set the alpha channel intensity.
+     *
+     * @param alpha Alpha.
+     */
+    public void setAlpha(float alpha) {
+        this.color.setAlpha(alpha);
+    }
 }

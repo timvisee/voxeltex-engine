@@ -115,17 +115,6 @@ public class PlayerPrefab extends GameObject {
             key.addComponent(new ObjectDecayAnimatorComponent(0f));
         }
 
-        // Process padlocks
-        if(gameObject instanceof PadlockPrefab) {
-            // Get the padlock prefab
-            PadlockPrefab padlock = (PadlockPrefab) gameObject;
-
-            // Make sure we've the correct key type
-            if(padlock.getLockType().equals(getPickupLockType()))
-                // Decay the padlock
-                gameObject.addComponent(new ObjectDecayAnimatorComponent(0.0f));
-        }
-
         // Process finish
         else if(gameObject instanceof FinishPrefab)
             // Finish the current level
