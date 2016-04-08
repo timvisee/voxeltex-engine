@@ -59,6 +59,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_BOX9_DARK;
     public Texture TEXTURE_BOX10_DARK;
     public Material MATERIAL_BOX10_DARK;
+    public Texture TEXTURE_LAMP;
+    public Material MATERIAL_LAMP;
     public Mesh MESH_SPHERE;
     public Image IMAGE_KEY;
     public Mesh MESH_KEY;
@@ -129,6 +131,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX10_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box10_dark.png"));
         this.MATERIAL_BOX10_DARK = new Material(this.TEXTURE_BOX10_DARK);
 
+        // Load the lamp texture and material
+        this.TEXTURE_LAMP = Texture.fromImage(Image.loadFromEngineAssets("images/lamp.png"));
+        this.MATERIAL_LAMP = new Material(this.TEXTURE_LAMP);
+
         // Load the sphere mesh
         this.MESH_SPHERE = new Mesh(ObjModelLoader.loadModelFromEngineAssets("models/sphere.obj"));
 
@@ -180,6 +186,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX8_DARK.dispose();
         this.TEXTURE_BOX9_DARK.dispose();
         this.TEXTURE_BOX10_DARK.dispose();
+        this.TEXTURE_LAMP.dispose();
         this.IMAGE_KEY.dispose();
         this.TEXTURE_FINISH.dispose();
         this.TEXTURE_GROUND.dispose();
