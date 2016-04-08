@@ -102,6 +102,10 @@ public class LevelBuilder {
         // Get all object keys
         List<String> objectKeys = objectsConfig.getKeys("");
 
+        // Keep track of the minimum and maximum block positions
+        boolean mapCoordsInit = false;
+        int mapMinX = 0, mapMaxX = 0, mapMinY = 0, mapMaxY = 0;
+
         // Loop through each object
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = objectKeys.size(); i < size; i++) {
@@ -167,6 +171,21 @@ public class LevelBuilder {
                 } else
                     fromY = toY = Integer.parseInt(rawPositionY);
 
+                // Initialize the map's minimum and maximum coordinates for the first position
+                if(!mapCoordsInit) {
+                    mapMinX = fromX;
+                    mapMaxX = fromX;
+                    mapMinY = fromY;
+                    mapMaxY = fromY;
+                    mapCoordsInit = true;
+                }
+
+                // Find the minimum and maximum coordinates for the map with the current position
+                mapMinX = Math.min(Math.min(fromX, toX), mapMinX);
+                mapMaxX = Math.max(Math.max(fromX, toX), mapMaxX);
+                mapMinY = Math.min(Math.min(fromY, toY), mapMinY);
+                mapMaxY = Math.max(Math.max(fromY, toY), mapMaxY);
+
                 // Loop through the positions
                 for(int x = fromX; fromX < toX ? x <= toX : x >= toX; x += fromX < toX ? 1 : -1)
                     for(int y = fromY; fromY < toY ? y <= toY : y >= toY; y += fromY < toY ? 1 : -1)
@@ -177,6 +196,30 @@ public class LevelBuilder {
         // Spawn the player
         if(this.player != null)
             this.player.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
+
+        System.out.println("Building additional stuff!");
+
+        // Spawn some randomized blocks outside the map
+        for(int i = 0; i < 4; i++) {
+            // Enlarge the outer edges by one
+            mapMinX--;
+            mapMinY--;
+            mapMaxX++;
+            mapMaxY++;
+
+            // Loop through the edges of the map
+            for(int x = mapMinX; x <= mapMaxX; x++) {
+                for(int y = mapMinY; y <= mapMaxY; y++) {
+                    // Only place blocks for walls
+                    if(x != mapMinX && x != mapMaxX && y != mapMinY && y != mapMaxY)
+                        continue;
+
+                    // Determine whether to spawn a dummy block
+                    if(Math.random() < Math.min(0.1f * (3 - i), 0.2f))
+                        buildObject("wall", 0, x, y);
+                }
+            }
+        }
     }
 
     /**
@@ -224,6 +267,10 @@ public class LevelBuilder {
             finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
             this.levelRoot.addChild(finish);
         }
+
+        // Show errors
+        else
+            System.out.println("Unknown level object: " + rawType);
     }
 
     /**
