@@ -15,6 +15,7 @@ import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorTyp
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
+import me.keybarricade.voxeltex.global.Time;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
@@ -56,6 +57,11 @@ public class PlayerPrefab extends GameObject {
      * GUI component to render the hint text.
      */
     private GuiLabelComponent hintLabel;
+
+    /**
+     * Time to show the hint at.
+     */
+    private float showHintAt = -1.0f;
 
     /**
      * Constructor.
@@ -155,6 +161,20 @@ public class PlayerPrefab extends GameObject {
             this.gameScene.finishLevel();
     }
 
+    @Override
+    public synchronized void update() {
+        // Call the super
+        super.update();
+
+        // Show the hint panel if it's time
+        if(this.showHintAt >= 0.0f && this.showHintAt <= Time.timeFloat) {
+            // Show the hint panel
+            this.hintPanel.setEnabled(true);
+
+            // Disable the timer
+            this.showHintAt = -1f;
+        }
+    }
 
     /**
      * Get the pickup lock type. Null if the player hasn't picked up anything.
@@ -197,7 +217,7 @@ public class PlayerPrefab extends GameObject {
         // Set the hint text
         this.hintLabel.setText(hintText);
 
-        // Enable the hint panel
-        this.hintPanel.setEnabled(true);
+        // Set the hint timer
+        this.showHintAt = Time.timeFloat + 2f;
     }
 }
