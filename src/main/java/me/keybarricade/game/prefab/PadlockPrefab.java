@@ -139,7 +139,7 @@ public class PadlockPrefab extends GameObject {
             // Calculate the force field intensity
             float forceFieldIntensity = 0;
             if(this.player.getPickupLockType() != this.lockType && !this.unlocked)
-                forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.35f), 0);
+                forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.45f), 0);
 
             // Update the force field intensity
             this.forceField.getMeshRenderer().setAlpha(forceFieldIntensity);
