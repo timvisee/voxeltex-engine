@@ -64,8 +64,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Mesh MESH_PADLOCK;
     public Texture TEXTURE_FINISH;
     public Material MATERIAL_FINISH;
-    public Texture TEXTURE_SAND;
-    public Material MATERIAL_SAND;
+    public Texture TEXTURE_GROUND;
+    public Material MATERIAL_GROUND;
 
     /**
      * Get the game resource bundle instance.
@@ -145,9 +145,9 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_FINISH = Texture.fromImage(Image.loadFromEngineAssets("images/finish.png"));
         this.MATERIAL_FINISH = new Material(this.TEXTURE_FINISH);
 
-        // Load the sand resources
-        this.TEXTURE_SAND = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
-        this.MATERIAL_SAND = new Material(this.TEXTURE_SAND);
+        // Load the ground resources
+        this.TEXTURE_GROUND = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
+        this.MATERIAL_GROUND = new Material(this.TEXTURE_GROUND);
     }
 
     @Override
@@ -176,6 +176,6 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX10_DARK.dispose();
         this.IMAGE_KEY.dispose();
         this.TEXTURE_FINISH.dispose();
-        this.TEXTURE_SAND.dispose();
+        this.TEXTURE_GROUND.dispose();
     }
 }

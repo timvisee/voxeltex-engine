@@ -1,7 +1,7 @@
 package me.keybarricade.demo;
 
 import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.prefab.camera.FpsCameraPrefab;
@@ -24,7 +24,7 @@ public class DemoScene extends Scene {
         addGameObject(sunLight);
 
         // Create a surface
-        addGameObject(new SandSurfacePrefab());
+        addGameObject(new GroundPrefab());
 
 
         // Demo code here:

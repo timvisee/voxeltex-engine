@@ -4,7 +4,7 @@ import me.keybarricade.KeyBarricade;
 import me.keybarricade.game.component.BoxSpawnerComponent;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
@@ -37,7 +37,7 @@ public class MainMenuScene extends Scene {
         createMenu();
 
         // Create and add the sand surface prefab
-        addGameObject(new SandSurfacePrefab(1000));
+        addGameObject(new GroundPrefab(1000));
 
         // Add a sun
         LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.5f);

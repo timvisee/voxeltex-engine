@@ -3,7 +3,7 @@ package me.keybarricade.game.scene;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
-import me.keybarricade.game.prefab.SandSurfacePrefab;
+import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
@@ -61,7 +61,7 @@ public class GameScene extends Scene {
         createMenu();
 
         // Create and add the sand surface prefab
-        addGameObject(new SandSurfacePrefab());
+        addGameObject(new GroundPrefab());
 
         // Add a sun
         LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFFF4D6).toVector3f(), 0.5f);
