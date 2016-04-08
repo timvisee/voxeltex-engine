@@ -1,10 +1,12 @@
 package me.keybarricade.game.scene;
 
 import me.keybarricade.KeyBarricade;
+import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.MainMenuSpawnerComponent;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.game.prefab.GroundPrefab;
+import me.keybarricade.game.prefab.LampPrefab;
 import me.keybarricade.voxeltex.component.camera.CameraComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
@@ -64,11 +66,30 @@ public class MainMenuScene extends Scene {
                 if(Math.random() > 0.05)
                     continue;
 
-                // Spawn a box
-                // TODO: Use box prefab!
-                BoxPrefab boxObject = new BoxPrefab(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f), true, -1f, -1f);
-                boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
-                addGameObject(boxObject);
+                // Determine whether to spawn a box or lamp
+                if(Math.random() < 0.9f) {
+                    // Spawn a box
+                    // TODO: Use box prefab!
+                    BoxPrefab boxObject = new BoxPrefab(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f), true, -1f, -1f);
+                    boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
+                    addGameObject(boxObject);
+
+                } else {
+                    // Create a lamp
+                    LampPrefab lamp = new LampPrefab(
+                            "LampPrefab",
+                            LockType.fromDataValue((int) ((Math.random() * LockType.values().length) - 1)).getColorCopy()
+                    );
+
+                    // Set the position
+                    lamp.getTransform().setPosition(x + 0.5f, 0.01f, z + 0.5f);
+
+                    // Add a decay animator
+                    lamp.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
+
+                    // Add the lamp
+                    addGameObject(lamp);
+                }
             }
         }
 
