@@ -111,7 +111,7 @@ levels:
             y: "0"
 
   '2':
-    hint: "You can reset the level by pressing the R key"
+    hint: "Use the R key to restart the current level"
     objects:
       player:
         type: player
