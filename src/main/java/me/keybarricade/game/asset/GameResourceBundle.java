@@ -152,7 +152,30 @@ public class GameResourceBundle implements ResourceBundleInterface {
 
     @Override
     public void dispose() {
-        // Dispose the box texture
-        // TODO: Dispose all textures!
+        this.TEXTURE_BOX0.dispose();
+        this.TEXTURE_BOX1.dispose();
+        this.TEXTURE_BOX2.dispose();
+        this.TEXTURE_BOX3.dispose();
+        this.TEXTURE_BOX4.dispose();
+        this.TEXTURE_BOX5.dispose();
+        this.TEXTURE_BOX6.dispose();
+        this.TEXTURE_BOX7.dispose();
+        this.TEXTURE_BOX8.dispose();
+        this.TEXTURE_BOX9.dispose();
+        this.TEXTURE_BOX10.dispose();
+        this.TEXTURE_BOX0_DARK.dispose();
+        this.TEXTURE_BOX1_DARK.dispose();
+        this.TEXTURE_BOX2_DARK.dispose();
+        this.TEXTURE_BOX3_DARK.dispose();
+        this.TEXTURE_BOX4_DARK.dispose();
+        this.TEXTURE_BOX5_DARK.dispose();
+        this.TEXTURE_BOX6_DARK.dispose();
+        this.TEXTURE_BOX7_DARK.dispose();
+        this.TEXTURE_BOX8_DARK.dispose();
+        this.TEXTURE_BOX9_DARK.dispose();
+        this.TEXTURE_BOX10_DARK.dispose();
+        this.IMAGE_KEY.dispose();
+        this.TEXTURE_FINISH.dispose();
+        this.TEXTURE_SAND.dispose();
     }
 }
