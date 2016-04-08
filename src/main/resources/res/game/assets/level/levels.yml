@@ -71,7 +71,7 @@ levels:
             y: "1"
           'left':
             x: "-1"
-            y: "-1:0"
+            y: "0"
 
 version: "0.1"
 versionCode: 1
