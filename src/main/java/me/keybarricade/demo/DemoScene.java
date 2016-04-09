@@ -17,6 +17,9 @@ public class DemoScene extends Scene {
         // Load the super
         super.load();
 
+        // Load all game resources
+        GameResourceBundle.getInstance().load();
+
         // Add a light simulating the sun
         LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
         sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
