@@ -158,11 +158,11 @@ public class LevelBuilder {
                 // Check whether the X coordinate contains any colon character
                 if(rawPositionX.contains(":")) {
                     // Split the raw position
-                    String[] splitted = rawPositionX.trim().split(":");
+                    String[] split = rawPositionX.trim().split(":");
 
                     // Parse the values
-                    fromX = Integer.parseInt(splitted[0]);
-                    toX = Integer.parseInt(splitted[1]);
+                    fromX = Integer.parseInt(split[0]);
+                    toX = Integer.parseInt(split[1]);
 
                 } else
                     fromX = toX = Integer.parseInt(rawPositionX);
@@ -170,11 +170,11 @@ public class LevelBuilder {
                 // Check whether the Y coordinate contains any colon character
                 if(rawPositionY.contains(":")) {
                     // Split the raw position
-                    String[] splitted = rawPositionY.trim().split(":");
+                    String[] split = rawPositionY.trim().split(":");
 
                     // Parse the values
-                    fromY = Integer.parseInt(splitted[0]);
-                    toY = Integer.parseInt(splitted[1]);
+                    fromY = Integer.parseInt(split[0]);
+                    toY = Integer.parseInt(split[1]);
 
                 } else
                     fromY = toY = Integer.parseInt(rawPositionY);
