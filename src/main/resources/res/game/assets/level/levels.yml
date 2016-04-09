@@ -8,7 +8,7 @@ levels:
         pos:
           x: "-2"
           y: "2"
-      outerWalls:
+      wallsOutside:
         type: wall
         posSet:
           top:
@@ -23,7 +23,7 @@ levels:
           left:
             x: "-3"
             y: "-2:2"
-      midWalls:
+      blocksMiddle:
         type: wall
         posSet:
           topLeft:
@@ -38,13 +38,10 @@ levels:
           bottomRight:
             x: "1"
             y: "-1"
-      cornerWalls:
-        type: wall
-        posSet:
-          topRight:
+          topRight2:
             x: "-2"
             y: "-2"
-          bottomLeft:
+          bottomLeft2:
             x: "2"
             y: "2"
       finish:
@@ -61,7 +58,7 @@ levels:
         pos:
           x: "0"
           y: "0"
-      outerWalls:
+      wallsOutside:
         type: wall
         posSet:
           top:
@@ -76,29 +73,29 @@ levels:
           left:
             x: "-7"
             y: "0"
-      'key1':
+      keyLeft:
         type: key
         dataValue: 0
         pos:
           x: "-2"
           y: "0"
-      'key2':
+      keyRight:
         type: key
         dataValue: 1
         pos:
           x: "2"
           y: "0"
-      'lock1':
-        type: lock
-        dataValue: 0
-        pos:
-          x: "4"
-          y: "0"
-      'lock2':
+      lockLeft:
         type: lock
         dataValue: 1
         pos:
           x: "-4"
+          y: "0"
+      lockRight:
+        type: lock
+        dataValue: 0
+        pos:
+          x: "4"
           y: "0"
       finish:
         type: finish
@@ -118,7 +115,7 @@ levels:
         pos:
           x: "1"
           y: "0"
-      outerWalls:
+      wallsOutside:
         type: wall
         posSet:
           top:
@@ -133,7 +130,7 @@ levels:
           left:
             x: "-5"
             y: "-4:4"
-      wallFinishProtect:
+      wallsFinish:
         type: wall
         posSet:
           topRight:
@@ -148,7 +145,7 @@ levels:
           leftBottom:
             x: "1"
             y: "-3"
-      wallMiddle:
+      wallsMiddle:
         type: wall
         posSet:
           bottom:
@@ -193,7 +190,7 @@ levels:
           topLeft:
             x: "1"
             y: "-2"
-      'keyA':
+      keyA:
         type: key
         dataValue: 2
         posSet:
@@ -209,10 +206,10 @@ levels:
           x: "3"
           y: "-2"
 
-  'credits':
+  credits:
     hint: "Thank you for playing the alpha version of Key Barricade!"
     objects:
-      'player':
+      player:
         type: player
         pos:
           x: "0"
@@ -272,7 +269,7 @@ levels:
           right:
             x: "2"
             y: "12"
-      'finish':
+      finish:
         type: finish
         pos:
           x: "-3:3"
