@@ -30,7 +30,6 @@ uniform mat4 modelMatrix = mat4(1.0);
 // Surface normal and vertex position
 varying vec3 surfaceNormal;
 varying vec4 position;
-uniform int lightCount;
 
 void main() {
     // Determine the position
