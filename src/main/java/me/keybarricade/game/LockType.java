@@ -5,11 +5,6 @@ import me.keybarricade.voxeltex.util.Color;
 public enum LockType {
 
     /**
-     * Yellow type.
-     */
-    YELLOW(new Color(1, 1, 0)),
-
-    /**
      * Green type.
      */
     GREEN(new Color(0, 1, 0)),
@@ -22,7 +17,12 @@ public enum LockType {
     /**
      * Light blue type.
      */
-    LIGHT_BLUE(new Color(0, 0.746f, 1));
+    LIGHT_BLUE(new Color(0, 0.746f, 1)),
+
+    /**
+     * Yellow type.
+     */
+    YELLOW(new Color(1, 1, 0));
 
     /**
      * Type color.
