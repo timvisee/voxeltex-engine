@@ -203,7 +203,7 @@ public class LevelBuilder {
 
         // Spawn the player
         if(this.player != null)
-            this.player.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(false)));
+            this.player.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(false)));
 
         // Spawn some randomized blocks outside the map
         for(int i = 0; i < 4; i++) {
@@ -242,7 +242,7 @@ public class LevelBuilder {
 
         // Create a wall
         if(rawType.trim().equalsIgnoreCase("wall")){
-            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, delay += 0.02f, -1f));
+            this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, this.delay += 0.02f, -1f));
         }
 
         // Create a player
@@ -260,7 +260,7 @@ public class LevelBuilder {
         else if(rawType.trim().equals("key")) {
             KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.fromDataValue(dataValue));
             keyObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
-            keyObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+            keyObject.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f));
             this.levelRoot.addChild(keyObject);
         }
 
@@ -268,7 +268,7 @@ public class LevelBuilder {
         else if(rawType.trim().equals("lock")) {
             PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.fromDataValue(dataValue));
             padlockObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
-            padlockObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f, new RigidbodyComponent(true)));
+            padlockObject.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
         }
 
@@ -276,7 +276,7 @@ public class LevelBuilder {
         else if(rawType.trim().equals("lamp")) {
             LampPrefab lampObject = new LampPrefab(LockType.fromDataValue(dataValue).getColorCopy());
             lampObject.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
-            lampObject.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+            lampObject.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f));
             this.levelRoot.addChild(lampObject);
         }
 
@@ -284,7 +284,7 @@ public class LevelBuilder {
         else if(rawType.trim().equals("finish")) {
             FinishPrefab finish = new FinishPrefab(this.player);
             finish.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
-            finish.addComponent(new ObjectSpawnAnimatorComponent(delay += 0.02f));
+            finish.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f));
             this.levelRoot.addChild(finish);
         }
 
