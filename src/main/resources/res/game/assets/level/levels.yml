@@ -123,13 +123,13 @@ levels:
             y: "4"
           right:
             x: "5"
-            y: "4:-4"
+            y: "3:-3"
           bottom:
             x: "-5:5"
             y: "-4"
           left:
             x: "-5"
-            y: "-4:4"
+            y: "-3:3"
       wallsFinish:
         type: wall
         posSet:
