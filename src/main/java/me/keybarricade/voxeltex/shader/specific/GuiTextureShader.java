@@ -23,11 +23,13 @@
 package me.keybarricade.voxeltex.shader.specific;
 
 import me.keybarricade.voxeltex.material.Material;
+import me.keybarricade.voxeltex.math.vector.Vector4fFactory;
 import me.keybarricade.voxeltex.scene.AbstractScene;
 import me.keybarricade.voxeltex.shader.Shader;
 import me.keybarricade.voxeltex.shader.raw.AbstractRawShader;
 import me.keybarricade.voxeltex.shader.raw.EngineAssetsRawShader;
 import me.keybarricade.voxeltex.util.Color;
+import org.joml.Vector4f;
 
 public class GuiTextureShader extends Shader {
 
@@ -45,6 +47,12 @@ public class GuiTextureShader extends Shader {
      * Color channel intensity.
      */
     private Color color = new Color(1, 1, 1, 1);
+
+    /**
+     * Temporary vector, used while performing certain calculations.
+     * Using and recycling this temporary matrix minimizes object allocation, resulting in better performance.
+     */
+    private final Vector4f tempVector4f = Vector4fFactory.identity();
 
     /**
      * Constructor.
@@ -80,9 +88,11 @@ public class GuiTextureShader extends Shader {
         if(material != null)
             setUniform2f("tiling", material.getTiling());
 
-        // Send the color channel intensity
-        // TODO: Use buffering here!
-        setUniform4f("color", this.color.toVector4f());
+        // Make sure we aren't using the temporary vector more than once at the same time
+        synchronized(this.tempVector4f) {
+            // Send the color channel intensity
+            setUniform4f("color", this.color.toVector4f(this.tempVector4f));
+        }
     }
 
     /**
