@@ -39,7 +39,7 @@ public class GuiLabelComponent extends AbstractGuiComponent {
     /**
      * Text to render.
      */
-    private String text = "";
+    private String text;
 
     /**
      * Font color.
@@ -57,8 +57,18 @@ public class GuiLabelComponent extends AbstractGuiComponent {
      * @param text Text to render.
      */
     public GuiLabelComponent(String text) {
+        this(text, BitmapFontManager.getDefault());
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param text Text to render.
+     * @param font Bitmap font.
+     */
+    public GuiLabelComponent(String text, BitmapFont font) {
         this.text = text;
-        this.font = BitmapFontManager.getDefault();
+        this.font = font;
     }
 
     /**
@@ -68,8 +78,19 @@ public class GuiLabelComponent extends AbstractGuiComponent {
      * @param color Font color.
      */
     public GuiLabelComponent(String text, Color color) {
+        this(text, BitmapFontManager.getDefault(), color);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param text Text to render.
+     * @param font Bitmap font.
+     * @param color Font color.
+     */
+    public GuiLabelComponent(String text, BitmapFont font, Color color) {
         this.text = text;
-        this.font = BitmapFontManager.getDefault();
+        this.font = font;
         this.color = color;
     }
 
