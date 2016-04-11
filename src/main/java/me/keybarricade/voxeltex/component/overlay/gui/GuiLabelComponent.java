@@ -33,7 +33,6 @@ public class GuiLabelComponent extends AbstractGuiComponent {
     /**
      * Bitmap font that is used.
      */
-    // TODO: Make configurable in constructor!
     private BitmapFont font = BitmapFontManager.getDefault();
 
     /**

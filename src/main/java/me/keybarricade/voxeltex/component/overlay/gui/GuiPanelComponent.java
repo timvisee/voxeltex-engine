@@ -24,6 +24,7 @@ package me.keybarricade.voxeltex.component.overlay.gui;
 
 import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
+import me.keybarricade.voxeltex.util.Color;
 
 public class GuiPanelComponent extends AbstractGuiComponent {
 
@@ -33,15 +34,28 @@ public class GuiPanelComponent extends AbstractGuiComponent {
     private final Rectangle tempRectangle = new Rectangle();
 
     /**
+     * Panel color and transparency.
+     */
+    private Color color = new Color(0f, 0f, 0f, 0.75f);
+
+    /**
      * Constructor.
      */
     public GuiPanelComponent() { }
 
+    /**
+     * Constructor.
+     *
+     * @param color Panel color and transparency.
+     */
+    public GuiPanelComponent(Color color) {
+        this.color = color;
+    }
+
     @Override
     public void drawOverlay() {
         // Set the drawing color
-        // TODO: Make this color configurable!
-        RenderOverlayHelper.color(0, 0, 0, .75f);
+        RenderOverlayHelper.color(this.color);
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         //noinspection Duplicates
@@ -61,5 +75,23 @@ public class GuiPanelComponent extends AbstractGuiComponent {
                     this.tempRectangle.getWidth(), this.tempRectangle.getHeight()
             );
         }
+    }
+
+    /**
+     * Get the panel color and transparency.
+     *
+     * @return Panel color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the panel color and transparency.
+     *
+     * @param color Panel color and transparency.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
