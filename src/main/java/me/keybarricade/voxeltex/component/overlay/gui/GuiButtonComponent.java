@@ -60,6 +60,11 @@ public class GuiButtonComponent extends AbstractGuiComponent {
     private boolean lastPressed = false;
 
     /**
+     * Rectangle transform component of the owner game object.
+     */
+    private RectangleTransform rectangleTransform;
+
+    /**
      * Constructor.
      */
     public GuiButtonComponent() { }
@@ -100,15 +105,25 @@ public class GuiButtonComponent extends AbstractGuiComponent {
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
+            // Get the rectangle transform object from the owner object if we don't know it's instance yet
+            if(this.rectangleTransform == null) {
+                // Get and set the transform object
+                this.rectangleTransform = getComponent(RectangleTransform.class);
+
+                // Make sure we've a valid transform component, if not, skip the following code with an error message
+                if(this.rectangleTransform == null) {
+                    System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
+                    return;
+                }
+            }
+
             // Get the transform
-            // TODO: Buffer this
-            getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
+            this.rectangleTransform.getOverlayRectangle(this.tempRectangle);
 
             // Check whether the button is hovered or pressed
             if(mouseX >= this.tempRectangle.getX() && mouseX <= this.tempRectangle.getX() + this.tempRectangle.getWidth() &&
-                    mouseY >= this.tempRectangle.getY() && mouseY <= this.tempRectangle.getY() + this.tempRectangle.getHeight()) {
+                    mouseY >= this.tempRectangle.getY() && mouseY <= this.tempRectangle.getY() + this.tempRectangle.getHeight())
                 hover = true;
-            }
 
             // Check whether the button is pressed
             if(!lastDown && hover)
@@ -120,6 +135,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
             if(!pressed && this.lastPressed && hover)
                 onClick();
 
+            // Set the last down and pressed flags
             this.lastDown = down;
             this.lastPressed = pressed;
 
