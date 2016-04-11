@@ -111,7 +111,6 @@ public class GameScene extends Scene {
         menuPanel.addChild(menuLabel);
 
         // Create a restart button
-        // TODO: Properly implement this restart feature!
         GuiButtonPrefab restartButton = new GuiButtonPrefab("RestartButton", "Restart") {
             @Override
             public void onClick() {
@@ -210,8 +209,6 @@ public class GameScene extends Scene {
     public void finishLevel() {
         // Check whether a new level is available
         if(this.currentLevel >= this.levelManager.getLevelCount() - 1) {
-            // TODO: Show a finish message!
-
             // Go to the main menu and return
             toMainMenu();
             return;

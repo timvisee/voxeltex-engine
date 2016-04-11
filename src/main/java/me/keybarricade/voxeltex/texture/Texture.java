@@ -98,8 +98,10 @@ public class Texture {
      * @return The generated texture.
      */
     public static Texture fromColor(Color color, int width, int height) {
+        // Create a buffer to put the color components in
         ByteBuffer buffer = BufferUtil.createByteBuffer(width * height * 4);
 
+        // Fill the buffer with the image data
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++)
                 buffer.put((byte) (color.getRed() * 255.0f))
