@@ -91,15 +91,15 @@ public class Image {
      */
     public static Image loadFromByteBuffer(ByteBuffer imageBuffer) {
         // Create some integer buffers for STB interaction
-        IntBuffer w = BufferUtils.createIntBuffer(1);
-        IntBuffer h = BufferUtils.createIntBuffer(1);
-        IntBuffer c = BufferUtils.createIntBuffer(1);
+        IntBuffer width = BufferUtils.createIntBuffer(1);
+        IntBuffer height = BufferUtils.createIntBuffer(1);
+        IntBuffer components = BufferUtils.createIntBuffer(1);
 
         // Load the image into memory using STB
-        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, w, h, c, 0);
+        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, width, height, components, 0);
 
         // Create the image instance and return it
-        return new Image(image, w.get(0), h.get(0), c.get(0));
+        return new Image(image, width.get(0), height.get(0), components.get(0));
     }
 
     /**
@@ -136,15 +136,15 @@ public class Image {
         }
 
         // Create some integer buffers for STB interaction
-        IntBuffer w = BufferUtils.createIntBuffer(1);
-        IntBuffer h = BufferUtils.createIntBuffer(1);
-        IntBuffer c = BufferUtils.createIntBuffer(1);
+        IntBuffer width = BufferUtils.createIntBuffer(1);
+        IntBuffer height = BufferUtils.createIntBuffer(1);
+        IntBuffer components = BufferUtils.createIntBuffer(1);
 
         // Load the image into memory using STB
-        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, w, h, c, 0);
+        ByteBuffer image = STBImage.stbi_load_from_memory(imageBuffer, width, height, components, 0);
 
         // Create the image instance and return it
-        return new Image(image, w.get(0), h.get(0), c.get(0));
+        return new Image(image, width.get(0), height.get(0), components.get(0));
     }
 
     /**
