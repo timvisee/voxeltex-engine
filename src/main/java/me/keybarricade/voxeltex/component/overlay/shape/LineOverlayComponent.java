@@ -37,13 +37,11 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
     /**
      * Line position.
      */
-    // TODO: Use a 2D transform object.
     private Vector2f position = Vector2fFactory.identity();
 
     /**
      * Line size.
      */
-    // TODO: Use a 2D transform object.
     private Vector2f size = Vector2fFactory.identity();
 
     /**

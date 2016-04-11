@@ -32,13 +32,11 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
     /**
      * Rectangle position.
      */
-    // TODO: Use a 2D transform object.
     private Vector2f position = Vector2fFactory.identity();
 
     /**
      * Rectangle size.
      */
-    // TODO: Use a 2D transform object.
     private Vector2f size = Vector2fFactory.identity();
 
     /**
