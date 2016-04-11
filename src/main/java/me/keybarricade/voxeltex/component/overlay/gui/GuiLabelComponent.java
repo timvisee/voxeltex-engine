@@ -120,7 +120,7 @@ public class GuiLabelComponent extends AbstractGuiComponent {
         synchronized(this.tempRectangle) {
             // Make sure we've a valid transform component, if not, skip the following code with an error message
             if(!hasRectangleTransform()) {
-                System.out.println("No RectangleTransform component in " + getName() + " of " + getOwner().getName() + ", unable to render");
+                System.out.println("No RectangleTransform component in " + toString() + " of " + getOwner() + ", unable to render");
                 return;
             }
 
