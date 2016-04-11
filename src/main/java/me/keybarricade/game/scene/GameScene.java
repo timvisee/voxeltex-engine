@@ -151,8 +151,8 @@ public class GameScene extends Scene {
                 super.onClick();
 
                 // Exit
-                System.out.println("Exit button pressed.");
-                System.exit(0);
+                System.out.println("Exit button clicked");
+                getEngine().getRenderer().getWindow().glSetWindowShouldClose(true);
             }
         };
         exitButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
