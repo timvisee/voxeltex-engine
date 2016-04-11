@@ -36,7 +36,6 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     /**
      * Bitmap font that is used.
      */
-    // TODO: Make configurable in constructor!
     private BitmapFont font = BitmapFontManager.getDefault();
 
     /**
@@ -64,26 +63,55 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     /**
      * Constructor.
      *
+     * @param position Position of the text to render.
+     * @param size Size of the text to render.
      * @param text Text to render.
      */
     public BitmapFontOverlayComponent(Vector2f position, float size, String text) {
-        this.position.set(position);
-        this.size = size;
-        this.text = text;
-        this.font = BitmapFontManager.getDefault();
+        this(position, size, text, BitmapFontManager.getDefault());
     }
 
     /**
      * Constructor.
      *
+     * @param position Position of the text to render.
+     * @param size Size of the text to render.
+     * @param text Text to render.
+     * @param font Font.
+     */
+    public BitmapFontOverlayComponent(Vector2f position, float size, String text, BitmapFont font) {
+        this.position.set(position);
+        this.size = size;
+        this.text = text;
+        this.font = font;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param position Position of the text to render.
+     * @param text Text to render.
      * @param text Text to render.
      * @param color Font color.
      */
     public BitmapFontOverlayComponent(Vector2f position, float size, String text, Color color) {
+        this(position, size, text, BitmapFontManager.getDefault(), color);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param position Position of the text to render.
+     * @param text Text to render.
+     * @param text Text to render.
+     * @param font Font.
+     * @param color Font color.
+     */
+    public BitmapFontOverlayComponent(Vector2f position, float size, String text, BitmapFont font, Color color) {
         this.position.set(position);
         this.size = size;
         this.text = text;
-        this.font = BitmapFontManager.getDefault();
+        this.font = font;
         this.color = color;
     }
 

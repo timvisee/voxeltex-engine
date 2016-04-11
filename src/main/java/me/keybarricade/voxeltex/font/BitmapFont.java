@@ -131,8 +131,6 @@ public class BitmapFont {
             this.material = new BitmapFontMaterial(this.texture);
         }
 
-        // TODO: Load the proper shader?
-
         // Return the material
         return this.material;
     }
