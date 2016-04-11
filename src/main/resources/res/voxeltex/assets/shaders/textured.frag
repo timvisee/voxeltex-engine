@@ -48,15 +48,10 @@ void main(void) {
 
     // Calculate the lighting for all different lights
     for(int i = 0; i < lightCount; i++) {
-
         // Process a directional light
         if(lightType[i] == 1) {
-            // Get the light rotation, normalize it and normalize the normal vector of the surface
-            vec3 unitNormal = normalize(surfaceNormal);
-            vec3 unitLightDirection = normalize(lightRotation[i]);
-
             // Calculate the dot product of both vectors and clamp the brightness to zero and above
-            float brightness = max(dot(unitNormal, unitLightDirection), 0.0) * lightColor[i].w;
+            float brightness = max(dot(normalize(surfaceNormal), normalize(lightRotation[i])), 0.0) * lightColor[i].w;
 
             // Calculate the diffuse color and append it to the result
             diffuse += brightness * lightColor[i].xyz;
@@ -64,40 +59,33 @@ void main(void) {
 
         // Process a point light
         if(lightType[i] == 2) {
-            // Get the light position
-            vec3 pos = lightPosition[i];
-
             // Calculate the distance to the light
-            float lightDistance = distance(position.xyz, pos);
+            float lightDistance = distance(position.xyz, lightPosition[i]);
+
+            // Skip the light processing if the light is too far away for optimization
+            // TODO: Is this calibrated properly?
+//            if(lightDistance > lightColor[i].w * lightColor[i].w * 100.0)
+//                continue;
 
             // Calculate the light direction
-            vec3 lightDirection = pos - position.xyz;
-
-            // Normalize the surface and light vector
-            vec3 unitNormal = normalize(surfaceNormal);
-            vec3 unitLightDirection = normalize(lightDirection);
-
-            // Calculate the light fading factor
-            float lightFadeFactor = 1 / pow(lightDistance, 2);
+            vec3 lightDirection = lightPosition[i] - position.xyz;
 
             // Calculate the dot product of both vectors and clamp the brightness to zero and above
-            float brightness = max(dot(unitNormal, unitLightDirection), 0.0) * lightFadeFactor * lightColor[i].w;
+            float brightness = max(dot(normalize(surfaceNormal), normalize(lightDirection)), 0.0) /
+                    (lightDistance * lightDistance) *
+                    lightColor[i].w;
 
             // Calculate the diffuse color and append it to the result
             diffuse += brightness * lightColor[i].xyz;
         }
 
         // Process a spot light
-        if(lightType[i] == 3) {
-            // TODO: Process spot light here!
-        }
+        // TODO: Process spot light here!
+        // if(lightType[i] == 3) { }
     }
 
-    // Multiply the diffuse lighting by three for better appearance
-    diffuse *= vec3(3);
-
-    // Add ambient light
-    diffuse += vec3(ambientBrightness);
+    // Multiply the diffuse lighting by three for better appearance and add the ambient light
+    diffuse = diffuse * 3.0 + vec3(ambientBrightness);
 
     // Determine and set the fragment color
     gl_FragColor = vec4(diffuse, 1.0) * texture2D(texture, gl_TexCoord[0].st * tiling) * color;

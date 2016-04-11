@@ -68,10 +68,12 @@ public class BoxPrefab extends CubePrefab {
                     return GameResourceBundle.getInstance().MATERIAL_BOX7;
                 else if(r < 0.8f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX8;
-                else if(r < 0.95f)
+                else if(r < 0.85f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX9;
-                else
+                else if(r < 0.9f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX10;
+                else
+                    return GameResourceBundle.getInstance().MATERIAL_BOX11;
             }
         } else {
             // 3/4th chance to use the regular box
@@ -99,10 +101,12 @@ public class BoxPrefab extends CubePrefab {
                     return GameResourceBundle.getInstance().MATERIAL_BOX7_DARK;
                 else if(r < 0.8f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX8_DARK;
-                else if(r < 0.95f)
+                else if(r < 0.85f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX9_DARK;
-                else
+                else if(r < 0.9f)
                     return GameResourceBundle.getInstance().MATERIAL_BOX10_DARK;
+                else
+                    return GameResourceBundle.getInstance().MATERIAL_BOX11_DARK;
             }
         }
     }
