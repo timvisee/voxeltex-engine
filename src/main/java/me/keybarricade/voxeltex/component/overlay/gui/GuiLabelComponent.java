@@ -22,15 +22,13 @@
 
 package me.keybarricade.voxeltex.component.overlay.gui;
 
-import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
 import me.keybarricade.voxeltex.component.transform.Rectangle;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.font.BitmapFont;
 import me.keybarricade.voxeltex.font.BitmapFontManager;
 import me.keybarricade.voxeltex.render.RenderOverlayHelper;
 import me.keybarricade.voxeltex.util.Color;
 
-public class GuiLabelComponent extends AbstractOverlayComponent {
+public class GuiLabelComponent extends AbstractGuiComponent {
 
     /**
      * Bitmap font that is used.
@@ -100,9 +98,14 @@ public class GuiLabelComponent extends AbstractOverlayComponent {
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
+            // Make sure we've a valid transform component, if not, skip the following code with an error message
+            if(!hasRectangleTransform()) {
+                System.out.println("No RectangleTransform component in " + getName() + " of " + getOwner().getName() + ", unable to render");
+                return;
+            }
+
             // Get the transform
-            // TODO: Buffer this
-            getComponent(RectangleTransform.class).getOverlayRectangle(this.tempRectangle);
+            getRectangleTransform().getOverlayRectangle(this.tempRectangle);
 
             // Draw the font
             RenderOverlayHelper.renderFont(this.tempRectangle, this.font, text);
