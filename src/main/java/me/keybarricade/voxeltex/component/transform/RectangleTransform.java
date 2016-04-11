@@ -55,6 +55,11 @@ public class RectangleTransform extends BaseComponent {
     // TODO: Scale
 
     /**
+     * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
+     */
+    private final Rectangle tempRectangle = new Rectangle();
+
+    /**
      * Constructor.
      */
     public RectangleTransform() { }
@@ -488,37 +493,38 @@ public class RectangleTransform extends BaseComponent {
      *
      * @return Overlay rectangle.
      */
-    // TODO: Confirm this works!
     public Rectangle getOverlayRectangle(Rectangle dest) {
-        // Get the parent overlay rectangle
-        // TODO: Use temp!
-        Rectangle parentRectangle = getParentOverlayRectangle(new Rectangle());
+        // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
+        synchronized(this.tempRectangle) {
+            // Get the parent overlay rectangle
+            getParentOverlayRectangle(this.tempRectangle);
 
-        // Define the X, Y, width and height variables
-        float x, y, w, h;
+            // Define the X, Y, width and height variables
+            float x, y, w, h;
 
-        // Calculate the horizontal positioning and sizing
-        if(this.anchor.hasWidth()) {
-            x = parentRectangle.getX() + parentRectangle.getWidth() * this.anchor.getMinX() + getPositionLeftOverlay();
-            w = parentRectangle.getWidth() * this.anchor.getWidth() - getPositionLeftOverlay() - getSizeRightOverlay();
+            // Calculate the horizontal positioning and sizing
+            if(this.anchor.hasWidth()) {
+                x = this.tempRectangle.getX() + this.tempRectangle.getWidth() * this.anchor.getMinX() + getPositionLeftOverlay();
+                w = this.tempRectangle.getWidth() * this.anchor.getWidth() - getPositionLeftOverlay() - getSizeRightOverlay();
 
-        } else {
-            x = parentRectangle.getX() + parentRectangle.getWidth() * this.anchor.getMinX() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
-            w = getSizeWidthOverlay();
+            } else {
+                x = this.tempRectangle.getX() + this.tempRectangle.getWidth() * this.anchor.getMinX() + getPositionXOverlay() - (getSizeWidthOverlay() / 2.0f);
+                w = getSizeWidthOverlay();
+            }
+
+            // Calculate the vertical positioning and sizing
+            if(this.anchor.hasHeight()) {
+                y = this.tempRectangle.getY() + this.tempRectangle.getHeight() * this.anchor.getMinY() + getPositionTopOverlay();
+                h = this.tempRectangle.getHeight() * this.anchor.getHeight() - getPositionTopOverlay() - getSizeBottomOverlay();
+
+            } else {
+                y = this.tempRectangle.getY() + this.tempRectangle.getHeight() * this.anchor.getMinY() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
+                h = getSizeHeightOverlay();
+            }
+
+            // Set and return the rectangle
+            return dest.set(x, y, w, h);
         }
-
-        // Calculate the vertical positioning and sizing
-        if(this.anchor.hasHeight()) {
-            y = parentRectangle.getY() + parentRectangle.getHeight() * this.anchor.getMinY() + getPositionTopOverlay();
-            h = parentRectangle.getHeight() * this.anchor.getHeight() - getPositionTopOverlay() - getSizeBottomOverlay();
-
-        } else {
-            y = parentRectangle.getY() + parentRectangle.getHeight() * this.anchor.getMinY() + getPositionYOverlay() - (getSizeHeightOverlay() / 2.0f);
-            h = getSizeHeightOverlay();
-        }
-
-        // Set and return the rectangle
-        return dest.set(x, y, w, h);
     }
 
     /**
@@ -566,7 +572,6 @@ public class RectangleTransform extends BaseComponent {
     @Override
     public void start() {
         // Update the parent transform
-        // TODO: Is this still necessary?
         updateParentTransform();
     }
 
