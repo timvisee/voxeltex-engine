@@ -5,6 +5,7 @@ import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.scene.GameScene;
 import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
+import me.keybarricade.voxeltex.component.light.LightSourceComponent;
 import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
 import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
@@ -16,6 +17,7 @@ import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.gameobject.GameObject;
 import me.keybarricade.voxeltex.global.Time;
+import me.keybarricade.voxeltex.light.Light;
 import me.keybarricade.voxeltex.material.Material;
 import me.keybarricade.voxeltex.texture.Texture;
 import me.keybarricade.voxeltex.util.Color;
@@ -42,6 +44,11 @@ public class PlayerPrefab extends GameObject {
      * Player material.
      */
     private Material playerMaterial;
+
+    /**
+     * Light source component of the player.
+     */
+    private LightSourceComponent lightSource;
 
     /**
      * GUI component to render the key image.
@@ -100,6 +107,10 @@ public class PlayerPrefab extends GameObject {
 
         // Create a proper collider
         addComponent(new SphereColliderComponent(0.3f));
+
+        // Add a light source component to the player
+        this.lightSource = new LightSourceComponent(Light.LIGHT_TYPE_POINT, Color.ORANGE.toVector3f(), 0.05f);
+        addComponent(this.lightSource);
 
         // Hint panel
         this.hintPanel = new GameObject("HintPanel");
@@ -200,6 +211,10 @@ public class PlayerPrefab extends GameObject {
         // Set the key image
         this.keyImage.setColor(lockType.getColorCopy());
         this.keyImage.setAlpha(0.75f);
+
+        // Update the light source color of the player
+        this.lightSource.setLightColor(lockType.getColor().toVector3f());
+        this.lightSource.setLightBrightness(0.09f);
     }
 
     /**
