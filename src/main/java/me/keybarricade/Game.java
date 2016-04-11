@@ -42,12 +42,15 @@ public class Game {
 
         // Start the VoxelTex engine
         startEngine();
+
+        // Exit the game
+        exit();
     }
 
     /**
      * Initialize the VoxelTex engine.
      */
-    public void initEngine() {
+    private void initEngine() {
         // Show status
         this.progressDialog.setStatus("Initializing VoxelTex engine...");
 
@@ -64,7 +67,7 @@ public class Game {
     /**
      * Start the VoxelTex engine after it has been initialized.
      */
-    public void startEngine() {
+    private void startEngine() {
         // Load the resource bundle
         this.progressDialog.setStatus("Loading game resources...");
         GameResourceBundle.getInstance().load();
@@ -78,6 +81,18 @@ public class Game {
 
         // Start the engine
         this.engine.start();
+    }
+
+    /**
+     * Stop and exit the game.
+     */
+    private void exit() {
+        // Exiting, show a status message
+        System.out.println("Quitting " + KeyBarricade.APP_NAME + "...");
+
+        // Dispose the game resources
+        System.out.println("Disposing game resources...");
+        // TODO: GameResourceBundle.getInstance().dispose();
 
         // Dispose the progress frame to ensure we're quitting properly
         this.progressDialog.dispose();

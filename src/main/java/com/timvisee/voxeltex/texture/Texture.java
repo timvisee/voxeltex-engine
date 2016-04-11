@@ -346,7 +346,8 @@ public class Texture {
      */
     public void dispose() {
         // Remove the texture from OpenGL
-        glDeleteTextures(id);
+        if(glIsTexture(id))
+            glDeleteTextures(id);
 
         // Remove the image from the texture manager
         TextureTracker.untrackTexture(this);
