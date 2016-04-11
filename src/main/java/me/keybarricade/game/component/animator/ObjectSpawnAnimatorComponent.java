@@ -1,10 +1,10 @@
 package me.keybarricade.game.component.animator;
 
-import me.keybarricade.voxeltex.component.AbstractComponent;
-import me.keybarricade.voxeltex.component.BaseComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.gameobject.Transform;
-import me.keybarricade.voxeltex.global.Time;
+import com.timvisee.voxeltex.component.AbstractComponent;
+import com.timvisee.voxeltex.component.BaseComponent;
+import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.gameobject.Transform;
+import com.timvisee.voxeltex.global.Time;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;

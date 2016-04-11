@@ -1,12 +1,12 @@
 package me.keybarricade.game.asset;
 
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.mesh.Mesh;
+import com.timvisee.voxeltex.model.loader.ObjModelLoader;
+import com.timvisee.voxeltex.resource.bundle.ResourceBundleInterface;
+import com.timvisee.voxeltex.texture.Image;
+import com.timvisee.voxeltex.texture.Texture;
 import me.keybarricade.game.level.LevelManager;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.mesh.Mesh;
-import me.keybarricade.voxeltex.model.loader.ObjModelLoader;
-import me.keybarricade.voxeltex.resource.bundle.ResourceBundleInterface;
-import me.keybarricade.voxeltex.texture.Image;
-import me.keybarricade.voxeltex.texture.Texture;
 
 public class GameResourceBundle implements ResourceBundleInterface {
 

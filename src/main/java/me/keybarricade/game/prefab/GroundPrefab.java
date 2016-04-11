@@ -1,9 +1,9 @@
 package me.keybarricade.game.prefab;
 
+import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.prefab.primitive.QuadPrefab;
 import org.joml.Vector2f;
 
 public class GroundPrefab extends QuadPrefab {

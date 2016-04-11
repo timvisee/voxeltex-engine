@@ -1,6 +1,6 @@
 package me.keybarricade.game;
 
-import me.keybarricade.voxeltex.util.Color;
+import com.timvisee.voxeltex.util.Color;
 
 public enum LockType {
 

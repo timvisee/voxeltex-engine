@@ -1,10 +1,10 @@
 package me.keybarricade;
 
+import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.scene.DeveloperSplashScene;
+import com.timvisee.voxeltex.swing.ProgressDialog;
+import com.timvisee.voxeltex.swing.SwingUtils;
 import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.voxeltex.VoxelTexEngine;
-import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
-import me.keybarricade.voxeltex.swing.ProgressDialog;
-import me.keybarricade.voxeltex.swing.SwingUtils;
 
 public class Game {
 

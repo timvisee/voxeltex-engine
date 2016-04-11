@@ -1,12 +1,12 @@
 package me.keybarricade.game.prefab;
 
+import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.math.vector.Vector3fFactory;
+import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
-import me.keybarricade.voxeltex.prefab.primitive.CubePrefab;
 import org.joml.Vector3f;
 
 public class BoxPrefab extends CubePrefab {

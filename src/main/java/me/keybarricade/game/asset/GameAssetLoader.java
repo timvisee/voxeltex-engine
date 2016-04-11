@@ -1,6 +1,6 @@
 package me.keybarricade.game.asset;
 
-import me.keybarricade.voxeltex.resource.ResourceLoader;
+import com.timvisee.voxeltex.resource.ResourceLoader;
 
 public class GameAssetLoader extends ResourceLoader {
 

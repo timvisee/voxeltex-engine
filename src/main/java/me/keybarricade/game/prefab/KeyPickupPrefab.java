@@ -1,14 +1,14 @@
 package me.keybarricade.game.prefab;
 
+import com.timvisee.voxeltex.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
+import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.texture.Texture;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.voxeltex.component.light.LightSourceComponent;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.texture.Texture;
 
 public class KeyPickupPrefab extends GameObject {
 

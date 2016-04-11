@@ -1,7 +1,7 @@
 package me.keybarricade.demo;
 
+import com.timvisee.voxeltex.VoxelTexEngine;
 import me.keybarricade.KeyBarricade;
-import me.keybarricade.voxeltex.VoxelTexEngine;
 
 public class DemoApp {
 

@@ -1,12 +1,12 @@
 package me.keybarricade.game.component;
 
+import com.timvisee.voxeltex.component.BaseComponent;
+import com.timvisee.voxeltex.global.Time;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.game.prefab.LampPrefab;
-import me.keybarricade.voxeltex.component.BaseComponent;
-import me.keybarricade.voxeltex.global.Time;
 import org.joml.Vector3f;
 
 public class MainMenuSpawnerComponent extends BaseComponent {
