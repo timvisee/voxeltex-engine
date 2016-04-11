@@ -127,9 +127,13 @@ public class Scene extends AbstractScene {
 
         // Remove all game objects that were queued to be removed
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.gameObjectsRemoveQueue.size(); i < size; i++)
+        for(int i = 0, size = this.gameObjectsRemoveQueue.size(); i < size; i++) {
+            // Reset the parent of the game object
+            this.gameObjectsRemoveQueue.get(i).setParent(null);
+
             // Remove the game object
             this.gameObjects.remove(this.gameObjectsRemoveQueue.get(i));
+        }
 
         // Clear the list of game objects queued to be removed
         this.gameObjectsRemoveQueue.clear();

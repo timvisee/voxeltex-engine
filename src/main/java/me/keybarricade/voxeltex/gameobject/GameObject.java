@@ -117,7 +117,7 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    protected void setParent(AbstractGameObject parent) {
+    public void setParent(AbstractGameObject parent) {
         this.parent = parent;
     }
 
@@ -339,10 +339,6 @@ public class GameObject extends AbstractGameObject {
             getParent().removeChild(this);
         else
             getScene().removeGameObject(this);
-
-        // Reset the parent of this game object
-        // TODO: Reset the parent, without errors!
-        //setParent(null);
 
         // Force the game object to finalize
         try {

@@ -155,7 +155,7 @@ public abstract class AbstractGameObject {
      *
      * @param parent Parent game object.
      */
-    protected abstract void setParent(AbstractGameObject parent);
+    public abstract void setParent(AbstractGameObject parent);
 
     /**
      * Get all children.
