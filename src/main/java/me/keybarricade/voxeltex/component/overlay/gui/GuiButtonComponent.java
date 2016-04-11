@@ -101,11 +101,11 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         synchronized(this.tempRectangle) {
             // Make sure we've a valid transform component, if not, skip the following code with an error message
             if(!hasRectangleTransform()) {
-                System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
+                System.out.println("No RectangleTransform component in " + getName() + " of " + getOwner().getName() + ", unable to render");
                 return;
             }
 
-            // Get the transform
+            // Get the overlay rectangle
             getRectangleTransform().getOverlayRectangle(this.tempRectangle);
 
             // Check whether the button is hovered or pressed
