@@ -37,6 +37,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_BOX9;
     public Texture TEXTURE_BOX10;
     public Material MATERIAL_BOX10;
+    public Texture TEXTURE_BOX11;
+    public Material MATERIAL_BOX11;
     public Texture TEXTURE_BOX0_DARK;
     public Material MATERIAL_BOX0_DARK;
     public Texture TEXTURE_BOX1_DARK;
@@ -59,6 +61,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
     public Material MATERIAL_BOX9_DARK;
     public Texture TEXTURE_BOX10_DARK;
     public Material MATERIAL_BOX10_DARK;
+    public Texture TEXTURE_BOX11_DARK;
+    public Material MATERIAL_BOX11_DARK;
     public Texture TEXTURE_LAMP;
     public Material MATERIAL_LAMP;
     public Mesh MESH_SPHERE;
@@ -108,6 +112,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.MATERIAL_BOX9 = new Material(this.TEXTURE_BOX9);
         this.TEXTURE_BOX10 = Texture.fromImage(Image.loadFromEngineAssets("images/box/box10.png"));
         this.MATERIAL_BOX10 = new Material(this.TEXTURE_BOX10);
+        this.TEXTURE_BOX11 = Texture.fromImage(Image.loadFromEngineAssets("images/box/box11.png"));
+        this.MATERIAL_BOX11 = new Material(this.TEXTURE_BOX11);
         this.TEXTURE_BOX0_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box0_dark.png"));
         this.MATERIAL_BOX0_DARK = new Material(this.TEXTURE_BOX0_DARK);
         this.TEXTURE_BOX1_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box1_dark.png"));
@@ -130,6 +136,8 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.MATERIAL_BOX9_DARK = new Material(this.TEXTURE_BOX9_DARK);
         this.TEXTURE_BOX10_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box10_dark.png"));
         this.MATERIAL_BOX10_DARK = new Material(this.TEXTURE_BOX10_DARK);
+        this.TEXTURE_BOX11_DARK = Texture.fromImage(Image.loadFromEngineAssets("images/box/box11_dark.png"));
+        this.MATERIAL_BOX11_DARK = new Material(this.TEXTURE_BOX11_DARK);
 
         // Load the lamp texture and material
         this.TEXTURE_LAMP = Texture.fromImage(Image.loadFromEngineAssets("images/lamp.png"));
@@ -175,6 +183,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX8.dispose();
         this.TEXTURE_BOX9.dispose();
         this.TEXTURE_BOX10.dispose();
+        this.TEXTURE_BOX11.dispose();
         this.TEXTURE_BOX0_DARK.dispose();
         this.TEXTURE_BOX1_DARK.dispose();
         this.TEXTURE_BOX2_DARK.dispose();
@@ -186,6 +195,7 @@ public class GameResourceBundle implements ResourceBundleInterface {
         this.TEXTURE_BOX8_DARK.dispose();
         this.TEXTURE_BOX9_DARK.dispose();
         this.TEXTURE_BOX10_DARK.dispose();
+        this.TEXTURE_BOX11_DARK.dispose();
         this.TEXTURE_LAMP.dispose();
         this.IMAGE_KEY.dispose();
         this.TEXTURE_FINISH.dispose();
