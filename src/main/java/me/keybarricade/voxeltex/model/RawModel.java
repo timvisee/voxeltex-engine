@@ -186,7 +186,7 @@ public class RawModel {
         }
 
         // Create and return the raw mesh
-        // TODO: Load texture coords, or skip it?
+        // TODO: Load texture coordinates, or skip it?
         return new RawMesh(vertexes, normals, new float[0]);
     }
 }

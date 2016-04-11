@@ -69,7 +69,7 @@ public class SplashAnimatorComponent extends BaseComponent {
 
             // If the components still aren't attached, show an error and quit this method
             if(this.rectangleTransform == null || this.guiImage == null) {
-                System.out.println("No RectangleTransform or GUI image component in " + toString() + " of " + getOwner() + ", unable to animate");
+                System.out.println("No RectangleTransform or GUI image component in " + this + " of " + getOwner() + ", unable to animate");
                 return;
             }
         }

@@ -167,7 +167,7 @@ public class Scene extends AbstractScene {
         // FIXME: Remove this scene from the scene manager!
 
         // Show status message
-        System.out.println("Scene[" + getName() + "] is queued for destruction.");
+        System.out.println(this + " is queued for destruction.");
 
         // Force the scene to finalize
         try {
