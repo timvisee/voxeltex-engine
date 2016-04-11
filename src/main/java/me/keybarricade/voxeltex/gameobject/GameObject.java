@@ -301,9 +301,13 @@ public class GameObject extends AbstractGameObject {
 
         // Remove all components that were queued to be removed
         //noinspection ForLoopReplaceableByForEach
-        for(int i = 0, size = this.componentsRemoveQueue.size(); i < size; i++)
+        for(int i = 0, size = this.componentsRemoveQueue.size(); i < size; i++) {
+            // Reset the owner of the component
+            this.componentsRemoveQueue.get(i).setOwner(null);
+
             // Remove the component
             this.components.remove(this.componentsRemoveQueue.get(i));
+        }
 
         // Clear the list of queued destroyed components
         this.componentsRemoveQueue.clear();

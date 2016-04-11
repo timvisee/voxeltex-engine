@@ -43,10 +43,6 @@ public abstract class BaseComponent extends AbstractComponent {
         // Queue the component to be removed from it's owner
         getOwner().removeComponent(this);
 
-        // Reset the owner
-        // TODO: Reset the owner, without errors!
-        //setOwner(null);
-
         // Force the component to finalize
         try {
             //noinspection FinalizeCalledExplicitly
