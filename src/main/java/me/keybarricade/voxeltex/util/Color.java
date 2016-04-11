@@ -22,6 +22,7 @@
 
 package me.keybarricade.voxeltex.util;
 
+import me.keybarricade.voxeltex.math.vector.Vector3fFactory;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -241,18 +242,46 @@ public class Color {
     /**
      * Get the vector representation of this color without the alpha channel.
      *
+     * This method allocates a new vector and should thus be used with caution,
+     * use the allocation free variant when possible.
+     *
      * @return Vector.
      */
     public Vector3f toVector3f() {
-        return new Vector3f(this.red, this.green, this.blue);
+        return toVector3f(Vector3fFactory.identity());
+    }
+
+    /**
+     * Get the vector representation of this color without the alpha channel.
+     *
+     * @param dest Destination vector. (allocation free)
+     *
+     * @return Vector.
+     */
+    public Vector3f toVector3f(Vector3f dest) {
+        return dest.set(this.red, this.green, this.blue);
     }
 
     /**
      * Get the vector representation of this color.
      *
+     * This method allocates a new vector and should thus be used with caution,
+     * use the allocation free variant when possible.
+     *
      * @return Vector.
      */
     public Vector4f toVector4f() {
-        return new Vector4f(this.red, this.green, this.blue, this.alpha);
+        return toVector4f(new Vector4f());
+    }
+
+    /**
+     * Get the vector representation of this color.
+     *
+     * @param dest Destination vector. (allocation free)
+     *
+     * @return Vector.
+     */
+    public Vector4f toVector4f(Vector4f dest) {
+        return dest.set(this.red, this.green, this.blue, this.alpha);
     }
 }
