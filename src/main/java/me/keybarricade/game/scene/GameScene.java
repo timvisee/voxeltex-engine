@@ -33,11 +33,6 @@ public class GameScene extends Scene {
     private GameObject levelBase;
 
     /**
-     * Camera prefab in this scene.
-     */
-    private MouseLookCameraPrefab cameraPrefab;
-
-    /**
      * Smooth top down follow component used to follow the player.
      */
     private SmoothTopDownFollowComponent smoothCameraFollow;
@@ -82,10 +77,10 @@ public class GameScene extends Scene {
         addGameObject(this.levelBase);
 
         // Create the camera prefab
-        this.cameraPrefab = new MouseLookCameraPrefab();
-        this.cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
-        this.cameraPrefab.addComponent(this.smoothCameraFollow = new SmoothTopDownFollowComponent());
-        addGameObject(this.cameraPrefab);
+        MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
+        cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
+        cameraPrefab.addComponent(this.smoothCameraFollow = new SmoothTopDownFollowComponent());
+        addGameObject(cameraPrefab);
 
         // Load the level
         loadLevel();
