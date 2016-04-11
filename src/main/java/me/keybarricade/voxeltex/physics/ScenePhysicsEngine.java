@@ -92,8 +92,8 @@ public class ScenePhysicsEngine {
      */
     public void update() {
         // Simulate the next physics step
-        //bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat, 1, 1f / 60f);
-        bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat);
+        //bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat);
+        bulletDynamicsWorld.stepSimulation(Time.deltaTimeFloat, 3, 1f / 60f);
     }
 
     /**
