@@ -50,6 +50,16 @@ public class GuiButtonComponent extends AbstractGuiComponent {
     private String text = "Button";
 
     /**
+     * Flag to determine whether the button was pressed down the last update.
+     */
+    private boolean lastDown = false;
+
+    /**
+     * Flag to determine whether the button was pressed the last update.
+     */
+    private boolean lastPressed = false;
+
+    /**
      * Constructor.
      */
     public GuiButtonComponent() { }
@@ -76,9 +86,6 @@ public class GuiButtonComponent extends AbstractGuiComponent {
         // Add the text renderer component to this object as child
         getOwner().addChild(this.label);
     }
-
-    private boolean lastDown = false;
-    private boolean lastPressed = false;
 
     @Override
     public void drawOverlay() {
