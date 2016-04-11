@@ -228,4 +228,9 @@ public abstract class AbstractScene {
     public String getName() {
         return getClass().getSimpleName();
     }
+
+    @Override
+    public String toString() {
+        return "Scene[" + getName() + "]";
+    }
 }

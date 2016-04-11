@@ -44,17 +44,18 @@ public class BitmapFontLoader {
      */
     public static BitmapFont loadFont(String fontName) {
         // Load the font image from resources
+        System.out.println("Loading font character textures...");
         Image fontImage = Image.loadFromEngineAssets("font/bitmap/" + fontName + ".tga");
 
         // Create a bitmap font texture
         Texture fontTexture = Texture.fromImage(fontImage);
 
         // Load the font widths configuration
+        System.out.println("Loading font character dimensions...");
         InputStream iniStream = EngineAssetLoader.getInstance().loadResourceStream("font/bitmap/" + fontName + ".ini");
 
         try {
             // Load and parse the ini configuration
-            System.out.println("Loading font character widths...");
             IniConfig iniConfig = IniParser.parse(new BufferedReader(new InputStreamReader(iniStream)));
 
             // Create and return the bitmap font

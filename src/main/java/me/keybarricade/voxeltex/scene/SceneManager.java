@@ -95,9 +95,9 @@ public class SceneManager {
         scene.setEngine(getEngine());
 
         // Load the scene
-        System.out.println("Loading scene...");
+        System.out.println("Loading " + scene + "...");
         scene.load();
-        System.out.println("Scene loaded");
+        System.out.println(scene + " loaded");
 
         // Start the scene
         if(start)

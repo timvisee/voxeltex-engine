@@ -34,7 +34,7 @@ public class GroundPrefab extends QuadPrefab {
         super("GroundPrefab", size);
 
         // Create a ground surface material
-        System.out.println("Generating surface material...");
+        System.out.println("Generating " + this + " surface material...");
         Material groundMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_GROUND);
         groundMaterial.getTiling().set(size.x / 8.0f);
 
