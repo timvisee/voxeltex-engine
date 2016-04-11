@@ -85,17 +85,8 @@ public abstract class AbstractGuiComponent extends AbstractOverlayComponent {
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
-            // Get the rectangle transform object from the owner object if we don't know it's instance yet
-            if(this.rectangleTransform == null) {
-                // Get and set the transform object
-                this.rectangleTransform = getComponent(RectangleTransform.class);
-
-                // Make sure we've a valid transform component, if not, skip the following code with an error message
-                if(this.rectangleTransform == null) {
-                    System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
-                    return;
-                }
-            }
+            // Get and set the transform object
+            this.rectangleTransform = getComponent(RectangleTransform.class);
         }
     }
 }
