@@ -10,6 +10,10 @@ See the paragraph below for information on how to run the project.
 
 ### Running
 
+#####Build:
+The latest available runnable Key Barricade build can be downloaded from it's builds page: http://ci.xephi.fr/job/KeyBarricade/
+You may also compile the project sources to create your very own build.
+
 #####Running requirements:
 >- Java 1.8 or higher
 >- OpenGL 2.1 or higher
