@@ -25,15 +25,33 @@ package me.keybarricade.voxeltex.component.splash;
 import me.keybarricade.game.scene.MainMenuScene;
 import me.keybarricade.voxeltex.component.BaseComponent;
 import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
+import me.keybarricade.voxeltex.component.transform.Rectangle;
 import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.global.Time;
+import org.lwjgl.opengl.GL11;
 
-import static org.lwjgl.opengl.GL11.glClearColor;
+public class SplashAnimatorComponent extends BaseComponent {
 
-public class SplashAnimationComponent extends BaseComponent {
+    /**
+     * Rectangle transform component of the owner game object.
+     */
+    private RectangleTransform rectangleTransform;
+
+    /**
+     * GUI image component of the owner game object.
+     */
+    private GuiImageComponent guiImage;
+
+    /**
+     * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
+     */
+    private final Rectangle tempRectangle = new Rectangle();
 
     @Override
-    public void create() { }
+    public void create() {
+        // Update the attachments
+        updateAttachments();
+    }
 
     @Override
     public void start() { }
@@ -42,7 +60,19 @@ public class SplashAnimationComponent extends BaseComponent {
     public void update() {
         // Set the clear color of this scene
         // TODO: Configure this in the renderer class!
-        glClearColor(0, 0, 0, 1.0f);
+        GL11.glClearColor(0, 0, 0, 1.0f);
+
+        // Make sure the proper components are attached
+        if(this.rectangleTransform == null || this.guiImage == null) {
+            // Update the attachments
+            updateAttachments();
+
+            // If the components still aren't attached, show an error and quit this method
+            if(this.rectangleTransform == null || this.guiImage == null) {
+                System.out.println("No RectangleTransform or GUI image component in " + getName() + " of " + getOwner().getName() + ", unable to animate");
+                return;
+            }
+        }
 
         // Calculate the local time value
         double x = Time.time - 0.5;
@@ -62,13 +92,30 @@ public class SplashAnimationComponent extends BaseComponent {
             alpha = Math.pow((x - 2.25) * 1.35, 2.0) * -1.0 + 1.0;
 
         // Send the values to the target components
-        // TODO: Buffer the components to maximize performance
-        getComponent(RectangleTransform.class).setSizeX((float) size);
-        getComponent(RectangleTransform.class).setSizeY((float) size);
-        getComponent(GuiImageComponent.class).setAlpha((float) alpha);
+        this.rectangleTransform.setSizeX((float) size);
+        this.rectangleTransform.setSizeY((float) size);
+        this.guiImage.setAlpha((float) alpha);
 
         // Load the test environment scene after  the splash screen is done
         if(Time.time > 3.5)
             getEngine().getSceneManager().loadScene(new MainMenuScene());
+    }
+
+    /**
+     * Update all attached components to this component.
+     */
+    private void updateAttachments() {
+        // Detach all attachments
+        this.rectangleTransform = null;
+        this.guiImage = null;
+
+        // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
+        synchronized(this.tempRectangle) {
+            // Get and set the transform component
+            this.rectangleTransform = getComponent(RectangleTransform.class);
+        }
+
+        // Get and set the GUI image component
+        this.guiImage = getComponent(GuiImageComponent.class);
     }
 }

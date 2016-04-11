@@ -85,7 +85,7 @@ public abstract class AbstractGuiComponent extends AbstractOverlayComponent {
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
-            // Get and set the transform object
+            // Get and set the transform component
             this.rectangleTransform = getComponent(RectangleTransform.class);
         }
     }
