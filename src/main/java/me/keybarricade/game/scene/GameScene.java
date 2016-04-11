@@ -1,26 +1,26 @@
 package me.keybarricade.game.scene;
 
+import com.timvisee.voxeltex.component.follow.SmoothTopDownFollowComponent;
+import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
+import com.timvisee.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
+import com.timvisee.voxeltex.component.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.transform.RectangleTransformAnchor;
+import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.global.Input;
+import com.timvisee.voxeltex.global.Time;
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.prefab.camera.MouseLookCameraPrefab;
+import com.timvisee.voxeltex.prefab.gui.GuiButtonPrefab;
+import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
+import com.timvisee.voxeltex.prefab.light.LightPrefab;
+import com.timvisee.voxeltex.scene.Scene;
+import com.timvisee.voxeltex.util.Color;
 import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.level.LevelBuilder;
 import me.keybarricade.game.level.LevelManager;
 import me.keybarricade.game.prefab.GroundPrefab;
-import me.keybarricade.voxeltex.component.follow.SmoothTopDownFollowComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.component.transform.RectangleTransformAnchor;
-import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
-import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.global.Input;
-import me.keybarricade.voxeltex.global.Time;
-import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.prefab.camera.MouseLookCameraPrefab;
-import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
-import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
-import me.keybarricade.voxeltex.prefab.light.LightPrefab;
-import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -111,7 +111,6 @@ public class GameScene extends Scene {
         menuPanel.addChild(menuLabel);
 
         // Create a restart button
-        // TODO: Properly implement this restart feature!
         GuiButtonPrefab restartButton = new GuiButtonPrefab("RestartButton", "Restart") {
             @Override
             public void onClick() {
@@ -152,8 +151,8 @@ public class GameScene extends Scene {
                 super.onClick();
 
                 // Exit
-                System.out.println("Exit button pressed.");
-                System.exit(0);
+                System.out.println("Exit button clicked");
+                getEngine().getRenderer().getWindow().glSetWindowShouldClose(true);
             }
         };
         exitButton.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);
@@ -210,8 +209,6 @@ public class GameScene extends Scene {
     public void finishLevel() {
         // Check whether a new level is available
         if(this.currentLevel >= this.levelManager.getLevelCount() - 1) {
-            // TODO: Show a finish message!
-
             // Go to the main menu and return
             toMainMenu();
             return;

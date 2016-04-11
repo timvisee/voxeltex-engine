@@ -1,26 +1,26 @@
 package me.keybarricade.game.prefab;
 
+import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
+import com.timvisee.voxeltex.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
+import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.component.movement.WasdPhysicsMovementComponent;
+import com.timvisee.voxeltex.component.overlay.gui.GuiImageComponent;
+import com.timvisee.voxeltex.component.overlay.gui.GuiLabelComponent;
+import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
+import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.component.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.global.Time;
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.texture.Texture;
+import com.timvisee.voxeltex.util.Color;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.asset.GameResourceBundle;
 import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.scene.GameScene;
-import me.keybarricade.voxeltex.component.collider.primitive.SphereColliderComponent;
-import me.keybarricade.voxeltex.component.light.LightSourceComponent;
-import me.keybarricade.voxeltex.component.mesh.filter.MeshFilterComponent;
-import me.keybarricade.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import me.keybarricade.voxeltex.component.movement.WasdPhysicsMovementComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiImageComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiLabelComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
-import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
-import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.global.Time;
-import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.material.Material;
-import me.keybarricade.voxeltex.texture.Texture;
-import me.keybarricade.voxeltex.util.Color;
 import org.joml.Vector2f;
 
 public class PlayerPrefab extends GameObject {

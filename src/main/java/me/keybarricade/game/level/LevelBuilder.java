@@ -1,12 +1,12 @@
 package me.keybarricade.game.level;
 
+import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
 import me.keybarricade.game.prefab.*;
 import me.keybarricade.game.scene.GameScene;
-import me.keybarricade.voxeltex.component.rigidbody.RigidbodyComponent;
-import me.keybarricade.voxeltex.gameobject.GameObject;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;

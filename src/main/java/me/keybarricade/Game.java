@@ -1,10 +1,10 @@
 package me.keybarricade;
 
+import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.scene.DeveloperSplashScene;
+import com.timvisee.voxeltex.swing.ProgressDialog;
+import com.timvisee.voxeltex.swing.SwingUtils;
 import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.voxeltex.VoxelTexEngine;
-import me.keybarricade.voxeltex.scene.DeveloperSplashScene;
-import me.keybarricade.voxeltex.swing.ProgressDialog;
-import me.keybarricade.voxeltex.swing.SwingUtils;
 
 public class Game {
 
@@ -42,12 +42,15 @@ public class Game {
 
         // Start the VoxelTex engine
         startEngine();
+
+        // Exit the game
+        exit();
     }
 
     /**
      * Initialize the VoxelTex engine.
      */
-    public void initEngine() {
+    private void initEngine() {
         // Show status
         this.progressDialog.setStatus("Initializing VoxelTex engine...");
 
@@ -64,7 +67,7 @@ public class Game {
     /**
      * Start the VoxelTex engine after it has been initialized.
      */
-    public void startEngine() {
+    private void startEngine() {
         // Load the resource bundle
         this.progressDialog.setStatus("Loading game resources...");
         GameResourceBundle.getInstance().load();
@@ -76,7 +79,26 @@ public class Game {
         // Done, hide the progress dialog before starting the engine
         this.progressDialog.setVisible(false);
 
-        // Start the engine
-        this.engine.start();
+        // Start and run the engine
+        this.engine.loop();
+    }
+
+    /**
+     * Stop and exit the game.
+     */
+    private void exit() {
+        // Exiting, show a status message
+        System.out.println("Quitting " + KeyBarricade.APP_NAME + "...");
+
+        // Dispose the game resources
+        System.out.println("Disposing game resources...");
+        // TODO: GameResourceBundle.getInstance().dispose();
+
+        // Dispose the progress frame to ensure we're quitting properly
+        this.progressDialog.dispose();
+
+        // The game has quit, show a status message and force quit
+        System.out.println(KeyBarricade.APP_NAME + " has quit");
+        System.exit(0);
     }
 }

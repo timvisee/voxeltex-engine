@@ -1,5 +1,19 @@
 package me.keybarricade.game.scene;
 
+import com.timvisee.voxeltex.component.camera.CameraComponent;
+import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
+import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.component.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.global.Input;
+import com.timvisee.voxeltex.input.mouse.MouseInputManager;
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.prefab.gui.GuiButtonPrefab;
+import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
+import com.timvisee.voxeltex.prefab.light.LightPrefab;
+import com.timvisee.voxeltex.scene.Scene;
+import com.timvisee.voxeltex.util.Color;
 import me.keybarricade.KeyBarricade;
 import me.keybarricade.game.LockType;
 import me.keybarricade.game.component.MainMenuSpawnerComponent;
@@ -7,20 +21,6 @@ import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import me.keybarricade.game.prefab.BoxPrefab;
 import me.keybarricade.game.prefab.GroundPrefab;
 import me.keybarricade.game.prefab.LampPrefab;
-import me.keybarricade.voxeltex.component.camera.CameraComponent;
-import me.keybarricade.voxeltex.component.overlay.gui.GuiPanelComponent;
-import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
-import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
-import me.keybarricade.voxeltex.gameobject.GameObject;
-import me.keybarricade.voxeltex.global.Input;
-import me.keybarricade.voxeltex.input.mouse.MouseInputManager;
-import me.keybarricade.voxeltex.light.Light;
-import me.keybarricade.voxeltex.prefab.gui.GuiButtonPrefab;
-import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
-import me.keybarricade.voxeltex.prefab.light.LightPrefab;
-import me.keybarricade.voxeltex.scene.Scene;
-import me.keybarricade.voxeltex.util.Color;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -69,7 +69,6 @@ public class MainMenuScene extends Scene {
                 // Determine whether to spawn a box or lamp
                 if(Math.random() < 0.95f) {
                     // Spawn a box
-                    // TODO: Use box prefab!
                     BoxPrefab boxObject = new BoxPrefab(new Vector3f(-25 + x + 0.5f, 0.5f, -25 + z + 0.5f), true, -1f, -1f);
                     boxObject.addComponent(new ObjectDecayAnimatorComponent((float) (Math.random() * 10.0f)));
                     addGameObject(boxObject);
@@ -144,8 +143,8 @@ public class MainMenuScene extends Scene {
                 super.onClick();
 
                 // Exit
-                System.out.println("Exit button pressed.");
-                System.exit(0);
+                System.out.println("Exit button clicked");
+                getEngine().getRenderer().getWindow().glSetWindowShouldClose(true);
             }
         };
         button2.getRectangleTransform().setVerticalAnchorPreset(VerticalTransformAnchorType.TOP);

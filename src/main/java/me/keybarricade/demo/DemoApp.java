@@ -1,7 +1,7 @@
 package me.keybarricade.demo;
 
+import com.timvisee.voxeltex.VoxelTexEngine;
 import me.keybarricade.KeyBarricade;
-import me.keybarricade.voxeltex.VoxelTexEngine;
 
 public class DemoApp {
 
@@ -51,6 +51,6 @@ public class DemoApp {
         this.engine.getSceneManager().loadScene(new DemoScene());
 
         // Start the engine
-        this.engine.start();
+        this.engine.loop();
     }
 }
