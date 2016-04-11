@@ -1,7 +1,7 @@
-package me.keybarricade.demo;
+package com.timvisee.keybarricade.demo;
 
+import com.timvisee.keybarricade.KeyBarricade;
 import com.timvisee.voxeltex.VoxelTexEngine;
-import me.keybarricade.KeyBarricade;
 
 public class DemoApp {
 

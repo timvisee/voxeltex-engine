@@ -1,5 +1,7 @@
-package me.keybarricade.demo;
+package com.timvisee.keybarricade.demo;
 
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.prefab.GroundPrefab;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.prefab.camera.FpsCameraPrefab;
@@ -7,8 +9,6 @@ import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.scene.Scene;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.prefab.GroundPrefab;
 
 public class DemoScene extends Scene {
 

@@ -1,8 +1,8 @@
-package me.keybarricade.game.level;
+package com.timvisee.keybarricade.game.level;
 
+import com.timvisee.keybarricade.game.asset.GameAssetLoader;
 import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 import com.timvisee.yamlwrapper.configuration.YamlConfiguration;
-import me.keybarricade.game.asset.GameAssetLoader;
 
 import java.io.InputStream;
 import java.util.ArrayList;

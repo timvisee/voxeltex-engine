@@ -22,12 +22,12 @@
 
 package com.timvisee.voxeltex.component.splash;
 
+import com.timvisee.keybarricade.game.scene.MainMenuScene;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiImageComponent;
 import com.timvisee.voxeltex.component.transform.Rectangle;
 import com.timvisee.voxeltex.component.transform.RectangleTransform;
 import com.timvisee.voxeltex.global.Time;
-import me.keybarricade.game.scene.MainMenuScene;
 import org.lwjgl.opengl.GL11;
 
 public class SplashAnimatorComponent extends BaseComponent {

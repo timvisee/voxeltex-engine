@@ -1,5 +1,12 @@
-package me.keybarricade.game.scene;
+package com.timvisee.keybarricade.game.scene;
 
+import com.timvisee.keybarricade.KeyBarricade;
+import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.component.MainMenuSpawnerComponent;
+import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.prefab.BoxPrefab;
+import com.timvisee.keybarricade.game.prefab.GroundPrefab;
+import com.timvisee.keybarricade.game.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.camera.CameraComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
@@ -14,13 +21,6 @@ import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
 import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.scene.Scene;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.KeyBarricade;
-import me.keybarricade.game.LockType;
-import me.keybarricade.game.component.MainMenuSpawnerComponent;
-import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import me.keybarricade.game.prefab.BoxPrefab;
-import me.keybarricade.game.prefab.GroundPrefab;
-import me.keybarricade.game.prefab.LampPrefab;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

@@ -1,5 +1,7 @@
-package me.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab;
 
+import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -7,8 +9,6 @@ import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.texture.Texture;
-import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameResourceBundle;
 
 public class KeyPickupPrefab extends GameObject {
 

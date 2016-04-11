@@ -1,4 +1,4 @@
-package me.keybarricade.game.component.animator;
+package com.timvisee.keybarricade.game.component.animator;
 
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;

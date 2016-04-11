@@ -1,7 +1,7 @@
-package me.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab;
 
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import me.keybarricade.game.asset.GameResourceBundle;
 
 public class FinishPrefab extends QuadPrefab {
 

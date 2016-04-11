@@ -1,4 +1,4 @@
-package me.keybarricade.game.asset;
+package com.timvisee.keybarricade.game.asset;
 
 import com.timvisee.voxeltex.resource.ResourceLoader;
 

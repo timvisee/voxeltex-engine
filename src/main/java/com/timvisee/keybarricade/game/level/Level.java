@@ -1,4 +1,4 @@
-package me.keybarricade.game.level;
+package com.timvisee.keybarricade.game.level;
 
 import com.timvisee.yamlwrapper.configuration.ConfigurationSection;
 

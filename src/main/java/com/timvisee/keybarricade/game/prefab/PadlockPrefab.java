@@ -1,5 +1,8 @@
-package me.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab;
 
+import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -10,9 +13,6 @@ import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import org.joml.Vector3f;
 
 public class PadlockPrefab extends GameObject {

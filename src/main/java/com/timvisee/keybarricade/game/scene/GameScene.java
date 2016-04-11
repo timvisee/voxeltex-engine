@@ -1,5 +1,10 @@
-package me.keybarricade.game.scene;
+package com.timvisee.keybarricade.game.scene;
 
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.level.LevelBuilder;
+import com.timvisee.keybarricade.game.level.LevelManager;
+import com.timvisee.keybarricade.game.prefab.GroundPrefab;
 import com.timvisee.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
@@ -16,11 +21,6 @@ import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
 import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.scene.Scene;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import me.keybarricade.game.level.LevelBuilder;
-import me.keybarricade.game.level.LevelManager;
-import me.keybarricade.game.prefab.GroundPrefab;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;

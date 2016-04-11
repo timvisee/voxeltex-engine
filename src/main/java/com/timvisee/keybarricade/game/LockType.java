@@ -1,4 +1,4 @@
-package me.keybarricade.game;
+package com.timvisee.keybarricade.game;
 
 import com.timvisee.voxeltex.util.Color;
 

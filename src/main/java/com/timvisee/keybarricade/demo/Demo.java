@@ -1,4 +1,4 @@
-package me.keybarricade.demo;
+package com.timvisee.keybarricade.demo;
 
 public class Demo {
 

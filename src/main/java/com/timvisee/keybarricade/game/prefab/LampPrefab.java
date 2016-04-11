@@ -1,12 +1,12 @@
-package me.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab;
 
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.asset.GameResourceBundle;
 import org.joml.Vector2f;
 
 public class LampPrefab extends QuadPrefab {

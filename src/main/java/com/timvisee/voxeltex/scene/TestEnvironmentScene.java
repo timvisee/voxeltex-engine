@@ -22,6 +22,10 @@
 
 package com.timvisee.voxeltex.scene;
 
+import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.prefab.KeyPickupPrefab;
+import com.timvisee.keybarricade.game.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
 import com.timvisee.voxeltex.component.drawable.line.AxisDrawComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
@@ -48,10 +52,6 @@ import com.timvisee.voxeltex.shader.ShaderManager;
 import com.timvisee.voxeltex.texture.Image;
 import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.prefab.KeyPickupPrefab;
-import me.keybarricade.game.prefab.LampPrefab;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

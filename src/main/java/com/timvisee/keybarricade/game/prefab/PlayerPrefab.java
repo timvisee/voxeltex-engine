@@ -1,5 +1,9 @@
-package me.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab;
 
+import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.scene.GameScene;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -17,10 +21,6 @@ import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
-import me.keybarricade.game.LockType;
-import me.keybarricade.game.asset.GameResourceBundle;
-import me.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import me.keybarricade.game.scene.GameScene;
 import org.joml.Vector2f;
 
 public class PlayerPrefab extends GameObject {
