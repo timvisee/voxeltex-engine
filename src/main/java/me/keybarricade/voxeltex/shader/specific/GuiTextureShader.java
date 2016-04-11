@@ -34,12 +34,12 @@ public class GuiTextureShader extends Shader {
     /**
      * The engine asset path of the vertex shader.
      */
-    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/guiTexture.vert";
+    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/gui/guiTexture.vert";
 
     /**
      * The engine asset path of the fragment shader.
      */
-    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/guiTexture.frag";
+    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/gui/guiTexture.frag";
 
     /**
      * Color channel intensity.

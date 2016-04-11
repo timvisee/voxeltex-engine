@@ -38,12 +38,12 @@ public class BitmapFontShader extends Shader {
     /**
      * The engine asset path of the vertex shader.
      */
-    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/bitmapFont.vert";
+    private static final String SHADER_VERTEX_ASSET_PATH = "shaders/font/bitmapFont.vert";
 
     /**
      * The engine asset path of the fragment shader.
      */
-    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/bitmapFont.frag";
+    private static final String SHADER_FRAGMENT_ASSET_PATH = "shaders/font/bitmapFont.frag";
 
     /**
      * Constructor.
