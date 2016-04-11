@@ -83,19 +83,13 @@ public class Image {
     }
 
     /**
-     * Load an image from the given path.
+     * Load an image from the given byte buffer.
      *
-     * @param path Image path.
+     * @param imageBuffer Byte buffer containing the image.
      *
      * @return Image.
      */
-    public static Image loadFromEngineAssets(String path) {
-        // Create a byte buffer for the image to load
-        ByteBuffer imageBuffer;
-
-        // Load the image file into the image buffer
-        imageBuffer = EngineAssetLoader.getInstance().loadResourceByteBuffer(path);
-
+    public static Image loadFromByteBuffer(ByteBuffer imageBuffer) {
         // Create some integer buffers for STB interaction
         IntBuffer w = BufferUtils.createIntBuffer(1);
         IntBuffer h = BufferUtils.createIntBuffer(1);
@@ -106,6 +100,18 @@ public class Image {
 
         // Create the image instance and return it
         return new Image(image, w.get(0), h.get(0), c.get(0));
+    }
+
+    /**
+     * Load an image from the given path.
+     *
+     * @param path Image path.
+     *
+     * @return Image.
+     */
+    public static Image loadFromEngineAssets(String path) {
+        // Load the image into a byte buffer, and load the image itself from it
+        return loadFromByteBuffer(EngineAssetLoader.getInstance().loadResourceByteBuffer(path));
     }
 
     /**
