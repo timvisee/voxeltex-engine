@@ -164,10 +164,8 @@ public class Scene extends AbstractScene {
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
             this.gameObjects.get(i).destroy();
 
-        // FIXME: Remove this scene from the scene manager!
-
         // Show status message
-        System.out.println(this + " is queued for destruction.");
+        System.out.println(this + " is queued to be unloaded.");
 
         // Force the scene to finalize
         try {
