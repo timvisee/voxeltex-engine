@@ -23,5 +23,79 @@
 package me.keybarricade.voxeltex.component.overlay.gui;
 
 import me.keybarricade.voxeltex.component.overlay.AbstractOverlayComponent;
+import me.keybarricade.voxeltex.component.transform.Rectangle;
+import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 
-public abstract class AbstractGuiComponent extends AbstractOverlayComponent { }
+public abstract class AbstractGuiComponent extends AbstractOverlayComponent {
+
+    /**
+     * Rectangle transform component of the owner game object.
+     */
+    private RectangleTransform rectangleTransform;
+
+    /**
+     * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
+     */
+    private final Rectangle tempRectangle = new Rectangle();
+
+    @Override
+    public void create() {
+        // Update the rectangle transform
+        updateRectangleTransform();
+
+        // Create the super
+        super.create();
+    }
+
+    @Override
+    public synchronized void update() {
+        // Update the rectangle transform if none is attached
+        if(!hasRectangleTransform())
+            updateRectangleTransform();
+
+        // Update the super
+        super.update();
+    }
+
+    /**
+     * Get the attached rectangle transform component.
+     *
+     * @return Attached rectangle transfomr component, or null.
+     */
+    public RectangleTransform getRectangleTransform() {
+        return this.rectangleTransform;
+    }
+
+    /**
+     * Check whether this component has a rectangle transform component attached.
+     *
+     * @return True if a rectangle transform component is attached, false if not.
+     */
+    public boolean hasRectangleTransform() {
+        return this.rectangleTransform != null;
+    }
+
+    /**
+     * Update the attached rectangle transform.
+     * This will search for an rectangle transform component on the owner game object, and attach it to the component.
+     */
+    private void updateRectangleTransform() {
+        // Detach the currently attached transform
+        this.rectangleTransform = null;
+
+        // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
+        synchronized(this.tempRectangle) {
+            // Get the rectangle transform object from the owner object if we don't know it's instance yet
+            if(this.rectangleTransform == null) {
+                // Get and set the transform object
+                this.rectangleTransform = getComponent(RectangleTransform.class);
+
+                // Make sure we've a valid transform component, if not, skip the following code with an error message
+                if(this.rectangleTransform == null) {
+                    System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
+                    return;
+                }
+            }
+        }
+    }
+}

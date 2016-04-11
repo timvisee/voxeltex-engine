@@ -24,7 +24,6 @@ package me.keybarricade.voxeltex.component.overlay.gui;
 
 import me.keybarricade.voxeltex.component.transform.HorizontalTransformAnchorType;
 import me.keybarricade.voxeltex.component.transform.Rectangle;
-import me.keybarricade.voxeltex.component.transform.RectangleTransform;
 import me.keybarricade.voxeltex.component.transform.VerticalTransformAnchorType;
 import me.keybarricade.voxeltex.global.Input;
 import me.keybarricade.voxeltex.prefab.gui.GuiLabelPrefab;
@@ -58,11 +57,6 @@ public class GuiButtonComponent extends AbstractGuiComponent {
      * Flag to determine whether the button was pressed the last update.
      */
     private boolean lastPressed = false;
-
-    /**
-     * Rectangle transform component of the owner game object.
-     */
-    private RectangleTransform rectangleTransform;
 
     /**
      * Constructor.
@@ -105,20 +99,14 @@ public class GuiButtonComponent extends AbstractGuiComponent {
 
         // Synchronize to ensure we aren't using this temporary variable in multiple spots at the same time
         synchronized(this.tempRectangle) {
-            // Get the rectangle transform object from the owner object if we don't know it's instance yet
-            if(this.rectangleTransform == null) {
-                // Get and set the transform object
-                this.rectangleTransform = getComponent(RectangleTransform.class);
-
-                // Make sure we've a valid transform component, if not, skip the following code with an error message
-                if(this.rectangleTransform == null) {
-                    System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
-                    return;
-                }
+            // Make sure we've a valid transform component, if not, skip the following code with an error message
+            if(!hasRectangleTransform()) {
+                System.out.println("No RectangleTransform component in " + getOwner().getName() + ", unable to render");
+                return;
             }
 
             // Get the transform
-            this.rectangleTransform.getOverlayRectangle(this.tempRectangle);
+            getRectangleTransform().getOverlayRectangle(this.tempRectangle);
 
             // Check whether the button is hovered or pressed
             if(mouseX >= this.tempRectangle.getX() && mouseX <= this.tempRectangle.getX() + this.tempRectangle.getWidth() &&
