@@ -64,8 +64,8 @@ void main(void) {
 
             // Skip the light processing if the light is too far away for optimization
             // TODO: Is this calibrated properly?
-            if(lightDistance > lightColor[i].w * lightColor[i].w * 100.0)
-                continue;
+//            if(lightDistance > lightColor[i].w * lightColor[i].w * 100.0)
+//                continue;
 
             // Calculate the light direction
             vec3 lightDirection = lightPosition[i] - position.xyz;
