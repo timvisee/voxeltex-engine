@@ -71,7 +71,7 @@ public class VoxelTex {
         // Load the test environment scene
         engine.getSceneManager().loadScene(new TestEnvironmentScene());
 
-        // Start the engine
-        engine.start();
+        // Run the engine
+        engine.loop();
     }
 }

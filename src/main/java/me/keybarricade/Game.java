@@ -79,8 +79,8 @@ public class Game {
         // Done, hide the progress dialog before starting the engine
         this.progressDialog.setVisible(false);
 
-        // Start the engine
-        this.engine.start();
+        // Start and run the engine
+        this.engine.loop();
     }
 
     /**

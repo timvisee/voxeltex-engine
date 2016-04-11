@@ -213,7 +213,7 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
      */
     public void loop() {
         // Show a status message
-        System.out.println(VoxelTex.ENGINE_NAME + " engine started!");
+        System.out.println(VoxelTex.ENGINE_NAME + " engine renderer started!");
 
         // FloatBuffer for transferring the projection view matrix to OpenGL
         final FloatBuffer matrixFrameBuffer = BufferUtils.createFloatBuffer(16);
@@ -281,6 +281,9 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Poll all events
             glfwPollEvents();
         }
+
+        // Show a status message
+        System.out.println(VoxelTex.ENGINE_NAME + " engine renderer stopped");
     }
 
     /**

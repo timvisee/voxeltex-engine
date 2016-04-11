@@ -51,6 +51,6 @@ public class DemoApp {
         this.engine.getSceneManager().loadScene(new DemoScene());
 
         // Start the engine
-        this.engine.start();
+        this.engine.loop();
     }
 }

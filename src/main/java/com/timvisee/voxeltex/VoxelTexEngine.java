@@ -105,9 +105,13 @@ public class VoxelTexEngine {
     }
 
     /**
-     * Start the engine.
+     * Start and loop the engine.
      */
-    public void start() {
+    public void loop() {
+        // Start the renderer
         this.renderer.start();
+
+        // Show a status message
+        System.out.println(VoxelTex.ENGINE_NAME + " engine has stopped");
     }
 }
