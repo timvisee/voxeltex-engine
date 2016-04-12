@@ -280,6 +280,10 @@ public class GameObject extends AbstractGameObject {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
             this.components.get(i).start();
+
+        // Call the onEnable method
+        if(isEnabled())
+            onEnable();
     }
 
     @Override
@@ -324,6 +328,9 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void destroy() {
+        // Disable the game object
+        setEnabled(false);
+
         // Destroy all components
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
@@ -422,4 +429,10 @@ public class GameObject extends AbstractGameObject {
         // Pop the OpenGL matrix
         GL11.glPopMatrix();
     }
+
+    @Override
+    public void onEnable() { }
+
+    @Override
+    public void onDisable() { }
 }
