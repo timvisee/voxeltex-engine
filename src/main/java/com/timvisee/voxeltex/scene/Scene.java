@@ -35,7 +35,7 @@ public class Scene extends AbstractScene {
     private List<AbstractGameObject> gameObjects = new ArrayList<>();
 
     /**
-     * List of game objects queued to be destroyed.
+     * List of game objects queued to be removed.
      */
     private List<AbstractGameObject> gameObjectsRemoveQueue = new ArrayList<>();
 

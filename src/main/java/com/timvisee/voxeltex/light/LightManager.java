@@ -46,6 +46,11 @@ public class LightManager {
     private List<Light> lights = new ArrayList<>();
 
     /**
+     * List of lights queued to be removed.
+     */
+    private List<Light> lightsRemoveQueue = new ArrayList<>();
+
+    /**
      * Number of buffered lights.
      */
     private int bufferedLightCount = -1;
@@ -166,7 +171,7 @@ public class LightManager {
      * @return True if the light was removed, false if not.
      */
     public boolean removeLight(Light light) {
-        return this.lights.remove(light);
+        return this.lightsRemoveQueue.add(light);
     }
 
     /**
@@ -177,7 +182,29 @@ public class LightManager {
      * @return Removed light, or null.
      */
     public Light removeLight(int i) {
-        return this.lights.remove(i);
+        // Get the light
+        Light light = this.lights.get(i);
+
+        // Remove the light and return it
+        removeLight(light);
+        return light;
+    }
+
+    /**
+     * Update the light manager.
+     */
+    public void update() {
+        // Remove all lights that were queued to be removed
+        //noinspection ForLoopReplaceableByForEach
+        for(int i = 0, size = this.lightsRemoveQueue.size(); i < size; i++)
+            // Remove the lights
+            this.lights.remove(this.lightsRemoveQueue.get(i));
+
+        // Clear the list of lights queued to be removed
+        this.lightsRemoveQueue.clear();
+
+        // Buffer the lights
+        buffer();
     }
 
     /**

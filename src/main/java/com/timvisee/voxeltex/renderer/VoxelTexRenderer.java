@@ -235,8 +235,8 @@ public class VoxelTexRenderer extends VoxelTexBaseRenderer {
             // Update the input
             Input.update();
 
-            // Buffer the light manager lights
-            getEngine().getSceneManager().getScene().getLightManager().buffer();
+            // Update the light manager
+            getEngine().getSceneManager().getScene().getLightManager().update();
 
             // Update the position of the main camera
             MainCamera.update();
