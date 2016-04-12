@@ -125,17 +125,6 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
     }
 
     @Override
-    public void create() {
-        // Create a light source instance in the light manager, use the buffered defaults if set
-        this.light = getScene().getLightManager().createLight(
-                this.lightTypeBuffer >= 0 ? this.lightTypeBuffer : Light.LIGHT_TYPE_POINT,
-                getOwner(),
-                this.lightColorBuffer != null ? this.lightColorBuffer : new Vector3f(1.0f, 0.9f, 0.9f),
-                this.lightBrightnessBuffer >= 0 ? this.lightBrightnessBuffer : 1f
-        );
-    }
-
-    @Override
     public synchronized void update() {
         // Update the position of the light
         this.light.updatePosition(getOwner());
@@ -150,8 +139,38 @@ public class LightSourceComponent extends AbstractLightSourceComponent {
         // Remove the light instance from the light manager to ensure it isn't handled anymore
         getScene().getLightManager().removeLight(this.light);
 
+        // Reset the light instance
+        this.light = null;
+
         // Call the super
         super.destroy();
+    }
+
+    @Override
+    public void onEnable() {
+        // Call the super
+        super.onEnable();
+
+        // Create a light source instance in the light manager, use the buffered defaults if set
+        this.light = getScene().getLightManager().createLight(
+                this.lightTypeBuffer >= 0 ? this.lightTypeBuffer : Light.LIGHT_TYPE_POINT,
+                getOwner(),
+                this.lightColorBuffer != null ? this.lightColorBuffer : new Vector3f(1.0f, 0.9f, 0.9f),
+                this.lightBrightnessBuffer >= 0 ? this.lightBrightnessBuffer : 1f
+        );
+    }
+
+    @Override
+    public void onDisable() {
+        // Call the super
+        super.onDisable();
+
+        // Remove the light from the light manager
+        if(this.light != null)
+            getScene().getLightManager().removeLight(this.light);
+
+        // Reset the light instance
+        this.light = null;
     }
 
     @Override
