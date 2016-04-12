@@ -52,7 +52,20 @@ public abstract class AbstractComponent {
      * @param enabled True if enabled, false if not.
      */
     public void setEnabled(boolean enabled) {
+        // Determine whether the enabled state is changing
+        boolean change = this.enabled != enabled;
+
+        // Set the enabled state
         this.enabled = enabled;
+
+        // Call the onEnable or onDisable method accordingly
+        // TODO: Only call this if the component has started?
+        if(change) {
+            if(enabled)
+                onEnable();
+            else
+                onDisable();
+        }
     }
 
     /**
@@ -178,6 +191,20 @@ public abstract class AbstractComponent {
      * All game objects inside this scene will be destroyed accordingly.
      */
     public abstract void destroy();
+
+    /**
+     * On enable of this component.
+     * This will be called when the component is enabled.
+     * The component will be enabled automatically after starting, unless specified otherwise.
+     */
+    public abstract void onEnable();
+
+    /**
+     * On disable of this component.
+     * This will be called when the component is disabled.
+     * The component will be disabled automatically before destruction, unless it was disabled already.
+     */
+    public abstract void onDisable();
 
     /**
      * Get the name of the component type.

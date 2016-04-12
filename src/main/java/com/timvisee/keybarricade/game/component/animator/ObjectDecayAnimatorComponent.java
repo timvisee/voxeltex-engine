@@ -73,7 +73,10 @@ public class ObjectDecayAnimatorComponent extends BaseComponent {
     }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 
     @Override
     public void update() {

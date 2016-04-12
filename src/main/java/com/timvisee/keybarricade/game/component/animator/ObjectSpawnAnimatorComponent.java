@@ -110,6 +110,9 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
 
     @Override
     public void start() {
+        // Call the super
+        super.start();
+
         // Set the time offset
         this.timeOffset = this.waitUntil;
 

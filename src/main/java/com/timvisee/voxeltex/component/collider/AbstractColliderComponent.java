@@ -38,7 +38,10 @@ public abstract class AbstractColliderComponent extends BaseComponent implements
     public void create() { }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 
     @Override
     public void update() { }

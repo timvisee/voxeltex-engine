@@ -40,6 +40,9 @@ public class CameraComponent extends AbstractCameraComponent {
 
     @Override
     public void start() {
+        // Call the super
+        super.start();
+
         // Register the camera as main camera
         MainCamera.setCamera(this);
     }

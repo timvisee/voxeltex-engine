@@ -35,7 +35,17 @@ public abstract class BaseComponent extends AbstractComponent {
     private AbstractGameObject owner;
 
     @Override
+    public void start() {
+        // Call the onEnable method
+        if(isEnabled())
+            onEnable();
+    }
+
+    @Override
     public void destroy() {
+        // Disable the component
+        setEnabled(false);
+
         // Ensure we've an owner assigned
         if(getOwner() == null)
             return;
@@ -51,6 +61,12 @@ public abstract class BaseComponent extends AbstractComponent {
             throwable.printStackTrace();
         }
     }
+
+    @Override
+    public void onEnable() { }
+
+    @Override
+    public void onDisable() { }
 
     @Override
     public AbstractGameObject getOwner() {

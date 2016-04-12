@@ -133,6 +133,9 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
 
     @Override
     public void start() {
+        // Call the super
+        super.start();
+
         // Move the camera to it's initial position
         smoothUpdate(1f, 1f);
     }
