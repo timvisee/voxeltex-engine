@@ -112,7 +112,7 @@ public class GuiLabelComponent extends AbstractGuiComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Apply the font color to the material
         this.font.getMaterial().setColor(this.color);
 

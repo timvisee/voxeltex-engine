@@ -87,7 +87,7 @@ public class GuiButtonComponent extends AbstractGuiComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Define variables to store whether the button is hovered and/or pressed
         boolean hover = false;
         boolean down = Input.isMouseButtonDown(0);

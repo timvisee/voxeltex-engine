@@ -64,7 +64,7 @@ public class RectangleOverlayComponent extends AbstractOverlayComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Set the drawing color
         RenderOverlayHelper.color(1, 0, 0, 0.5f);
 

@@ -280,6 +280,10 @@ public class GameObject extends AbstractGameObject {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
             this.components.get(i).start();
+
+        // Call the onEnable method
+        if(isEnabled())
+            onEnable();
     }
 
     @Override
@@ -324,6 +328,9 @@ public class GameObject extends AbstractGameObject {
 
     @Override
     public void destroy() {
+        // Disable the game object
+        setEnabled(false);
+
         // Destroy all components
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
@@ -350,7 +357,7 @@ public class GameObject extends AbstractGameObject {
     }
 
     @Override
-    public synchronized void draw() {
+    public synchronized void onDraw() {
         // Define whether we started drawing
         boolean drawing = false;
 
@@ -368,7 +375,7 @@ public class GameObject extends AbstractGameObject {
 
                 // Draw the component if enabled
                 if(this.components.get(i).isEnabled())
-                    ((DrawableComponentInterface) this.components.get(i)).draw();
+                    ((DrawableComponentInterface) this.components.get(i)).onDraw();
             }
         }
 
@@ -380,11 +387,11 @@ public class GameObject extends AbstractGameObject {
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
             if(this.children.get(i).isEnabled())
-                this.children.get(i).draw();
+                this.children.get(i).onDraw();
     }
 
     @Override
-    public synchronized void drawOverlay() {
+    public synchronized void onDrawOverlay() {
         // Draw all overlay components and all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.components.size(); i < size; i++)
@@ -392,13 +399,13 @@ public class GameObject extends AbstractGameObject {
             if(this.components.get(i) instanceof OverlayComponentInterface)
                 // Draw the component overlay
                 if(this.components.get(i).isEnabled())
-                    ((OverlayComponentInterface) this.components.get(i)).drawOverlay();
+                    ((OverlayComponentInterface) this.components.get(i)).onDrawOverlay();
 
         // Draw all children
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.children.size(); i < size; i++)
             if(this.children.get(i).isEnabled())
-                this.children.get(i).drawOverlay();
+                this.children.get(i).onDrawOverlay();
     }
 
     /**
@@ -422,4 +429,10 @@ public class GameObject extends AbstractGameObject {
         // Pop the OpenGL matrix
         GL11.glPopMatrix();
     }
+
+    @Override
+    public void onEnable() { }
+
+    @Override
+    public void onDisable() { }
 }

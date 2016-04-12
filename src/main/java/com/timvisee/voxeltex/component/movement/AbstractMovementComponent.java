@@ -30,5 +30,8 @@ public abstract class AbstractMovementComponent extends BaseComponent {
     public void create() { }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 }

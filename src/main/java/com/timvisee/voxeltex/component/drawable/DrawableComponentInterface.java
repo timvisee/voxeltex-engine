@@ -27,7 +27,7 @@ public interface DrawableComponentInterface {
     /**
      * Draw the component.
      *
-     * Called once each frame after updating.
+     * Called when the component is drawn.
      */
-    void draw();
+    void onDraw();
 }

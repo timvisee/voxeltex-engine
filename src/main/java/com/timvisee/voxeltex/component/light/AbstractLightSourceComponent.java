@@ -30,7 +30,10 @@ public abstract class AbstractLightSourceComponent extends BaseComponent impleme
     public void create() { }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 
     @Override
     public synchronized void update() { }

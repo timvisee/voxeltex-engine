@@ -65,7 +65,20 @@ public abstract class AbstractGameObject {
      * @param enabled True if enabled, false if not.
      */
     public void setEnabled(boolean enabled) {
+        // Determine whether the enabled state is changing
+        boolean change = this.enabled != enabled;
+
+        // Set the enabled state
         this.enabled = enabled;
+
+        // Call the onEnable or onDisable method accordingly
+        // TODO: Only call this if the game object has started?
+        if(change) {
+            if(enabled)
+                onEnable();
+            else
+                onDisable();
+        }
     }
 
     /**
@@ -317,15 +330,29 @@ public abstract class AbstractGameObject {
 
     /**
      * Draw the game object.
-     * This will be called once each frame after updating the game object.
+     * This will be called when drawing the game object.
      */
-    public abstract void draw();
+    public abstract void onDraw();
 
     /**
      * Draw the game object overlay.
-     * This will be called once each frame after updating the game object.
+     * This will be called when drawing the overlay of this game object.
      */
-    public abstract void drawOverlay();
+    public abstract void onDrawOverlay();
+
+    /**
+     * On enable of this game object.
+     * This will be called when the game object is enabled.
+     * The game object will be enabled automatically after starting, unless specified otherwise.
+     */
+    public abstract void onEnable();
+
+    /**
+     * On disable of this game object.
+     * This will be called when the game object is disabled.
+     * The game object will be disabled automatically before destruction, unless it was disabled already.
+     */
+    public abstract void onDisable();
 
     @Override
     public String toString() {

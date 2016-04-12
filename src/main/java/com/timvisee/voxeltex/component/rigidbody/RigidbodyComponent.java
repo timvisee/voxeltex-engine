@@ -100,6 +100,9 @@ public class RigidbodyComponent extends AbstractRigidbodyComponent {
 
     @Override
     public void start() {
+        // Call the super
+        super.start();
+
         // Create the physics object
         createPhysicsRigidbody();
     }

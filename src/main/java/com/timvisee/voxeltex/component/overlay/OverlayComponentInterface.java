@@ -27,7 +27,7 @@ public interface OverlayComponentInterface {
     /**
      * Draw the component overlay.
      *
-     * Called once each frame after updating.
+     * Called when drawing the overlay.
      */
-    void drawOverlay();
+    void onDrawOverlay();
 }

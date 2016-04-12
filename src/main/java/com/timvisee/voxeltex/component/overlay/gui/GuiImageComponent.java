@@ -81,7 +81,7 @@ public class GuiImageComponent extends AbstractGuiComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Bind the material if available
         if(this.material != null)
             this.material.bind();

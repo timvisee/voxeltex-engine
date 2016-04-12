@@ -571,6 +571,9 @@ public class RectangleTransform extends BaseComponent {
 
     @Override
     public void start() {
+        // Call the super
+        super.start();
+
         // Update the parent transform
         updateParentTransform();
     }

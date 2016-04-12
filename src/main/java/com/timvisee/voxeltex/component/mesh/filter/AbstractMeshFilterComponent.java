@@ -30,7 +30,10 @@ public abstract class AbstractMeshFilterComponent extends BaseComponent implemen
     public void create() { }
 
     @Override
-    public void start() { }
+    public void start() {
+        // Call the super
+        super.start();
+    }
 
     @Override
     public synchronized void update() { }
