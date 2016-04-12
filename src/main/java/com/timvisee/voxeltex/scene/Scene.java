@@ -140,21 +140,21 @@ public class Scene extends AbstractScene {
     }
 
     @Override
-    public void draw() {
+    public void onDraw() {
         // Draw all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
             if(this.gameObjects.get(i).isEnabled())
-                this.gameObjects.get(i).draw();
+                this.gameObjects.get(i).onDraw();
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Draw the overlay of all game objects if enabled
         //noinspection ForLoopReplaceableByForEach
         for(int i = 0, size = this.gameObjects.size(); i < size; i++)
             if(this.gameObjects.get(i).isEnabled())
-                this.gameObjects.get(i).drawOverlay();
+                this.gameObjects.get(i).onDrawOverlay();
     }
 
     @Override

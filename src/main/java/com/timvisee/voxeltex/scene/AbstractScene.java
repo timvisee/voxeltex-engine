@@ -133,16 +133,16 @@ public abstract class AbstractScene {
     /**
      * Draw the scene.
      *
-     * This is called once each frame after updating the scene.
+     * This is called when the scene is drawn.
      */
-    public abstract void draw();
+    public abstract void onDraw();
 
     /**
      * Draw the scene overlay.
      *
-     * This is called once each frame after updating the scene.
+     * This is called when the scene overlay is drawn.
      */
-    public abstract void drawOverlay();
+    public abstract void onDrawOverlay();
 
     /**
      * Destroy the scene.

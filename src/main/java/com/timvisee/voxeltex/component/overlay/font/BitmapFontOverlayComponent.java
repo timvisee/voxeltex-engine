@@ -132,7 +132,7 @@ public class BitmapFontOverlayComponent extends AbstractOverlayComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Apply the font color to the material
         this.font.getMaterial().setColor(this.color);
 

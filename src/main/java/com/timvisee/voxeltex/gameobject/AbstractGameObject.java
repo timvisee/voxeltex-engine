@@ -317,15 +317,15 @@ public abstract class AbstractGameObject {
 
     /**
      * Draw the game object.
-     * This will be called once each frame after updating the game object.
+     * This will be called when drawing the game object.
      */
-    public abstract void draw();
+    public abstract void onDraw();
 
     /**
      * Draw the game object overlay.
-     * This will be called once each frame after updating the game object.
+     * This will be called when drawing the overlay of this game object.
      */
-    public abstract void drawOverlay();
+    public abstract void onDrawOverlay();
 
     @Override
     public String toString() {

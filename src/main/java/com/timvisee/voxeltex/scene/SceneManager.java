@@ -128,7 +128,7 @@ public class SceneManager {
     public void draw() {
         // Make sure a scene is loaded, then draw it
         if(isSceneLoaded())
-            this.scene.draw();
+            this.scene.onDraw();
     }
 
     /**
@@ -137,6 +137,6 @@ public class SceneManager {
     public void drawOverlay() {
         // Make sure a scene is loaded, then draw it
         if(isSceneLoaded())
-            this.scene.drawOverlay();
+            this.scene.onDrawOverlay();
     }
 }

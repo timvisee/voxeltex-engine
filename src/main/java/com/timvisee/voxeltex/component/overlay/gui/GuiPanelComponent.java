@@ -53,7 +53,7 @@ public class GuiPanelComponent extends AbstractGuiComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Set the drawing color
         RenderOverlayHelper.color(this.color);
 

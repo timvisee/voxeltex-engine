@@ -47,7 +47,7 @@ public class GridDrawComponent extends AbstractDrawableComponent {
     }
 
     @Override
-    public synchronized void draw() {
+    public synchronized void onDraw() {
         // Set the thickness of the axis drawn
         GL11.glLineWidth(this.lineWidth);
 

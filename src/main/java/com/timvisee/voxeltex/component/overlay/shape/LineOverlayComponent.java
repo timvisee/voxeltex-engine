@@ -69,7 +69,7 @@ public class LineOverlayComponent extends AbstractOverlayComponent {
     }
 
     @Override
-    public void drawOverlay() {
+    public void onDrawOverlay() {
         // Set the thickness of the line drawn
         RenderOverlayHelper.lineWidth(this.lineWidth);
 
