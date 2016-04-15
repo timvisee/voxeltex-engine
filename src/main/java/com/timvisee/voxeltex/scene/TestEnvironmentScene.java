@@ -49,7 +49,6 @@ import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 import com.timvisee.voxeltex.shader.ShaderManager;
-import com.timvisee.voxeltex.texture.Image;
 import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Quaternionf;
@@ -73,8 +72,7 @@ public class TestEnvironmentScene extends Scene {
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
-        Texture boxTexture = Texture.fromImage(Image.loadFromEngineAssets("images/box/box.png"));
-        Material boxMaterial = new Material(boxTexture);
+        Material boxMaterial = GameResourceBundle.getInstance().MATERIAL_BOX0;
 
         GameObject suzanneRoot = new GameObject("SuzanneRoot");
         suzanneRoot.getTransform().getAngularVelocity().set(0, 0.5f, 0);
@@ -195,8 +193,7 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(scaledBoxA);
 
         // Load the sand texture
-        Texture sandTexture = Texture.fromImage(Image.loadFromEngineAssets("images/ground.png"));
-        //Texture rockTextureNormal = Texture.fromImage(Image.loadFromEngineAssets("images/rock_normal.png"));
+        Texture sandTexture = GameResourceBundle.getInstance().TEXTURE_GROUND;
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
         sandMaterial.getTiling().set(10.0f);
 
