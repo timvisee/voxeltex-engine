@@ -24,10 +24,10 @@ package com.timvisee.yamlwrapper.configuration;
 
 public class Configuration extends ConfigurationSection {
 
-	/**
-	 * Constructor alias.
-	 */
-	public Configuration() {
-		super(null, "", null);
-	}
+    /**
+     * Constructor alias.
+     */
+    public Configuration() {
+        super(null, "", null);
+    }
 }

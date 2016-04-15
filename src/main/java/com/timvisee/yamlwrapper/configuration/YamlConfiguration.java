@@ -56,14 +56,14 @@ public class YamlConfiguration extends FileConfiguration {
      *
      * @return YAML string.
      */
-	public String saveToString() {	    
-		yamlOptions.setIndent(2);
+    public String saveToString() {
+        yamlOptions.setIndent(2);
         yamlOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         yamlRepresenting.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
         // Return the configuration string
         return yaml.dump(getValues());
-	}
+    }
 
     /**
      * Load a YAML configuration from a string.
@@ -72,15 +72,15 @@ public class YamlConfiguration extends FileConfiguration {
      */
     public void loadFromString(String contents) {
         // Make sure the contents are not null
-    	if(contents == null)
-    		return;
+        if(contents == null)
+            return;
 
         // Create a map with the YAML input
         Map<?, ?> input = null;
         try {
             input = (Map<?, ?>) yaml.load(contents);
 
-        } catch (YAMLException | ClassCastException e) {
+        } catch(YAMLException | ClassCastException e) {
             e.printStackTrace();
         }
 
@@ -98,18 +98,18 @@ public class YamlConfiguration extends FileConfiguration {
      */
     public static YamlConfiguration loadConfiguration(File file) {
         // Make sure the file param is not null
-    	if(file == null)
-    		return new YamlConfiguration();
+        if(file == null)
+            return new YamlConfiguration();
 
-    	// Create a new configuration instance
+        // Create a new configuration instance
         YamlConfiguration config = new YamlConfiguration();
 
         // Try to load the configuration
         try {
             config.load(file);
 
-        } catch (FileNotFoundException ignored) {
-        } catch (IOException e) {
+        } catch(FileNotFoundException ignored) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
@@ -125,19 +125,19 @@ public class YamlConfiguration extends FileConfiguration {
      * @return YAML configuration.
      */
     public static YamlConfiguration loadConfiguration(InputStream stream) {
-    	// Make sure the stream param is not null
-    	if(stream == null)
-    		return new YamlConfiguration();
+        // Make sure the stream param is not null
+        if(stream == null)
+            return new YamlConfiguration();
 
-    	// Create a new configuration instance
+        // Create a new configuration instance
         YamlConfiguration config = new YamlConfiguration();
 
         // Try to load the configuration
         try {
             config.load(stream);
 
-        } catch (FileNotFoundException ignored) {
-        } catch (IOException e) {
+        } catch(FileNotFoundException ignored) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
@@ -154,7 +154,7 @@ public class YamlConfiguration extends FileConfiguration {
      */
     private void convertMapsToSections(Map<?, ?> input, ConfigurationSection section) {
         // Loop through each entry
-    	for(Map.Entry<?, ?> entry : input.entrySet()) {
+        for(Map.Entry<?, ?> entry : input.entrySet()) {
             // Get the key and it's value
             String key = entry.getKey().toString();
             Object val = entry.getValue();

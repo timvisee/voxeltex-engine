@@ -26,10 +26,10 @@ import java.io.*;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class FileConfiguration extends Configuration {
-    
-	/**
-	 * Constructor.
-	 */
+
+    /**
+     * Constructor.
+     */
     public FileConfiguration() {
         super();
     }
@@ -43,14 +43,14 @@ public abstract class FileConfiguration extends Configuration {
      */
     public void save(File file) throws IOException {
         // Make sure the file is not null
-    	if(file == null)
-    		return;
+        if(file == null)
+            return;
 
         // Create the parent directories
         //noinspection ResultOfMethodCallIgnored
         file.getParentFile().mkdirs();
-    	
-    	// Get the configuration string
+
+        // Get the configuration string
         String data = saveToString();
 
         // Save the data
@@ -58,7 +58,7 @@ public abstract class FileConfiguration extends Configuration {
             writer.write(data);
         }
     }
-    
+
     /**
      * Save the configuration to a file.
      *
@@ -68,10 +68,10 @@ public abstract class FileConfiguration extends Configuration {
      */
     public void save(String file) throws IOException {
         // Make sure the file path is not null
-    	if(file == null || file.length() == 0)
-    		return;
-    	
-    	// Save the file
+        if(file == null || file.length() == 0)
+            return;
+
+        // Save the file
         save(new File(file));
     }
 
@@ -102,8 +102,8 @@ public abstract class FileConfiguration extends Configuration {
      */
     public void load(InputStream stream) throws IOException {
         // Make sure the input stream is not null
-    	if(stream == null)
-    		return;
+        if(stream == null)
+            return;
 
         // Create some readers
         InputStreamReader reader = new InputStreamReader(stream);
@@ -134,10 +134,10 @@ public abstract class FileConfiguration extends Configuration {
      */
     public void load(String file) throws IOException {
         // Make sure the file path is not null
-    	if(file == null || file.length() == 0)
-    		return;
+        if(file == null || file.length() == 0)
+            return;
 
-    	// Load the file
+        // Load the file
         load(new File(file));
     }
 
