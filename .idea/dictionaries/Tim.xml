@@ -5,6 +5,8 @@
       <w>lwjgl</w>
       <w>rigidbody</w>
       <w>shaders</w>
+      <w>timvisee</w>
+      <w>visee</w>
     </words>
   </dictionary>
 </component>
