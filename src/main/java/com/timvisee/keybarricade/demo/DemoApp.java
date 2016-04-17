@@ -62,7 +62,7 @@ public class DemoApp {
         this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
 
         // Initialize the engine
-        this.engine.init();
+        this.engine.init(true);
     }
 
     /**

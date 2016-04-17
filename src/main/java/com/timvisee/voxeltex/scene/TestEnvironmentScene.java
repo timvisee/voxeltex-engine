@@ -23,7 +23,6 @@
 package com.timvisee.voxeltex.scene;
 
 import com.timvisee.keybarricade.game.LockType;
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.prefab.KeyPickupPrefab;
 import com.timvisee.keybarricade.game.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
@@ -48,6 +47,7 @@ import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
 import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
 import com.timvisee.voxeltex.shader.ShaderManager;
 import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
@@ -64,15 +64,12 @@ public class TestEnvironmentScene extends Scene {
         // Load the super
         super.load();
 
-        // Load all required resources
-        GameResourceBundle.getInstance().load();
-
         // Set the skybox color
         // TODO: Move this to a better spot!
         glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 
         // Load the box texture
-        Material boxMaterial = GameResourceBundle.getInstance().MATERIAL_BOX0;
+        Material boxMaterial = EngineResourceBundle.getInstance().MATERIAL_BOX;
 
         GameObject suzanneRoot = new GameObject("SuzanneRoot");
         suzanneRoot.getTransform().getAngularVelocity().set(0, 0.5f, 0);
@@ -193,7 +190,7 @@ public class TestEnvironmentScene extends Scene {
         addGameObject(scaledBoxA);
 
         // Load the sand texture
-        Texture sandTexture = GameResourceBundle.getInstance().TEXTURE_GROUND;
+        Texture sandTexture = EngineResourceBundle.getInstance().TEXTURE_GROUND;
         Material sandMaterial = new Material(ShaderManager.SHADER_DEFAULT_TEXTURED, sandTexture);
         sandMaterial.getTiling().set(10.0f);
 

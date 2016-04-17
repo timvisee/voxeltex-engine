@@ -82,8 +82,12 @@ public class Game {
         // Set the title
         this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
 
-        // Initialize the engine
-        this.engine.init();
+        // Initialize the engine (without loading the resources in advance)
+        this.engine.init(false);
+
+        // Manually load the engine resources...
+        this.progressDialog.setStatus("Loading engine resources...");
+        this.engine.load();
     }
 
     /**

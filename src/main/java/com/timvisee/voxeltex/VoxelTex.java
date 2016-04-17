@@ -66,7 +66,7 @@ public class VoxelTex {
         engine.setTitle(ENGINE_NAME + " v" + ENGINE_VERSION_NAME + " - Test Environment");
 
         // Initialize the engine
-        engine.init();
+        engine.init(true);
 
         // Load the test environment scene
         engine.getSceneManager().loadScene(new TestEnvironmentScene());

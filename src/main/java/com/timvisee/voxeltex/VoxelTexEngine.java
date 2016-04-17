@@ -23,6 +23,7 @@
 package com.timvisee.voxeltex;
 
 import com.timvisee.voxeltex.renderer.VoxelTexRenderer;
+import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
 import com.timvisee.voxeltex.scene.SceneManager;
 
 public class VoxelTexEngine {
@@ -86,8 +87,10 @@ public class VoxelTexEngine {
     /**
      * Initialize the engine.
      * This will configure the engine and load everything required before starting.
+     *
+     * @param load True to load the all engine resources in advance, false if not.
      */
-    public void init() {
+    public void init(boolean load) {
         // Show a status message
         System.out.println("Initializing " + VoxelTex.getEngineNameFull() + " engine...");
 
@@ -102,6 +105,24 @@ public class VoxelTexEngine {
 
         // Show a status message
         System.out.println(VoxelTex.ENGINE_NAME + " engine initialized successfully!");
+
+        // Load the engine resources if specified
+        if(load)
+            load();
+    }
+
+    /**
+     * Load all engine resources.
+     * These resources are required by the engine to run properly.
+     *
+     * Note: These resources can be loaded automatically if with the {@code init(load = true);} method.
+     */
+    public void load() {
+        // Load the engine resources
+        EngineResourceBundle.getInstance().load();
+
+        // Show a status message
+        System.out.println("Engine resources loaded successfully!");
     }
 
     /**
