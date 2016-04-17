@@ -35,6 +35,8 @@ public class EngineResourceBundle implements ResourceBundleInterface {
 
     public Texture TEXTURE_BOX;
     public Material MATERIAL_BOX;
+    public Texture TEXTURE_GROUND;
+    public Material MATERIAL_GROUND;
 
     /**
      * Get the engine resource bundle instance.
@@ -53,6 +55,10 @@ public class EngineResourceBundle implements ResourceBundleInterface {
         // Load box texture and material
         this.TEXTURE_BOX = loadEngineTexture("images/box/box.png");
         this.MATERIAL_BOX = new Material(this.TEXTURE_BOX);
+
+        // Load the ground resources
+        this.TEXTURE_GROUND = loadEngineTexture("images/ground.png");
+        this.MATERIAL_GROUND = new Material(this.TEXTURE_GROUND);
     }
 
     @Override
@@ -62,6 +68,7 @@ public class EngineResourceBundle implements ResourceBundleInterface {
 
         // Dispose all resources
         this.TEXTURE_BOX.dispose();
+        this.TEXTURE_GROUND.dispose();
     }
 
     /**
