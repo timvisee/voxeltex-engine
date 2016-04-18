@@ -23,6 +23,8 @@
 package com.timvisee.voxeltex;
 
 import com.timvisee.voxeltex.scene.TestEnvironmentScene;
+import com.timvisee.voxeltex.swing.ProgressDialog;
+import com.timvisee.voxeltex.swing.SwingUtils;
 
 public class VoxelTex {
 
@@ -42,6 +44,11 @@ public class VoxelTex {
     public static final int ENGINE_VERSION_CODE = 1;
 
     /**
+     * Progress dialog, used to show status outside of the engine window.
+     */
+    private static ProgressDialog progressDialog;
+
+    /**
      * Get the full engine name string, including the version number.
      *
      * @return Engine name string.
@@ -56,6 +63,14 @@ public class VoxelTex {
      * @param args Startup arguments.
      */
     public static void main(String[] args) {
+        // Use the native look and feel for Swing windows when possible
+        SwingUtils.useNativeLookAndFeel();
+
+        // Create and show the progress dialog
+        progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
+        progressDialog.setVisible(true);
+        progressDialog.setStatus("Initializing VoxelTex engine...");
+
         // Define the engine variable
         VoxelTexEngine engine;
 
@@ -66,12 +81,35 @@ public class VoxelTex {
         engine.setTitle(ENGINE_NAME + " v" + ENGINE_VERSION_NAME + " - Test Environment");
 
         // Initialize the engine
-        engine.init(true);
+        engine.init(false);
+
+        // Manually load the engine resources...
+        progressDialog.setStatus("Loading engine resources...");
+        engine.load();
 
         // Load the test environment scene
+        progressDialog.setStatus("Loading test environment scene...");
         engine.getSceneManager().loadScene(new TestEnvironmentScene());
+
+        // Done, hide the progress dialog before starting the engine
+        progressDialog.setVisible(false);
 
         // Run the engine
         engine.loop();
+
+        // Exiting, show the progress dialog
+        progressDialog.setStatus("Quitting VoxelTex test environment...");
+        progressDialog.setVisible(true);
+
+        // Dispose the engine resources
+        progressDialog.setStatus("Disposing engine resources...");
+        // TODO: EngineResourceBundle.getInstance().dispose();
+
+        // Dispose the progress frame to ensure we're quitting properly
+        progressDialog.dispose();
+
+        // The game has quit, show a status message and force quit
+        System.out.println("VoxelTex test environment has quit");
+        System.exit(0);
     }
 }
