@@ -24,6 +24,8 @@ package com.timvisee.keybarricade.demo;
 
 import com.timvisee.keybarricade.KeyBarricade;
 import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.swing.ProgressDialog;
+import com.timvisee.voxeltex.swing.SwingUtils;
 
 public class DemoApp {
 
@@ -31,6 +33,11 @@ public class DemoApp {
      * VoxelTex engine instance.
      */
     private VoxelTexEngine engine;
+
+    /**
+     * Progress dialog, used to show status outside of the engine window.
+     */
+    private ProgressDialog progressDialog;
 
     /**
      * Constructor.
@@ -41,38 +48,80 @@ public class DemoApp {
      * Initialize.
      */
     public void init() {
+        // Use the native look and feel for Swing windows when possible
+        SwingUtils.useNativeLookAndFeel();
+
+        // Create and show the progress dialog
+        this.progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
+        this.progressDialog.setVisible(true);
+
         // Show initialization message
-        System.out.println("Initializing " + KeyBarricade.APP_NAME + "...");
+        System.out.println("Initializing demo...");
 
         // Initialize the VoxelTex engine
         initEngine();
 
         // Start the VoxelTex engine
         startEngine();
+
+        // Exit the game
+        exit();
     }
 
     /**
      * Initialize the VoxelTex engine.
      */
-    public void initEngine() {
+    @SuppressWarnings("Duplicates")
+    private void initEngine() {
+        // Show status
+        this.progressDialog.setStatus("Initializing VoxelTex engine...");
+
         // Create a VoxelTex engine instance
         this.engine = new VoxelTexEngine();
 
         // Set the title
         this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
 
-        // Initialize the engine
-        this.engine.init();
+        // Initialize the engine (without loading the recourses in advance)
+        this.engine.init(false);
+
+        // Manually load the engine resources...
+        this.progressDialog.setStatus("Loading engine resources...");
+        this.engine.load();
     }
 
     /**
      * Start the VoxelTex engine after it has been initialized.
      */
-    public void startEngine() {
+    private void startEngine() {
         // Load the default scene
+        this.progressDialog.setStatus("Loading scene...");
         this.engine.getSceneManager().loadScene(new DemoScene());
+
+        // Done, hide the progress dialog before starting the engine
+        this.progressDialog.setVisible(false);
 
         // Start the engine
         this.engine.loop();
+    }
+
+    /**
+     * Stop and exit the demo.
+     */
+    private void exit() {
+        // Exiting, show the progress dialog
+        this.progressDialog.setStatus("Quitting demo...");
+        this.progressDialog.setVisible(true);
+
+        // Dispose the engine resources
+        this.progressDialog.setStatus("Disposing engine resources...");
+        // TODO: EngineResourceBundle.getInstance().dispose();
+
+        // Dispose the progress frame to ensure we're quitting properly
+        this.progressDialog.dispose();
+
+        // The demo has quit, show a status message and force quit
+        System.out.println("Demo has quit");
+        System.exit(0);
     }
 }

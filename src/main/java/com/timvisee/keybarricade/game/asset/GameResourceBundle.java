@@ -194,6 +194,10 @@ public class GameResourceBundle implements ResourceBundleInterface {
 
     @Override
     public void dispose() {
+        // Show a status message
+        System.out.println("Disposing engine resources...");
+
+        // Dispose all resources
         this.TEXTURE_BOX0.dispose();
         this.TEXTURE_BOX1.dispose();
         this.TEXTURE_BOX2.dispose();

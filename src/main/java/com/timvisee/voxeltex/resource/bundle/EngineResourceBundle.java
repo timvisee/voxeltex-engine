@@ -22,11 +22,74 @@
 
 package com.timvisee.voxeltex.resource.bundle;
 
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.texture.Image;
+import com.timvisee.voxeltex.texture.Texture;
+
 public class EngineResourceBundle implements ResourceBundleInterface {
 
-    @Override
-    public void load() { }
+    /**
+     * Instance.
+     */
+    private static EngineResourceBundle instance = new EngineResourceBundle();
+
+    public Texture TEXTURE_BOX;
+    public Material MATERIAL_BOX;
+    public Texture TEXTURE_GROUND;
+    public Material MATERIAL_GROUND;
+
+    /**
+     * Get the engine resource bundle instance.
+     *
+     * @return Engine resource bundle instance.
+     */
+    public static EngineResourceBundle getInstance() {
+        return EngineResourceBundle.instance;
+    }
 
     @Override
-    public void dispose() { }
+    public void load() {
+        // Show status message
+        System.out.println("Loading engine resources...");
+
+        // Load box texture and material
+        this.TEXTURE_BOX = loadEngineTexture("images/box/box.png");
+        this.MATERIAL_BOX = new Material(this.TEXTURE_BOX);
+
+        // Load the ground resources
+        this.TEXTURE_GROUND = loadEngineTexture("images/ground.png");
+        this.MATERIAL_GROUND = new Material(this.TEXTURE_GROUND);
+    }
+
+    @Override
+    public void dispose() {
+        // Show a status message
+        System.out.println("Disposing engine resources...");
+
+        // Dispose all resources
+        this.TEXTURE_BOX.dispose();
+        this.TEXTURE_GROUND.dispose();
+    }
+
+    /**
+     * Load a texture from engine resources.
+     *
+     * @param path Image resource path.
+     *
+     * @return Texture.
+     */
+    private Texture loadEngineTexture(String path) {
+        return Texture.fromImage(loadEngineImage(path));
+    }
+
+    /**
+     * Load an image from engine resources.
+     *
+     * @param path Image resource path.
+     *
+     * @return Image.
+     */
+    private Image loadEngineImage(String path) {
+        return Image.loadFromEngineAssets(path);
+    }
 }

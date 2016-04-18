@@ -82,8 +82,12 @@ public class Game {
         // Set the title
         this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
 
-        // Initialize the engine
-        this.engine.init();
+        // Initialize the engine (without loading the resources in advance)
+        this.engine.init(false);
+
+        // Manually load the engine resources...
+        this.progressDialog.setStatus("Loading engine resources...");
+        this.engine.load();
     }
 
     /**
@@ -109,12 +113,17 @@ public class Game {
      * Stop and exit the game.
      */
     private void exit() {
-        // Exiting, show a status message
-        System.out.println("Quitting " + KeyBarricade.APP_NAME + "...");
+        // Exiting, show the progress dialog
+        this.progressDialog.setStatus("Quitting " + KeyBarricade.APP_NAME + "...");
+        this.progressDialog.setVisible(true);
 
         // Dispose the game resources
-        System.out.println("Disposing game resources...");
+        this.progressDialog.setStatus("Disposing game resources...");
         // TODO: GameResourceBundle.getInstance().dispose();
+
+        // Dispose the engine resources
+        this.progressDialog.setStatus("Disposing engine resources...");
+        // TODO: EngineResourceBundle.getInstance().dispose();
 
         // Dispose the progress frame to ensure we're quitting properly
         this.progressDialog.dispose();

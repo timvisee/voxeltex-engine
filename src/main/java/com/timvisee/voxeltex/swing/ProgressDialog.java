@@ -156,6 +156,10 @@ public class ProgressDialog extends JDialog {
      * @param status Status text
      */
     public void setStatus(String status) {
+        // Set the status label
         this.statusLabel.setText(status);
+
+        // Print the status to the console
+        System.out.println("Status: " + status);
     }
 }
