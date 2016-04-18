@@ -63,6 +63,9 @@ public class DemoApp {
 
         // Start the VoxelTex engine
         startEngine();
+
+        // Exit the game
+        exit();
     }
 
     /**
@@ -100,5 +103,20 @@ public class DemoApp {
 
         // Start the engine
         this.engine.loop();
+    }
+
+    /**
+     * Stop and exit the demo.
+     */
+    private void exit() {
+        // Exiting, show a status message
+        System.out.println("Quitting demo...");
+
+        // Dispose the progress frame to ensure we're quitting properly
+        this.progressDialog.dispose();
+
+        // The demo has quit, show a status message and force quit
+        System.out.println("Demo has quit");
+        System.exit(0);
     }
 }
