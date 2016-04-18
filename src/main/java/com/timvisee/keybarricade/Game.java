@@ -113,15 +113,16 @@ public class Game {
      * Stop and exit the game.
      */
     private void exit() {
-        // Exiting, show a status message
-        System.out.println("Quitting " + KeyBarricade.APP_NAME + "...");
+        // Exiting, show the progress dialog
+        this.progressDialog.setStatus("Quitting " + KeyBarricade.APP_NAME + "...");
+        this.progressDialog.setVisible(true);
 
         // Dispose the game resources
-        System.out.println("Disposing game resources...");
+        this.progressDialog.setStatus("Disposing game resources...");
         // TODO: GameResourceBundle.getInstance().dispose();
 
         // Dispose the engine resources
-        System.out.println("Disposing engine resources...");
+        this.progressDialog.setStatus("Disposing engine resources...");
         // TODO: EngineResourceBundle.getInstance().dispose();
 
         // Dispose the progress frame to ensure we're quitting properly
