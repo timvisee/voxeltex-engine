@@ -120,6 +120,10 @@ public class Game {
         System.out.println("Disposing game resources...");
         // TODO: GameResourceBundle.getInstance().dispose();
 
+        // Dispose the engine resources
+        System.out.println("Disposing engine resources...");
+        // TODO: EngineResourceBundle.getInstance().dispose();
+
         // Dispose the progress frame to ensure we're quitting properly
         this.progressDialog.dispose();
 

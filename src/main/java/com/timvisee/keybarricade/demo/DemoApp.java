@@ -112,6 +112,10 @@ public class DemoApp {
         // Exiting, show a status message
         System.out.println("Quitting demo...");
 
+        // Dispose the engine resources
+        System.out.println("Disposing engine resources...");
+        // TODO: EngineResourceBundle.getInstance().dispose();
+
         // Dispose the progress frame to ensure we're quitting properly
         this.progressDialog.dispose();
 
