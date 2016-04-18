@@ -44,6 +44,11 @@ public class VoxelTex {
     public static final int ENGINE_VERSION_CODE = 1;
 
     /**
+     * VoxelTex engine instance.
+     */
+    private static VoxelTexEngine engine;
+
+    /**
      * Progress dialog, used to show status outside of the engine window.
      */
     private static ProgressDialog progressDialog;
@@ -69,10 +74,23 @@ public class VoxelTex {
         // Create and show the progress dialog
         progressDialog = new ProgressDialog(null, "VoxelTex Engine", false);
         progressDialog.setVisible(true);
-        progressDialog.setStatus("Initializing VoxelTex engine...");
 
-        // Define the engine variable
-        VoxelTexEngine engine;
+        // Initialize the VoxelTex engine
+        initEngine();
+
+        // Start the VoxelTex engine
+        startEngine();
+
+        // Stop and exit the test environment
+        exit();
+    }
+
+    /**
+     * Initialize the VoxelTex engine.
+     */
+    private static void initEngine() {
+        // Show status
+        progressDialog.setStatus("Initializing VoxelTex engine...");
 
         // Create a VoxelTex engine instance
         engine = new VoxelTexEngine();
@@ -82,7 +100,12 @@ public class VoxelTex {
 
         // Initialize the engine
         engine.init(false);
+    }
 
+    /**
+     * Start the VoxelTex engine after it has been initialized.
+     */
+    private static void startEngine() {
         // Manually load the engine resources...
         progressDialog.setStatus("Loading engine resources...");
         engine.load();
@@ -96,7 +119,12 @@ public class VoxelTex {
 
         // Run the engine
         engine.loop();
+    }
 
+    /**
+     * Stop and exit the test environment.
+     */
+    private static void exit() {
         // Exiting, show the progress dialog
         progressDialog.setStatus("Quitting VoxelTex test environment...");
         progressDialog.setVisible(true);
