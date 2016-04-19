@@ -52,10 +52,12 @@ public class DemoScene extends Scene {
         // Demo code here:
 
 
+        // Create a camera, which is required to see anything in a scene
         FpsCameraPrefab camera = new FpsCameraPrefab();
         camera.getTransform().setPosition(0, 2, 3);
         addGameObject(camera);
 
+        // Create a row of boxes which emit light
         for (int i = 0; i < 15; i++) {
             CubePrefab box = new CubePrefab();
             box.getTransform().setPosition(i, 0.5f, 0);
