@@ -162,7 +162,7 @@ levels:
             y: "2"
       keyB:
         type: key
-        dataValue: 1
+        dataValue: 4
         posSet:
           left:
             x: "-1"
@@ -172,7 +172,7 @@ levels:
             y: "1"
       lockB:
         type: lock
-        dataValue: 1
+        dataValue: 4
         posSet:
           bottom:
             x: "0"

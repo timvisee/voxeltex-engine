@@ -44,7 +44,12 @@ public enum LockType {
     /**
      * Yellow type.
      */
-    YELLOW(new Color(1, 1, 0));
+    YELLOW(new Color(1, 1, 0)),
+
+    /**
+     * Purple type.
+     */
+    PURPLE(new Color(141 / 256f, 56 / 256f, 201 / 256f));
 
     /**
      * Type color.
