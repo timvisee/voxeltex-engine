@@ -218,7 +218,7 @@ public class GameScene extends Scene {
         float delay = 0.0f;
 
         // Reset the camera target
-        this.smoothCameraFollow.setTarget(null);
+        this.smoothCameraFollow.resetTarget();
 
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)

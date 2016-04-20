@@ -201,7 +201,14 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      * @param target Target game object by it's component.
      */
     public void setTarget(AbstractComponent target) {
-        this.target = target.getOwner();
+        setTarget(target.getOwner());
+    }
+
+    /**
+     * Reset the target game object that is being followed.
+     */
+    public void resetTarget() {
+        this.target = null;
     }
 
     /**
