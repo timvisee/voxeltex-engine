@@ -22,6 +22,7 @@
 
 package com.timvisee.voxeltex.component.follow;
 
+import com.timvisee.voxeltex.component.AbstractComponent;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.global.Time;
@@ -192,6 +193,15 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      */
     public void setTarget(AbstractGameObject target) {
         this.target = target;
+    }
+
+    /**
+     * Set the target game object that is being followed by it's component.
+     *
+     * @param target Target game object by it's component.
+     */
+    public void setTarget(AbstractComponent target) {
+        this.target = target.getOwner();
     }
 
     /**
