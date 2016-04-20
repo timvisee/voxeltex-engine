@@ -20,56 +20,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.voxeltex;
 
-import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
-import com.timvisee.keybarricade.game.scene.GameScene;
-import com.timvisee.voxeltex.gameobject.GameObject;
-
-public class PlayerPrefab extends GameObject {
-
-    /**
-     * Game object name.
-     */
-    private static final String GAME_OBJECT_NAME = "PlayerPrefab";
-
-    /**
-     * Player controller component instance.
-     */
-    private final PlayerControllerComponent playerController;
-
-    /**
-     * Constructor.
-     *
-     * @param gameScene Game scene instance.
-     */
-    public PlayerPrefab(GameScene gameScene) {
-        this(GAME_OBJECT_NAME, gameScene);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param name Game object name.
-     * @param gameScene Game scene instance.
-     */
-    public PlayerPrefab(String name, GameScene gameScene) {
-        // Construct the parent with the proper size
-        super(name);
-
-        // Create the player controller
-        this.playerController = new PlayerControllerComponent(gameScene);
-
-        // Add the player controller
-        addComponent(this.playerController);
-    }
-
-    /**
-     * Get the player controller instance.
-     *
-     * @return Player controller instance.
-     */
-    public PlayerControllerComponent getPlayerController() {
-        return this.playerController;
-    }
+/**
+ * Defines the enabled state.
+ */
+public enum EnabledState {
+    UNDEFINED,
+    ENABLED,
+    DISABLED
 }

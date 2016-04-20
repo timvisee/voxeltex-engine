@@ -36,9 +36,9 @@ public abstract class BaseComponent extends AbstractComponent {
 
     @Override
     public void start() {
-        // Call the onEnable method
-        if(isEnabled())
-            onEnable();
+        // Enable the component if it's enabled state is yet undefined
+        if(isEnabledUndefined())
+            setEnabled(true);
     }
 
     @Override

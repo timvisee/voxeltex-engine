@@ -265,15 +265,19 @@ public class LevelBuilder {
         y *= -1;
 
         // Create a wall
-        if(rawType.trim().equalsIgnoreCase("wall")){
+        if(rawType.trim().equalsIgnoreCase("wall"))
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, this.delay += 0.02f, -1f));
-        }
 
         // Create a player and store the player controller component reference
-        else if(rawType.trim().equals("playerController")) {
+        else if(rawType.trim().equals("player")) {
+            // Create the player prefab and set it's position
             PlayerPrefab playerObject = new PlayerPrefab(this.gameScene);
             playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
+
+            // Add the player prefab to the level root
             this.levelRoot.addChild(playerObject);
+
+            // Store the player controller component reference of the player
             this.playerController = playerObject.getPlayerController();
 
             // Set the level hint

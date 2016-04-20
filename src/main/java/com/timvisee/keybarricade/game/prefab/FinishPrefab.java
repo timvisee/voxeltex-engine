@@ -91,7 +91,7 @@ public class FinishPrefab extends QuadPrefab {
             return;
 
         // Make sure a player controller reference is given
-        if(this.playerController != null) {
+        if(this.playerController != null && this.playerController.getOwner() != null) {
             // Calculate the distance (squared) to the player controller
             float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 

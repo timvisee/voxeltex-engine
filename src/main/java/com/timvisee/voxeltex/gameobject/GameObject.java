@@ -281,9 +281,9 @@ public class GameObject extends AbstractGameObject {
         for(int i = 0, size = this.components.size(); i < size; i++)
             this.components.get(i).start();
 
-        // Call the onEnable method
-        if(isEnabled())
-            onEnable();
+        // Enable the game object if it's enabled state is yet undefined
+        if(isEnabledUndefined())
+            setEnabled(true);
     }
 
     @Override
