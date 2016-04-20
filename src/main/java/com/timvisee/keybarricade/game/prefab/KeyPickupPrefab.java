@@ -24,6 +24,7 @@ package com.timvisee.keybarricade.game.prefab;
 
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -45,9 +46,9 @@ public class KeyPickupPrefab extends GameObject {
     private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
+     * Reference to the player controller component. Used to calculate whether to pickup the key or not.
      */
-    private PlayerPrefab player;
+    private PlayerControllerComponent playerController;
 
     /**
      * Key for the given lock lockType.
@@ -66,26 +67,26 @@ public class KeyPickupPrefab extends GameObject {
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(PlayerPrefab player, LockType lockType) {
-        this(GAME_OBJECT_NAME, player, lockType);
+    public KeyPickupPrefab(PlayerControllerComponent playerController, LockType lockType) {
+        this(GAME_OBJECT_NAME, playerController, lockType);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(String name, PlayerPrefab player, LockType lockType) {
+    public KeyPickupPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player and lockType
-        this.player = player;
+        // Set the player controller component and lockType
+        this.playerController = playerController;
         this.lockType = lockType;
 
         // Rotate the base object around
@@ -114,33 +115,33 @@ public class KeyPickupPrefab extends GameObject {
         // Call the super
         super.update();
 
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+        // Make sure a player controller reference is given
+        if(this.playerController != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
-            // Determine whether to pickup the item, trigger the player if that's the case
+            // Determine whether to pickup the item, trigger the player controller if that's the case
             if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
-                this.player.onTrigger(this);
+                this.playerController.onTrigger(this);
         }
     }
 
     /**
-     * Get the attached player.
+     * Get the attached player controller component.
      *
-     * @return Attached player.
+     * @return Attached player controller component.
      */
-    public PlayerPrefab getPlayer() {
-        return this.player;
+    public PlayerControllerComponent getPlayerController() {
+        return this.playerController;
     }
 
     /**
-     * Set the attached player.
+     * Set the attached player controller component.
      *
-     * @param player Player.
+     * @param playerController Player controller component.
      */
-    public void setPlayer(PlayerPrefab player) {
-        this.player = player;
+    public void setPlayerController(PlayerControllerComponent playerController) {
+        this.playerController = playerController;
     }
 
     /**

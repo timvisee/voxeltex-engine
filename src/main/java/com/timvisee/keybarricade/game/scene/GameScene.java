@@ -207,7 +207,7 @@ public class GameScene extends Scene {
         builder.build(delay);
 
         // Set the camera target to the player
-        this.smoothCameraFollow.setTarget(builder.getPlayer());
+        this.smoothCameraFollow.setTarget(builder.getPlayerController().getOwner());
     }
 
     /**

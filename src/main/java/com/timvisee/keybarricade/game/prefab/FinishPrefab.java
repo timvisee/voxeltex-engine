@@ -23,6 +23,7 @@
 package com.timvisee.keybarricade.game.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 
 public class FinishPrefab extends QuadPrefab {
@@ -38,9 +39,9 @@ public class FinishPrefab extends QuadPrefab {
     private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
+     * Reference to player controller component. Used to calculate whether to pickup the key or not.
      */
-    private PlayerPrefab player;
+    private PlayerControllerComponent playerController;
 
     /**
      * Flag to ensure the finish is only triggered once.
@@ -57,24 +58,24 @@ public class FinishPrefab extends QuadPrefab {
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param playerController Player reference.
      */
-    public FinishPrefab(PlayerPrefab player) {
-        this(GAME_OBJECT_NAME, player);
+    public FinishPrefab(PlayerControllerComponent playerController) {
+        this(GAME_OBJECT_NAME, playerController);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      */
-    public FinishPrefab(String name, PlayerPrefab player) {
+    public FinishPrefab(String name, PlayerControllerComponent playerController) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player instance
-        this.player = player;
+        // Set the player controller component reference
+        this.playerController = playerController;
 
         // Set the finish material
         setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
@@ -89,18 +90,18 @@ public class FinishPrefab extends QuadPrefab {
         if(this.triggered)
             return;
 
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+        // Make sure a player controller reference is given
+        if(this.playerController != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
-            // Determine whether to pickup the item, trigger the player if that's the case
+            // Determine whether to pickup the item, trigger the player controller if that's the case
             if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
                 // Set the triggered flag
                 this.triggered = true;
 
-                // Trigger the player
-                this.player.onTrigger(this);
+                // Trigger the player controller
+                this.playerController.onTrigger(this);
             }
         }
     }

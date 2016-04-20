@@ -25,6 +25,7 @@ package com.timvisee.keybarricade.game.prefab;
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -50,9 +51,9 @@ public class PadlockPrefab extends GameObject {
     private static final float PICKUP_TRIGGER_DISTANCE = 1.1f;
 
     /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
+     * Reference to the player controller component. Used to calculate whether to pickup the key or not.
      */
-    private PlayerPrefab player;
+    private PlayerControllerComponent playerController;
 
     /**
      * Force field.
@@ -81,28 +82,28 @@ public class PadlockPrefab extends GameObject {
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      *
      * @param lockType Lock lockType.
      */
-    public PadlockPrefab(PlayerPrefab player, LockType lockType) {
-        this(GAME_OBJECT_NAME, player, lockType);
+    public PadlockPrefab(PlayerControllerComponent playerController, LockType lockType) {
+        this(GAME_OBJECT_NAME, playerController, lockType);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      *
      * @param lockType Lock lockType.
      */
-    public PadlockPrefab(String name, PlayerPrefab player, LockType lockType) {
+    public PadlockPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player and lockType
-        this.player = player;
+        // Set the player controller component and lockType
+        this.playerController = playerController;
         this.lockType = lockType;
 
         // Generate the padlock material
@@ -138,18 +139,18 @@ public class PadlockPrefab extends GameObject {
         // Call the super
         super.update();
 
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+        // Make sure a player controller reference is given
+        if(this.playerController != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
-            // Determine whether to pickup the item, trigger the player if that's the case
+            // Determine whether to pickup the item, trigger the player controller if that's the case
             if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE && !this.unlocked) {
-                // Trigger the player
-                this.player.onTrigger(this);
+                // Trigger the playerController
+                this.playerController.onTrigger(this);
 
-                // Make sure the player has the correct key type
-                if(this.lockType.equals(this.player.getPickupLockType())) {
+                // Make sure the player controller has the correct key type
+                if(this.lockType.equals(this.playerController.getPickupLockType())) {
                     // Decay the padlock
                     addComponent(new ObjectDecayAnimatorComponent(0.0f));
 
@@ -160,7 +161,7 @@ public class PadlockPrefab extends GameObject {
 
             // Calculate the force field intensity
             float forceFieldIntensity = 0;
-            if(this.player.getPickupLockType() != this.lockType && !this.unlocked)
+            if(this.playerController.getPickupLockType() != this.lockType && !this.unlocked)
                 forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.45f), 0);
 
             // Update the force field intensity
@@ -169,21 +170,21 @@ public class PadlockPrefab extends GameObject {
     }
 
     /**
-     * Get the attached player.
+     * Get the attached player controller component.
      *
-     * @return Attached player.
+     * @return Attached player controller component.
      */
-    public PlayerPrefab getPlayer() {
-        return this.player;
+    public PlayerControllerComponent getPlayerController() {
+        return this.playerController;
     }
 
     /**
-     * Set the attached player.
+     * Set the attached player controller component.
      *
-     * @param player Player.
+     * @param playerController Player controller component.
      */
-    public void setPlayer(PlayerPrefab player) {
-        this.player = player;
+    public void setPlayerController(PlayerControllerComponent playerController) {
+        this.playerController = playerController;
     }
 
     /**
