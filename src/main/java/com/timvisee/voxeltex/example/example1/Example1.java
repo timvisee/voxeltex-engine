@@ -20,25 +20,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.demo;
+package com.timvisee.voxeltex.example.example1;
 
-public class Demo {
+public class Example1 {
 
     /**
      * Application name.
      */
-    public static String APP_NAME = "Key Barricade";
+    public static String APP_NAME = "VoxelTex - Example One";
 
     /**
      * Application version name.
      */
     public static String APP_VERSION_NAME = "0.1";
-
-    /**
-     * Application version code.
-     * This integer should be increased by one each version.
-     */
-    public static int APP_VERSION_CODE = 1;
 
     /**
      * YamlWrapperExample method, called on start.
@@ -47,7 +41,7 @@ public class Demo {
      */
     public static void main(String[] args) {
         // Load the app
-        DemoApp app = new DemoApp();
+        Example1App app = new Example1App();
 
         // Initialize the app
         app.init();
