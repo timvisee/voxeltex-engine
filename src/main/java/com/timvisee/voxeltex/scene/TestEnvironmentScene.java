@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.scene;
 
-import com.timvisee.keybarricade.game.LockType;
-import com.timvisee.keybarricade.game.prefab.entity.KeyPickupPrefab;
-import com.timvisee.keybarricade.game.prefab.entity.LampPrefab;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.prefab.KeyPickupPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
 import com.timvisee.voxeltex.component.drawable.line.AxisDrawComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;

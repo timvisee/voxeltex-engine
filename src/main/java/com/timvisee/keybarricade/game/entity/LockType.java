@@ -20,79 +20,77 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab.entity;
+package com.timvisee.keybarricade.game.entity;
 
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
-import com.timvisee.voxeltex.light.Light;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 import com.timvisee.voxeltex.util.Color;
-import org.joml.Vector2f;
 
-public class LampPrefab extends QuadPrefab {
+public enum LockType {
 
     /**
-     * Game object name.
+     * Green type.
      */
-    private static final String GAME_OBJECT_NAME = "LampPrefab";
+    GREEN(new Color(0, 1, 0)),
 
     /**
-     * Color.
+     * Red type.
+     */
+    RED(new Color(1, 0, 0)),
+
+    /**
+     * Light blue type.
+     */
+    LIGHT_BLUE(new Color(0, 0.746f, 1)),
+
+    /**
+     * Yellow type.
+     */
+    YELLOW(new Color(1, 1, 0)),
+
+    /**
+     * Purple type.
+     */
+    PURPLE(new Color(141 / 256f, 56 / 256f, 201 / 256f));
+
+    /**
+     * Type color.
      */
     private Color color;
 
     /**
      * Constructor.
      *
-     * @param color Lamp color.
+     * @param color Color.
      */
-    public LampPrefab(Color color) {
-        this(GAME_OBJECT_NAME, color);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param name Game object name.
-     * @param color Lamp color.
-     */
-    public LampPrefab(String name, Color color) {
-        // Construct the parent with the proper size
-        super(name, new Vector2f(0.3f));
-
-        // Set the color
+    LockType(Color color) {
         this.color = color;
-
-        // Generate the padlock material
-        Material lockMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_LAMP);
-
-        // Set the material
-        setMaterial(lockMaterial);
-
-        // Create a child game object that holds the light
-        GameObject padlockLightObject = new GameObject("LampLight");
-        padlockLightObject.getTransform().getPosition().y = 0.5f;
-        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, getColor().toVector3f(), 0.3f));
-        addChild(padlockLightObject);
     }
 
     /**
-     * Get the color.
+     * Get the type color.
      *
-     * @return Lamp color.
+     * @return Type color.
      */
     public Color getColor() {
         return this.color;
     }
 
     /**
-     * Set the color.
+     * Get a copy of the type color.
      *
-     * @param color Lamp color.
+     * @return Type color copy.
      */
-    public void setColor(Color color) {
-        this.color = color;
+    public Color getColorCopy() {
+        return new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), this.color.getAlpha());
+    }
+
+    /**
+     * Get the correct lock type based on the given data value.
+     *
+     * @param dataValue Data value.
+     *
+     * @return Lock type.
+     */
+    public static LockType fromDataValue(int dataValue) {
+        return values()[dataValue];
     }
 }

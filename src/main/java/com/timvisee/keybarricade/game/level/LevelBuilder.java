@@ -22,10 +22,10 @@
 
 package com.timvisee.keybarricade.game.level;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import com.timvisee.keybarricade.game.component.entity.PlayerControllerComponent;
-import com.timvisee.keybarricade.game.prefab.entity.*;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.entity.prefab.*;
 import com.timvisee.keybarricade.game.scene.GameScene;
 import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
 import com.timvisee.voxeltex.gameobject.GameObject;

@@ -20,50 +20,50 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab.entity;
+package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
-import com.timvisee.voxeltex.material.Material;
+import com.timvisee.keybarricade.game.entity.component.FinishControllerComponent;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import org.joml.Vector2f;
 
-public class GroundPrefab extends QuadPrefab {
+public class FinishPrefab extends QuadPrefab {
+
+    /**
+     * Game object name.
+     */
+    private static final String GAME_OBJECT_NAME = "FinishPrefab";
 
     /**
      * Constructor.
      */
-    public GroundPrefab() {
-        this(50.0f);
+    public FinishPrefab() {
+        this(GAME_OBJECT_NAME, null);
     }
 
     /**
      * Constructor.
      *
-     * @param size Ground size.
+     * @param playerController Player reference.
      */
-    public GroundPrefab(float size) {
-        this(new Vector2f(size));
+    public FinishPrefab(PlayerControllerComponent playerController) {
+        this(GAME_OBJECT_NAME, playerController);
     }
 
     /**
      * Constructor.
      *
-     * @param size Ground size.
+     * @param name Game object name.
+     * @param playerController Player controller component reference.
      */
-    public GroundPrefab(Vector2f size) {
+    public FinishPrefab(String name, PlayerControllerComponent playerController) {
         // Construct the parent with the proper size
-        super("GroundPrefab", size);
+        super(name);
 
-        // Create a ground surface material
-        System.out.println("Generating " + this + " surface material...");
-        Material groundMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_GROUND);
-        groundMaterial.getTiling().set(size.x / 8.0f);
+        // Create and add the finish controller
+        addComponent(new FinishControllerComponent(playerController));
 
-        // Set the quad material to the ground
-        setMaterial(groundMaterial);
-
-        // Add a kinematic rigidbody for collision
-        addComponent(new RigidbodyComponent(true));
+        // Set the finish material
+        setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
     }
 }

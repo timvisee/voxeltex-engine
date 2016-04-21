@@ -20,17 +20,19 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.component.entity;
+package com.timvisee.keybarricade.game.entity.component;
 
-import com.timvisee.keybarricade.game.LockType;
+import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.entity.LockType;
 import com.timvisee.voxeltex.component.BaseComponent;
+import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 
-public class KeyPickupControllerComponent extends BaseComponent {
+public class PadlockControllerComponent extends BaseComponent {
 
     /**
      * Distance trigger.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
+    private static final float PICKUP_TRIGGER_DISTANCE = 1.1f;
 
     /**
      * Reference to the player controller component. Used to calculate whether to pickup the key or not.
@@ -38,9 +40,19 @@ public class KeyPickupControllerComponent extends BaseComponent {
     private PlayerControllerComponent playerController;
 
     /**
+     * Force field.
+     */
+    private CubePrefab forceField;
+
+    /**
      * Key for the given lock lockType.
      */
     private LockType lockType;
+
+    /**
+     * True if this lock has been unlocked.
+     */
+    private boolean unlocked = false;
 
     /**
      * Constructor.
@@ -48,8 +60,21 @@ public class KeyPickupControllerComponent extends BaseComponent {
      * @param playerController Player controller component reference.
      * @param lockType Lock type.
      */
-    public KeyPickupControllerComponent(PlayerControllerComponent playerController, LockType lockType) {
+    public PadlockControllerComponent(PlayerControllerComponent playerController, LockType lockType) {
         this.playerController = playerController;
+        this.lockType = lockType;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param playerController Player controller component reference.
+     * @param forceField Force field game object.
+     * @param lockType Lock type.
+     */
+    public PadlockControllerComponent(PlayerControllerComponent playerController, CubePrefab forceField, LockType lockType) {
+        this.playerController = playerController;
+        this.forceField = forceField;
         this.lockType = lockType;
     }
 
@@ -64,8 +89,28 @@ public class KeyPickupControllerComponent extends BaseComponent {
             float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
             // Determine whether to pickup the item, trigger the player controller if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE && !this.unlocked) {
+                // Trigger the playerController
                 this.playerController.onTrigger(getOwner());
+
+                // Make sure the player controller has the correct key type
+                if(this.lockType.equals(this.playerController.getPickupLockType())) {
+                    // Decay the padlock
+                    // TODO: Remove getOwner() reference getter
+                    getOwner().addComponent(new ObjectDecayAnimatorComponent(0.0f));
+
+                    // Set the unlocked flag
+                    this.unlocked = true;
+                }
+            }
+
+            // Calculate the force field intensity
+            float forceFieldIntensity = 0;
+            if(this.playerController.getPickupLockType() != this.lockType && !this.unlocked)
+                forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.45f), 0);
+
+            // Update the force field intensity
+            this.forceField.getMeshRenderer().setAlpha(forceFieldIntensity);
         }
     }
 
@@ -85,6 +130,24 @@ public class KeyPickupControllerComponent extends BaseComponent {
      */
     public void setPlayerController(PlayerControllerComponent playerController) {
         this.playerController = playerController;
+    }
+
+    /**
+     * Get the force field game object.
+     *
+     * @return Force field game object.
+     */
+    public CubePrefab getForceField() {
+        return this.forceField;
+    }
+
+    /**
+     * Set the force field game object.
+     *
+     * @param forceField Force field game object.
+     */
+    public void setForceField(CubePrefab forceField) {
+        this.forceField = forceField;
     }
 
     /**

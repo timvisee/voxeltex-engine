@@ -20,50 +20,79 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab.entity;
+package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.keybarricade.game.component.entity.FinishControllerComponent;
-import com.timvisee.keybarricade.game.component.entity.PlayerControllerComponent;
+import com.timvisee.voxeltex.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.util.Color;
+import org.joml.Vector2f;
 
-public class FinishPrefab extends QuadPrefab {
+public class LampPrefab extends QuadPrefab {
 
     /**
      * Game object name.
      */
-    private static final String GAME_OBJECT_NAME = "FinishPrefab";
+    private static final String GAME_OBJECT_NAME = "LampPrefab";
 
     /**
-     * Constructor.
+     * Color.
      */
-    public FinishPrefab() {
-        this(GAME_OBJECT_NAME, null);
-    }
+    private Color color;
 
     /**
      * Constructor.
      *
-     * @param playerController Player reference.
+     * @param color Lamp color.
      */
-    public FinishPrefab(PlayerControllerComponent playerController) {
-        this(GAME_OBJECT_NAME, playerController);
+    public LampPrefab(Color color) {
+        this(GAME_OBJECT_NAME, color);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param playerController Player controller component reference.
+     * @param color Lamp color.
      */
-    public FinishPrefab(String name, PlayerControllerComponent playerController) {
+    public LampPrefab(String name, Color color) {
         // Construct the parent with the proper size
-        super(name);
+        super(name, new Vector2f(0.3f));
 
-        // Create and add the finish controller
-        addComponent(new FinishControllerComponent(playerController));
+        // Set the color
+        this.color = color;
 
-        // Set the finish material
-        setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
+        // Generate the padlock material
+        Material lockMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_LAMP);
+
+        // Set the material
+        setMaterial(lockMaterial);
+
+        // Create a child game object that holds the light
+        GameObject padlockLightObject = new GameObject("LampLight");
+        padlockLightObject.getTransform().getPosition().y = 0.5f;
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, getColor().toVector3f(), 0.3f));
+        addChild(padlockLightObject);
+    }
+
+    /**
+     * Get the color.
+     *
+     * @return Lamp color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the color.
+     *
+     * @param color Lamp color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

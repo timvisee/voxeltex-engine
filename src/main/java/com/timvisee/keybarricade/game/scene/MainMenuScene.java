@@ -23,12 +23,12 @@
 package com.timvisee.keybarricade.game.scene;
 
 import com.timvisee.keybarricade.KeyBarricade;
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.component.MainMenuSpawnerComponent;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import com.timvisee.keybarricade.game.prefab.entity.BoxPrefab;
-import com.timvisee.keybarricade.game.prefab.entity.GroundPrefab;
-import com.timvisee.keybarricade.game.prefab.entity.LampPrefab;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.prefab.BoxPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.camera.CameraComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;

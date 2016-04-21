@@ -22,7 +22,7 @@
 
 package com.timvisee.keybarricade.demo;
 
-import com.timvisee.keybarricade.game.prefab.entity.GroundPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.prefab.camera.FpsCameraPrefab;

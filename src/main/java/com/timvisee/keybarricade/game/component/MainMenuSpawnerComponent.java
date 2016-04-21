@@ -22,11 +22,11 @@
 
 package com.timvisee.keybarricade.game.component;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import com.timvisee.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import com.timvisee.keybarricade.game.prefab.entity.BoxPrefab;
-import com.timvisee.keybarricade.game.prefab.entity.LampPrefab;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.prefab.BoxPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.LampPrefab;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.global.Time;
 import org.joml.Vector3f;

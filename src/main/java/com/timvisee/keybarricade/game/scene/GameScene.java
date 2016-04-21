@@ -24,9 +24,9 @@ package com.timvisee.keybarricade.game.scene;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.keybarricade.game.level.LevelBuilder;
 import com.timvisee.keybarricade.game.level.LevelManager;
-import com.timvisee.keybarricade.game.prefab.entity.GroundPrefab;
 import com.timvisee.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;

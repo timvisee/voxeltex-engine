@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab.entity;
+package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;

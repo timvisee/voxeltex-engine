@@ -20,77 +20,58 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game;
+package com.timvisee.keybarricade.game.entity.component;
 
-import com.timvisee.voxeltex.util.Color;
+import com.timvisee.voxeltex.component.BaseComponent;
 
-public enum LockType {
-
-    /**
-     * Green type.
-     */
-    GREEN(new Color(0, 1, 0)),
+public class FinishControllerComponent extends BaseComponent {
 
     /**
-     * Red type.
+     * Distance trigger.
      */
-    RED(new Color(1, 0, 0)),
+    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Light blue type.
+     * Reference to player controller component. Used to calculate whether to pickup the key or not.
      */
-    LIGHT_BLUE(new Color(0, 0.746f, 1)),
+    private PlayerControllerComponent controller;
 
     /**
-     * Yellow type.
+     * Flag to ensure the finish is only triggered once.
      */
-    YELLOW(new Color(1, 1, 0)),
-
-    /**
-     * Purple type.
-     */
-    PURPLE(new Color(141 / 256f, 56 / 256f, 201 / 256f));
-
-    /**
-     * Type color.
-     */
-    private Color color;
+    private boolean triggered = false;
 
     /**
      * Constructor.
      *
-     * @param color Color.
+     * @param playerController Player controller component reference.
      */
-    LockType(Color color) {
-        this.color = color;
+    public FinishControllerComponent(PlayerControllerComponent playerController) {
+        this.controller = playerController;
     }
 
-    /**
-     * Get the type color.
-     *
-     * @return Type color.
-     */
-    public Color getColor() {
-        return this.color;
-    }
+    @Override
+    public void create() { }
 
-    /**
-     * Get a copy of the type color.
-     *
-     * @return Type color copy.
-     */
-    public Color getColorCopy() {
-        return new Color(this.color.getRed(), this.color.getGreen(), this.color.getBlue(), this.color.getAlpha());
-    }
+    @Override
+    public void update() {
+        // Make sure the finish hasn't been triggered before
+        if(this.triggered)
+            return;
 
-    /**
-     * Get the correct lock type based on the given data value.
-     *
-     * @param dataValue Data value.
-     *
-     * @return Lock type.
-     */
-    public static LockType fromDataValue(int dataValue) {
-        return values()[dataValue];
+        // Make sure a player controller reference is given
+        if(this.controller != null && this.controller.getOwner() != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.controller.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+
+            // Determine whether to pickup the item, trigger the player controller if that's the case
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
+                // Set the triggered flag
+                this.triggered = true;
+
+                // Trigger the player controller
+                this.controller.onTrigger(getOwner());
+            }
+        }
     }
 }
