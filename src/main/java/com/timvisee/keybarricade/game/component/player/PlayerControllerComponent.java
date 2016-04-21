@@ -172,7 +172,7 @@ public class PlayerControllerComponent extends BaseComponent {
             KeyPickupPrefab key = (KeyPickupPrefab) gameObject;
 
             // Set the currently picked up lock type
-            setPickupLockType(key.getLockType());
+            setPickupLockType(key.getKeyPickupController().getLockType());
 
             // Decay the key object
             key.addComponent(new ObjectDecayAnimatorComponent(0f));

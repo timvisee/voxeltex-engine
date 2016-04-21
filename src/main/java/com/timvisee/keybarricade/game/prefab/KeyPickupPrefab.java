@@ -24,6 +24,7 @@ package com.timvisee.keybarricade.game.prefab;
 
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.component.keyPickup.KeyPickupControllerComponent;
 import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -41,19 +42,9 @@ public class KeyPickupPrefab extends GameObject {
     private static final String GAME_OBJECT_NAME = "KeyPickupPrefab";
 
     /**
-     * Distance trigger.
+     * Key pickup controller component instance.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
-
-    /**
-     * Reference to the player controller component. Used to calculate whether to pickup the key or not.
-     */
-    private PlayerControllerComponent playerController;
-
-    /**
-     * Key for the given lock lockType.
-     */
-    private LockType lockType;
+    private final KeyPickupControllerComponent keyPickupController;
 
     /**
      * Constructor.
@@ -85,9 +76,8 @@ public class KeyPickupPrefab extends GameObject {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player controller component and lockType
-        this.playerController = playerController;
-        this.lockType = lockType;
+        // Create and add the key pickup controller component
+        addComponent(this.keyPickupController = new KeyPickupControllerComponent(playerController, lockType));
 
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
@@ -110,55 +100,12 @@ public class KeyPickupPrefab extends GameObject {
         addChild(keyLightObject);
     }
 
-    @Override
-    public synchronized void update() {
-        // Call the super
-        super.update();
-
-        // Make sure a player controller reference is given
-        if(this.playerController != null && this.playerController.getOwner() != null) {
-            // Calculate the distance (squared) to the player controller
-            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
-
-            // Determine whether to pickup the item, trigger the player controller if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
-                this.playerController.onTrigger(this);
-        }
-    }
-
     /**
-     * Get the attached player controller component.
+     * Get the key pickup controller component instance.
      *
-     * @return Attached player controller component.
+     * @return Key pickup controller component.
      */
-    public PlayerControllerComponent getPlayerController() {
-        return this.playerController;
-    }
-
-    /**
-     * Set the attached player controller component.
-     *
-     * @param playerController Player controller component.
-     */
-    public void setPlayerController(PlayerControllerComponent playerController) {
-        this.playerController = playerController;
-    }
-
-    /**
-     * Get the lock lockType.
-     *
-     * @return Lock lockType.
-     */
-    public LockType getLockType() {
-        return this.lockType;
-    }
-
-    /**
-     * Set the lock lockType.
-     *
-     * @param lockType Lock lockType.
-     */
-    public void setLockType(LockType lockType) {
-        this.lockType = lockType;
+    public KeyPickupControllerComponent getKeyPickupController() {
+        return this.keyPickupController;
     }
 }
