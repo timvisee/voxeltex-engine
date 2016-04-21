@@ -84,7 +84,8 @@ Here we add the Renderer and Movement components to the game object to make it a
 Make as many components for your own project as you like.
 You can attach these to any game object you'd like, which makes your code reusable, even over multiple projects.
 
-And of course, you can add a `LightSourceComponent` component to make the player emit light!
+And of course, if you'd like your player to emit light... All you have to do is add a `LightSourceComponent` component.
+That might not be the _brightest_ idea for a player, but it's fun for sure.
 
 ##### Camera
 In a scene, it's required to have a camera. A camera is a component (the `CameraComponent`) you can add to any game object.
