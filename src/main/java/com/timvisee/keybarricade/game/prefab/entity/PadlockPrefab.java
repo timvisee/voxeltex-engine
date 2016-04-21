@@ -20,38 +20,42 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab.entity;
 
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.keybarricade.game.component.keyPickup.KeyPickupControllerComponent;
-import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.component.entity.PadlockControllerComponent;
+import com.timvisee.keybarricade.game.component.entity.PlayerControllerComponent;
+import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.texture.Texture;
+import com.timvisee.voxeltex.util.Color;
+import org.joml.Vector3f;
 
-public class KeyPickupPrefab extends GameObject {
+public class PadlockPrefab extends GameObject {
 
     /**
      * Game object name.
      */
-    private static final String GAME_OBJECT_NAME = "KeyPickupPrefab";
+    private static final String GAME_OBJECT_NAME = "PadlockPickupPrefab";
 
     /**
-     * Key pickup controller component instance.
+     * Padlock controller component instance.
      */
-    private final KeyPickupControllerComponent controller;
+    private final PadlockControllerComponent controller;
 
     /**
      * Constructor.
      *
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(LockType lockType) {
+    public PadlockPrefab(LockType lockType) {
         this(GAME_OBJECT_NAME, null, lockType);
     }
 
@@ -59,9 +63,10 @@ public class KeyPickupPrefab extends GameObject {
      * Constructor.
      *
      * @param playerController Player controller component reference.
+     *
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(PlayerControllerComponent playerController, LockType lockType) {
+    public PadlockPrefab(PlayerControllerComponent playerController, LockType lockType) {
         this(GAME_OBJECT_NAME, playerController, lockType);
     }
 
@@ -70,42 +75,44 @@ public class KeyPickupPrefab extends GameObject {
      *
      * @param name Game object name.
      * @param playerController Player controller component reference.
+     *
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
+    public PadlockPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Create and add the key pickup controller component
-        addComponent(this.controller = new KeyPickupControllerComponent(playerController, lockType));
+        // Create and add the padlock controller component
+        addComponent(this.controller = new PadlockControllerComponent(playerController, lockType));
 
-        // Rotate the base object around
-        getTransform().getAngularVelocity().y = 0.6f;
+        // Generate the padlock material
+        Material lockMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
 
-        // Generate the key material
-        Material keyMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
+        // Add a collider
+        addComponent(new BoxColliderComponent(new Vector3f(1f, 1f, 4f)));
 
-        // Create a child game object that holds the key model
-        GameObject keyModelObject = new GameObject("KeyPickupModel");
-        keyModelObject.addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_KEY));
-        keyModelObject.addComponent(new MeshRendererComponent(keyMaterial));
-        keyModelObject.getTransform().getPosition().y = 0.2f;
-        keyModelObject.getTransform().getAngularVelocity().x = 2f;
-        addChild(keyModelObject);
+        // Create a child game object that holds the padlock model
+        GameObject padlockModelObject = new GameObject("PadlockRenderer");
+        padlockModelObject.addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_PADLOCK));
+        padlockModelObject.addComponent(new MeshRendererComponent(lockMaterial));
+        padlockModelObject.getTransform().getPosition().y = 0.05f;
+        padlockModelObject.getTransform().getAngularVelocity().y = 0.6f;
+        addChild(padlockModelObject);
 
-        // Create a child game object that holds the key light
-        GameObject keyLightObject = new GameObject("KeyPickupModel");
-        keyLightObject.getTransform().getPosition().y = 0.60f;
-        keyLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.2f));
-        addChild(keyLightObject);
-    }
+        // Create a child game object that holds the force field
+        CubePrefab forceField = new CubePrefab("ForceField");
+        forceField.getTransform().getPosition().set(0, 0.5f, 0);
+        forceField.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
+        forceField.getMeshRenderer().setAlpha(0f);
+        addChild(forceField);
 
-    /**
-     * Get the key pickup controller component instance.
-     *
-     * @return Key pickup controller component.
-     */
-    public KeyPickupControllerComponent getKeyPickupController() {
-        return this.controller;
+        // Set the padlock controller component force field instance
+        this.controller.setForceField(forceField);
+
+        // Create a child game object that holds the padlock light
+        GameObject padlockLightObject = new GameObject("PadlockLight");
+        padlockLightObject.getTransform().getPosition().y = 0.75f;
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.2f));
+        addChild(padlockLightObject);
     }
 }

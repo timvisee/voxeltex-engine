@@ -20,13 +20,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.component.player;
+package com.timvisee.keybarricade.game.component.entity;
 
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import com.timvisee.keybarricade.game.prefab.FinishPrefab;
-import com.timvisee.keybarricade.game.prefab.KeyPickupPrefab;
+import com.timvisee.keybarricade.game.prefab.entity.FinishPrefab;
+import com.timvisee.keybarricade.game.prefab.entity.KeyPickupPrefab;
 import com.timvisee.keybarricade.game.scene.GameScene;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;

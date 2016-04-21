@@ -20,11 +20,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.component.padlock;
+package com.timvisee.keybarricade.game.component.entity;
 
 import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
-import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 

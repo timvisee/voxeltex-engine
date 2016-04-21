@@ -20,12 +20,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.component.finish;
+package com.timvisee.keybarricade.game.component.entity;
 
-import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.voxeltex.component.BaseComponent;
 
-public class FinishControllerComponent extends BaseComponent {
+public class KeyPickupControllerComponent extends BaseComponent {
 
     /**
      * Distance trigger.
@@ -33,46 +33,75 @@ public class FinishControllerComponent extends BaseComponent {
     private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Reference to player controller component. Used to calculate whether to pickup the key or not.
+     * Reference to the player controller component. Used to calculate whether to pickup the key or not.
      */
-    private PlayerControllerComponent controller;
+    private PlayerControllerComponent playerController;
 
     /**
-     * Flag to ensure the finish is only triggered once.
+     * Key for the given lock lockType.
      */
-    private boolean triggered = false;
+    private LockType lockType;
 
     /**
      * Constructor.
      *
      * @param playerController Player controller component reference.
+     * @param lockType Lock type.
      */
-    public FinishControllerComponent(PlayerControllerComponent playerController) {
-        this.controller = playerController;
+    public KeyPickupControllerComponent(PlayerControllerComponent playerController, LockType lockType) {
+        this.playerController = playerController;
+        this.lockType = lockType;
     }
 
     @Override
     public void create() { }
 
     @Override
-    public void update() {
-        // Make sure the finish hasn't been triggered before
-        if(this.triggered)
-            return;
-
+    public synchronized void update() {
         // Make sure a player controller reference is given
-        if(this.controller != null && this.controller.getOwner() != null) {
+        if(this.playerController != null && this.playerController.getOwner() != null) {
             // Calculate the distance (squared) to the player controller
-            float distance = this.controller.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
             // Determine whether to pickup the item, trigger the player controller if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
-                // Set the triggered flag
-                this.triggered = true;
-
-                // Trigger the player controller
-                this.controller.onTrigger(getOwner());
-            }
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
+                this.playerController.onTrigger(getOwner());
         }
+    }
+
+    /**
+     * Get the attached player controller component.
+     *
+     * @return Attached player controller component.
+     */
+    public PlayerControllerComponent getPlayerController() {
+        return this.playerController;
+    }
+
+    /**
+     * Set the attached player controller component.
+     *
+     * @param playerController Player controller component.
+     */
+    public void setPlayerController(PlayerControllerComponent playerController) {
+        this.playerController = playerController;
+    }
+
+    /**
+     * Get the lock lockType.
+     *
+     * @return Lock lockType.
+     */
+    public LockType getLockType() {
+        return this.lockType;
+    }
+
+    /**
+     * Set the lock lockType.
+     *
+     * @param lockType Lock lockType.
+     */
+    public void setLockType(LockType lockType) {
+        this.lockType = lockType;
     }
 }

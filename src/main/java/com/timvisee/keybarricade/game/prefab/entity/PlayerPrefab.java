@@ -20,9 +20,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.prefab.entity;
 
-import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.component.entity.PlayerControllerComponent;
 import com.timvisee.keybarricade.game.scene.GameScene;
 import com.timvisee.voxeltex.gameobject.GameObject;
 
