@@ -50,7 +50,7 @@ public class Example1Scene extends Scene {
 
         // Create a movable camera, so we can view our scene
         FpsCameraPrefab camera = new FpsCameraPrefab();
-        camera.getTransform().setPosition(0, 0, 4);
+        camera.getTransform().setPosition(0, 0, 5);
         addGameObject(camera);
 
         // Place a textured box in the center of our scene

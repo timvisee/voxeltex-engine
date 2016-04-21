@@ -1,6 +1,10 @@
 # VoxelTex Engine - Example one
 This is the first VoxelTex usage example.
 
+_Note: This is a basic example, and is meant to show some basic features of the VoxelTex engine.
+This only covers a small part of the available features.
+In-depth information about some topics handled bellow might be missing._
+
 
 
 ### Introduction
@@ -28,7 +32,7 @@ A scene would look something like this:
 The scene is represented as the green area. The blue things inside it are game objects, which you can add to a scene.
 
 A scene can be created by making a new class which extends _Scene_ which is part of the engine's
-development kit. This requires you to have a load() method in your scene class. This method is called automatically
+development kit. This requires you to have a `load()` method in your scene class. This method is called automatically
 when the VoxelTex engine is loading your scene.
 Please note that you must load a scene on startup, or the engine wouldn't have anything to simulate or render.
 
@@ -170,3 +174,8 @@ This allows you to literally make anything you'd like.
 If you'd be making a space simulator, a _default_ floor could really get in the way.
 We don't really have floating floors in our universe. ...right?
 Simply add everything you'd need in your scene on creation
+
+
+### Upgrading our scene
+In the second part of this example, we'll be adding a series of boxes using a for-loop with some fancy lighting.
+[Continue to the continuation here]((https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example2#voxeltex-engine---example-two)).
