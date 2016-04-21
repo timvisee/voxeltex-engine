@@ -40,6 +40,7 @@ import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.component.transform.RectangleTransform;
 import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.global.Time;
 import com.timvisee.voxeltex.light.Light;
@@ -164,7 +165,7 @@ public class PlayerControllerComponent extends BaseComponent {
      *
      * @param gameObject The game object that is triggering.
      */
-    public void onTrigger(GameObject gameObject) {
+    public void onTrigger(AbstractGameObject gameObject) {
         // Process keys
         if(gameObject instanceof KeyPickupPrefab) {
             // Get the key prefab
