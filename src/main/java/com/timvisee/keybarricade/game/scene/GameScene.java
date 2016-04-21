@@ -102,6 +102,7 @@ public class GameScene extends Scene {
         MouseLookCameraPrefab cameraPrefab = new MouseLookCameraPrefab();
         cameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         cameraPrefab.addComponent(this.smoothCameraFollow = new SmoothTopDownFollowComponent());
+        this.smoothCameraFollow.setPositionDamping(2f);
         addGameObject(cameraPrefab);
 
         // Load the level
