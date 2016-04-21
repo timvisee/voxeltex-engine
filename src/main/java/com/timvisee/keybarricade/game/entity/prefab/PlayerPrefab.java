@@ -20,88 +20,53 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.scene.GameScene;
+import com.timvisee.voxeltex.gameobject.GameObject;
 
-public class FinishPrefab extends QuadPrefab {
+public class PlayerPrefab extends GameObject {
 
     /**
      * Game object name.
      */
-    private static final String GAME_OBJECT_NAME = "FinishPrefab";
+    private static final String GAME_OBJECT_NAME = "PlayerPrefab";
 
     /**
-     * Distance trigger.
+     * Player controller component instance.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
-
-    /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
-     */
-    private PlayerPrefab player;
-
-    /**
-     * Flag to ensure the finish is only triggered once.
-     */
-    private boolean triggered = false;
-
-    /**
-     * Constructor.
-     */
-    public FinishPrefab() {
-        this(GAME_OBJECT_NAME, null);
-    }
+    private final PlayerControllerComponent controller;
 
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param gameScene Game scene instance.
      */
-    public FinishPrefab(PlayerPrefab player) {
-        this(GAME_OBJECT_NAME, player);
+    public PlayerPrefab(GameScene gameScene) {
+        this(GAME_OBJECT_NAME, gameScene);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param gameScene Game scene instance.
      */
-    public FinishPrefab(String name, PlayerPrefab player) {
+    public PlayerPrefab(String name, GameScene gameScene) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player instance
-        this.player = player;
-
-        // Set the finish material
-        setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
+        // Create and add the player controller
+        addComponent(this.controller = new PlayerControllerComponent(gameScene));
     }
 
-    @Override
-    public synchronized void update() {
-        // Call the super
-        super.update();
-
-        // Make sure the finish hasn't been triggered before
-        if(this.triggered)
-            return;
-
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
-
-            // Determine whether to pickup the item, trigger the player if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
-                // Set the triggered flag
-                this.triggered = true;
-
-                // Trigger the player
-                this.player.onTrigger(this);
-            }
-        }
+    /**
+     * Get the player controller instance.
+     *
+     * @return Player controller instance.
+     */
+    public PlayerControllerComponent getPlayerController() {
+        return this.controller;
     }
 }

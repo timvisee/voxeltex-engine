@@ -22,6 +22,7 @@
 
 package com.timvisee.voxeltex.gameobject;
 
+import com.timvisee.voxeltex.EnabledState;
 import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.component.AbstractComponent;
 import com.timvisee.voxeltex.scene.AbstractScene;
@@ -34,7 +35,7 @@ public abstract class AbstractGameObject {
      * True if the game object is enabled, false if not.
      * If the game object is disabled, it won't be called by the drawing and update loops.
      */
-    private boolean enabled = true;
+    private EnabledState enabled = EnabledState.UNDEFINED;
 
     /**
      * The scene this game object is in.
@@ -52,11 +53,21 @@ public abstract class AbstractGameObject {
 
     /**
      * Check whether the game object is enabled or not.
+     * If the enabled state is yet undefined, false will be returned.
      *
      * @return True if this game object is enabled.
      */
     public boolean isEnabled() {
-        return this.enabled;
+        return this.enabled.equals(EnabledState.ENABLED);
+    }
+
+    /**
+     * Check whether the current enabled state is undefined.
+     *
+     * @return True if undefined, false if not.
+     */
+    public boolean isEnabledUndefined() {
+        return this.enabled.equals(EnabledState.UNDEFINED);
     }
 
     /**
@@ -66,10 +77,10 @@ public abstract class AbstractGameObject {
      */
     public void setEnabled(boolean enabled) {
         // Determine whether the enabled state is changing
-        boolean change = this.enabled != enabled;
+        boolean change = isEnabledUndefined() || enabled != isEnabled();
 
-        // Set the enabled state
-        this.enabled = enabled;
+        // Set the new state
+        this.enabled = enabled ? EnabledState.ENABLED : EnabledState.DISABLED;
 
         // Call the onEnable or onDisable method accordingly
         // TODO: Only call this if the game object has started?

@@ -22,8 +22,9 @@
 
 package com.timvisee.voxeltex.component.follow;
 
+import com.timvisee.voxeltex.component.AbstractComponent;
 import com.timvisee.voxeltex.component.BaseComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.global.Time;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -33,7 +34,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
     /**
      * Target game object to follow.
      */
-    private GameObject target;
+    private AbstractGameObject target;
 
     /**
      * Height to hover above the followed game object.
@@ -65,7 +66,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target) {
         this.target = target;
     }
 
@@ -74,7 +75,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target, float height) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target, float height) {
         this.target = target;
         this.height = height;
     }
@@ -84,7 +85,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target, float height, float positionDamping) {
         this.target = target;
         this.height = height;
         this.positionDamping = positionDamping;
@@ -95,7 +96,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping, float rotationDamping) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target, float height, float positionDamping, float rotationDamping) {
         this.target = target;
         this.height = height;
         this.positionDamping = positionDamping;
@@ -107,7 +108,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target, float height, Quaternionf targetRotation) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target, float height, Quaternionf targetRotation) {
         this.target = target;
         this.height = height;
         this.targetRotation = targetRotation;
@@ -118,7 +119,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target.
      */
-    public SmoothTopDownFollowComponent(GameObject target, float height, float positionDamping, float rotationDamping, Quaternionf targetRotation) {
+    public SmoothTopDownFollowComponent(AbstractGameObject target, float height, float positionDamping, float rotationDamping, Quaternionf targetRotation) {
         this.target = target;
         this.height = height;
         this.positionDamping = positionDamping;
@@ -181,7 +182,7 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @return Target game object.
      */
-    public GameObject getTarget() {
+    public AbstractGameObject getTarget() {
         return this.target;
     }
 
@@ -190,8 +191,24 @@ public class SmoothTopDownFollowComponent extends BaseComponent {
      *
      * @param target Target game object.
      */
-    public void setTarget(GameObject target) {
+    public void setTarget(AbstractGameObject target) {
         this.target = target;
+    }
+
+    /**
+     * Set the target game object that is being followed by it's component.
+     *
+     * @param target Target game object by it's component.
+     */
+    public void setTarget(AbstractComponent target) {
+        setTarget(target.getOwner());
+    }
+
+    /**
+     * Reset the target game object that is being followed.
+     */
+    public void resetTarget() {
+        this.target = null;
     }
 
     /**

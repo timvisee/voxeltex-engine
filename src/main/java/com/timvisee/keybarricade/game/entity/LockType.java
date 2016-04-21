@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game;
+package com.timvisee.keybarricade.game.entity;
 
 import com.timvisee.voxeltex.util.Color;
 

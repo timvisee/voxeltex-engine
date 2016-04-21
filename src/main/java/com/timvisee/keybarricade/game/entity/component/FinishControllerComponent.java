@@ -20,50 +20,58 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.entity.component;
 
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import org.joml.Vector2f;
+import com.timvisee.voxeltex.component.BaseComponent;
 
-public class GroundPrefab extends QuadPrefab {
+public class FinishControllerComponent extends BaseComponent {
 
     /**
-     * Constructor.
+     * Distance trigger.
      */
-    public GroundPrefab() {
-        this(50.0f);
-    }
+    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Constructor.
-     *
-     * @param size Ground size.
+     * Reference to player controller component. Used to calculate whether to pickup the key or not.
      */
-    public GroundPrefab(float size) {
-        this(new Vector2f(size));
-    }
+    private PlayerControllerComponent controller;
+
+    /**
+     * Flag to ensure the finish is only triggered once.
+     */
+    private boolean triggered = false;
 
     /**
      * Constructor.
      *
-     * @param size Ground size.
+     * @param playerController Player controller component reference.
      */
-    public GroundPrefab(Vector2f size) {
-        // Construct the parent with the proper size
-        super("GroundPrefab", size);
+    public FinishControllerComponent(PlayerControllerComponent playerController) {
+        this.controller = playerController;
+    }
 
-        // Create a ground surface material
-        System.out.println("Generating " + this + " surface material...");
-        Material groundMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_GROUND);
-        groundMaterial.getTiling().set(size.x / 8.0f);
+    @Override
+    public void create() { }
 
-        // Set the quad material to the ground
-        setMaterial(groundMaterial);
+    @Override
+    public void update() {
+        // Make sure the finish hasn't been triggered before
+        if(this.triggered)
+            return;
 
-        // Add a kinematic rigidbody for collision
-        addComponent(new RigidbodyComponent(true));
+        // Make sure a player controller reference is given
+        if(this.controller != null && this.controller.getOwner() != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.controller.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+
+            // Determine whether to pickup the item, trigger the player controller if that's the case
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
+                // Set the triggered flag
+                this.triggered = true;
+
+                // Trigger the player controller
+                this.controller.onTrigger(getOwner());
+            }
+        }
     }
 }

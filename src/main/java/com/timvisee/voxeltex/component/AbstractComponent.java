@@ -22,6 +22,7 @@
 
 package com.timvisee.voxeltex.component;
 
+import com.timvisee.voxeltex.EnabledState;
 import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.gameobject.Transform;
@@ -35,15 +36,25 @@ public abstract class AbstractComponent {
      * True if the component is enabled, false if not.
      * If the component is disabled, the draw and update loops won't be notified.
      */
-    private boolean enabled = true;
+    private EnabledState enabled = EnabledState.UNDEFINED;
 
     /**
      * Check whether this component is enabled.
+     * If the enabled state is yet undefined, false will be returned.
      *
      * @return True if enabled, false if not.
      */
     public boolean isEnabled() {
-        return this.enabled;
+        return this.enabled.equals(EnabledState.ENABLED);
+    }
+
+    /**
+     * Check whether the current enabled state is undefined.
+     *
+     * @return True if undefined, false if not.
+     */
+    public boolean isEnabledUndefined() {
+        return this.enabled.equals(EnabledState.UNDEFINED);
     }
 
     /**
@@ -53,10 +64,10 @@ public abstract class AbstractComponent {
      */
     public void setEnabled(boolean enabled) {
         // Determine whether the enabled state is changing
-        boolean change = this.enabled != enabled;
+        boolean change = isEnabledUndefined() || enabled != isEnabled();
 
-        // Set the enabled state
-        this.enabled = enabled;
+        // Set the new state
+        this.enabled = enabled ? EnabledState.ENABLED : EnabledState.DISABLED;
 
         // Call the onEnable or onDisable method accordingly
         // TODO: Only call this if the component has started?

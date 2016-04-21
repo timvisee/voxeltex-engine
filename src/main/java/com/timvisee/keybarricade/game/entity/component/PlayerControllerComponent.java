@@ -20,12 +20,15 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.entity.component;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.prefab.FinishPrefab;
+import com.timvisee.keybarricade.game.entity.prefab.KeyPickupPrefab;
 import com.timvisee.keybarricade.game.scene.GameScene;
+import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -37,6 +40,7 @@ import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.component.transform.RectangleTransform;
 import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.global.Time;
 import com.timvisee.voxeltex.light.Light;
@@ -45,12 +49,7 @@ import com.timvisee.voxeltex.texture.Texture;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector2f;
 
-public class PlayerPrefab extends GameObject {
-
-    /**
-     * Game object name.
-     */
-    private static final String GAME_OBJECT_NAME = "PlayerPrefab";
+public class PlayerControllerComponent extends BaseComponent {
 
     /**
      * Game scene instance.
@@ -95,44 +94,35 @@ public class PlayerPrefab extends GameObject {
     /**
      * Constructor.
      *
-     * @param gameScene Game scene instance.
+     * @param gameScene Game scene instance the player is in.
      */
-    public PlayerPrefab(GameScene gameScene) {
-        this(GAME_OBJECT_NAME, gameScene);
+    public PlayerControllerComponent(GameScene gameScene) {
+        this.gameScene = gameScene;
     }
 
-    /**
-     * Constructor.
-     *
-     * @param name Game object name.
-     * @param gameScene Game scene instance.
-     */
-    public PlayerPrefab(String name, GameScene gameScene) {
-        // Construct the parent with the proper size
-        super(name);
-
-        // Store the game scene instance
-        this.gameScene = gameScene;
+    @Override
+    public void create() {
+        // TODO: Put addComponent and addChild methods in game object, then replace all getOwner() references below!
 
         // Create the player material
         this.playerMaterial = new Material(Texture.fromColor(Color.ORANGE, 1, 1));
 
         // Create the mesh filter and renderer
-        addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
-        addComponent(new MeshRendererComponent(this.playerMaterial));
+        getOwner().addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
+        getOwner().addComponent(new MeshRendererComponent(this.playerMaterial));
 
         // Set the position of the player
         getTransform().setScale(0.3f, 0.3f, 0.3f);
 
         // Add the movement component
-        addComponent(new WasdPhysicsMovementComponent());
+        getOwner().addComponent(new WasdPhysicsMovementComponent());
 
         // Create a proper collider
-        addComponent(new SphereColliderComponent(0.3f));
+        getOwner().addComponent(new SphereColliderComponent(0.3f));
 
         // Add a light source component to the player
         this.lightSource = new LightSourceComponent(Light.LIGHT_TYPE_POINT, Color.ORANGE.toVector3f(), 0.05f);
-        addComponent(this.lightSource);
+        getOwner().addComponent(this.lightSource);
 
         // Hint panel
         this.hintPanel = new GameObject("HintPanel");
@@ -153,7 +143,7 @@ public class PlayerPrefab extends GameObject {
         hintLabel.addComponent(this.hintLabel);
         hintPanel.addChild(hintLabel);
         hintPanel.addComponent(new GuiPanelComponent());
-        addChild(hintPanel);
+        getOwner().addChild(hintPanel);
         this.hintPanel.setEnabled(false);
 
         // Create the base menu panel
@@ -167,7 +157,7 @@ public class PlayerPrefab extends GameObject {
         this.keyImage = new GuiImageComponent(GameResourceBundle.getInstance().IMAGE_KEY);
         this.keyImage.setAlpha(0f);
         keyPanel.addComponent(this.keyImage);
-        addChild(keyPanel);
+        getOwner().addChild(keyPanel);
     }
 
     /**
@@ -175,14 +165,14 @@ public class PlayerPrefab extends GameObject {
      *
      * @param gameObject The game object that is triggering.
      */
-    public void onTrigger(GameObject gameObject) {
+    public void onTrigger(AbstractGameObject gameObject) {
         // Process keys
         if(gameObject instanceof KeyPickupPrefab) {
             // Get the key prefab
             KeyPickupPrefab key = (KeyPickupPrefab) gameObject;
 
             // Set the currently picked up lock type
-            setPickupLockType(key.getLockType());
+            setPickupLockType(key.getKeyPickupController().getLockType());
 
             // Decay the key object
             key.addComponent(new ObjectDecayAnimatorComponent(0f));
@@ -196,9 +186,6 @@ public class PlayerPrefab extends GameObject {
 
     @Override
     public synchronized void update() {
-        // Call the super
-        super.update();
-
         // Show the hint panel if it's time
         if(this.showHintAt >= 0.0f && this.showHintAt <= Time.timeFloat) {
             // Show the hint panel

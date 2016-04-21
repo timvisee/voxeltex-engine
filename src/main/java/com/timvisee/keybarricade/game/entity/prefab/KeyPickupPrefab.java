@@ -20,10 +20,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.component.KeyPickupControllerComponent;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
@@ -40,19 +42,9 @@ public class KeyPickupPrefab extends GameObject {
     private static final String GAME_OBJECT_NAME = "KeyPickupPrefab";
 
     /**
-     * Distance trigger.
+     * Key pickup controller component instance.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
-
-    /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
-     */
-    private PlayerPrefab player;
-
-    /**
-     * Key for the given lock lockType.
-     */
-    private LockType lockType;
+    private final KeyPickupControllerComponent controller;
 
     /**
      * Constructor.
@@ -66,27 +58,26 @@ public class KeyPickupPrefab extends GameObject {
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(PlayerPrefab player, LockType lockType) {
-        this(GAME_OBJECT_NAME, player, lockType);
+    public KeyPickupPrefab(PlayerControllerComponent playerController, LockType lockType) {
+        this(GAME_OBJECT_NAME, playerController, lockType);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      * @param lockType Lock lockType.
      */
-    public KeyPickupPrefab(String name, PlayerPrefab player, LockType lockType) {
+    public KeyPickupPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player and lockType
-        this.player = player;
-        this.lockType = lockType;
+        // Create and add the key pickup controller component
+        addComponent(this.controller = new KeyPickupControllerComponent(playerController, lockType));
 
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
@@ -109,55 +100,12 @@ public class KeyPickupPrefab extends GameObject {
         addChild(keyLightObject);
     }
 
-    @Override
-    public synchronized void update() {
-        // Call the super
-        super.update();
-
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
-
-            // Determine whether to pickup the item, trigger the player if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE)
-                this.player.onTrigger(this);
-        }
-    }
-
     /**
-     * Get the attached player.
+     * Get the key pickup controller component instance.
      *
-     * @return Attached player.
+     * @return Key pickup controller component.
      */
-    public PlayerPrefab getPlayer() {
-        return this.player;
-    }
-
-    /**
-     * Set the attached player.
-     *
-     * @param player Player.
-     */
-    public void setPlayer(PlayerPrefab player) {
-        this.player = player;
-    }
-
-    /**
-     * Get the lock lockType.
-     *
-     * @return Lock lockType.
-     */
-    public LockType getLockType() {
-        return this.lockType;
-    }
-
-    /**
-     * Set the lock lockType.
-     *
-     * @param lockType Lock lockType.
-     */
-    public void setLockType(LockType lockType) {
-        this.lockType = lockType;
+    public KeyPickupControllerComponent getKeyPickupController() {
+        return this.controller;
     }
 }

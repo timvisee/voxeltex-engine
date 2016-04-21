@@ -22,9 +22,10 @@
 
 package com.timvisee.keybarricade.game.level;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.component.animator.ObjectSpawnAnimatorComponent;
-import com.timvisee.keybarricade.game.prefab.*;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
+import com.timvisee.keybarricade.game.entity.prefab.*;
 import com.timvisee.keybarricade.game.scene.GameScene;
 import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
 import com.timvisee.voxeltex.gameobject.GameObject;
@@ -52,9 +53,9 @@ public class LevelBuilder {
     private GameObject levelRoot;
 
     /**
-     * Player prefab.
+     * Player controller component.
      */
-    private PlayerPrefab player;
+    private PlayerControllerComponent playerController;
 
     /**
      * Hint of the level.
@@ -133,7 +134,7 @@ public class LevelBuilder {
         List<String> objectKeys = objectsConfig.getKeys("");
 
         // Keep track of the minimum and maximum block positions
-        boolean mapCoordsInit = false;
+        boolean mapCoordinatesInit = false;
         int mapMinX = 0, mapMaxX = 0, mapMinY = 0, mapMaxY = 0;
 
         // Loop through each object
@@ -165,7 +166,7 @@ public class LevelBuilder {
             int dataValue = objectConfig.getInt("dataValue", 0);
 
             // Loop through each position section to parse the position
-            //noinspection StatementWithEmptyBody
+            //noinspection ForLoopReplaceableByForEach
             for(int positionIndex = 0, positionIndexSize = positionSections.size(); positionIndex < positionIndexSize; positionIndex++) {
                 // Get the configuration section
                 ConfigurationSection positionConfig = positionSections.get(positionIndex);
@@ -202,12 +203,12 @@ public class LevelBuilder {
                     fromY = toY = Integer.parseInt(rawPositionY);
 
                 // Initialize the map's minimum and maximum coordinates for the first position
-                if(!mapCoordsInit) {
+                if(!mapCoordinatesInit) {
                     mapMinX = fromX;
                     mapMaxX = fromX;
                     mapMinY = fromY;
                     mapMaxY = fromY;
-                    mapCoordsInit = true;
+                    mapCoordinatesInit = true;
                 }
 
                 // Find the minimum and maximum coordinates for the map with the current position
@@ -224,8 +225,9 @@ public class LevelBuilder {
         }
 
         // Spawn the player
-        if(this.player != null)
-            this.player.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(false)));
+        if(this.playerController != null)
+            // TODO: Remove the getOwner() reference getter usage
+            this.playerController.getOwner().addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(false)));
 
         // Spawn some randomized blocks outside the map
         for(int i = 0; i < 4; i++) {
@@ -263,24 +265,28 @@ public class LevelBuilder {
         y *= -1;
 
         // Create a wall
-        if(rawType.trim().equalsIgnoreCase("wall")){
+        if(rawType.trim().equalsIgnoreCase("wall"))
             this.levelRoot.addChild(new BoxPrefab(new Vector3f(x + 0.5f, 0.5f, y + 0.5f), false, this.delay += 0.02f, -1f));
-        }
 
-        // Create a player
+        // Create a player and store the player controller component reference
         else if(rawType.trim().equals("player")) {
+            // Create the player prefab and set it's position
             PlayerPrefab playerObject = new PlayerPrefab(this.gameScene);
             playerObject.getTransform().setPosition(new Vector3f(x + 0.5f, 0.5f, y + 0.5f));
+
+            // Add the player prefab to the level root
             this.levelRoot.addChild(playerObject);
-            this.player = playerObject;
+
+            // Store the player controller component reference of the player
+            this.playerController = playerObject.getPlayerController();
 
             // Set the level hint
-            this.player.setHint(this.levelHint);
+            this.playerController.setHint(this.levelHint);
         }
 
         // Create a key
         else if(rawType.trim().equals("key")) {
-            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.player, LockType.fromDataValue(dataValue));
+            KeyPickupPrefab keyObject = new KeyPickupPrefab("KeyPickupPrefab", this.playerController, LockType.fromDataValue(dataValue));
             keyObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             keyObject.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f));
             this.levelRoot.addChild(keyObject);
@@ -288,7 +294,7 @@ public class LevelBuilder {
 
         // Create a lock
         else if(rawType.trim().equals("lock")) {
-            PadlockPrefab padlockObject = new PadlockPrefab(this.player, LockType.fromDataValue(dataValue));
+            PadlockPrefab padlockObject = new PadlockPrefab(this.playerController, LockType.fromDataValue(dataValue));
             padlockObject.getTransform().getPosition().set(x + 0.5f, 0, y + 0.5f);
             padlockObject.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(true)));
             this.levelRoot.addChild(padlockObject);
@@ -304,7 +310,7 @@ public class LevelBuilder {
 
         // Create a finish
         else if(rawType.trim().equals("finish")) {
-            FinishPrefab finish = new FinishPrefab(this.player);
+            FinishPrefab finish = new FinishPrefab(this.playerController);
             finish.getTransform().getPosition().set(x + 0.5f, 0.01f, y + 0.5f);
             finish.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f));
             this.levelRoot.addChild(finish);
@@ -316,11 +322,11 @@ public class LevelBuilder {
     }
 
     /**
-     * Get the player instance from the builder.
+     * Get the player controller component instance from the builder.
      *
-     * @return Player instance.
+     * @return Player controller component instance.
      */
-    public PlayerPrefab getPlayer() {
-        return this.player;
+    public PlayerControllerComponent getPlayerController() {
+        return this.playerController;
     }
 }

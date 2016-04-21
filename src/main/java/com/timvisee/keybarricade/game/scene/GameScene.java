@@ -24,9 +24,9 @@ package com.timvisee.keybarricade.game.scene;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.keybarricade.game.level.LevelBuilder;
 import com.timvisee.keybarricade.game.level.LevelManager;
-import com.timvisee.keybarricade.game.prefab.GroundPrefab;
 import com.timvisee.voxeltex.component.follow.SmoothTopDownFollowComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
@@ -207,7 +207,7 @@ public class GameScene extends Scene {
         builder.build(delay);
 
         // Set the camera target to the player
-        this.smoothCameraFollow.setTarget(builder.getPlayer());
+        this.smoothCameraFollow.setTarget(builder.getPlayerController().getOwner());
     }
 
     /**
@@ -218,7 +218,7 @@ public class GameScene extends Scene {
         float delay = 0.0f;
 
         // Reset the camera target
-        this.smoothCameraFollow.setTarget(null);
+        this.smoothCameraFollow.resetTarget();
 
         // Loop through all children of the level base, and make them decay
         for(int i = 0, size = this.levelBase.getChildCount(false); i < size; i++)

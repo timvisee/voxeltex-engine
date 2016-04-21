@@ -20,11 +20,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.keybarricade.game.LockType;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
+import com.timvisee.keybarricade.game.entity.LockType;
+import com.timvisee.keybarricade.game.entity.component.PadlockControllerComponent;
+import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
 import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
@@ -45,29 +46,9 @@ public class PadlockPrefab extends GameObject {
     private static final String GAME_OBJECT_NAME = "PadlockPickupPrefab";
 
     /**
-     * Distance trigger.
+     * Padlock controller component instance.
      */
-    private static final float PICKUP_TRIGGER_DISTANCE = 1.1f;
-
-    /**
-     * Reference to player prefab. Used to calculate whether to pickup the key or not.
-     */
-    private PlayerPrefab player;
-
-    /**
-     * Force field.
-     */
-    private CubePrefab forceField;
-
-    /**
-     * Key for the given lock lockType.
-     */
-    private LockType lockType;
-
-    /**
-     * True if this lock has been unlocked.
-     */
-    private boolean unlocked = false;
+    private final PadlockControllerComponent controller;
 
     /**
      * Constructor.
@@ -81,29 +62,28 @@ public class PadlockPrefab extends GameObject {
     /**
      * Constructor.
      *
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      *
      * @param lockType Lock lockType.
      */
-    public PadlockPrefab(PlayerPrefab player, LockType lockType) {
-        this(GAME_OBJECT_NAME, player, lockType);
+    public PadlockPrefab(PlayerControllerComponent playerController, LockType lockType) {
+        this(GAME_OBJECT_NAME, playerController, lockType);
     }
 
     /**
      * Constructor.
      *
      * @param name Game object name.
-     * @param player Player reference.
+     * @param playerController Player controller component reference.
      *
      * @param lockType Lock lockType.
      */
-    public PadlockPrefab(String name, PlayerPrefab player, LockType lockType) {
+    public PadlockPrefab(String name, PlayerControllerComponent playerController, LockType lockType) {
         // Construct the parent with the proper size
         super(name);
 
-        // Set the player and lockType
-        this.player = player;
-        this.lockType = lockType;
+        // Create and add the padlock controller component
+        addComponent(this.controller = new PadlockControllerComponent(playerController, lockType));
 
         // Generate the padlock material
         Material lockMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
@@ -120,87 +100,19 @@ public class PadlockPrefab extends GameObject {
         addChild(padlockModelObject);
 
         // Create a child game object that holds the force field
-        this.forceField = new CubePrefab("ForceField");
+        CubePrefab forceField = new CubePrefab("ForceField");
         forceField.getTransform().getPosition().set(0, 0.5f, 0);
         forceField.setMaterial(new Material(Texture.fromColor(Color.RED, 1, 1)));
         forceField.getMeshRenderer().setAlpha(0f);
         addChild(forceField);
+
+        // Set the padlock controller component force field instance
+        this.controller.setForceField(forceField);
 
         // Create a child game object that holds the padlock light
         GameObject padlockLightObject = new GameObject("PadlockLight");
         padlockLightObject.getTransform().getPosition().y = 0.75f;
         padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, lockType.getColor().toVector3f(), 0.2f));
         addChild(padlockLightObject);
-    }
-
-    @Override
-    public synchronized void update() {
-        // Call the super
-        super.update();
-
-        // Make sure a player reference is given
-        if(this.player != null) {
-            // Calculate the distance (squared) to the player
-            float distance = this.player.getTransform().getPosition().distanceSquared(getTransform().getPosition());
-
-            // Determine whether to pickup the item, trigger the player if that's the case
-            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE && !this.unlocked) {
-                // Trigger the player
-                this.player.onTrigger(this);
-
-                // Make sure the player has the correct key type
-                if(this.lockType.equals(this.player.getPickupLockType())) {
-                    // Decay the padlock
-                    addComponent(new ObjectDecayAnimatorComponent(0.0f));
-
-                    // Set the unlocked flag
-                    this.unlocked = true;
-                }
-            }
-
-            // Calculate the force field intensity
-            float forceFieldIntensity = 0;
-            if(this.player.getPickupLockType() != this.lockType && !this.unlocked)
-                forceFieldIntensity = Math.max(Math.min((2.5f - distance) / 5f, 0.45f), 0);
-
-            // Update the force field intensity
-            this.forceField.getMeshRenderer().setAlpha(forceFieldIntensity);
-        }
-    }
-
-    /**
-     * Get the attached player.
-     *
-     * @return Attached player.
-     */
-    public PlayerPrefab getPlayer() {
-        return this.player;
-    }
-
-    /**
-     * Set the attached player.
-     *
-     * @param player Player.
-     */
-    public void setPlayer(PlayerPrefab player) {
-        this.player = player;
-    }
-
-    /**
-     * Get the lock lockType.
-     *
-     * @return Lock lockType.
-     */
-    public LockType getLockType() {
-        return this.lockType;
-    }
-
-    /**
-     * Set the lock lockType.
-     *
-     * @param lockType Lock lockType.
-     */
-    public void setLockType(LockType lockType) {
-        this.lockType = lockType;
     }
 }

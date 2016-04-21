@@ -20,50 +20,79 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.demo;
+package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
+import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
-import com.timvisee.voxeltex.prefab.camera.FpsCameraPrefab;
-import com.timvisee.voxeltex.prefab.light.LightPrefab;
-import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
-import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import com.timvisee.voxeltex.scene.Scene;
+import com.timvisee.voxeltex.material.Material;
+import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
 import com.timvisee.voxeltex.util.Color;
+import org.joml.Vector2f;
 
-public class DemoScene extends Scene {
+public class LampPrefab extends QuadPrefab {
 
-    @Override
-    public void load() {
-        // Load the super
-        super.load();
+    /**
+     * Game object name.
+     */
+    private static final String GAME_OBJECT_NAME = "LampPrefab";
 
-        // Add a light simulating the sun
-        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
-        sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
-        sunLight.getTransform().getPosition().set(-5, 1, -3);
-        addGameObject(sunLight);
+    /**
+     * Color.
+     */
+    private Color color;
 
-        // Create a surface
-        addGameObject(new GroundPrefab());
+    /**
+     * Constructor.
+     *
+     * @param color Lamp color.
+     */
+    public LampPrefab(Color color) {
+        this(GAME_OBJECT_NAME, color);
+    }
 
+    /**
+     * Constructor.
+     *
+     * @param name Game object name.
+     * @param color Lamp color.
+     */
+    public LampPrefab(String name, Color color) {
+        // Construct the parent with the proper size
+        super(name, new Vector2f(0.3f));
 
-        // Demo code here:
+        // Set the color
+        this.color = color;
 
+        // Generate the padlock material
+        Material lockMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_LAMP);
 
-        // Create a camera, which is required to see anything in a scene
-        FpsCameraPrefab camera = new FpsCameraPrefab();
-        camera.getTransform().setPosition(0, 2, 3);
-        addGameObject(camera);
+        // Set the material
+        setMaterial(lockMaterial);
 
-        // Create a row of boxes which emit light
-        for (int i = 0; i < 15; i++) {
-            CubePrefab box = new CubePrefab();
-            box.getTransform().setPosition(i, 0.5f, 0);
-            box.setMaterial(EngineResourceBundle.getInstance().MATERIAL_BOX);
-            box.addComponent(new LightSourceComponent(Color.random()));
-            addGameObject(box);
-        }
+        // Create a child game object that holds the light
+        GameObject padlockLightObject = new GameObject("LampLight");
+        padlockLightObject.getTransform().getPosition().y = 0.5f;
+        padlockLightObject.addComponent(new LightSourceComponent(Light.LIGHT_TYPE_POINT, getColor().toVector3f(), 0.3f));
+        addChild(padlockLightObject);
+    }
+
+    /**
+     * Get the color.
+     *
+     * @return Lamp color.
+     */
+    public Color getColor() {
+        return this.color;
+    }
+
+    /**
+     * Set the color.
+     *
+     * @param color Lamp color.
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
