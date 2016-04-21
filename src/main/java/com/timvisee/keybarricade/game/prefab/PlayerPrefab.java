@@ -36,7 +36,7 @@ public class PlayerPrefab extends GameObject {
     /**
      * Player controller component instance.
      */
-    private final PlayerControllerComponent playerController;
+    private final PlayerControllerComponent controller;
 
     /**
      * Constructor.
@@ -58,7 +58,7 @@ public class PlayerPrefab extends GameObject {
         super(name);
 
         // Create and add the player controller
-        addComponent(this.playerController = new PlayerControllerComponent(gameScene));
+        addComponent(this.controller = new PlayerControllerComponent(gameScene));
     }
 
     /**
@@ -67,6 +67,6 @@ public class PlayerPrefab extends GameObject {
      * @return Player controller instance.
      */
     public PlayerControllerComponent getPlayerController() {
-        return this.playerController;
+        return this.controller;
     }
 }
