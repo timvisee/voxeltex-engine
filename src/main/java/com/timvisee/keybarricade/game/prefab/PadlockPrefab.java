@@ -48,7 +48,7 @@ public class PadlockPrefab extends GameObject {
     /**
      * Padlock controller component instance.
      */
-    private final PadlockControllerComponent padlockController;
+    private final PadlockControllerComponent controller;
 
     /**
      * Constructor.
@@ -83,7 +83,7 @@ public class PadlockPrefab extends GameObject {
         super(name);
 
         // Create and add the padlock controller component
-        addComponent(this.padlockController = new PadlockControllerComponent(playerController, lockType));
+        addComponent(this.controller = new PadlockControllerComponent(playerController, lockType));
 
         // Generate the padlock material
         Material lockMaterial = new Material(Texture.fromColor(lockType.getColor(), 1, 1));
@@ -107,7 +107,7 @@ public class PadlockPrefab extends GameObject {
         addChild(forceField);
 
         // Set the padlock controller component force field instance
-        this.padlockController.setForceField(forceField);
+        this.controller.setForceField(forceField);
 
         // Create a child game object that holds the padlock light
         GameObject padlockLightObject = new GameObject("PadlockLight");

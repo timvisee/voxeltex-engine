@@ -35,7 +35,7 @@ public class FinishControllerComponent extends BaseComponent {
     /**
      * Reference to player controller component. Used to calculate whether to pickup the key or not.
      */
-    private PlayerControllerComponent playerController;
+    private PlayerControllerComponent controller;
 
     /**
      * Flag to ensure the finish is only triggered once.
@@ -48,7 +48,7 @@ public class FinishControllerComponent extends BaseComponent {
      * @param playerController Player controller component reference.
      */
     public FinishControllerComponent(PlayerControllerComponent playerController) {
-        this.playerController = playerController;
+        this.controller = playerController;
     }
 
     @Override
@@ -61,9 +61,9 @@ public class FinishControllerComponent extends BaseComponent {
             return;
 
         // Make sure a player controller reference is given
-        if(this.playerController != null && this.playerController.getOwner() != null) {
+        if(this.controller != null && this.controller.getOwner() != null) {
             // Calculate the distance (squared) to the player controller
-            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+            float distance = this.controller.getTransform().getPosition().distanceSquared(getTransform().getPosition());
 
             // Determine whether to pickup the item, trigger the player controller if that's the case
             if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
@@ -71,7 +71,7 @@ public class FinishControllerComponent extends BaseComponent {
                 this.triggered = true;
 
                 // Trigger the player controller
-                this.playerController.onTrigger(getOwner());
+                this.controller.onTrigger(getOwner());
             }
         }
     }

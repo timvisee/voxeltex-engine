@@ -44,7 +44,7 @@ public class KeyPickupPrefab extends GameObject {
     /**
      * Key pickup controller component instance.
      */
-    private final KeyPickupControllerComponent keyPickupController;
+    private final KeyPickupControllerComponent controller;
 
     /**
      * Constructor.
@@ -77,7 +77,7 @@ public class KeyPickupPrefab extends GameObject {
         super(name);
 
         // Create and add the key pickup controller component
-        addComponent(this.keyPickupController = new KeyPickupControllerComponent(playerController, lockType));
+        addComponent(this.controller = new KeyPickupControllerComponent(playerController, lockType));
 
         // Rotate the base object around
         getTransform().getAngularVelocity().y = 0.6f;
@@ -106,6 +106,6 @@ public class KeyPickupPrefab extends GameObject {
      * @return Key pickup controller component.
      */
     public KeyPickupControllerComponent getKeyPickupController() {
-        return this.keyPickupController;
+        return this.controller;
     }
 }
