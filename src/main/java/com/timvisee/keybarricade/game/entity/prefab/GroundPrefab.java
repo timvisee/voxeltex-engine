@@ -22,10 +22,10 @@
 
 package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
 import org.joml.Vector2f;
 
 public class GroundPrefab extends QuadPrefab {
@@ -57,7 +57,7 @@ public class GroundPrefab extends QuadPrefab {
 
         // Create a ground surface material
         System.out.println("Generating " + this + " surface material...");
-        Material groundMaterial = new Material(GameResourceBundle.getInstance().TEXTURE_GROUND);
+        Material groundMaterial = new Material(EngineResourceBundle.getInstance().TEXTURE_GROUND);
         groundMaterial.getTiling().set(size.x / 8.0f);
 
         // Set the quad material to the ground
