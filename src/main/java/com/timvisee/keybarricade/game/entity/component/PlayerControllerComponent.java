@@ -102,27 +102,25 @@ public class PlayerControllerComponent extends BaseComponent {
 
     @Override
     public void create() {
-        // TODO: Put addComponent and addChild methods in game object, then replace all getOwner() references below!
-
         // Create the player material
         this.playerMaterial = new Material(Texture.fromColor(Color.ORANGE, 1, 1));
 
         // Create the mesh filter and renderer
-        getOwner().addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
-        getOwner().addComponent(new MeshRendererComponent(this.playerMaterial));
+        addComponent(new MeshFilterComponent(GameResourceBundle.getInstance().MESH_SPHERE));
+        addComponent(new MeshRendererComponent(this.playerMaterial));
 
         // Set the position of the player
         getTransform().setScale(0.3f, 0.3f, 0.3f);
 
         // Add the movement component
-        getOwner().addComponent(new WasdPhysicsMovementComponent());
+        addComponent(new WasdPhysicsMovementComponent());
 
         // Create a proper collider
-        getOwner().addComponent(new SphereColliderComponent(0.3f));
+        addComponent(new SphereColliderComponent(0.3f));
 
         // Add a light source component to the player
         this.lightSource = new LightSourceComponent(Light.LIGHT_TYPE_POINT, Color.ORANGE.toVector3f(), 0.05f);
-        getOwner().addComponent(this.lightSource);
+        addComponent(this.lightSource);
 
         // Hint panel
         this.hintPanel = new GameObject("HintPanel");
@@ -143,7 +141,7 @@ public class PlayerControllerComponent extends BaseComponent {
         hintLabel.addComponent(this.hintLabel);
         hintPanel.addChild(hintLabel);
         hintPanel.addComponent(new GuiPanelComponent());
-        getOwner().addChild(hintPanel);
+        addOwnerChild(hintPanel);
         this.hintPanel.setEnabled(false);
 
         // Create the base menu panel
@@ -157,7 +155,7 @@ public class PlayerControllerComponent extends BaseComponent {
         this.keyImage = new GuiImageComponent(GameResourceBundle.getInstance().IMAGE_KEY);
         this.keyImage.setAlpha(0f);
         keyPanel.addComponent(this.keyImage);
-        getOwner().addChild(keyPanel);
+        addOwnerChild(keyPanel);
     }
 
     /**

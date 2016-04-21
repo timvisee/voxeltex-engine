@@ -79,6 +79,66 @@ public abstract class BaseComponent extends AbstractComponent {
     }
 
     @Override
+    public void addOwnerChild(AbstractGameObject gameObject) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to add " + gameObject + " child to " + this + " owner, owner undefined.");
+
+        // Add the child to the owner
+        getOwner().addChild(gameObject);
+    }
+
+    @Override
+    public boolean removeOwnerChild(AbstractGameObject gameObject) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to remove " + gameObject + " child from " + this + " owner, owner undefined.");
+
+        // Remove the child from the owner
+        return getOwner().removeChild(gameObject);
+    }
+
+    @Override
+    public AbstractGameObject removeOwnerChild(int i) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to remove child from " + this + " owner, owner undefined.");
+
+        // Remove the child from the owner
+        return getOwner().removeChild(i);
+    }
+
+    @Override
+    public void addComponent(AbstractComponent component) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to add " + component + " to " + this + " owner, owner undefined.");
+
+        // Add the component to the owner
+        getOwner().addComponent(component);
+    }
+
+    @Override
+    public boolean removeComponent(AbstractComponent component) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to remove " + component + " from " + this + " owner, owner undefined.");
+
+        // Remove the component from the owner
+        return getOwner().removeComponent(component);
+    }
+
+    @Override
+    public AbstractComponent removeComponent(int i) {
+        // Make sure we've an owner
+        if(getOwner() == null)
+            throw new RuntimeException("Unable to remove component from " + this + " owner, owner undefined.");
+
+        // Remove the component from the owner
+        return getOwner().removeComponent(i);
+    }
+
+    @Override
     public Transform getTransform() {
         return this.owner.getTransform();
     }

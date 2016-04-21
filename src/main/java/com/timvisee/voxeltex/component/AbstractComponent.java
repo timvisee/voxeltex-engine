@@ -94,6 +94,65 @@ public abstract class AbstractComponent {
     public abstract void setOwner(AbstractGameObject gameObject);
 
     /**
+     * Add a child to the owner of this component.
+     *
+     * @param gameObject Game object to add.
+     */
+    public abstract void addOwnerChild(AbstractGameObject gameObject);
+
+
+    /**
+     * Remove a child game object from the owner of this component before the next update.
+     * To destroy the child, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
+     *
+     * @param gameObject Game object to remove.
+     *
+     * @return True if any game object will be removed, false if not.
+     */
+    public abstract boolean removeOwnerChild(AbstractGameObject gameObject);
+
+    /**
+     * Remove a child game object from the owner of this component before the next update.
+     * To destroy the child, call {@see AbstractGameObject.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
+     *
+     * @param i Index of the child game object to remove.
+     *
+     * @return True if any game object will be removed, false if not.
+     */
+    public abstract AbstractGameObject removeOwnerChild(int i);
+
+    /**
+     * Add a component to the owner game object of this component.
+     *
+     * @param component Component to add.
+     */
+    public abstract void addComponent(AbstractComponent component);
+
+    /**
+     * Remove a component from the owner game object of this component before the next update.
+     * To destroy the component, call {@see AbstractComponent.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
+     *
+     * @param component Component to remove.
+     *
+     * @return True if any component will be removed, false if not.
+     */
+    public abstract boolean removeComponent(AbstractComponent component);
+
+    /**
+     * Remove a component from the owner game object of this component before the next update.
+     * To destroy the component, call {@see AbstractComponent.destroy()} instead since this method doesn't imply
+     * destruction. This method will be called automatically after destruction.
+     *
+     * @param i Index of the component to remove.
+     *
+     * @return True if any component will be removed, false if not.
+     */
+    public abstract AbstractComponent removeComponent(int i);
+
+    /**
      * Get the engine instance the game object of this component is in.
      *
      * @return Engine.
