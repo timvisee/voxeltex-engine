@@ -20,50 +20,59 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.prefab;
+package com.timvisee.keybarricade.game.component.finish;
 
-import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.keybarricade.game.component.finish.FinishControllerComponent;
 import com.timvisee.keybarricade.game.component.player.PlayerControllerComponent;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.component.BaseComponent;
 
-public class FinishPrefab extends QuadPrefab {
-
-    /**
-     * Game object name.
-     */
-    private static final String GAME_OBJECT_NAME = "FinishPrefab";
+public class FinishControllerComponent extends BaseComponent {
 
     /**
-     * Constructor.
+     * Distance trigger.
      */
-    public FinishPrefab() {
-        this(GAME_OBJECT_NAME, null);
-    }
+    private static final float PICKUP_TRIGGER_DISTANCE = 0.5f;
 
     /**
-     * Constructor.
-     *
-     * @param playerController Player reference.
+     * Reference to player controller component. Used to calculate whether to pickup the key or not.
      */
-    public FinishPrefab(PlayerControllerComponent playerController) {
-        this(GAME_OBJECT_NAME, playerController);
-    }
+    private PlayerControllerComponent playerController;
+
+    /**
+     * Flag to ensure the finish is only triggered once.
+     */
+    private boolean triggered = false;
 
     /**
      * Constructor.
      *
-     * @param name Game object name.
      * @param playerController Player controller component reference.
      */
-    public FinishPrefab(String name, PlayerControllerComponent playerController) {
-        // Construct the parent with the proper size
-        super(name);
+    public FinishControllerComponent(PlayerControllerComponent playerController) {
+        this.playerController = playerController;
+    }
 
-        // Create and add the finish controller
-        addComponent(new FinishControllerComponent(playerController));
+    @Override
+    public void create() { }
 
-        // Set the finish material
-        setMaterial(GameResourceBundle.getInstance().MATERIAL_FINISH);
+    @Override
+    public void update() {
+        // Make sure the finish hasn't been triggered before
+        if(this.triggered)
+            return;
+
+        // Make sure a player controller reference is given
+        if(this.playerController != null && this.playerController.getOwner() != null) {
+            // Calculate the distance (squared) to the player controller
+            float distance = this.playerController.getTransform().getPosition().distanceSquared(getTransform().getPosition());
+
+            // Determine whether to pickup the item, trigger the player controller if that's the case
+            if(distance <= PICKUP_TRIGGER_DISTANCE * PICKUP_TRIGGER_DISTANCE) {
+                // Set the triggered flag
+                this.triggered = true;
+
+                // Trigger the player controller
+                this.playerController.onTrigger(getOwner());
+            }
+        }
     }
 }
