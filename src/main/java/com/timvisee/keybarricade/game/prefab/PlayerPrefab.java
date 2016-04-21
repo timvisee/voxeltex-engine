@@ -57,11 +57,8 @@ public class PlayerPrefab extends GameObject {
         // Construct the parent with the proper size
         super(name);
 
-        // Create the player controller
-        this.playerController = new PlayerControllerComponent(gameScene);
-
-        // Add the player controller
-        addComponent(this.playerController);
+        // Create and add the player controller
+        addComponent(this.playerController = new PlayerControllerComponent(gameScene));
     }
 
     /**
