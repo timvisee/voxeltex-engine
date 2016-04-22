@@ -4,7 +4,7 @@ Key Barricade is a simple game made as challenge for college.
 This game brings a custom rendering engine named VoxelTex written from scratch using OpenGL.
 See the paragraph below for information on how to run the project.
 
-[I've included a guide/tutorial with some examples to guide you to the VoxelTex engine here](https://github.com/timvisee/KeyBarricade/tree/master#voxeltex-engine---example-one).
+[I've included a guide/tutorial with some examples to guide you to the VoxelTex engine here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
 
 ![KeyBarricade with VoxelTex v0.1 Alpha](http://i.imgur.com/6A82f72.jpg)
 
@@ -47,7 +47,8 @@ Note: Mac OS X support has been dropped, due to various problems related to the 
 ---
 
 _I've included some VoxelTex engine usage examples.
-This guide shows you step by step how to create your first few scenes, covering things like object creation and lighting:_
+This guide shows you step by step how to create your first few scenes, covering things like object creation and lighting.
+[Please follow that tutorial here.](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one)_
 
 # VoxelTex Engine - Example one
 This is the first VoxelTex usage example.
