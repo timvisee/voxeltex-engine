@@ -133,11 +133,13 @@ We'll be going over what's going on in this scene now:
 
 * Our scene class has to extend the `Scene` class provided by the VoxelTex so the engine can recognize it as scene class.
   Then, we've added the `load()` method which is required by the `Scene` class. This method is called as soon as the scene is loaded.
+
 * First, we've added a light which is simulating the sun.
   This is done to ensure we'll be able to see anything through the camera in the scene.
   It's much like the real world, if our sun would suddenly go away, we wouldn't be able to see anything anymore.
   This of course, brings a whole bunch of other problems with it regarding the living conditions of humans,
   but whatever, that's not something to cover in this example.
+
 * After we've added a light, we're adding an FPS camera. Here, we use a prefab again for ease of use.
   This 'FPS camera' is a camera object you can move around with the W, A, S and D keys and the mouse.
   Of course, in most games you'd lock the camera to a player or anything else to ensure the player can't look at enemy positions or anything like that.
@@ -146,6 +148,7 @@ We'll be going over what's going on in this scene now:
   You might have noticed that we're setting the position of the camera using `camera.getTransform().setPosition(0, 0, 4)`.
   The simple reason for that is, that we don't want the camera to be inside of the object we'll spawn with the next step.
   All objects added to a scene have a default position of `(0, 0, 0)` on the `(x, y, z)` axis.
+
 * Lastly, we're creating a simple box in the middle of the scene.
   We simply achieve this by using the `CubePrefab` prefab. This prefab renders a cube for us at the position of the game object.
   Cube's don't really have a texture by default. They're completely black which makes them hard to see.
