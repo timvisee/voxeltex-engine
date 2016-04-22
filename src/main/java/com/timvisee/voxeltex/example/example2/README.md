@@ -70,4 +70,6 @@ Run the `Example2` class the same way you ran the first example, let the scene l
 
 ### Additional examples and tutorials
 This is it for now, regarding the examples and tutorials for the VoxelTex engine.
+Of course, you can tweak as much as you like on the given examples to find some amazing results or create some awesome game project!
+
 If you'd like to see more of these to help you out understanding the engine, please contact @timvisee .
