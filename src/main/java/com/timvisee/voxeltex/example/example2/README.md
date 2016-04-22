@@ -61,8 +61,11 @@ We've made some minor improvements to this scene. We'll go over them now:
 
 
 ### Viewing our scene
-We've now upgraded our scene with a ground, a series of boxes and some fancy lighting. Time to see the result.
-Simply run the `Example2` class the same way you ran the first example, let the scene load and watch the magic happen!
+We've now upgraded our scene with a ground, a series of boxes and some fancy lighting.
+Yes, we've been able to achieve all of this simply by adding some lines of code.
+Time to see the result:
+
+Run the `Example2` class the same way you ran the first example, let the scene load and watch the magic happen!
 
 
 ### Additional examples and tutorials
