@@ -227,7 +227,7 @@ public class LevelBuilder {
         // Spawn the player
         if(this.playerController != null)
             // TODO: Remove the getOwner() reference getter usage
-            this.playerController.getOwner().addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(false)));
+            this.playerController.addComponent(new ObjectSpawnAnimatorComponent(this.delay += 0.02f, new RigidbodyComponent(false)));
 
         // Spawn some randomized blocks outside the map
         for(int i = 0; i < 4; i++) {

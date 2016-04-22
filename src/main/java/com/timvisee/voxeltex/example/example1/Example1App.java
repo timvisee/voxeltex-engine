@@ -20,14 +20,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.demo;
+package com.timvisee.voxeltex.example.example1;
 
-import com.timvisee.keybarricade.KeyBarricade;
 import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.swing.ProgressDialog;
 import com.timvisee.voxeltex.swing.SwingUtils;
 
-public class DemoApp {
+public class Example1App {
 
     /**
      * VoxelTex engine instance.
@@ -42,7 +41,7 @@ public class DemoApp {
     /**
      * Constructor.
      */
-    public DemoApp() { }
+    public Example1App() { }
 
     /**
      * Initialize.
@@ -56,7 +55,7 @@ public class DemoApp {
         this.progressDialog.setVisible(true);
 
         // Show initialization message
-        System.out.println("Initializing demo...");
+        System.out.println("Initializing " + Example1.APP_NAME + "...");
 
         // Initialize the VoxelTex engine
         initEngine();
@@ -80,9 +79,9 @@ public class DemoApp {
         this.engine = new VoxelTexEngine();
 
         // Set the title
-        this.engine.setTitle(KeyBarricade.APP_NAME + " v" + KeyBarricade.APP_VERSION_NAME);
+        this.engine.setTitle(Example1.APP_NAME + " v" + Example1.APP_VERSION_NAME);
 
-        // Initialize the engine (without loading the recourses in advance)
+        // Initialize the engine (without loading the resources in advance)
         this.engine.init(false);
 
         // Manually load the engine resources...
@@ -96,7 +95,7 @@ public class DemoApp {
     private void startEngine() {
         // Load the default scene
         this.progressDialog.setStatus("Loading scene...");
-        this.engine.getSceneManager().loadScene(new DemoScene());
+        this.engine.getSceneManager().loadScene(new Example1Scene());
 
         // Done, hide the progress dialog before starting the engine
         this.progressDialog.setVisible(false);
@@ -121,7 +120,7 @@ public class DemoApp {
         this.progressDialog.dispose();
 
         // The demo has quit, show a status message and force quit
-        System.out.println("Demo has quit");
+        System.out.println("Example1 has quit");
         System.exit(0);
     }
 }

@@ -2,6 +2,7 @@
   <dictionary name="Tim">
     <words>
       <w>collider</w>
+      <w>lerp</w>
       <w>lwjgl</w>
       <w>rigidbody</w>
       <w>shaders</w>

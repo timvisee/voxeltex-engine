@@ -25,7 +25,6 @@ package com.timvisee.keybarricade.game.component.animator;
 import com.timvisee.voxeltex.component.AbstractComponent;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.gameobject.Transform;
 import com.timvisee.voxeltex.global.Time;
 import org.joml.Vector3f;
 
@@ -116,11 +115,6 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
         // Set the time offset
         this.timeOffset = this.waitUntil;
 
-        // Get the proper transform object
-        Transform transform = getTransform();
-        if(this.meshRenderer != null)
-            transform = this.meshRenderer.getTransform();
-
         // Store the object's targetPosition position
         targetPosition = new Vector3f(getTransform().getPosition());
 
@@ -130,11 +124,6 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
 
     @Override
     public void update() {
-        // Get the proper transform object
-        Transform transform = getTransform();
-        if(this.meshRenderer != null)
-            transform = this.meshRenderer.getTransform();
-
         // Do not start the animation if we still need to wait
         if(Time.timeFloat < waitUntil) {
             // Disable the mesh renderer, to ensure the blocks aren't visible already in the air
@@ -162,12 +151,13 @@ public class ObjectSpawnAnimatorComponent extends BaseComponent {
             getTransform().setPosition(this.targetPosition);
 
             // Destroy the component
-            getOwner().removeComponent(this);
+            removeComponent(this);
 
             // Check if any delayed components are given, if so, add them
             if(this.delayedComponents != null)
+                //noinspection ForLoopReplaceableByForEach
                 for(int i = 0, size = this.delayedComponents.size(); i < size; i++)
-                    getOwner().addComponent(this.delayedComponents.get(i));
+                    addComponent(this.delayedComponents.get(i));
         }
     }
 }

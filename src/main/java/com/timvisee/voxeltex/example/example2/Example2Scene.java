@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.demo;
+package com.timvisee.voxeltex.example.example2;
 
 import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
@@ -32,7 +32,7 @@ import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
 import com.timvisee.voxeltex.scene.Scene;
 import com.timvisee.voxeltex.util.Color;
 
-public class DemoScene extends Scene {
+public class Example2Scene extends Scene {
 
     @Override
     public void load() {
@@ -45,25 +45,24 @@ public class DemoScene extends Scene {
         sunLight.getTransform().getPosition().set(-5, 1, -3);
         addGameObject(sunLight);
 
-        // Create a surface
+        // Add a ground
         addGameObject(new GroundPrefab());
-
-
-        // Demo code here:
-
 
         // Create a camera, which is required to see anything in a scene
         FpsCameraPrefab camera = new FpsCameraPrefab();
-        camera.getTransform().setPosition(0, 2, 3);
+        camera.getTransform().setPosition(0, 2, 5);
         addGameObject(camera);
 
-        // Create a row of boxes which emit light
-        for (int i = 0; i < 15; i++) {
+        // Create a row of light emitting boxes
+        for(int i = 0; i < 10; i++) {
+            // Create a box at the proper position
             CubePrefab box = new CubePrefab();
-            box.getTransform().setPosition(i, 0.5f, 0);
+            box.getTransform().setPosition(0.5f + 2.0f * i, 0.5f, 0.5f);
             box.setMaterial(EngineResourceBundle.getInstance().MATERIAL_BOX);
-            box.addComponent(new LightSourceComponent(Color.random()));
             addGameObject(box);
+
+            // Add a light source component to the box with a random color
+            box.addComponent(new LightSourceComponent(Color.random()));
         }
     }
 }

@@ -97,7 +97,7 @@ public class PadlockControllerComponent extends BaseComponent {
                 if(this.lockType.equals(this.playerController.getPickupLockType())) {
                     // Decay the padlock
                     // TODO: Remove getOwner() reference getter
-                    getOwner().addComponent(new ObjectDecayAnimatorComponent(0.0f));
+                    addComponent(new ObjectDecayAnimatorComponent(0.0f));
 
                     // Set the unlocked flag
                     this.unlocked = true;

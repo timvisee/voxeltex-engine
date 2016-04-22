@@ -20,36 +20,42 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.demo;
+package com.timvisee.voxeltex.example.example1;
 
-public class Demo {
+import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.prefab.camera.FpsCameraPrefab;
+import com.timvisee.voxeltex.prefab.light.LightPrefab;
+import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
+import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
+import com.timvisee.voxeltex.scene.Scene;
+import com.timvisee.voxeltex.util.Color;
 
-    /**
-     * Application name.
-     */
-    public static String APP_NAME = "Key Barricade";
+/**
+ * Example scene one.
+ *
+ * Please view the description and tutorial in the provided README.md file for further information.
+ */
+public class Example1Scene extends Scene {
 
-    /**
-     * Application version name.
-     */
-    public static String APP_VERSION_NAME = "0.1";
+    @Override
+    public void load() {
+        // Load the super
+        super.load();
 
-    /**
-     * Application version code.
-     * This integer should be increased by one each version.
-     */
-    public static int APP_VERSION_CODE = 1;
+        // Eliminate darkness by adding a light simulating the sun
+        LightPrefab sunLight = new LightPrefab("Sun", Light.LIGHT_TYPE_DIRECTIONAL, new Color(0xFDDC5C).toVector3f(), 0.3f);
+        sunLight.getTransform().getRotation().set(90, 45, 90).normalize();
+        sunLight.getTransform().getPosition().set(-5, 1, -3);
+        addGameObject(sunLight);
 
-    /**
-     * YamlWrapperExample method, called on start.
-     *
-     * @param args Start up arguments.
-     */
-    public static void main(String[] args) {
-        // Load the app
-        DemoApp app = new DemoApp();
+        // Create a movable camera, so we can view our scene
+        FpsCameraPrefab camera = new FpsCameraPrefab();
+        camera.getTransform().setPosition(0, 0, 5);
+        addGameObject(camera);
 
-        // Initialize the app
-        app.init();
+        // Place a textured box in the center of our scene
+        CubePrefab box = new CubePrefab();
+        box.setMaterial(EngineResourceBundle.getInstance().MATERIAL_BOX);
+        addGameObject(box);
     }
 }

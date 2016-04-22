@@ -20,50 +20,30 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.keybarricade.game.entity.prefab;
+package com.timvisee.voxeltex.example.example1;
 
-import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import org.joml.Vector2f;
-
-public class GroundPrefab extends QuadPrefab {
+public class Example1 {
 
     /**
-     * Constructor.
+     * Application name.
      */
-    public GroundPrefab() {
-        this(50.0f);
-    }
+    public static String APP_NAME = "VoxelTex - Example One";
 
     /**
-     * Constructor.
+     * Application version name.
+     */
+    public static String APP_VERSION_NAME = "0.1";
+
+    /**
+     * YamlWrapperExample method, called on start.
      *
-     * @param size Ground size.
+     * @param args Start up arguments.
      */
-    public GroundPrefab(float size) {
-        this(new Vector2f(size));
-    }
+    public static void main(String[] args) {
+        // Load the app
+        Example1App app = new Example1App();
 
-    /**
-     * Constructor.
-     *
-     * @param size Ground size.
-     */
-    public GroundPrefab(Vector2f size) {
-        // Construct the parent with the proper size
-        super("GroundPrefab", size);
-
-        // Create a ground surface material
-        System.out.println("Generating " + this + " surface material...");
-        Material groundMaterial = new Material(EngineResourceBundle.getInstance().TEXTURE_GROUND);
-        groundMaterial.getTiling().set(size.x / 8.0f);
-
-        // Set the quad material to the ground
-        setMaterial(groundMaterial);
-
-        // Add a kinematic rigidbody for collision
-        addComponent(new RigidbodyComponent(true));
+        // Initialize the app
+        app.init();
     }
 }
