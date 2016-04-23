@@ -80,8 +80,7 @@ public class KeyInputManager implements KeyInputInterface {
             @Override
             public void invoke(long window, int key, int scanCode, int action, int mods) {
                 // Set whether the key is pressed
-                keysDown[key] = action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT;
-                keysDownOnce[key] = action == GLFW.GLFW_PRESS;
+                keysDown[key] = (keysDownOnce[key] = action == GLFW.GLFW_PRESS) || action == GLFW.GLFW_REPEAT;
             }
         };
 
