@@ -79,16 +79,6 @@ public class KeyInputManager implements KeyInputInterface {
         this.keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scanCode, int action, int mods) {
-//                // Schedule a renderer window close when the escape key is pressed
-//                if(key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE)
-//                    GLFW.glfwSetWindowShouldClose(window, GL11.GL_TRUE);
-
-                // Make sure the key code is known
-                if(key < 0) {
-                    System.out.println("Unable to handle pressed key, key unknown.");
-                    return;
-                }
-
                 // Set whether the key is pressed
                 keysDown[key] = action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT;
                 keysDownOnce[key] = action == GLFW.GLFW_PRESS;
