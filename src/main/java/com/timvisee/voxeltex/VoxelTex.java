@@ -39,10 +39,10 @@ public class VoxelTex {
      */
     public static final String ENGINE_VERSION_NAME = "0.1";
 
-    /**
-     * Engine version code.
-     */
-    public static final int ENGINE_VERSION_CODE = 1;
+//    /**
+//     * Engine version code.
+//     */
+//    public static final int ENGINE_VERSION_CODE = 1;
 
     /**
      * VoxelTex engine instance.
