@@ -20,13 +20,13 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.splash;
+package com.timvisee.voxeltex.component.other.splash;
 
 import com.timvisee.keybarricade.game.scene.MainMenuScene;
 import com.timvisee.voxeltex.component.BaseComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiImageComponent;
-import com.timvisee.voxeltex.component.transform.Rectangle;
-import com.timvisee.voxeltex.component.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.overlay.transform.Rectangle;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
 import com.timvisee.voxeltex.global.Time;
 import org.lwjgl.opengl.GL11;
 

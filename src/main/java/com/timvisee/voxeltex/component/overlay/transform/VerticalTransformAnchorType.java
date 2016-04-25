@@ -20,36 +20,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.scene;
+package com.timvisee.voxeltex.component.overlay.transform;
 
-import com.timvisee.voxeltex.component.other.splash.SplashAnimatorComponent;
-import com.timvisee.voxeltex.component.overlay.gui.GuiImageComponent;
-import com.timvisee.voxeltex.component.overlay.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
-import com.timvisee.voxeltex.component.overlay.transform.VerticalTransformAnchorType;
-import com.timvisee.voxeltex.gameobject.GameObject;
-import com.timvisee.voxeltex.texture.Image;
-import org.joml.Vector2f;
+public enum VerticalTransformAnchorType {
 
-public class DeveloperSplashScene extends Scene {
-
-    @Override
-    public void load() {
-        // Load the super
-        super.load();
-
-        // Load the developer splash image
-        Image developerSplashImage = Image.loadFromEngineAssets("images/developerSplash.png");
-
-        // Create an game object with the splash as GUI image
-        GameObject avatarImage = new GameObject("Avatar");
-        avatarImage.addComponent(new RectangleTransform(
-                new Vector2f(0, 0),
-                new Vector2f(256, 256),
-                HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
-        ));
-        avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
-        avatarImage.addComponent(new SplashAnimatorComponent());
-        addGameObject(avatarImage);
-    }
+    TOP,
+    MIDDLE,
+    BOTTOM,
+    STRETCH
 }

@@ -27,12 +27,12 @@ import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComp
 import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.keybarricade.game.level.LevelBuilder;
 import com.timvisee.keybarricade.game.level.LevelManager;
-import com.timvisee.voxeltex.component.follow.SmoothTopDownFollowComponent;
+import com.timvisee.voxeltex.component.other.follow.SmoothTopDownFollowComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
 import com.timvisee.voxeltex.component.overlay.gui.menu.ToggleableMenuComponent;
-import com.timvisee.voxeltex.component.transform.RectangleTransform;
-import com.timvisee.voxeltex.component.transform.RectangleTransformAnchor;
-import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransformAnchor;
+import com.timvisee.voxeltex.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.global.Input;
 import com.timvisee.voxeltex.global.Time;

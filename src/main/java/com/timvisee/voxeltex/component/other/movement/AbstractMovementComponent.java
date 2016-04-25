@@ -20,12 +20,18 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.transform;
+package com.timvisee.voxeltex.component.other.movement;
 
-public enum HorizontalTransformAnchorType {
+import com.timvisee.voxeltex.component.BaseComponent;
 
-    LEFT,
-    CENTER,
-    RIGHT,
-    STRETCH
+public abstract class AbstractMovementComponent extends BaseComponent {
+
+    @Override
+    public void create() { }
+
+    @Override
+    public void start() {
+        // Call the super
+        super.start();
+    }
 }

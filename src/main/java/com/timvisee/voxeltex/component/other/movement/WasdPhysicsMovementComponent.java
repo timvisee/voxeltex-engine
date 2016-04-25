@@ -20,32 +20,62 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.movement;
+package com.timvisee.voxeltex.component.other.movement;
 
+import com.bulletphysics.dynamics.RigidBody;
+import com.timvisee.voxeltex.component.rigidbody.RigidbodyComponent;
 import com.timvisee.voxeltex.global.Input;
+import com.timvisee.voxeltex.math.vector.Vector3fFactory;
+import com.timvisee.voxeltex.math.vector.Vector3fUtil;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class WasdMovementComponent extends AbstractMovementComponent {
+public class WasdPhysicsMovementComponent extends AbstractMovementComponent {
 
     /**
      * Movement speed.
      */
-    private float movementSpeed = 5.0f;
+    private float movementIntensity = 6.0f;
+
+    /**
+     * Attached rigidbody component.
+     */
+    private RigidbodyComponent rigidbody;
 
     @Override
     public void update() {
+        // Make sure the rigidbody is available
+        if(this.rigidbody == null) {
+            // Get the rigidbody component if available
+            this.rigidbody = getComponent(RigidbodyComponent.class);
+
+            // Stop the update if it hasn't been found yet
+            if(this.rigidbody == null)
+                return;
+        }
+
         // Get the linear velocity of the object, and set it back to it's identity
-        Vector3f target = getTransform().getLinearVelocity().zero();
+        Vector3f target = Vector3fFactory.identity();
 
         // TODO: Make sure moving sideways has the same speed!
 
         // Determine the linear velocity based on user input
         target.add(
-                (Input.isKeyDown(GLFW_KEY_D) ? movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_A) ? -movementSpeed : 0),
+                (Input.isKeyDown(GLFW_KEY_D) ? movementIntensity : 0) + (Input.isKeyDown(GLFW_KEY_A) ? -movementIntensity : 0),
                 0.0f,
-                (Input.isKeyDown(GLFW_KEY_W) ? -movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_S) ? movementSpeed : 0)
+                (Input.isKeyDown(GLFW_KEY_W) ? -movementIntensity : 0) + (Input.isKeyDown(GLFW_KEY_S) ? movementIntensity : 0)
+        );
+
+        // Get the rigidbody
+        RigidBody rigidbody = this.rigidbody.getPhysicsRigidbody();
+
+        // Clear the current forces
+        rigidbody.clearForces();
+
+        // TODO: Use buffering!
+        rigidbody.applyCentralForce(
+                    Vector3fUtil.toVecmath(target, new javax.vecmath.Vector3f())
         );
     }
 
@@ -54,16 +84,16 @@ public class WasdMovementComponent extends AbstractMovementComponent {
      *
      * @return Movement speed.
      */
-    public float getMovementSpeed() {
-        return movementSpeed;
+    public float getMovementIntensity() {
+        return movementIntensity;
     }
 
     /**
      * Set the movement speed.
      *
-     * @param movementSpeed Movement speed.
+     * @param movementIntensity Movement speed.
      */
-    public void setMovementSpeed(float movementSpeed) {
-        this.movementSpeed = movementSpeed;
+    public void setMovementIntensity(float movementIntensity) {
+        this.movementIntensity = movementIntensity;
     }
 }

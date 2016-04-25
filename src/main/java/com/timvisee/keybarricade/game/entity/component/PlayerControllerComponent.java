@@ -33,13 +33,13 @@ import com.timvisee.voxeltex.component.collider.primitive.SphereColliderComponen
 import com.timvisee.voxeltex.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
 import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.component.movement.WasdPhysicsMovementComponent;
+import com.timvisee.voxeltex.component.other.movement.WasdPhysicsMovementComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiImageComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiLabelComponent;
 import com.timvisee.voxeltex.component.overlay.gui.GuiPanelComponent;
-import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.component.transform.RectangleTransform;
-import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.global.Time;

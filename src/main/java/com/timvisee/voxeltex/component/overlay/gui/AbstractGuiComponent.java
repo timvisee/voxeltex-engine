@@ -23,8 +23,8 @@
 package com.timvisee.voxeltex.component.overlay.gui;
 
 import com.timvisee.voxeltex.component.overlay.AbstractOverlayComponent;
-import com.timvisee.voxeltex.component.transform.Rectangle;
-import com.timvisee.voxeltex.component.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.overlay.transform.Rectangle;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
 
 public abstract class AbstractGuiComponent extends AbstractOverlayComponent {
 

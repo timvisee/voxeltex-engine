@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.component.overlay.gui;
 
-import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.component.transform.Rectangle;
-import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.Rectangle;
+import com.timvisee.voxeltex.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.global.Input;
 import com.timvisee.voxeltex.prefab.gui.GuiLabelPrefab;
 import com.timvisee.voxeltex.render.RenderOverlayHelper;

@@ -23,9 +23,9 @@
 package com.timvisee.voxeltex.prefab.gui;
 
 import com.timvisee.voxeltex.component.overlay.gui.GuiLabelComponent;
-import com.timvisee.voxeltex.component.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.component.transform.RectangleTransform;
-import com.timvisee.voxeltex.component.transform.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.component.overlay.transform.RectangleTransform;
+import com.timvisee.voxeltex.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector2f;

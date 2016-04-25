@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.transform;
+package com.timvisee.voxeltex.component.overlay.transform;
 
 import com.timvisee.voxeltex.math.vector.Vector2fFactory;
 import org.joml.Vector2f;

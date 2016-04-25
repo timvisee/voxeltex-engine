@@ -22,7 +22,7 @@
 
 package com.timvisee.voxeltex.component.overlay.gui;
 
-import com.timvisee.voxeltex.component.transform.Rectangle;
+import com.timvisee.voxeltex.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.font.BitmapFont;
 import com.timvisee.voxeltex.font.BitmapFontManager;
 import com.timvisee.voxeltex.render.RenderOverlayHelper;

@@ -20,12 +20,50 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.transform;
+package com.timvisee.voxeltex.component.other.movement;
 
-public enum VerticalTransformAnchorType {
+import com.timvisee.voxeltex.global.Input;
+import org.joml.Vector3f;
 
-    TOP,
-    MIDDLE,
-    BOTTOM,
-    STRETCH
+import static org.lwjgl.glfw.GLFW.*;
+
+public class WasdMovementComponent extends AbstractMovementComponent {
+
+    /**
+     * Movement speed.
+     */
+    private float movementSpeed = 5.0f;
+
+    @Override
+    public void update() {
+        // Get the linear velocity of the object, and set it back to it's identity
+        Vector3f target = getTransform().getLinearVelocity().zero();
+
+        // TODO: Make sure moving sideways has the same speed!
+
+        // Determine the linear velocity based on user input
+        target.add(
+                (Input.isKeyDown(GLFW_KEY_D) ? movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_A) ? -movementSpeed : 0),
+                0.0f,
+                (Input.isKeyDown(GLFW_KEY_W) ? -movementSpeed : 0) + (Input.isKeyDown(GLFW_KEY_S) ? movementSpeed : 0)
+        );
+    }
+
+    /**
+     * Get the moment speed.
+     *
+     * @return Movement speed.
+     */
+    public float getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    /**
+     * Set the movement speed.
+     *
+     * @param movementSpeed Movement speed.
+     */
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
 }

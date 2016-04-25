@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.component.follow;
+package com.timvisee.voxeltex.component.other.follow;
 
 import com.timvisee.voxeltex.component.AbstractComponent;
 import com.timvisee.voxeltex.component.BaseComponent;
