@@ -23,11 +23,11 @@
 package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.structure.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.structure.gameobject.GameObject;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector2f;
 

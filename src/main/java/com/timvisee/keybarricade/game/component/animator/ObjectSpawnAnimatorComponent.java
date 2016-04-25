@@ -22,10 +22,10 @@
 
 package com.timvisee.keybarricade.game.component.animator;
 
-import com.timvisee.voxeltex.component.AbstractComponent;
-import com.timvisee.voxeltex.component.BaseComponent;
-import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
 import com.timvisee.voxeltex.global.Time;
+import com.timvisee.voxeltex.structure.component.AbstractComponent;
+import com.timvisee.voxeltex.structure.component.BaseComponent;
+import com.timvisee.voxeltex.structure.component.mesh.renderer.MeshRendererComponent;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;

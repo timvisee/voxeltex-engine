@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.prefab.camera;
 
-import com.timvisee.voxeltex.component.camera.FpsCameraComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.structure.component.camera.FpsCameraComponent;
+import com.timvisee.voxeltex.structure.gameobject.GameObject;
 
 public class FpsCameraPrefab extends GameObject {
 

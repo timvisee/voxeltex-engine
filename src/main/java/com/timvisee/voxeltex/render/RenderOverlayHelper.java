@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.render;
 
-import com.timvisee.voxeltex.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.font.BitmapFont;
+import com.timvisee.voxeltex.structure.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;

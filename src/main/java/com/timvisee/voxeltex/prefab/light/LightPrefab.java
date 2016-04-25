@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.prefab.light;
 
-import com.timvisee.voxeltex.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.light.Light;
+import com.timvisee.voxeltex.structure.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.structure.gameobject.GameObject;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector3f;
 

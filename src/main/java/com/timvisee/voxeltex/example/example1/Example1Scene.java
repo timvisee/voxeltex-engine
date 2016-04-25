@@ -27,7 +27,7 @@ import com.timvisee.voxeltex.prefab.camera.FpsCameraPrefab;
 import com.timvisee.voxeltex.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
 import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import com.timvisee.voxeltex.scene.Scene;
+import com.timvisee.voxeltex.structure.scene.Scene;
 import com.timvisee.voxeltex.util.Color;
 
 /**

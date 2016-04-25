@@ -23,7 +23,7 @@
 package com.timvisee.voxeltex.shader;
 
 import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.scene.AbstractScene;
+import com.timvisee.voxeltex.structure.scene.AbstractScene;
 import org.joml.*;
 
 import java.nio.FloatBuffer;

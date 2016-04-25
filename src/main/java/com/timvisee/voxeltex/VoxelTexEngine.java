@@ -24,7 +24,7 @@ package com.timvisee.voxeltex;
 
 import com.timvisee.voxeltex.renderer.VoxelTexRenderer;
 import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import com.timvisee.voxeltex.scene.SceneManager;
+import com.timvisee.voxeltex.structure.scene.SceneManager;
 
 public class VoxelTexEngine {
 

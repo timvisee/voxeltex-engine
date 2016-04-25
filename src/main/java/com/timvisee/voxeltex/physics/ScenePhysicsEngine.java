@@ -33,7 +33,7 @@ import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.constraintsolver.ConstraintSolver;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
 import com.timvisee.voxeltex.global.Time;
-import com.timvisee.voxeltex.scene.AbstractScene;
+import com.timvisee.voxeltex.structure.scene.AbstractScene;
 
 import javax.vecmath.Vector3f;
 

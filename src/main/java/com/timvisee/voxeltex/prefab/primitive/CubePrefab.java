@@ -22,14 +22,14 @@
 
 package com.timvisee.voxeltex.prefab.primitive;
 
-import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
-import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
-import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.math.vector.Vector3fFactory;
 import com.timvisee.voxeltex.mesh.generator.CubeMeshGenerator;
 import com.timvisee.voxeltex.shader.ShaderManager;
+import com.timvisee.voxeltex.structure.component.collider.primitive.BoxColliderComponent;
+import com.timvisee.voxeltex.structure.component.mesh.filter.MeshFilterComponent;
+import com.timvisee.voxeltex.structure.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.structure.gameobject.GameObject;
 import org.joml.Vector3f;
 
 public class CubePrefab extends GameObject {

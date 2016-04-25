@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.light;
 
-import com.timvisee.voxeltex.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.shader.Shader;
+import com.timvisee.voxeltex.structure.gameobject.AbstractGameObject;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;

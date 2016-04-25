@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.global;
 
-import com.timvisee.voxeltex.component.camera.AbstractCameraComponent;
-import com.timvisee.voxeltex.gameobject.AbstractGameObject;
+import com.timvisee.voxeltex.structure.component.camera.AbstractCameraComponent;
+import com.timvisee.voxeltex.structure.gameobject.AbstractGameObject;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;

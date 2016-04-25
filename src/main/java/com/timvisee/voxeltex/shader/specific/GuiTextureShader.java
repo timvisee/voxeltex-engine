@@ -24,10 +24,10 @@ package com.timvisee.voxeltex.shader.specific;
 
 import com.timvisee.voxeltex.material.Material;
 import com.timvisee.voxeltex.math.vector.Vector4fFactory;
-import com.timvisee.voxeltex.scene.AbstractScene;
 import com.timvisee.voxeltex.shader.Shader;
 import com.timvisee.voxeltex.shader.raw.AbstractRawShader;
 import com.timvisee.voxeltex.shader.raw.EngineAssetsRawShader;
+import com.timvisee.voxeltex.structure.scene.AbstractScene;
 import com.timvisee.voxeltex.util.Color;
 import org.joml.Vector4f;
 

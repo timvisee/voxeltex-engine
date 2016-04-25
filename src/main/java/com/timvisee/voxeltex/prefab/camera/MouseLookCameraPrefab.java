@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.prefab.camera;
 
-import com.timvisee.voxeltex.component.camera.MouseLookCameraComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.structure.component.camera.MouseLookCameraComponent;
+import com.timvisee.voxeltex.structure.gameobject.GameObject;
 
 public class MouseLookCameraPrefab extends GameObject {
 

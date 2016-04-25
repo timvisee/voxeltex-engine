@@ -23,8 +23,8 @@
 package com.timvisee.voxeltex.shader;
 
 import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.scene.AbstractScene;
 import com.timvisee.voxeltex.shader.raw.AbstractRawShader;
+import com.timvisee.voxeltex.structure.scene.AbstractScene;
 
 public class Shader extends AbstractShader {
 

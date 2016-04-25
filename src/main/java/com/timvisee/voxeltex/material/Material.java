@@ -23,9 +23,9 @@
 package com.timvisee.voxeltex.material;
 
 import com.timvisee.voxeltex.math.vector.Vector2fFactory;
-import com.timvisee.voxeltex.scene.AbstractScene;
 import com.timvisee.voxeltex.shader.Shader;
 import com.timvisee.voxeltex.shader.ShaderManager;
+import com.timvisee.voxeltex.structure.scene.AbstractScene;
 import com.timvisee.voxeltex.texture.Texture;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL13;

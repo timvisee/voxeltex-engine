@@ -22,7 +22,7 @@
 
 package com.timvisee.voxeltex;
 
-import com.timvisee.voxeltex.scene.TestEnvironmentScene;
+import com.timvisee.voxeltex.structure.scene.TestEnvironmentScene;
 import com.timvisee.voxeltex.swing.ProgressDialog;
 import com.timvisee.voxeltex.swing.SwingUtils;
 

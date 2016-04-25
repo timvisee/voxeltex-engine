@@ -24,7 +24,7 @@ package com.timvisee.keybarricade;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.voxeltex.VoxelTexEngine;
-import com.timvisee.voxeltex.scene.DeveloperSplashScene;
+import com.timvisee.voxeltex.structure.scene.DeveloperSplashScene;
 import com.timvisee.voxeltex.swing.ProgressDialog;
 import com.timvisee.voxeltex.swing.SwingUtils;
 
