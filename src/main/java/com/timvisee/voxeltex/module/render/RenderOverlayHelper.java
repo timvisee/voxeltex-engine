@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.module.render;
 
-import com.timvisee.voxeltex.architecture.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.font.BitmapFont;
+import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
 

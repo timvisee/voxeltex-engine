@@ -26,6 +26,7 @@ import com.timvisee.voxeltex.EnabledState;
 import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.architecture.component.AbstractComponent;
 import com.timvisee.voxeltex.architecture.scene.AbstractScene;
+import com.timvisee.voxeltex.module.transform.Transform;
 
 import java.util.List;
 

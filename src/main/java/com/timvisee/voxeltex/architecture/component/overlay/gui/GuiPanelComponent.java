@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.architecture.component.overlay.gui;
 
-import com.timvisee.voxeltex.architecture.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.render.RenderOverlayHelper;
+import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
 
 public class GuiPanelComponent extends AbstractGuiComponent {
 

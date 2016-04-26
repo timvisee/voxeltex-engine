@@ -23,7 +23,7 @@
 package com.timvisee.voxeltex.architecture.component;
 
 import com.timvisee.voxeltex.architecture.gameobject.AbstractGameObject;
-import com.timvisee.voxeltex.architecture.gameobject.Transform;
+import com.timvisee.voxeltex.module.transform.Transform;
 
 import java.util.List;
 

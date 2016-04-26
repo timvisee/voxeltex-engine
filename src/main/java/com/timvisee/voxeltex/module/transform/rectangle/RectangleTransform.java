@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.architecture.component.overlay.transform;
+package com.timvisee.voxeltex.module.transform.rectangle;
 
 import com.timvisee.voxeltex.architecture.component.BaseComponent;
 import com.timvisee.voxeltex.module.render.OverlayUtil;

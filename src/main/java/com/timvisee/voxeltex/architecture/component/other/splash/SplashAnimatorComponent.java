@@ -25,8 +25,8 @@ package com.timvisee.voxeltex.architecture.component.other.splash;
 import com.timvisee.keybarricade.game.scene.MainMenuScene;
 import com.timvisee.voxeltex.architecture.component.BaseComponent;
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiImageComponent;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.Rectangle;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.RectangleTransform;
+import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
+import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
 import com.timvisee.voxeltex.runtime.global.Time;
 import org.lwjgl.opengl.GL11;
 

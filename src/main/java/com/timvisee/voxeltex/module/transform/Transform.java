@@ -20,8 +20,10 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.architecture.gameobject;
+package com.timvisee.voxeltex.module.transform;
 
+import com.timvisee.voxeltex.architecture.gameobject.AbstractGameObject;
+import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 import com.timvisee.voxeltex.runtime.global.Time;
 import com.timvisee.voxeltex.util.math.quaternion.QuaternionfFactory;
 import com.timvisee.voxeltex.util.math.vector.Vector3fFactory;

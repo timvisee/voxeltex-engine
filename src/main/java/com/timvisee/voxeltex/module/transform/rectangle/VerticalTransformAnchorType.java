@@ -20,12 +20,12 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.architecture.component.overlay.transform;
+package com.timvisee.voxeltex.module.transform.rectangle;
 
-public enum HorizontalTransformAnchorType {
+public enum VerticalTransformAnchorType {
 
-    LEFT,
-    CENTER,
-    RIGHT,
+    TOP,
+    MIDDLE,
+    BOTTOM,
     STRETCH
 }

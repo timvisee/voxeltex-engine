@@ -23,11 +23,11 @@
 package com.timvisee.voxeltex.architecture.prefab.gui;
 
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiLabelComponent;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.RectangleTransform;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 import com.timvisee.voxeltex.module.Color;
+import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
+import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
 import org.joml.Vector2f;
 
 public class GuiLabelPrefab extends GameObject {

@@ -22,11 +22,11 @@
 
 package com.timvisee.voxeltex.architecture.component.overlay.gui;
 
-import com.timvisee.voxeltex.architecture.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.font.BitmapFont;
 import com.timvisee.voxeltex.module.font.BitmapFontManager;
 import com.timvisee.voxeltex.module.render.RenderOverlayHelper;
+import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
 
 public class GuiLabelComponent extends AbstractGuiComponent {
 

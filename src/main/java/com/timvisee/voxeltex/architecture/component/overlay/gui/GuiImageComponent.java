@@ -22,7 +22,6 @@
 
 package com.timvisee.voxeltex.architecture.component.overlay.gui;
 
-import com.timvisee.voxeltex.architecture.component.overlay.transform.Rectangle;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.material.Material;
 import com.timvisee.voxeltex.module.render.RenderOverlayHelper;
@@ -30,6 +29,7 @@ import com.timvisee.voxeltex.module.shader.ShaderManager;
 import com.timvisee.voxeltex.module.shader.specific.GuiTextureShader;
 import com.timvisee.voxeltex.module.texture.Image;
 import com.timvisee.voxeltex.module.texture.Texture;
+import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
 
 public class GuiImageComponent extends AbstractGuiComponent {
 

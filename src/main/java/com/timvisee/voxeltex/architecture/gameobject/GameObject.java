@@ -25,6 +25,7 @@ package com.timvisee.voxeltex.architecture.gameobject;
 import com.timvisee.voxeltex.architecture.component.AbstractComponent;
 import com.timvisee.voxeltex.architecture.component.drawable.DrawableComponentInterface;
 import com.timvisee.voxeltex.architecture.component.overlay.OverlayComponentInterface;
+import com.timvisee.voxeltex.module.transform.Transform;
 import com.timvisee.voxeltex.runtime.global.MainCamera;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;

@@ -37,15 +37,15 @@ import com.timvisee.voxeltex.architecture.component.other.movement.WasdPhysicsMo
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiImageComponent;
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiLabelComponent;
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiPanelComponent;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.RectangleTransform;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.architecture.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 import com.timvisee.voxeltex.engine.light.Light;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.material.Material;
 import com.timvisee.voxeltex.module.texture.Texture;
+import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
+import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.runtime.global.Time;
 import org.joml.Vector2f;
 

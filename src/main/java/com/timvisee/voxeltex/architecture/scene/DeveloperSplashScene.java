@@ -24,11 +24,11 @@ package com.timvisee.voxeltex.architecture.scene;
 
 import com.timvisee.voxeltex.architecture.component.other.splash.SplashAnimatorComponent;
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiImageComponent;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.HorizontalTransformAnchorType;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.RectangleTransform;
-import com.timvisee.voxeltex.architecture.component.overlay.transform.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 import com.timvisee.voxeltex.module.texture.Image;
+import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
+import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
 import org.joml.Vector2f;
 
 public class DeveloperSplashScene extends Scene {
