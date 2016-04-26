@@ -26,9 +26,9 @@ import com.timvisee.voxeltex.architecture.component.other.splash.SplashAnimatorC
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiImageComponent;
 import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 import com.timvisee.voxeltex.module.texture.Image;
-import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
-import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.VerticalTransformAnchorType;
 import org.joml.Vector2f;
 
 public class DeveloperSplashScene extends Scene {

@@ -43,9 +43,9 @@ import com.timvisee.voxeltex.engine.light.Light;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.material.Material;
 import com.timvisee.voxeltex.module.texture.Texture;
-import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
-import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.runtime.global.Time;
 import org.joml.Vector2f;
 

@@ -25,9 +25,9 @@ package com.timvisee.voxeltex.architecture.component.overlay.gui;
 import com.timvisee.voxeltex.architecture.prefab.gui.GuiLabelPrefab;
 import com.timvisee.voxeltex.module.Color;
 import com.timvisee.voxeltex.module.render.RenderOverlayHelper;
-import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
-import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.runtime.global.Input;
 import org.joml.Vector2f;
 

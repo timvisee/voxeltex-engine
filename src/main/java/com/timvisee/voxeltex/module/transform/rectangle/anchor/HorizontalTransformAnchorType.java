@@ -20,12 +20,27 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.module.transform.rectangle;
+package com.timvisee.voxeltex.module.transform.rectangle.anchor;
 
-public enum VerticalTransformAnchorType {
+public enum HorizontalTransformAnchorType {
 
-    TOP,
-    MIDDLE,
-    BOTTOM,
+    /**
+     * Anchor to the left of the context.
+     */
+    LEFT,
+
+    /**
+     * Anchor to the center of the context.
+     */
+    CENTER,
+
+    /**
+     * Anchor to the right of the context.
+     */
+    RIGHT,
+
+    /**
+     * Stretch to the context.
+     */
     STRETCH
 }

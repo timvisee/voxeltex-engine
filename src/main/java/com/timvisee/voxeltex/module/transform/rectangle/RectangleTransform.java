@@ -24,6 +24,9 @@ package com.timvisee.voxeltex.module.transform.rectangle;
 
 import com.timvisee.voxeltex.architecture.component.BaseComponent;
 import com.timvisee.voxeltex.module.render.OverlayUtil;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.RectangleTransformAnchor;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.VerticalTransformAnchorType;
 import com.timvisee.voxeltex.util.math.vector.Vector2fFactory;
 import org.joml.Vector2f;
 

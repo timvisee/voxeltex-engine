@@ -24,9 +24,9 @@ package com.timvisee.voxeltex.architecture.prefab.gui;
 
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiButtonComponent;
 import com.timvisee.voxeltex.architecture.gameobject.GameObject;
-import com.timvisee.voxeltex.module.transform.rectangle.HorizontalTransformAnchorType;
 import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
-import com.timvisee.voxeltex.module.transform.rectangle.VerticalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.HorizontalTransformAnchorType;
+import com.timvisee.voxeltex.module.transform.rectangle.anchor.VerticalTransformAnchorType;
 import org.joml.Vector2f;
 
 public class GuiButtonPrefab extends GameObject {

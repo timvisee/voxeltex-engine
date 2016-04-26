@@ -51,6 +51,12 @@ public class Rectangle {
         setSize(size);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param position Rectangle position.
+     * @param size Rectangle size.
+     */
     public Rectangle(Vector2f position, Vector2f size) {
         setPosition(position);
         setSize(size);

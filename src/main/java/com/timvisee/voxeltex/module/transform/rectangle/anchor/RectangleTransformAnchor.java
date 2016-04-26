@@ -20,7 +20,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex.module.transform.rectangle;
+package com.timvisee.voxeltex.module.transform.rectangle.anchor;
 
 import org.joml.Vector4f;
 
