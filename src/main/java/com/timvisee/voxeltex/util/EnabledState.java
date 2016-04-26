@@ -20,13 +20,25 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex;
+package com.timvisee.voxeltex.util;
 
 /**
  * Defines the enabled state.
  */
 public enum EnabledState {
+
+    /**
+     * The enabled state is undefined.
+     */
     UNDEFINED,
+
+    /**
+     * The enabled state is set to enabled.
+     */
     ENABLED,
+
+    /**
+     * The enabled state is set to disabled.
+     */
     DISABLED
 }
