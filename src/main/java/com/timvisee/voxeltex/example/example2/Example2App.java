@@ -23,8 +23,8 @@
 package com.timvisee.voxeltex.example.example2;
 
 import com.timvisee.voxeltex.VoxelTexEngine;
-import com.timvisee.voxeltex.swing.ProgressDialog;
-import com.timvisee.voxeltex.swing.SwingUtils;
+import com.timvisee.voxeltex.util.swing.ProgressDialog;
+import com.timvisee.voxeltex.util.swing.SwingUtils;
 
 public class Example2App {
 

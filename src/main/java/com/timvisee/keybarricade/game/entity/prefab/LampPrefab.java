@@ -23,12 +23,12 @@
 package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
-import com.timvisee.voxeltex.light.Light;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import com.timvisee.voxeltex.structure.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.structure.gameobject.GameObject;
-import com.timvisee.voxeltex.util.Color;
+import com.timvisee.voxeltex.architecture.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.architecture.gameobject.GameObject;
+import com.timvisee.voxeltex.architecture.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.engine.light.Light;
+import com.timvisee.voxeltex.module.Color;
+import com.timvisee.voxeltex.module.material.Material;
 import org.joml.Vector2f;
 
 public class LampPrefab extends QuadPrefab {

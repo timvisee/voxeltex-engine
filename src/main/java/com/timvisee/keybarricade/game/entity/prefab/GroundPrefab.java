@@ -22,10 +22,10 @@
 
 package com.timvisee.keybarricade.game.entity.prefab;
 
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
-import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import com.timvisee.voxeltex.structure.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.architecture.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.architecture.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.module.material.Material;
+import com.timvisee.voxeltex.module.resource.bundle.EngineResourceBundle;
 import org.joml.Vector2f;
 
 public class GroundPrefab extends QuadPrefab {

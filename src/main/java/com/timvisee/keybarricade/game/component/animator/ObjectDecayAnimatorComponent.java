@@ -22,11 +22,11 @@
 
 package com.timvisee.keybarricade.game.component.animator;
 
-import com.timvisee.voxeltex.global.Time;
-import com.timvisee.voxeltex.structure.component.BaseComponent;
-import com.timvisee.voxeltex.structure.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.structure.component.rigidbody.RigidbodyComponent;
-import com.timvisee.voxeltex.structure.gameobject.Transform;
+import com.timvisee.voxeltex.architecture.component.BaseComponent;
+import com.timvisee.voxeltex.architecture.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.architecture.component.rigidbody.RigidbodyComponent;
+import com.timvisee.voxeltex.architecture.gameobject.Transform;
+import com.timvisee.voxeltex.runtime.global.Time;
 import org.joml.Vector3f;
 
 public class ObjectDecayAnimatorComponent extends BaseComponent {

@@ -24,8 +24,8 @@ package com.timvisee.keybarricade.game.entity.component;
 
 import com.timvisee.keybarricade.game.component.animator.ObjectDecayAnimatorComponent;
 import com.timvisee.keybarricade.game.entity.LockType;
-import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
-import com.timvisee.voxeltex.structure.component.BaseComponent;
+import com.timvisee.voxeltex.architecture.component.BaseComponent;
+import com.timvisee.voxeltex.architecture.prefab.primitive.CubePrefab;
 
 public class PadlockControllerComponent extends BaseComponent {
 

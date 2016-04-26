@@ -27,8 +27,8 @@ import com.timvisee.keybarricade.game.component.animator.ObjectSpawnAnimatorComp
 import com.timvisee.keybarricade.game.entity.LockType;
 import com.timvisee.keybarricade.game.entity.prefab.BoxPrefab;
 import com.timvisee.keybarricade.game.entity.prefab.LampPrefab;
-import com.timvisee.voxeltex.global.Time;
-import com.timvisee.voxeltex.structure.component.BaseComponent;
+import com.timvisee.voxeltex.architecture.component.BaseComponent;
+import com.timvisee.voxeltex.runtime.global.Time;
 import org.joml.Vector3f;
 
 public class MainMenuSpawnerComponent extends BaseComponent {

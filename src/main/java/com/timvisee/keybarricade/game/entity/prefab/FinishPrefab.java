@@ -25,7 +25,7 @@ package com.timvisee.keybarricade.game.entity.prefab;
 import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.entity.component.FinishControllerComponent;
 import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
-import com.timvisee.voxeltex.prefab.primitive.QuadPrefab;
+import com.timvisee.voxeltex.architecture.prefab.primitive.QuadPrefab;
 
 public class FinishPrefab extends QuadPrefab {
 

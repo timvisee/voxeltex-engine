@@ -22,7 +22,7 @@
 
 package com.timvisee.keybarricade.game.entity;
 
-import com.timvisee.voxeltex.util.Color;
+import com.timvisee.voxeltex.module.Color;
 
 public enum LockType {
 

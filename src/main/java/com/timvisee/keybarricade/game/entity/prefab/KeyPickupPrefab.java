@@ -26,13 +26,13 @@ import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.entity.LockType;
 import com.timvisee.keybarricade.game.entity.component.KeyPickupControllerComponent;
 import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
-import com.timvisee.voxeltex.light.Light;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.structure.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.structure.component.mesh.filter.MeshFilterComponent;
-import com.timvisee.voxeltex.structure.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.structure.gameobject.GameObject;
-import com.timvisee.voxeltex.texture.Texture;
+import com.timvisee.voxeltex.architecture.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.architecture.component.mesh.filter.MeshFilterComponent;
+import com.timvisee.voxeltex.architecture.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.architecture.gameobject.GameObject;
+import com.timvisee.voxeltex.engine.light.Light;
+import com.timvisee.voxeltex.module.material.Material;
+import com.timvisee.voxeltex.module.texture.Texture;
 
 public class KeyPickupPrefab extends GameObject {
 

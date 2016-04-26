@@ -23,7 +23,7 @@
 package com.timvisee.keybarricade.game.entity.component;
 
 import com.timvisee.keybarricade.game.entity.LockType;
-import com.timvisee.voxeltex.structure.component.BaseComponent;
+import com.timvisee.voxeltex.architecture.component.BaseComponent;
 
 public class KeyPickupControllerComponent extends BaseComponent {
 
