@@ -20,8 +20,9 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.                *
  ******************************************************************************/
 
-package com.timvisee.voxeltex;
+package com.timvisee.voxeltex.engine;
 
+import com.timvisee.voxeltex.VoxelTex;
 import com.timvisee.voxeltex.architecture.scene.SceneManager;
 import com.timvisee.voxeltex.engine.render.VoxelTexRenderer;
 import com.timvisee.voxeltex.module.resource.bundle.EngineResourceBundle;

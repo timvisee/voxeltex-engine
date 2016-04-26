@@ -23,6 +23,7 @@
 package com.timvisee.voxeltex;
 
 import com.timvisee.voxeltex.architecture.scene.TestEnvironmentScene;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 import com.timvisee.voxeltex.util.swing.ProgressDialog;
 import com.timvisee.voxeltex.util.swing.SwingUtils;
 

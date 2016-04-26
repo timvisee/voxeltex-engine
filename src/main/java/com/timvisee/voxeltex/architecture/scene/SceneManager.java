@@ -22,7 +22,7 @@
 
 package com.timvisee.voxeltex.architecture.scene;
 
-import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 
 public class SceneManager {
 

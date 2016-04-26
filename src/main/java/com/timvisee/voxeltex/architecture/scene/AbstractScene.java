@@ -22,8 +22,8 @@
 
 package com.timvisee.voxeltex.architecture.scene;
 
-import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.architecture.gameobject.AbstractGameObject;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 import com.timvisee.voxeltex.engine.light.LightManager;
 import com.timvisee.voxeltex.engine.physics.ScenePhysicsEngine;
 

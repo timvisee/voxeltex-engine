@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.architecture.component;
 
-import com.timvisee.voxeltex.VoxelTexEngine;
 import com.timvisee.voxeltex.architecture.gameobject.AbstractGameObject;
 import com.timvisee.voxeltex.architecture.scene.AbstractScene;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 import com.timvisee.voxeltex.module.transform.Transform;
 import com.timvisee.voxeltex.util.EnabledState;
 

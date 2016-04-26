@@ -22,7 +22,7 @@
 
 package com.timvisee.voxeltex.module.render;
 
-import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 import com.timvisee.voxeltex.engine.window.VoxelTexWindow;
 
 public class OverlayUtil {

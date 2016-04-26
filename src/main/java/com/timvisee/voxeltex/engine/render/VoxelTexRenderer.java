@@ -23,7 +23,7 @@
 package com.timvisee.voxeltex.engine.render;
 
 import com.timvisee.voxeltex.VoxelTex;
-import com.timvisee.voxeltex.VoxelTexEngine;
+import com.timvisee.voxeltex.engine.VoxelTexEngine;
 import com.timvisee.voxeltex.engine.window.VoxelTexWindow;
 import com.timvisee.voxeltex.module.render.OverlayUtil;
 import com.timvisee.voxeltex.module.shader.ShaderManager;
