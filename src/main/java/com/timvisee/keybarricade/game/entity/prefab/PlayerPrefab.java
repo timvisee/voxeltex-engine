@@ -24,7 +24,7 @@ package com.timvisee.keybarricade.game.entity.prefab;
 
 import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
 import com.timvisee.keybarricade.game.scene.GameScene;
-import com.timvisee.voxeltex.gameobject.GameObject;
+import com.timvisee.voxeltex.architecture.gameobject.GameObject;
 
 public class PlayerPrefab extends GameObject {
 

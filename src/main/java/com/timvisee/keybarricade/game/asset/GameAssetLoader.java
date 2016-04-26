@@ -22,7 +22,7 @@
 
 package com.timvisee.keybarricade.game.asset;
 
-import com.timvisee.voxeltex.resource.ResourceLoader;
+import com.timvisee.voxeltex.module.resource.ResourceLoader;
 
 public class GameAssetLoader extends ResourceLoader {
 

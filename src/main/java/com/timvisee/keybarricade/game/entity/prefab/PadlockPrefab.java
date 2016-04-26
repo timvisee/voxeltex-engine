@@ -26,16 +26,16 @@ import com.timvisee.keybarricade.game.asset.GameResourceBundle;
 import com.timvisee.keybarricade.game.entity.LockType;
 import com.timvisee.keybarricade.game.entity.component.PadlockControllerComponent;
 import com.timvisee.keybarricade.game.entity.component.PlayerControllerComponent;
-import com.timvisee.voxeltex.component.collider.primitive.BoxColliderComponent;
-import com.timvisee.voxeltex.component.light.LightSourceComponent;
-import com.timvisee.voxeltex.component.mesh.filter.MeshFilterComponent;
-import com.timvisee.voxeltex.component.mesh.renderer.MeshRendererComponent;
-import com.timvisee.voxeltex.gameobject.GameObject;
-import com.timvisee.voxeltex.light.Light;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.prefab.primitive.CubePrefab;
-import com.timvisee.voxeltex.texture.Texture;
-import com.timvisee.voxeltex.util.Color;
+import com.timvisee.voxeltex.architecture.component.collider.primitive.BoxColliderComponent;
+import com.timvisee.voxeltex.architecture.component.light.LightSourceComponent;
+import com.timvisee.voxeltex.architecture.component.mesh.filter.MeshFilterComponent;
+import com.timvisee.voxeltex.architecture.component.mesh.renderer.MeshRendererComponent;
+import com.timvisee.voxeltex.architecture.gameobject.GameObject;
+import com.timvisee.voxeltex.architecture.prefab.primitive.CubePrefab;
+import com.timvisee.voxeltex.engine.light.Light;
+import com.timvisee.voxeltex.module.Color;
+import com.timvisee.voxeltex.module.material.Material;
+import com.timvisee.voxeltex.module.texture.Texture;
 import org.joml.Vector3f;
 
 public class PadlockPrefab extends GameObject {

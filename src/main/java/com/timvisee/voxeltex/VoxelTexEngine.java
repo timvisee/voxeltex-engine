@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex;
 
-import com.timvisee.voxeltex.renderer.VoxelTexRenderer;
-import com.timvisee.voxeltex.resource.bundle.EngineResourceBundle;
-import com.timvisee.voxeltex.scene.SceneManager;
+import com.timvisee.voxeltex.architecture.scene.SceneManager;
+import com.timvisee.voxeltex.engine.render.VoxelTexRenderer;
+import com.timvisee.voxeltex.module.resource.bundle.EngineResourceBundle;
 
 public class VoxelTexEngine {
 

@@ -23,12 +23,12 @@
 package com.timvisee.keybarricade.game.asset;
 
 import com.timvisee.keybarricade.game.level.LevelManager;
-import com.timvisee.voxeltex.material.Material;
-import com.timvisee.voxeltex.mesh.Mesh;
-import com.timvisee.voxeltex.model.loader.ObjModelLoader;
-import com.timvisee.voxeltex.resource.bundle.ResourceBundleInterface;
-import com.timvisee.voxeltex.texture.Image;
-import com.timvisee.voxeltex.texture.Texture;
+import com.timvisee.voxeltex.module.material.Material;
+import com.timvisee.voxeltex.module.mesh.Mesh;
+import com.timvisee.voxeltex.module.model.loader.ObjModelLoader;
+import com.timvisee.voxeltex.module.resource.bundle.ResourceBundleInterface;
+import com.timvisee.voxeltex.module.texture.Image;
+import com.timvisee.voxeltex.module.texture.Texture;
 
 public class GameResourceBundle implements ResourceBundleInterface {
 
