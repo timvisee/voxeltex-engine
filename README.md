@@ -1,57 +1,55 @@
-#KeyBarricade
+#VoxelTex Engine
 
-Key Barricade is a simple game made as challenge for college.
-This game brings a custom rendering engine named VoxelTex written from scratch using OpenGL.
-See the paragraph below for information on how to run the project.
-
-[I've included a guide/tutorial with some examples to guide you to the VoxelTex engine here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
-
-![KeyBarricade with VoxelTex v0.1 Alpha](http://i.imgur.com/6A82f72.jpg)
-
-<br />
-<br />
+VoxelTex is a game engine written in Java.
+It uses OpenGL and various other technologies to render on the screen using the GPU to achieve the best performance with great visual results.
+VoxelTex uses a Scene, GameObject and Component architecture for ultimate code structure and reusability.
+The engine provides many resources to streamline the development process.
 
 ---
 
-### Running
+### KeyBarricade - A game running on VoxelTex
 
-#####Build:
-The latest available runnable Key Barricade build can be downloaded from it's builds page: http://ci.xephi.fr/job/KeyBarricade/
-You may also compile the project sources to create your very own build.
+![KeyBarricade with VoxelTex v0.1 Alpha](http://i.imgur.com/6A82f72.jpg)
 
-#####Running requirements:
+The KeyBarricade has been developed as game example, running on the VoxelTex engine.
+You can find the source code and executable here:
+
+* [Source code (GitHub)](https://github.com/timvisee/KeyBarricade)
+* [Executable (Jenkins)](http://ci.xephi.fr/job/KeyBarricade/)
+
+---
+
+### Engine requirements
 >- Java 1.8 or higher
 >- OpenGL 2.1 or higher
 >- Windows or Linux operating system
 
 Note: Mac OS X support has been dropped, due to various problems related to the operating system. It's unlikely this platform will officially be supported again in the future.
 
----
-
 ### Compiling
 
-#####Compiling requirements:
+#####Compiling requirements
 >- JDK 1.8
 >- Maven
->- Git/GitHub (Optional)
+>- Git/GitHub _(Optional)_
 
-#####How to compile:
+#####How to compile
 >- Clone the project with Git/GitHub
 >- Select the `windows` or `linux` profile.
 >- Compile with `mvn clean install -B`
 >- Execute the `KeyBarricade-*.jar` file.
 
-<br />
-<br />
 
+<br />
 ---
+<br />
 
-_I've included some VoxelTex engine usage examples.
-This guide shows you step by step how to create your first few scenes, covering things like object creation and lighting.
-[Please follow that tutorial here.](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one)_
+### VoxelTex Engine - Example one
+A basic tutorial has been included with the VoxelTex engine.
+This tutorial covers things like scene creation, object creation and lighting.
+[Please check out the full tutorial here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one) or check out the first part below.
 
-# VoxelTex Engine - Example one
-This is the first VoxelTex usage example.
+
 
 _Note: This is a basic example, and is meant to show some basic features of the VoxelTex engine.
 This only covers a small part of the available features.
