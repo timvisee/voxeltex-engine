@@ -35,7 +35,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Compiler Version (JDK) -->
-        <javaVersion>1.7</javaVersion>
+        <javaVersion>1.8</javaVersion>
 
         <!-- LWJGL version -->
         <lwjgl.version>3.0.0b</lwjgl.version>
@@ -118,7 +118,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.7</source>
+                    <source>1.8</source>
                     <target>${javaVersion}</target>
                 </configuration>
             </plugin>
