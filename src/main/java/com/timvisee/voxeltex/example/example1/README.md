@@ -181,4 +181,4 @@ Simply add everything you'd need in your scene on creation
 
 ### Upgrading our scene
 In the second part of this example, we'll be adding a series of boxes using a for-loop with some fancy lighting.
-[Go to the continuation here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example2#voxeltex-engine---example-two).
+[Go to the continuation here](https://github.com/timvisee/VoxelTex-Engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example2#voxeltex-engine---example-two).
