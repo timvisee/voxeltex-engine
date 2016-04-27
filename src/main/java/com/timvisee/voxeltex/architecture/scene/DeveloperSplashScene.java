@@ -33,6 +33,20 @@ import org.joml.Vector2f;
 
 public class DeveloperSplashScene extends Scene {
 
+    /**
+     * The splash animator component
+     */
+    private SplashAnimatorComponent splashAnimator;
+
+    /**
+     * Constructor.
+     *
+     * @param nextScene The next scene.
+     */
+    public DeveloperSplashScene(Scene nextScene) {
+        this.splashAnimator = new SplashAnimatorComponent(nextScene);
+    }
+
     @Override
     public void load() {
         // Load the super
@@ -49,7 +63,7 @@ public class DeveloperSplashScene extends Scene {
                 HorizontalTransformAnchorType.CENTER, VerticalTransformAnchorType.MIDDLE
         ));
         avatarImage.addComponent(new GuiImageComponent(developerSplashImage));
-        avatarImage.addComponent(new SplashAnimatorComponent());
+        avatarImage.addComponent(this.splashAnimator);
         addGameObject(avatarImage);
     }
 }
