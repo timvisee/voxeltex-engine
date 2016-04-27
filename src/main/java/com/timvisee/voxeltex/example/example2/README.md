@@ -1,5 +1,5 @@
 # VoxelTex Engine - Example two
-This is an continuation of the first example [which is available here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
+This is an continuation of the first example [which is available here](https://github.com/timvisee/VoxelTex-Engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
 
 
 

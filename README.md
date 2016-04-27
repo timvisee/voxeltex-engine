@@ -47,7 +47,7 @@ Note: Mac OS X support has been dropped, due to various problems related to the 
 ### VoxelTex Engine - Example one
 A basic tutorial has been included with the VoxelTex engine.
 This tutorial covers things like scene creation, object creation and lighting.
-[Please check out the full tutorial here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one) or check out the first part below.
+[Please check out the full tutorial here](https://github.com/timvisee/VoxelTex-Engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one) or check out the first part below.
 
 
 
@@ -123,4 +123,4 @@ The EnemyTracker object wouldn't be visible in the scene, nor would it allow you
 The EnemyTracker would really by useless if it didn't do anything else than tracking enemies, but it might add/spawn new enemies if only a few are left.
 
 ##### Components
-_[Continue the guide/tutorial here](https://github.com/timvisee/KeyBarricade/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one)._
+_[Continue the guide/tutorial here](https://github.com/timvisee/VoxelTex-Engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one)._
