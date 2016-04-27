@@ -22,9 +22,6 @@
 
 package com.timvisee.voxeltex.architecture.scene;
 
-import com.timvisee.keybarricade.game.entity.LockType;
-import com.timvisee.keybarricade.game.entity.prefab.KeyPickupPrefab;
-import com.timvisee.keybarricade.game.entity.prefab.LampPrefab;
 import com.timvisee.voxeltex.architecture.component.collider.primitive.SphereColliderComponent;
 import com.timvisee.voxeltex.architecture.component.drawable.line.AxisDrawComponent;
 import com.timvisee.voxeltex.architecture.component.light.LightSourceComponent;
@@ -215,11 +212,6 @@ public class TestEnvironmentScene extends Scene {
         fpsCameraPrefab.getTransform().setPosition(new Vector3f(0.5f, 1.50f, 5.0f));
         addGameObject(fpsCameraPrefab);
 
-        // Add a key prefab
-        KeyPickupPrefab keyObject = new KeyPickupPrefab(LockType.YELLOW);
-        keyObject.getTransform().getPosition().set(-1, 0, 0);
-        addGameObject(keyObject);
-
         // Overlay test
         GameObject menuPanel = new GameObject("MenuPanel");
         menuPanel.addComponent(new RectangleTransform(
@@ -250,9 +242,5 @@ public class TestEnvironmentScene extends Scene {
         GameObject menuController = new GameObject("MenuController");
         menuController.addComponent(new ToggleableMenuComponent(menuPanel));
         addGameObject(menuController);
-
-        LampPrefab lamp = new LampPrefab(Color.RED);
-        lamp.getTransform().setPosition(8, 0.01f, 8);
-        addGameObject(lamp);
     }
 }
