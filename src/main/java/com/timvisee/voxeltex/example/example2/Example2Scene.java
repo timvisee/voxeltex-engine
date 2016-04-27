@@ -22,11 +22,11 @@
 
 package com.timvisee.voxeltex.example.example2;
 
-import com.timvisee.keybarricade.game.entity.prefab.GroundPrefab;
 import com.timvisee.voxeltex.architecture.component.light.LightSourceComponent;
 import com.timvisee.voxeltex.architecture.prefab.camera.FpsCameraPrefab;
 import com.timvisee.voxeltex.architecture.prefab.light.LightPrefab;
 import com.timvisee.voxeltex.architecture.prefab.primitive.CubePrefab;
+import com.timvisee.voxeltex.architecture.prefab.structure.GroundPrefab;
 import com.timvisee.voxeltex.architecture.scene.Scene;
 import com.timvisee.voxeltex.engine.light.Light;
 import com.timvisee.voxeltex.module.Color;
