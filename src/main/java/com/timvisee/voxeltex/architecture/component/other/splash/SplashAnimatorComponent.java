@@ -22,9 +22,9 @@
 
 package com.timvisee.voxeltex.architecture.component.other.splash;
 
-import com.timvisee.keybarricade.game.scene.MainMenuScene;
 import com.timvisee.voxeltex.architecture.component.BaseComponent;
 import com.timvisee.voxeltex.architecture.component.overlay.gui.GuiImageComponent;
+import com.timvisee.voxeltex.architecture.scene.Scene;
 import com.timvisee.voxeltex.module.transform.rectangle.Rectangle;
 import com.timvisee.voxeltex.module.transform.rectangle.RectangleTransform;
 import com.timvisee.voxeltex.runtime.global.Time;
@@ -46,6 +46,20 @@ public class SplashAnimatorComponent extends BaseComponent {
      * Temporary rectangle variable, used to minimize object allocation at runtime to improve overall performance.
      */
     private final Rectangle tempRectangle = new Rectangle();
+
+    /**
+     * The next scene that should be loaded, after the splash screen.
+     */
+    private Scene nextScene;
+
+    /**
+     * Constructor.
+     *
+     * @param nextScene The next scene.
+     */
+    public SplashAnimatorComponent(Scene nextScene) {
+        this.nextScene = nextScene;
+    }
 
     @Override
     public void create() {
@@ -101,7 +115,7 @@ public class SplashAnimatorComponent extends BaseComponent {
 
         // Load the test environment scene after  the splash screen is done
         if(Time.time > 3.5)
-            getEngine().getSceneManager().loadScene(new MainMenuScene());
+            getEngine().getSceneManager().loadScene(getNextScene());
     }
 
     /**
@@ -120,5 +134,23 @@ public class SplashAnimatorComponent extends BaseComponent {
 
         // Get and set the GUI image component
         this.guiImage = getComponent(GuiImageComponent.class);
+    }
+
+    /**
+     * Get the next scene.
+     *
+     * @return Next scene.
+     */
+    public Scene getNextScene() {
+        return this.nextScene;
+    }
+
+    /**
+     * Set the next scene.
+     *
+     * @param nextScene Next scene.
+     */
+    public void setNextScene(Scene nextScene) {
+        this.nextScene = nextScene;
     }
 }
