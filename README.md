@@ -1,5 +1,8 @@
 [![Build status of master branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master)
 [![Build status of dev-timvisee branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee)
+![Stargazers](https://img.shields.io/github/stars/timvisee/VoxelTex-Engine.svg)
+![Forks](https://img.shields.io/github/forks/timvisee/VoxelTex-Engine.svg)
+![Issues](https://img.shields.io/github/issues/timvisee/VoxelTex-Engine.svg)
 
 #VoxelTex Engine
 
