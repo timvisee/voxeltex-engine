@@ -1,3 +1,6 @@
+[![Build status of master branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master)
+[![Build status of dev-timvisee branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee)
+
 #VoxelTex Engine
 
 VoxelTex is a game engine written in Java.
