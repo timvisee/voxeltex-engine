@@ -64,3 +64,6 @@ Note: Mac OS X support has been dropped, due to various problems related to the 
 >- Select the `windows` or `linux` profile.
 >- Compile with `mvn clean install -B`
 >- Execute the `KeyBarricade-*.jar` file.
+
+## License
+This project is released under the GNU GPL-3.0 license. Check out the [LICENSE](LICENSE) file for more information.
