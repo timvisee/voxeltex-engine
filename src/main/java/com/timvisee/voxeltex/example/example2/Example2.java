@@ -35,7 +35,7 @@ public class Example2 {
     public static String APP_VERSION_NAME = "0.1";
 
     /**
-     * YamlWrapperExample method, called on start.
+     * Main method for example 2.
      *
      * @param args Start up arguments.
      */
