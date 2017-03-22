@@ -1,10 +1,10 @@
-[![Build status of master branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/master)
-[![Build status of dev-timvisee branch](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee.svg?style=svg)](https://circleci.com/gh/timvisee/VoxelTex-Engine/tree/dev-timvisee)
-![Stargazers](https://img.shields.io/github/stars/timvisee/VoxelTex-Engine.svg)
-![Forks](https://img.shields.io/github/forks/timvisee/VoxelTex-Engine.svg)
-![Issues](https://img.shields.io/github/issues/timvisee/VoxelTex-Engine.svg)
+[![Build status of master branch](https://circleci.com/gh/timvisee/voxeltex-engine/tree/master.svg?style=svg)](https://circleci.com/gh/timvisee/voxeltex-engine/tree/master)
+[![Build status of dev-timvisee branch](https://circleci.com/gh/timvisee/voxeltex-engine/tree/dev-timvisee.svg?style=svg)](https://circleci.com/gh/timvisee/voxeltex-engine/tree/dev-timvisee)
+![Stargazers](https://img.shields.io/github/stars/timvisee/voxeltex-engine.svg)
+![Forks](https://img.shields.io/github/forks/timvisee/voxeltex-engine.svg)
+![Issues](https://img.shields.io/github/issues/timvisee/voxeltex-engine.svg)
 
-#VoxelTex Engine
+# VoxelTex Engine
 
 VoxelTex is a game engine written in Java.
 It uses OpenGL and various other technologies to render on the screen using the GPU to achieve the best performance with great visual results.
@@ -36,7 +36,7 @@ You can find the source code and executable here:
 ### Tutorial - Engine explanation and development examples
 A basic tutorial has been included with the VoxelTex engine.
 This tutorial explains the architecture of the engine and covers things like scene creation, object creation, camera handling and lighting.
-[Please check out the tutorial here](https://github.com/timvisee/VoxelTex-Engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
+[Please check out the tutorial here](https://github.com/timvisee/voxeltex-engine/tree/master/src/main/java/com/timvisee/voxeltex/example/example1#voxeltex-engine---example-one).
 
 
 
@@ -50,16 +50,18 @@ This tutorial explains the architecture of the engine and covers things like sce
 >- OpenGL 2.1 or higher
 >- Windows or Linux operating system
 
-Note: Mac OS X support has been dropped, due to various problems related to the operating system. It's unlikely this platform will officially be supported again in the future.
+Note: Mac OS X support has been dropped,
+due to various problems related to the operating system.
+It's unlikely this platform will officially be supported again in the future.
 
 ### Compiling
 
-#####Compiling requirements
+##### Compiling requirements
 >- JDK 1.8
 >- Maven
 >- Git/GitHub _(Optional)_
 
-#####How to compile
+##### How to compile
 >- Clone the project with Git/GitHub
 >- Select the `windows` or `linux` profile.
 >- Compile with `mvn clean install -B`
