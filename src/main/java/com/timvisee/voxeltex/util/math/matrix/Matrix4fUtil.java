@@ -35,26 +35,23 @@ public class Matrix4fUtil {
      * @return Converted matrix.
      */
     public static Matrix4f toJoml(javax.vecmath.Matrix4f source, Matrix4f dest) {
-        // Set the matrix
-        dest.m00 = source.m00;
-        dest.m10 = source.m01;
-        dest.m20 = source.m02;
-        dest.m30 = source.m03;
-        dest.m01 = source.m10;
-        dest.m11 = source.m11;
-        dest.m21 = source.m12;
-        dest.m31 = source.m13;
-        dest.m02 = source.m20;
-        dest.m12 = source.m21;
-        dest.m22 = source.m22;
-        dest.m32 = source.m23;
-        dest.m03 = source.m30;
-        dest.m13 = source.m31;
-        dest.m23 = source.m32;
-        dest.m33 = source.m33;
-
-        // Return the new matrix
-        return dest;
+        // Copy and return the matrix
+        return dest.m00(source.m00)
+                .m10(source.m10)
+                .m20(source.m20)
+                .m30(source.m30)
+                .m01(source.m01)
+                .m11(source.m11)
+                .m21(source.m21)
+                .m31(source.m31)
+                .m02(source.m02)
+                .m12(source.m12)
+                .m22(source.m22)
+                .m32(source.m32)
+                .m03(source.m03)
+                .m13(source.m13)
+                .m23(source.m23)
+                .m33(source.m33);
     }
 
     /**
@@ -67,22 +64,22 @@ public class Matrix4fUtil {
      */
     public static javax.vecmath.Matrix4f toVecmath(Matrix4f source, javax.vecmath.Matrix4f dest) {
         // Set the matrix
-        dest.m00 = source.m00;
-        dest.m10 = source.m01;
-        dest.m20 = source.m02;
-        dest.m30 = source.m03;
-        dest.m01 = source.m10;
-        dest.m11 = source.m11;
-        dest.m21 = source.m12;
-        dest.m31 = source.m13;
-        dest.m02 = source.m20;
-        dest.m12 = source.m21;
-        dest.m22 = source.m22;
-        dest.m32 = source.m23;
-        dest.m03 = source.m30;
-        dest.m13 = source.m31;
-        dest.m23 = source.m32;
-        dest.m33 = source.m33;
+        dest.m00 = source.m00();
+        dest.m10 = source.m01();
+        dest.m20 = source.m02();
+        dest.m30 = source.m03();
+        dest.m01 = source.m10();
+        dest.m11 = source.m11();
+        dest.m21 = source.m12();
+        dest.m31 = source.m13();
+        dest.m02 = source.m20();
+        dest.m12 = source.m21();
+        dest.m22 = source.m22();
+        dest.m32 = source.m23();
+        dest.m03 = source.m30();
+        dest.m13 = source.m31();
+        dest.m23 = source.m32();
+        dest.m33 = source.m33();
 
         // Return the new matrix
         return dest;
