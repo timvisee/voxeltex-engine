@@ -37,20 +37,20 @@ public class Matrix4fUtil {
     public static Matrix4f toJoml(javax.vecmath.Matrix4f source, Matrix4f dest) {
         // Copy and return the matrix
         return dest.m00(source.m00)
-                .m10(source.m10)
-                .m20(source.m20)
-                .m30(source.m30)
-                .m01(source.m01)
+                .m10(source.m01)
+                .m20(source.m02)
+                .m30(source.m03)
+                .m01(source.m10)
                 .m11(source.m11)
-                .m21(source.m21)
-                .m31(source.m31)
-                .m02(source.m02)
-                .m12(source.m12)
+                .m21(source.m12)
+                .m31(source.m13)
+                .m02(source.m20)
+                .m12(source.m21)
                 .m22(source.m22)
-                .m32(source.m32)
-                .m03(source.m03)
-                .m13(source.m13)
-                .m23(source.m23)
+                .m32(source.m23)
+                .m03(source.m30)
+                .m13(source.m31)
+                .m23(source.m32)
                 .m33(source.m33);
     }
 
